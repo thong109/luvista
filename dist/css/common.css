@@ -2153,53 +2153,34 @@ html.is-device-iphone .header-common .header-lang span {
   }
 }
 .mask {
+  --intro-symbol-width: 1.2rem;
+  --intro-symbol-height: 1.1rem;
   position: fixed;
   z-index: 99999999;
   inset: 0;
   overflow: hidden;
   width: 100%;
   height: 100dvh;
-  background: radial-gradient(circle at 50% 47%, rgba(82, 131, 184, 0.28), transparent 27%), linear-gradient(145deg, #0b2748, #163963 52%, #0c294d);
+  background: #0b294d;
   opacity: 1;
-  isolation: isolate;
-}
-.mask .intro-aura {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 7rem;
-  height: 7rem;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(246, 210, 187, 0.12), rgba(89, 139, 191, 0.05) 42%, transparent 70%);
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.55);
-}
-.mask .intro-orbit {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border: 1px solid rgba(246, 210, 187, 0.12);
-  border-radius: 50%;
-  opacity: 0;
-}
-.mask .intro-orbit.is-one {
-  width: 5.6rem;
-  height: 2.1rem;
-  transform: translate(-50%, -50%) rotate(-12deg) scale(0.65);
-}
-.mask .intro-orbit.is-two {
-  width: 7.8rem;
-  height: 3rem;
-  transform: translate(-50%, -50%) rotate(18deg) scale(0.65);
+  -webkit-mask-image: url(../resources/images/top/intro-symbol.svg), linear-gradient(#fff 0 0);
+  mask-image: url(../resources/images/top/intro-symbol.svg), linear-gradient(#fff 0 0);
+  -webkit-mask-position: 50% 50%, center;
+  mask-position: 50% 50%, center;
+  -webkit-mask-size: 0 0, 100% 100%;
+  mask-size: 0 0, 100% 100%;
+  -webkit-mask-repeat: no-repeat, no-repeat;
+  mask-repeat: no-repeat, no-repeat;
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 }
 .mask .intro-logo {
   position: absolute;
-  z-index: 2;
   top: 50%;
   left: 50%;
   overflow: hidden;
-  width: 5rem;
-  height: 1.21rem;
+  width: 4.6rem;
+  aspect-ratio: 250/60;
   transform: translate(-50%, -50%);
 }
 .mask .intro-logo-mask {
@@ -2209,187 +2190,98 @@ html.is-device-iphone .header-common .header-lang span {
   height: 100%;
   -webkit-mask: url(../resources/images/top/intro-logo.svg) center/contain no-repeat;
   mask: url(../resources/images/top/intro-logo.svg) center/contain no-repeat;
-  background: linear-gradient(105deg, #713621, #bc7b53 24%, #f6d2bb 50%, #c0927c 72%, #713621);
+  background: #f3cfb8;
   opacity: 0;
-  transform: scale(0.88);
-  filter: drop-shadow(0 0 0.22rem rgba(246, 210, 187, 0.28));
-}
-.mask .intro-caption {
-  position: absolute;
-  z-index: 2;
-  top: calc(50% + 1rem);
-  left: 50%;
-  display: inline-block;
-  margin: 0;
-  font-family: "Noto Serif Display Condensed", serif;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: rgba(255, 255, 255, 0.72);
-  opacity: 0;
-  transform: translate(-50%, 0.16rem);
-}
-.mask::before, .mask::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-}
-.mask::before {
-  inset: -30%;
-  background: conic-gradient(from 210deg at 50% 50%, transparent, rgba(255, 255, 255, 0.025), transparent 25%);
-  animation: introAmbient 9s linear infinite;
-}
-.mask::after {
-  top: 50%;
-  left: 50%;
-  width: 0.15rem;
-  height: 0.15rem;
-  border-radius: 50%;
-  background: url(../resources/images/top/footer-star.svg) center/cover no-repeat;
-  opacity: 0;
-}
-@media print, (min-width: 768px) {
-  .mask .intro-caption {
-    font-size: 0.16rem;
-  }
+  transform: translateY(0.18rem);
 }
 @media (min-width: 768px) and (max-width: 1024.98px) {
-  .mask .intro-logo {
-    width: 4.4rem;
-    height: 1.06rem;
+  .mask {
+    --intro-symbol-width: 1.05rem;
+    --intro-symbol-height: .96rem;
   }
-  .mask .intro-caption {
-    font-size: 0.14rem;
+  .mask .intro-logo {
+    width: 4rem;
   }
 }
 @media only screen and (max-width: 767.98px) {
-  .mask .intro-aura {
-    width: 4.8rem;
-    height: 4.8rem;
-  }
-  .mask .intro-orbit.is-one {
-    width: 3.7rem;
-    height: 1.4rem;
-  }
-  .mask .intro-orbit.is-two {
-    width: 5rem;
-    height: 1.9rem;
+  .mask {
+    --intro-symbol-width: .76rem;
+    --intro-symbol-height: .7rem;
   }
   .mask .intro-logo {
-    width: 3rem;
-    height: 0.72rem;
-  }
-  .mask .intro-caption {
-    top: calc(50% + 0.7rem);
-    font-size: 0.11rem;
-    letter-spacing: 0.14em;
+    width: 2.9rem;
   }
 }
 
-.mask.showed .intro-aura {
-  animation: introAuraIn 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-.mask.showed .intro-orbit.is-one {
-  animation: introOrbitOne 1.8s 0.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-.mask.showed .intro-orbit.is-two {
-  animation: introOrbitTwo 1.8s 0.18s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
 .mask.showed .intro-logo-mask {
-  animation: introLogoIn 1.1s 0.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-.mask.showed .intro-caption {
-  animation: introCaptionIn 0.8s 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-.mask.showed::after {
-  animation: introStar 1s 0.65s ease-out forwards;
+  animation: introLogoIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .mask.hide {
   pointer-events: none;
-  animation: introCurtainOut 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  animation: introReveal 1.15s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
-.mask.hide .intro-caption,
-.mask.hide .intro-orbit,
-.mask.hide .intro-aura {
-  transition: opacity 0.25s ease;
-  opacity: 0;
+.mask.hide .intro-logo-mask {
+  animation: introLogoOut 0.25s ease forwards;
 }
 
 @keyframes introLogoIn {
-  from {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes introLogoOut {
+  to {
     opacity: 0;
-    transform: scale(0.88);
-    filter: blur(0.08rem);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-    filter: blur(0) drop-shadow(0 0 0.22rem rgba(246, 210, 187, 0.28));
+    transform: translateY(-0.12rem);
   }
 }
-@keyframes introCaptionIn {
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-@keyframes introAuraIn {
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-@keyframes introOrbitOne {
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) rotate(-6deg) scale(1);
-  }
-}
-@keyframes introOrbitTwo {
-  to {
-    opacity: 0.65;
-    transform: translate(-50%, -50%) rotate(10deg) scale(1);
-  }
-}
-@keyframes introStar {
+@keyframes introReveal {
   0% {
-    opacity: 0;
-    transform: translate(2.3rem, -0.55rem) scale(0.3);
+    -webkit-mask-image: url(../resources/images/top/intro-symbol.svg), linear-gradient(#fff 0 0);
+    mask-image: url(../resources/images/top/intro-symbol.svg), linear-gradient(#fff 0 0);
+    -webkit-mask-size: 0 0, 100% 100%;
+    mask-size: 0 0, 100% 100%;
+    -webkit-mask-position: 50% 50%, center;
+    mask-position: 50% 50%, center;
   }
-  45% {
+  18% {
+    -webkit-mask-size: var(--intro-symbol-width) var(--intro-symbol-height), 100% 100%;
+    mask-size: var(--intro-symbol-width) var(--intro-symbol-height), 100% 100%;
+    -webkit-mask-position: 50% 50%, center;
+    mask-position: 50% 50%, center;
+  }
+  36% {
+    -webkit-mask-size: var(--intro-symbol-width) var(--intro-symbol-height), 100% 100%;
+    mask-size: var(--intro-symbol-width) var(--intro-symbol-height), 100% 100%;
+    -webkit-mask-position: 50% 50%, center;
+    mask-position: 50% 50%, center;
+  }
+  62% {
     opacity: 1;
-    transform: translate(2.3rem, -0.55rem) scale(1.8);
+    -webkit-mask-image: url(../resources/images/top/intro-symbol.svg), linear-gradient(#fff 0 0);
+    mask-image: url(../resources/images/top/intro-symbol.svg), linear-gradient(#fff 0 0);
+    -webkit-mask-size: 1600vmax 1466vmax, 100% 100%;
+    mask-size: 1600vmax 1466vmax, 100% 100%;
+    -webkit-mask-position: 49% 57%, center;
+    mask-position: 49% 57%, center;
   }
-  100% {
-    opacity: 0.8;
-    transform: translate(2.3rem, -0.55rem) scale(1);
-  }
-}
-@keyframes introLogoExit {
-  to {
+  78% {
     opacity: 0;
-    transform: scale(9);
-    filter: blur(0.03rem);
+    -webkit-mask-image: url(../resources/images/top/intro-symbol.svg), linear-gradient(#fff 0 0);
+    mask-image: url(../resources/images/top/intro-symbol.svg), linear-gradient(#fff 0 0);
+    -webkit-mask-size: 1600vmax 1466vmax, 100% 100%;
+    mask-size: 1600vmax 1466vmax, 100% 100%;
+    -webkit-mask-position: 49% 57%, center;
+    mask-position: 49% 57%, center;
   }
-}
-@keyframes introCurtainOut {
-  0% {
-    opacity: 1;
-    clip-path: circle(150% at 50% 50%);
-  }
-  45% {
-    opacity: 1;
-  }
-  100% {
+  79%, 100% {
     opacity: 0;
-    clip-path: circle(0 at 50% 50%);
-  }
-}
-@keyframes introAmbient {
-  to {
-    transform: rotate(360deg);
+    -webkit-mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+    mask-image: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0);
+    -webkit-mask-size: 100% 100%, 100% 100%;
+    mask-size: 100% 100%, 100% 100%;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2720,7 +2612,7 @@ html.is-device-iphone .header-common .header-lang span {
 .paragraph-common {
   color: #fff;
   font-size: 0.18rem;
-  line-height: 1.6111111111;
+  line-height: 1.4444444444;
 }
 .paragraph-common strong {
   font-weight: 700;

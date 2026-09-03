@@ -872,6 +872,7 @@
       if (!slider || slider.swiper) return;
 
       new Swiper(slider, {
+        loop: true,
         speed: 700,
         slidesPerView: 1,
         spaceBetween: 20,
@@ -888,7 +889,7 @@
           },
           1025: {
             slidesPerView: 3,
-            spaceBetween: 59,
+            spaceBetween: 58,
           },
         },
       });
@@ -1147,7 +1148,7 @@
     delay(3000, () => {
       Mask?.classList.add("hide");
     });
-    delay(3800, () => {
+    delay(4500, () => {
       Mask?.remove();
 
       setTimeout(() => {

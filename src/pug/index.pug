@@ -62,6 +62,47 @@ block content
                           li= place
               .location-map
                 img.map-icon(src=imgCommonPC + 'location_img_03.png' width="1141" height="980" alt="Map" loading="eager")
+      section.panel.section-top-amenities.amenities#section-amenities(aria-label="Tiện ích dự án")
+        .group-central
+          .inner
+            .group-bg.amenities-frame
+              img.amenities-map(src=imgPC + 'amenities-map.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể tiện ích dự án LUVISTA" loading="eager" decoding="async")
+              .amenities-shade
+              .amenities-heading
+                h2 Tiện ích dự án
+                img(src=imgPC + 'star-title.svg' width="30" height="30" alt="")
+              - var amenityTowers = [{name: 'The Heritage', x: 19.6, y: 21}, {name: 'The Heightd', x: 25.3, y: 60}, {name: 'The Horizon', x: 38.7, y: 26.8}, {name: 'The Hill', x: 46, y: 61.5}, {name: 'The Harmony', x: 51.4, y: 26.8}]
+              each tower in amenityTowers
+                span.amenities-tower(style='--x:' + tower.x + '%;--y:' + tower.y + '%')= tower.name
+              - var amenityMarkers = [{n:'01',x:16.7,y:47},{n:'02',x:17.8,y:34},{n:'03',x:22.8,y:30},{n:'04',x:27.5,y:47},{n:'05',x:27.1,y:53},{n:'06',x:26.1,y:56.5},{n:'07',x:25.6,y:51.8},{n:'08',x:21.2,y:54},{n:'09',x:21.1,y:33.5},{n:'10',x:24.1,y:40},{n:'11',x:28.3,y:30},{n:'12',x:26.5,y:36.5},{n:'13',x:22.6,y:40},{n:'14',x:21.9,y:42.5},{n:'15',x:20.2,y:47.8},{n:'16',x:22.8,y:45.5},{n:'17',x:22.4,y:50},{n:'18',x:18.2,y:50.5},{n:'19',x:15.4,y:52},{n:'20',x:17.3,y:56},{n:'21',x:44.9,y:34},{n:'22',x:42.8,y:39.8},{n:'23',x:45,y:40.5},{n:'24',x:44.5,y:45},{n:'25',x:49.5,y:44.8},{n:'26',x:47.5,y:45.5},{n:'27',x:46.5,y:51},{n:'28',x:40.8,y:47.5},{n:'29',x:39.8,y:50},{n:'30',x:39.2,y:45},{n:'31',x:41.5,y:51},{n:'32',x:44.2,y:53},{n:'33',x:47,y:51.5},{n:'34',x:52,y:45.5},{n:'35',x:54,y:45.5},{n:'36',x:53.2,y:51.5},{n:'37',x:51.5,y:51.5},{n:'38',x:42.5,y:48.5},{n:'39',x:44.1,y:48.5},{n:'40',x:45.8,y:47.8}]
+              each marker in amenityMarkers
+                span.amenities-marker.is-internal(style='--x:' + marker.x + '%;--y:' + marker.y + '%')= marker.n
+              - var externalMarkers = [{n:'01',x:3,y:46},{n:'02',x:12.5,y:30},{n:'02',x:13,y:38},{n:'02',x:12,y:59},{n:'02',x:22.5,y:60},{n:'02',x:34,y:47},{n:'02',x:59,y:39},{n:'03',x:65,y:52},{n:'04',x:67,y:61},{n:'05',x:64,y:48},{n:'06',x:43,y:82},{n:'07',x:48,y:89}]
+              each marker in externalMarkers
+                span.amenities-marker.is-external(style='--x:' + marker.x + '%;--y:' + marker.y + '%')= marker.n
+              - var externalAmenities = ['Công viên trung tâm', 'Phố thương mại', 'Nhà mẫu<br>Nhà sinh hoạt cộng đồng', 'Sân Pickleball', 'Công viên', 'Đường dạo bộ ven hồ', 'Hồ cảnh quan']
+              - var internalAmenities = ['Vườn nghệ thuật', 'Đường dạo bộ trên cao', 'Khu vườn Hoàng Hôn', 'Vườn Trị liệu và Thiền định', 'Sân tập Yoga và Thái cực quyền', 'Khu đọc sách ngoài trời', 'Bãi đỗ trực thăng', 'Vườn rau hữu cơ', 'Phòng tập Gym', 'Phòng sinh hoạt cộng đồng', 'Hồ bơi', 'Phòng thay đồ', 'Ghế tắm nắng', 'Hồ cảnh quan', 'Vườn xanh', 'Sân tập dưỡng sinh', 'Khu sinh hoạt cộng đồng (ngoài trời)', 'Khu vui chơi trẻ em', 'Công viên thú cưng', 'Khu BBQ ngoài trời', 'Lối vào quảng trường chính', 'BBQ gia đình', 'Sân khấu ngoài trời', 'Hồ bơi trung tâm', 'Sen tắm đứng ngoài trời', 'Bể Jacuzzi', 'Ghế tắm nắng', 'Hồ bơi lưng núi', 'Khu thay đồ', 'Sân chơi cát', 'Sân khấu trình diễn', 'Cigar Lounge', 'Quầy Bar', 'Sân chơi trẻ em', 'Hồ thư giãn', 'Hồ bơi lưng núi', 'Ghế tắm nắng', 'Không gian tập gym', 'Phòng tập Yoga/Pilates', 'Phòng đọc sách']
+              aside.amenities-legend
+                .amenities-legend-group.is-external
+                  h3 Tiện ích cảnh quan ngoại khu
+                  ol
+                    each item, index in externalAmenities
+                      li
+                        span= ('0' + (index + 1)).slice(-2)
+                        p!= item
+                .amenities-legend-group.is-internal
+                  h3 Tiện ích bên trong dự án
+                  .amenities-columns
+                    ol
+                      each item, index in internalAmenities.slice(0, 20)
+                        li
+                          span= ('0' + (index + 1)).slice(-2)
+                          p= item
+                    ol(start="21")
+                      each item, index in internalAmenities.slice(20)
+                        li
+                          span= index + 21
+                          p= item
       section.panel.section-top-masterplan.masterplan#section-masterplan(aria-labelledby="masterplan-title")
         .group-central
           .inner
@@ -128,10 +169,8 @@ block content
         .group-central
           .inner
             .group-bg
-              .news-heading
-                h2#news-title Tin tức
-                img(src=imgPC + 'news-star.svg' width="30" height="30" alt="")
-              - var newsItems = [{image: 'news-01.png', alt: 'Không gian thương mại và căn hộ LUVISTA'}, {image: 'news-02.png', alt: 'Hồ bơi và cảnh quan LUVISTA'}, {image: 'news-03.png', alt: 'Quảng trường và tiện ích LUVISTA'}]
+              h2.title-common-primary.is-gold Tin tức
+              - var newsItems = [{image: 'news-01.png', alt: 'Không gian thương mại và căn hộ LUVISTA'}, {image: 'news-02.png', alt: 'Hồ bơi và cảnh quan LUVISTA'}, {image: 'news-03.png', alt: 'Quảng trường và tiện ích LUVISTA'},{image: 'news-01.png', alt: 'Không gian thương mại và căn hộ LUVISTA'}, {image: 'news-02.png', alt: 'Hồ bơi và cảnh quan LUVISTA'}, {image: 'news-03.png', alt: 'Quảng trường và tiện ích LUVISTA'}]
               .news-list.js-news-slider
                 .swiper
                   .swiper-wrapper
@@ -140,7 +179,7 @@ block content
                         article.news-item
                           a.news-link(href="#")
                             .news-image
-                              img(src=imgPC + item.image width="487" height="556" alt=item.alt loading="eager")
+                              img.object-common(src=imgPC + item.image width="487" height="556" alt=item.alt loading="eager")
                             time(datetime="2025-12-29") 29/12/2025
                             p Tận hưởng cuộc sống ngay lập tức và “đón lõng” những sóng phát triển dồn dập ngày mai, dự án là điểm đến cân bằng hoàn hảo mọi yếu tố để chủ nhân tận hưởng hiện tại và mở ra tương lai rực rỡ.
                 .news-pagination.swiper-pagination(aria-label="Trang tin tức")
@@ -148,25 +187,21 @@ block content
         .group-central
           .inner
             .group-bg
-              img.developer-background(src=imgPC + 'developer-bg.png' width="1920" height="1080" alt="" loading="eager")
+              img.developer-background(src=imgPC + 'developer-bg.jpg' width="1920" height="1080" alt="" loading="eager")
               img.developer-top(src=imgPC + 'developer-top.png' width="1920" height="279" alt="")
               img.developer-arch(src=imgPC + 'developer-arch.svg' width="1370" height="764" alt="")
               img.developer-bottom(src=imgPC + 'developer-bottom.png' width="1920" height="198" alt="")
               img.developer-line(src=imgPC + 'developer-line.png' width="896" height="161" alt="")
               .developer-content
-                .developer-heading
-                  h2#developer-title Chủ đầu tư
-                  img(src=imgPC + 'developer-star.svg' width="30" height="30" alt="")
-                img.developer-logo-primary(src=imgPC + 'developer-tnt.png' width="160" height="164" alt="TNT Homes Quy Nhơn")
+                h2.title-common-primary.is-gold Chủ đầu tư
+                img.image-common.developer-logo-primary(src=imgPC + 'developer-tnt.png' width="160" height="164" alt="TNT Homes Quy Nhơn")
                 .developer-partner
                   p Đơn vị phát triển
-                  img(src=imgPC + 'developer-conasi.png' width="241" height="121" alt="Conasi")
+                  img.image-common(src=imgPC + 'developer-conasi.png' width="241" height="121" alt="Conasi")
                 .developer-award
                   p Giải thưởng - chứng nhận
                   .developer-award-logo
-                    img.developer-award-main(src=imgPC + 'developer-award-logo.svg' width="151" height="63" alt="Edge")
-                    img.developer-award-mark(src=imgPC + 'developer-award-mark.svg' width="39" height="79" alt="")
-                    img.developer-award-text(src=imgPC + 'developer-award-text.svg' width="127" height="23" alt="Excellence in Design for Greater Efficiencies")
+                    img.image-common.developer-award-main(src=imgPC + 'developer-award-logo.png' width="219" height="90" alt="Edge")
       section.panel.section-footer-common#section-contact(aria-labelledby="footer-consultation-title")
         .group-central
           .inner

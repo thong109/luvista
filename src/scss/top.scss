@@ -655,6 +655,260 @@ body {
   }
 }
 
+.amenities {
+  position: relative;
+  height: 100vh;
+  min-height: 7.2rem;
+  color: #fff;
+  background: #143963;
+
+  .amenities-frame {
+    background: #143963;
+  }
+
+  .amenities-map,
+  .amenities-shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .amenities-map {
+    object-fit: cover;
+  }
+
+  .amenities-shade {
+    background:
+      linear-gradient(90deg, transparent 54%, rgba(13, 48, 86, .2) 65%, rgba(13, 48, 86, .96) 75%, #0d3056 100%),
+      linear-gradient(180deg, rgba(13, 48, 86, .5), transparent 22%, transparent 67%, rgba(13, 48, 86, .78));
+    pointer-events: none;
+  }
+
+  .amenities-heading {
+    position: absolute;
+    z-index: 3;
+    top: 6.1%;
+    left: 4.7%;
+    display: flex;
+    align-items: flex-start;
+
+    h2 {
+      color: #f6d2bb;
+      font-family: $font-default;
+      font-size: .5rem;
+      font-weight: 400;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    img {
+      width: .3rem;
+      height: .3rem;
+      margin: -.06rem 0 0 .08rem;
+    }
+  }
+
+  .amenities-tower,
+  .amenities-marker {
+    position: absolute;
+    z-index: 3;
+    top: var(--y);
+    left: var(--x);
+    transform: translate(-50%, -50%);
+  }
+
+  .amenities-tower {
+    padding: .05rem .13rem;
+    border-radius: .05rem;
+    color: #163963;
+    background: #f6d3bc;
+    font-size: .14rem;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .amenities-marker {
+    display: grid;
+    width: .26rem;
+    height: .26rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, .85);
+    border-radius: 50%;
+    font-family: $font-sfpro;
+    font-size: .1rem;
+    line-height: 1;
+
+    &.is-internal {
+      background: #153d6d;
+    }
+
+    &.is-external {
+      background: #b97957;
+    }
+  }
+
+  .amenities-legend {
+    position: absolute;
+    z-index: 4;
+    top: 4.5%;
+    right: 0;
+    width: 29.7%;
+    height: 94.5%;
+    padding-right: .2rem;
+  }
+
+  .amenities-legend-group {
+    h3 {
+      margin-bottom: .12rem;
+      color: #f6d2bb;
+      font-family: $font-default;
+      font-size: .19rem;
+      font-weight: 400;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+
+    ol {
+      display: grid;
+      gap: .055rem;
+    }
+
+    li {
+      display: grid;
+      grid-template-columns: .28rem minmax(0, 1fr);
+      align-items: center;
+      min-height: .25rem;
+      font-family: $font-sfpro;
+      font-size: .1rem;
+      line-height: 1.2;
+
+      >span {
+        display: grid;
+        width: .2rem;
+        height: .2rem;
+        place-items: center;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        font-size: .085rem;
+      }
+    }
+
+    &.is-external {
+      margin-left: 0;
+
+      ol {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: .25rem;
+      }
+
+      li>span {
+        color: #f6d2bb;
+        background: #b97957;
+      }
+    }
+
+    &.is-internal {
+      margin-top: .18rem;
+    }
+  }
+
+  .amenities-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .25rem;
+  }
+
+  @include tablet {
+    height: auto;
+    min-height: 100vh;
+
+    .amenities-frame {
+      min-height: 100vh;
+      padding-bottom: .3rem;
+      overflow-y: auto;
+    }
+
+    .amenities-map {
+      position: relative;
+      height: auto;
+      min-height: 7rem;
+      object-position: 35% center;
+    }
+
+    .amenities-shade {
+      height: 7rem;
+      background: linear-gradient(180deg, rgba(13, 48, 86, .45), transparent 30%, #0d3056 100%);
+    }
+
+    .amenities-heading {
+      top: .7rem;
+      left: .35rem;
+    }
+
+    .amenities-tower,
+    .amenities-marker {
+      display: none;
+    }
+
+    .amenities-legend {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: 100%;
+      height: auto;
+      margin-top: -.8rem;
+      padding: 0 .35rem;
+    }
+  }
+
+  @include mobile {
+    .amenities-map,
+    .amenities-shade {
+      height: 4.8rem;
+      min-height: 0;
+    }
+
+    .amenities-heading {
+      top: .75rem;
+      left: .2rem;
+
+      h2 {
+        font-size: .34rem;
+      }
+
+      img {
+        width: .22rem;
+        height: .22rem;
+      }
+    }
+
+    .amenities-legend {
+      margin-top: -.25rem;
+      padding: 0 .2rem .4rem;
+    }
+
+    .amenities-legend-group {
+      h3 {
+        font-size: .18rem;
+      }
+
+      &.is-external ol,
+      .amenities-columns {
+        grid-template-columns: 1fr;
+      }
+
+      li {
+        font-size: .11rem;
+      }
+
+      &.is-internal {
+        margin-top: .3rem;
+      }
+    }
+  }
+}
+
 .masterplan {
   position: relative;
   height: 100vh;
@@ -1245,40 +1499,19 @@ body {
 
 .news {
   position: relative;
-  height: 100vh;
   color: #fff;
 
   .group-bg {
     overflow: hidden;
     background: #163963;
-  }
-
-  .news-heading {
-    position: absolute;
-    z-index: 2;
-    left: 50%;
     display: flex;
-    align-items: flex-start;
-    transform: translateX(-50%);
-
-    h2 {
-      margin: 0;
-      background: linear-gradient(110deg, #713621 0%, #bc7b53 25%, #f6d2bb 56%, #c0927c 82%, #66301b 100%);
-      background-clip: text;
-      color: transparent;
-      font-family: $font-default;
-      font-weight: 400;
-      line-height: 1;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 
   .news-list {
-    position: absolute;
     z-index: 2;
-    left: 50%;
-    transform: translateX(-50%);
 
     .swiper {
       overflow: hidden;
@@ -1297,7 +1530,7 @@ body {
     time,
     p {
       display: block;
-      font-family: $font-montser;
+      font-family: $font-sfpro;
     }
 
     time {
@@ -1312,21 +1545,20 @@ body {
 
   .news-image {
     overflow: hidden;
+    position: relative;
+    padding-top: calc(556 / 487 * 100%);
 
     img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
   .news-pagination {
-    position: absolute;
-    z-index: 2;
-    left: 50%;
+    position: unset;
     display: flex;
-    transform: translateX(-50%);
+    justify-content: center;
 
     .swiper-pagination-bullet {
       display: block;
@@ -1347,46 +1579,31 @@ body {
   @include desktop {
     min-height: 10.8rem;
 
-    .news-heading {
-      top: .94rem;
-
-      h2 {
-        font-size: .5rem;
-      }
-
-      img {
-        width: .3rem;
-        height: .3rem;
-        margin-top: -.04rem;
-      }
-    }
-
     .news-list {
       top: 2.17rem;
       width: 15.78rem;
     }
 
     .news-image {
-      height: 5.56rem;
-      margin-bottom: .19rem;
+      margin-bottom: .3rem;
     }
 
     .news-link {
       time {
-        margin-bottom: .09rem;
+        margin-bottom: .18rem;
         font-size: .2rem;
-        line-height: 1.3;
+        line-height: calc(26 / 20);
       }
 
       p {
         font-size: .18rem;
-        line-height: 1.45;
+        line-height: calc(26 / 18);
       }
     }
 
     .news-pagination {
-      bottom: .72rem;
       gap: .12rem;
+      margin-top: .4rem;
 
       .swiper-pagination-bullet {
         width: .16rem;
@@ -1398,26 +1615,12 @@ body {
   @include tablet {
     min-height: 8rem;
 
-    .news-heading {
-      top: .8rem;
-
-      h2 {
-        font-size: .4rem;
-      }
-
-      img {
-        width: .24rem;
-        height: .24rem;
-      }
-    }
-
     .news-list {
       top: 1.8rem;
       width: calc(100% - .8rem);
     }
 
     .news-image {
-      height: 3.8rem;
       margin-bottom: .14rem;
     }
 
@@ -1448,21 +1651,7 @@ body {
     height: 100svh;
     min-height: 6.4rem;
 
-    .news-heading {
-      top: .7rem;
-
-      h2 {
-        font-size: .32rem;
-      }
-
-      img {
-        width: .18rem;
-        height: .18rem;
-      }
-    }
-
     .news-list {
-      top: 1.42rem;
       width: calc(100% - .6rem);
     }
 
@@ -1556,26 +1745,6 @@ body {
     inset: 0;
   }
 
-  .developer-heading {
-    position: absolute;
-    left: 50%;
-    display: flex;
-    align-items: flex-start;
-    transform: translateX(-50%);
-
-    h2 {
-      margin: 0;
-      background: linear-gradient(110deg, #713621 0%, #bc7b53 25%, #f6d2bb 56%, #c0927c 82%, #66301b 100%);
-      background-clip: text;
-      color: transparent;
-      font-family: $font-default;
-      font-weight: 400;
-      line-height: 1;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-  }
-
   .developer-logo-primary,
   .developer-partner,
   .developer-award {
@@ -1603,9 +1772,7 @@ body {
     margin: 0 auto;
   }
 
-  .developer-award-main,
-  .developer-award-mark,
-  .developer-award-text {
+  .developer-award-main {
     position: absolute;
   }
 
@@ -1616,20 +1783,6 @@ body {
       top: 3.13rem;
       width: 13.7rem;
       height: 7.64rem;
-    }
-
-    .developer-heading {
-      top: 4.15rem;
-
-      h2 {
-        font-size: .5rem;
-      }
-
-      img {
-        width: .3rem;
-        height: .3rem;
-        margin-top: -.04rem;
-      }
     }
 
     .developer-logo-primary {
@@ -1674,22 +1827,6 @@ body {
     .developer-award-main {
       bottom: 0;
       left: 0;
-      width: 1.51rem;
-      height: .63rem;
-    }
-
-    .developer-award-mark {
-      top: 0;
-      left: .37rem;
-      width: .39rem;
-      height: .79rem;
-    }
-
-    .developer-award-text {
-      top: .06rem;
-      right: 0;
-      width: 1.27rem;
-      height: .23rem;
     }
   }
 
@@ -1700,19 +1837,6 @@ body {
       top: 2.2rem;
       width: 10rem;
       height: auto;
-    }
-
-    .developer-heading {
-      top: 3rem;
-
-      h2 {
-        font-size: .4rem;
-      }
-
-      img {
-        width: .24rem;
-        height: .24rem;
-      }
     }
 
     .developer-logo-primary {
@@ -1756,19 +1880,6 @@ body {
     .developer-line {
       width: 70%;
       height: auto;
-    }
-
-    .developer-heading {
-      top: 2rem;
-
-      h2 {
-        font-size: .32rem;
-      }
-
-      img {
-        width: .18rem;
-        height: .18rem;
-      }
     }
 
     .developer-logo-primary {
