@@ -701,6 +701,7 @@ html.is-device-iphone .header-common .header-lang span {
       font: inherit;
       text-decoration: none;
       cursor: pointer;
+      font-family: $font-sfpro;
     }
 
     .header-common-tool {
@@ -711,9 +712,24 @@ html.is-device-iphone .header-common .header-lang span {
         flex: none;
       }
 
-      sup {
-        margin-left: -.06rem;
-        font-size: .11rem;
+      img.is-view-360 {
+        width: .14rem;
+        height: .14rem;
+      }
+
+      img.is-contact {
+        width: .21rem;
+        height: .23rem;
+      }
+
+      img.is-phone {
+        width: .12rem;
+        height: .18rem;
+      }
+
+      img.is-chevron {
+        width: .08rem;
+        height: .05rem;
       }
     }
 
@@ -723,9 +739,11 @@ html.is-device-iphone .header-common .header-lang span {
       text-transform: uppercase;
 
       img {
-        width: .17rem;
+        position: relative;
+        width: .23rem;
         height: .23rem;
         object-fit: contain;
+        top: -0.11rem;
       }
     }
 
@@ -738,7 +756,7 @@ html.is-device-iphone .header-common .header-lang span {
       }
 
       .header-common-tools {
-        gap: .34rem;
+        gap: .3rem;
       }
 
       .header-common-tool {
@@ -746,7 +764,6 @@ html.is-device-iphone .header-common .header-lang span {
       }
 
       .header-common-menu {
-        margin-left: .26rem;
         font-size: .18rem;
       }
     }

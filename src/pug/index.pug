@@ -29,20 +29,19 @@ block content
           .inner
             .group-bg
               img.overview-light(src=imgPC + 'overview-light.png' alt="")
-              .overview-heading
-                h1#overview-title Tổng quan
-                img(src=imgPC + 'star-title.svg' alt="")
-              .overview-location
-                span Vị trí
-                strong Đường Chế Lan Viên, Phường Quy Nhơn, Tỉnh Gia Lai
-              .overview-facts
-                - var facts = [{label: 'Quy mô', value: '8.3ha'}, {label: 'Số tòa tháp', value: '5 tòa'}, {label: 'Chiều cao', value: '21 tầng, 1 tầng hầm'}, {label: 'Cơ cấu sản phẩm', value: '1,596 căn hộ + 34 shophouse'}, {label: 'Mật độ xây dựng', value: '50%'}, {label: 'Hình thức sở hữu', value: 'Sở hữu lâu dài'}]
-                each fact in facts
-                  .overview-fact
-                    span= fact.label
-                    strong= fact.value
+              .wrapper
+                h2.title-common-primary Tổng quan
+                .overview-location
+                  span Vị trí
+                  strong Đường Chế Lan Viên, Phường Quy Nhơn, Tỉnh Gia Lai
+                .overview-facts
+                  - var facts = [{label: 'Quy mô', value: '8.3ha'}, {label: 'Số tòa tháp', value: '5 tòa'}, {label: 'Chiều cao', value: '21 tầng, 1 tầng hầm'}, {label: 'Cơ cấu sản phẩm', value: '1,596 căn hộ +<br> 34 shophouse'}, {label: 'Mật độ xây dựng', value: '50%'}, {label: 'Hình thức sở hữu', value: 'Sở hữu lâu dài'}]
+                  each fact in facts
+                    .overview-fact
+                      span= fact.label
+                      strong!= fact.value
               .overview-picture
-                img(src=imgPC + 'overview.jpg' alt="Toàn cảnh dự án LUVISTA" width="1920" height="719" loading="eager")
+                img.object-common(src=imgPC + 'overview.jpg' alt="Toàn cảnh dự án LUVISTA" width="1920" height="719" loading="eager")
       section.panel.section-top-location.location#section-location(aria-labelledby="location-title")
         .group-central
           .inner
@@ -68,72 +67,63 @@ block content
           .inner
             .group-bg
               picture.masterplan-picture
-                img(src=imgPC + 'masterplan-bg.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể dự án LUVISTA" loading="eager")
+                img.object-common(src=imgPC + 'masterplan-bg.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể dự án LUVISTA" loading="eager")
               img.masterplan-bottom(src=imgPC + 'masterplan-bottom.svg' width="1920" height="149" alt="")
-              .masterplan-heading
-                h2.hero-title#masterplan-title Mặt bằng dự án
-                img(src=imgPC + 'star-title.svg' width="30" height="30" alt="")
+              h2.title-common-primary Mặt bằng dự án
               .masterplan-guide
                 span Hover và click vào tháp để xem thông tin
-                img.masterplan-guide-line(src=imgPC + 'masterplan-hint.svg' width="412" height="49" alt="")
-                img.masterplan-guide-arrow(src=imgPC + 'masterplan-arrow.svg' width="26" height="16" alt="")
-              button.masterplan-tower(type="button" aria-label="Xem thông tin tháp The Heritage")
-                img(src=imgPC + 'masterplan-tower.svg' width="489" height="589" alt="")
-                span The Heritage
       section.panel.section-top-project-gallery.project-gallery#section-project-gallery(aria-labelledby="project-gallery-title")
         .group-central
           .inner
             .group-bg
-              img.project-gallery-line.is-top(src=imgPC + 'gallery-line.png' width="713" height="161" alt="")
-              img.project-gallery-line.is-bottom(src=imgPC + 'gallery-line.png' width="692" height="161" alt="")
-              .project-gallery-heading
-                h2.hero-title#project-gallery-title Hình ảnh dự án
-                img(src=imgPC + 'star-title.svg' width="30" height="30" alt="")
-              .project-gallery-slider.js-project-gallery
-                .swiper
-                  .swiper-wrapper
-                    .swiper-slide
-                      figure.project-gallery-item
-                        .project-gallery-image
-                          img(src=imgPC + 'gallery-project-01.png' width="1920" height="1080" alt="Lối vào quảng trường chính" loading="eager")
-                        figcaption Lối vào quảng trường chính
-                    .swiper-slide
-                      figure.project-gallery-item
-                        .project-gallery-image
-                          img(src=imgPC + 'gallery-project-02.png' width="1920" height="1080" alt="Hồ bơi lưng núi" loading="eager")
-                        figcaption Hồ bơi lưng núi
-                    .swiper-slide
-                      figure.project-gallery-item
-                        .project-gallery-image
-                          img(src=imgPC + 'gallery-project-01.png' width="1920" height="1080" alt="Lối vào quảng trường chính" loading="eager")
-                        figcaption Lối vào quảng trường chính
-                    .swiper-slide
-                      figure.project-gallery-item
-                        .project-gallery-image
-                          img(src=imgPC + 'gallery-project-02.png' width="1920" height="1080" alt="Hồ bơi lưng núi" loading="eager")
-                        figcaption Hồ bơi lưng núi
-                button.project-gallery-arrow.is-prev(type="button" aria-label="Ảnh trước")
-                  img(src=imgPC + 'gallery-arrow-prev.svg' width="51" height="34" alt="")
-                button.project-gallery-arrow.is-next(type="button" aria-label="Ảnh tiếp theo")
-                  img(src=imgPC + 'gallery-arrow-next.svg' width="51" height="34" alt="")
+              img.project-gallery-line.is-top(src=imgPC + 'gallery-line-01.png' width="713" height="161" alt="")
+              img.project-gallery-line.is-bottom(src=imgPC + 'gallery-line-02.png' width="692" height="161" alt="")
+              .wrapper
+                h2.title-common-primary.is-gold Hình ảnh dự án
+                .project-gallery-slider.js-project-gallery
+                  .swiper
+                    .swiper-wrapper
+                      .swiper-slide
+                        figure.project-gallery-item
+                          .project-gallery-image
+                            img.object-common(src=imgPC + 'gallery-project-01.jpg' width="1920" height="1080" alt="Hồ bơi lưng núi" loading="eager")
+                          figcaption Lối vào quảng trường chính
+                      .swiper-slide
+                        figure.project-gallery-item
+                          .project-gallery-image
+                            img.object-common(src=imgPC + 'gallery-project-02.jpg' width="1920" height="1080" alt="Lối vào quảng trường chính" loading="eager")
+                          figcaption Hồ bơi lưng núi
+                      .swiper-slide
+                        figure.project-gallery-item
+                          .project-gallery-image
+                            img.object-common(src=imgPC + 'gallery-project-01.jpg' width="1920" height="1080" alt="Hồ bơi lưng núi" loading="eager")
+                          figcaption Lối vào quảng trường chính
+                      .swiper-slide
+                        figure.project-gallery-item
+                          .project-gallery-image
+                            img.object-common(src=imgPC + 'gallery-project-02.jpg' width="1920" height="1080" alt="Lối vào quảng trường chính" loading="eager")
+                          figcaption Hồ bơi lưng núi
+                  button.project-gallery-arrow.is-prev(type="button" aria-label="Ảnh trước")
+                    img(src=imgPC + 'gallery-arrow-prev.svg' width="51" height="34" alt="")
+                  button.project-gallery-arrow.is-next(type="button" aria-label="Ảnh tiếp theo")
+                    img(src=imgPC + 'gallery-arrow-next.svg' width="51" height="34" alt="")
       section.panel.section-top-core-values.core-values#section-core-values(aria-labelledby="core-values-title")
         .group-central
           .inner
             .group-bg
               img.core-values-line.is-top(src=imgPC + 'value-line.png' width="880" height="161" alt="")
               img.core-values-line.is-bottom(src=imgPC + 'value-line.png' width="880" height="161" alt="")
-              .core-values-heading
-                span 05
-                h2#core-values-title Giá trị Trụ Cột
-                img(src=imgPC + 'value-star.svg' width="30" height="30" alt="")
-              - var coreValues = [{number: '01', text: 'Quỹ đất vàng <strong>cuối cùng</strong> của Phường nội đô Quy Nhơn Nam'}, {number: '02', text: 'Địa thế <strong>tựa sơn, hướng hải</strong> lưng tựa núi vững chãi, mặt hướng biển xanh đón trọn vượng khí.'}, {number: '03', text: 'Tiện ích cao cấp với Triết lý sống <strong>Urban Wellness</strong> cân bằng, viên mãn ngay giữa lòng đô thị'}, {number: '04', text: 'Pháp lý <strong>minh bạch – Sở hữu lâu dài – Sổ hồng</strong> từng căn'}, {number: '05', text: 'Chủ đầu tư có <strong>tiềm lực tài chính mạnh mẽ</strong>, cam kết về tiến độ và chất lượng vượt trội'}]
-              .core-values-list
-                each item in coreValues
-                  article.core-values-item
-                    .core-values-number
-                      span= item.number
-                      img(src=imgPC + 'value-number-line.svg' width="176" height="102" alt="")
-                    p!= item.text
+              .wrapper
+                h2.core-values-heading
+                  span 05
+                  p.title-common-primary.is-gold Giá trị Trụ Cột
+                - var coreValues = [{number: '01', text: 'Quỹ đất vàng <strong>cuối cùng</strong> của Phường nội đô Quy Nhơn Nam'}, {number: '02', text: 'Địa thế <strong>tựa sơn, hướng hải</strong> lưng tựa núi vững chãi, mặt hướng biển xanh đón trọn vượng khí.'}, {number: '03', text: 'Tiện ích cao cấp với Triết lý sống <strong>Urban Wellness</strong> cân bằng, viên mãn ngay giữa lòng đô thị'}, {number: '04', text: 'Pháp lý <strong>minh bạch – Sở hữu lâu dài – Sổ hồng</strong> từng căn'}, {number: '05', text: 'Chủ đầu tư có <strong>tiềm lực tài chính mạnh mẽ</strong>, cam kết về tiến độ và chất lượng vượt trội'}]
+                .core-values-list
+                  each item in coreValues
+                    article.core-values-item
+                      .core-values-number
+                        img.object-common(src=imgPC + 'core-number-' + item.number + '.svg' width="179" height="129" alt!= item.number loading="eager")
+                      p!= item.text
       section.panel.section-top-news.news#section-news(aria-labelledby="news-title")
         .group-central
           .inner

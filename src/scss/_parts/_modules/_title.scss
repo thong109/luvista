@@ -3,90 +3,50 @@
 
 .title-common-primary {
   position: relative;
-  text-transform: uppercase;
-  font-family: "Montserrat", sans-serif;
-  color: #C6A45A;
-  font-weight: 700;
-}
-
-.title-common-primary.is-center {
-  text-align: center;
-}
-
-.title-common-primary.is-dark {
-  color: #0b1f3a;
-}
-
-.title-common-primary .title-large {
-  display: block;
-}
-
-.title-common-primary.is-small {
-  font-weight: 600;
-  letter-spacing: -0.05em;
-}
-
-@media print,
-(min-width: 768px) {
-  .title-common-primary {
-    margin-bottom: 0.4rem;
-    font-size: 0.5rem;
-    line-height: 1.2;
-  }
-
-  .title-common-primary.is-small {
-    font-size: 0.4rem;
-  }
-
-  .title-common-primary .title-large {
-    margin-top: 0.08rem;
-    font-size: 0.9rem;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1024.98px) {
-  .title-common-primary .title-large {
-    font-size: 0.6rem;
-  }
-}
-
-@media only screen and (max-width: 767.98px) {
-  .title-common-primary {
-    margin-bottom: 0.1rem;
-    font-size: 0.3rem;
-    line-height: 1.2;
-  }
-
-  .title-common-primary.is-small {
-    font-size: 0.25rem;
-    line-height: calc(60 / 25);
-  }
-
-  .title-common-primary .title-large {
-    margin-top: 0.08rem;
-    font-size: 0.44rem;
-  }
-}
-
-.title-common-secondary {
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  color: $ink;
   font-family: $font-default;
-  font-weight: 700;
+  font-weight: 400;
+  line-height: 1.35;
   text-transform: uppercase;
-  color: #fff;
 
   &.is-gold {
-    color: #c6a45a;
+    background: linear-gradient(301.72deg, #3B2117 -25.43%, #BC7B53 19.13%, #E9C9CC 37.28%, #F6D2BB 58.73%, #C0927C 85.13%, #8F5944 109.88%, #713621 129.68%, #662914 139.58%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+    &::after {
+      background: linear-gradient(149.4deg, #3B2117 -431.45%, #BC7B53 -190.63%, #E9C9CC -92.52%, #F6D2BB 23.43%, #C0927C 166.14%, #8F5944 299.93%, #713621 406.96%, #662914 460.48%);
+    }
+  }
+
+  &::after {
+    position: relative;
+    content: "";
+    display: block;
+    width: 0.3rem;
+    height: 0.3rem;
+    bottom: 0.03rem;
+    mask-image: url(../resources/images/top/star-title.svg);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: cover;
+    background: linear-gradient(0deg, #143963 -25.43%, #123F71 88.58%);
   }
 
   @include desktop {
-    margin-bottom: 0.12rem;
-    font-size: 0.18rem;
-    line-height: calc(29 / 18);
-  }
+    font-size: .5rem;
+    line-height: calc(80 / 50);
+    gap: 0.06rem;
+    margin-bottom: 0.26rem;
 
-  @include mobile {
-    margin-bottom: 0.1rem;
-    font-size: 0.16rem;
-    line-height: calc(24 / 16);
+    img {
+      width: .3rem;
+    }
   }
 }

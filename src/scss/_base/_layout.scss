@@ -3,6 +3,14 @@
 @use "mixins"as *;
 
 @font-face {
+  font-family: "Noto Serif Display";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../resources/fonts/NotoSerifDisplay-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Noto Serif Display Condensed";
   font-style: normal;
   font-weight: 400;
@@ -69,6 +77,30 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: 400;
+  src: url("../resources/fonts/SF-Pro-Display-Regular.otf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: 500;
+  src: url("../resources/fonts/SF-Pro-Display-Medium.otf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: 700;
+  src: url("../resources/fonts/SF-Pro-Display-Bold.otf") format("opentype");
+  font-display: swap;
+}
+
 html {
   line-height: 1;
   @include scroll-hidden;
@@ -83,8 +115,12 @@ html {
   //   font-size: calc(100vw / 23);
   // }
 
+  @include laptop {
+    font-size: calc(100vw / 16);
+  }
+
   @include tablet {
-    font-size: 9.765625vw;
+    font-size: calc(100vw / 25);
   }
 
   @include mobile {

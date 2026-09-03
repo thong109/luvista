@@ -830,9 +830,10 @@
       if (!slider || slider.swiper) return;
 
       new Swiper(slider, {
+        loop: true,
         speed: 700,
         slidesPerView: 1,
-        spaceBetween: 20,
+        spaceBetween: 35,
         watchSlidesProgress: true,
         navigation: {
           prevEl: container.querySelector(".project-gallery-arrow.is-prev"),
@@ -841,7 +842,7 @@
         breakpoints: {
           768: {
             slidesPerView: 2,
-            spaceBetween: 18,
+            spaceBetween: 35,
           },
         },
       });
