@@ -1,0 +1,23 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="1370" height="764" viewBox="0 0 1370 764" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Mask group">
+<mask id="mask0_0_120" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="1370" height="764">
+<rect id="Rectangle 1286" width="1370" height="764" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_0_120)">
+<foreignObject x="118" y="-12" width="1080" height="1080"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(10px);clip-path:url(#bgblur_0_0_120_clip_path);height:100%;width:100%"></div></foreignObject><circle id="Ellipse 28" data-figma-bg-blur-radius="20" cx="658" cy="528" r="520" fill="url(#paint0_linear_0_120)" fill-opacity="0.5"/>
+<foreignObject x="118" y="-12" width="1080" height="1080"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(10px);clip-path:url(#bgblur_1_0_120_clip_path);height:100%;width:100%"></div></foreignObject><circle id="Ellipse 29" opacity="0.8" data-figma-bg-blur-radius="20" cx="658" cy="528" r="519.5" stroke="url(#paint1_linear_0_120)"/>
+</g>
+</g>
+<defs>
+<clipPath id="bgblur_0_0_120_clip_path" transform="translate(-118 12)"><circle cx="658" cy="528" r="520"/>
+</clipPath><clipPath id="bgblur_1_0_120_clip_path" transform="translate(-118 12)"><circle cx="658" cy="528" r="519.5"/>
+</clipPath><linearGradient id="paint0_linear_0_120" x1="658" y1="-19.1399" x2="658" y2="778" gradientUnits="userSpaceOnUse">
+<stop stop-color="#163963"/>
+<stop offset="1" stop-color="#163963" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint1_linear_0_120" x1="658" y1="8" x2="646" y2="584" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F6D3BC"/>
+<stop offset="1" stop-color="#F6D3BC" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>

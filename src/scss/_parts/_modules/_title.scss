@@ -1,0 +1,92 @@
+@charset "utf-8";
+@use "../../_base/base"as *;
+
+.title-common-primary {
+  position: relative;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  color: #C6A45A;
+  font-weight: 700;
+}
+
+.title-common-primary.is-center {
+  text-align: center;
+}
+
+.title-common-primary.is-dark {
+  color: #0b1f3a;
+}
+
+.title-common-primary .title-large {
+  display: block;
+}
+
+.title-common-primary.is-small {
+  font-weight: 600;
+  letter-spacing: -0.05em;
+}
+
+@media print,
+(min-width: 768px) {
+  .title-common-primary {
+    margin-bottom: 0.4rem;
+    font-size: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .title-common-primary.is-small {
+    font-size: 0.4rem;
+  }
+
+  .title-common-primary .title-large {
+    margin-top: 0.08rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024.98px) {
+  .title-common-primary .title-large {
+    font-size: 0.6rem;
+  }
+}
+
+@media only screen and (max-width: 767.98px) {
+  .title-common-primary {
+    margin-bottom: 0.1rem;
+    font-size: 0.3rem;
+    line-height: 1.2;
+  }
+
+  .title-common-primary.is-small {
+    font-size: 0.25rem;
+    line-height: calc(60 / 25);
+  }
+
+  .title-common-primary .title-large {
+    margin-top: 0.08rem;
+    font-size: 0.44rem;
+  }
+}
+
+.title-common-secondary {
+  font-family: $font-default;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+
+  &.is-gold {
+    color: #c6a45a;
+  }
+
+  @include desktop {
+    margin-bottom: 0.12rem;
+    font-size: 0.18rem;
+    line-height: calc(29 / 18);
+  }
+
+  @include mobile {
+    margin-bottom: 0.1rem;
+    font-size: 0.16rem;
+    line-height: calc(24 / 16);
+  }
+}

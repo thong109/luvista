@@ -1,0 +1,154 @@
+@charset "utf-8";
+@use "../../_base/base"as *;
+
+.button-common-primary {
+  position: relative;
+  border: 1px solid #C6A45A;
+  background-color: #C6A45A;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 99999px;
+  width: auto;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  transition: background 0.5s cubic-bezier(0.15, 0.41, 0.69, 0.94);
+  color: #0b1f3a;
+  cursor: pointer;
+}
+
+.button-common-primary::after {
+  background-color: #0b1f3a;
+  content: "";
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-mask: url(../resources/images/common/arrow_icon_03.svg) 50% 50%/contain no-repeat;
+  mask: url(../resources/images/common/arrow_icon_03.svg) 50% 50%/contain no-repeat;
+  transition: transform 0.5s cubic-bezier(0.15, 0.41, 0.69, 0.94);
+}
+
+.button-common-primary:hover {
+  background: #F5F1E8;
+}
+
+.button-common-primary:hover::after {
+  transform: translateX(0.1rem) translateY(-50%);
+}
+
+.button-common-primary:hover span {
+  transform: translateX(0.1rem);
+}
+
+.button-common-primary span {
+  transition: transform 0.5s cubic-bezier(0.15, 0.41, 0.69, 0.94);
+  position: relative;
+  display: inline-block;
+}
+
+@media print,
+(min-width: 768px) {
+  .button-common-primary {
+    font-size: 0.2rem;
+    padding: 0.07rem 0.7rem 0.07rem 0.24rem;
+    min-width: 1.85rem;
+    min-height: 0.5rem;
+  }
+
+  .button-common-primary::after {
+    width: 0.31rem;
+    height: 0.18rem;
+    margin-right: 0.24rem;
+  }
+}
+
+@media only screen and (max-width: 767.98px) {
+  .button-common-primary {
+    min-height: 0.4rem;
+    font-size: 0.16rem;
+    padding: 0.04rem 0.7rem 0.04rem 0.4rem;
+  }
+
+  html.is-device-iphone .button-common-primary {
+    padding: 0.1rem 0.7rem 0.04rem 0.4rem;
+  }
+
+  html.is-device-iphone .button-common-primary::after {
+    top: calc(50% + 0.01rem);
+  }
+
+  .button-common-primary::after {
+    width: 0.26rem;
+    height: 0.18rem;
+    margin-right: 0.2rem;
+  }
+}
+
+.button-common-secondary {
+  position: relative;
+  flex: 0 0 auto;
+  display: inline-block;
+  border-radius: 50%;
+  border: 1px solid #C6A45A;
+  transition: border-color 0.35s ease, transform 0.35s ease;
+  cursor: pointer;
+}
+
+.button-common-secondary::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(../resources/images/common/arrow_icon_01.svg) center center/contain no-repeat;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.button-common-secondary.is-light {
+  border-color: #F5F1E8;
+}
+
+.button-common-secondary.is-light::before {
+  background: url(../resources/images/common/arrow_icon_02.svg) center center/contain no-repeat;
+}
+
+.button-common-secondary.is-back {
+  border-color: #F5F1E8;
+}
+
+.button-common-secondary.is-back::before {
+  background: url(../resources/images/common/arrow_icon_04.svg) center center/contain no-repeat;
+}
+
+.button-common-secondary:hover {
+  border-color: #F5F1E8;
+}
+
+.button-common-secondary:hover::before {
+  transform: translate(0.05rem, -0.05rem);
+}
+
+.button-common-secondary.is-back:hover::before {
+  transform: translateX(-0.05rem);
+}
+
+@media print,
+(min-width: 768px) {
+  .button-common-secondary {
+    width: 0.52rem;
+    height: 0.52rem;
+  }
+}
+
+@media only screen and (max-width: 767.98px) {
+  .button-common-secondary {
+    width: 0.4rem;
+    height: 0.4rem;
+  }
+}
