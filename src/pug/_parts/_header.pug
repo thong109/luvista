@@ -15,3 +15,43 @@ header.header-common
     button.header-common-menu.js-click(type="button" aria-label="Mở menu")
       span Menu
       img.image-common.is-menu(src=imgCommonPC + 'menu.svg' alt="" width="23" height="23")
+  .header-common-navigation
+    .navigation-wrapper
+      nav.navigation-menu
+        .menu-heading
+          button.button-close.js-button-close.trans(type="button")
+            span MENU
+            span.button-icon
+              svg(width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg")
+                path(d="M0.5 0.5L16.299 16.299" stroke="white" stroke-linecap="round")
+                path(d="M0.5 16.2991L16.299 0.500099" stroke="white" stroke-linecap="round")
+        ul.menu.main-menu.header-menu#main-menu.header-menu
+          li.menu-item.menu-link
+            a.link-wrapper.item-link.trans(href=path+"/")
+              span.item-link-text trang chủ
+              span.item-link-text-clone trang chủ
+          li.menu-item.menu-link
+            a.link-wrapper.item-link.trans(href=path+"/introduction/")
+              span.item-link-text Giới thiệu
+              span.item-link-text-clone Giới thiệu
+          li.menu-item.menu-link
+            a.link-wrapper.item-link.trans(href=path+"/projects/")
+              span.item-link-text Dự án
+              span.item-link-text-clone Dự án
+          li.menu-item.menu-link
+            a.link-wrapper.item-link.trans(href=path+"/gallery/")
+              span.item-link-text Thư viện
+              span.item-link-text-clone Thư viện
+          li.menu-item.menu-link
+            a.link-wrapper.item-link.trans(href=path+"/recruitment/")
+              span.item-link-text Tuyển dụng
+              span.item-link-text-clone Tuyển dụng
+          li.menu-item.menu-link
+            a.link-wrapper.item-link.trans(href=path+"/news/")
+              span.item-link-text Tin tức
+              span.item-link-text-clone Tin tức
+          li.menu-item.menu-link
+            a.link-wrapper.item-link.trans(href=path+"/contact/")
+              span.item-link-text Liên hệ
+              span.item-link-text-clone Liên hệ
+    .overlay-menu

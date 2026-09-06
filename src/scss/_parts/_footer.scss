@@ -8,7 +8,15 @@
 
   .group-bg {
     overflow: hidden;
-    background: #163963;
+    background: url(../resources/images/top/footer-bg.jpg) center center/cover no-repeat;
+  }
+
+  .wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
   }
 
   .section-footer-common-wave {
@@ -39,24 +47,9 @@
     }
   }
 
-  .section-footer-common-consultation,
-  .section-footer-common-contact,
-  .section-footer-common-bottom,
-  .section-footer-common-note,
-  .section-footer-common-go-top {
-    position: absolute;
-    z-index: 2;
-  }
-
-  .section-footer-common-consultation,
-  .section-footer-common-contact {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
   .section-footer-common-intro {
     margin: 0;
-    font-family: $font-montser;
+    font-family: $font-sfpro;
     text-align: center;
   }
 
@@ -66,7 +59,7 @@
     label {
       display: flex;
       flex-direction: column;
-      font-family: $font-montser;
+      font-family: $font-sfpro;
     }
 
     input {
@@ -78,6 +71,10 @@
       outline: 0;
       background: transparent;
       color: #fff;
+
+      &::placeholder {
+        color: #fff;
+      }
     }
 
     button {
@@ -85,7 +82,7 @@
       border-radius: .04rem;
       background: #f1c4aa;
       color: #163963;
-      font-family: $font-montser;
+      font-family: $font-sfpro;
       font-weight: 500;
       text-transform: uppercase;
       cursor: pointer;
@@ -93,6 +90,8 @@
   }
 
   .section-footer-common-contact {
+    width: 100%;
+
     h2 {
       margin: 0;
       background: linear-gradient(110deg, #713621 0%, #bc7b53 25%, #f6d2bb 56%, #c0927c 82%, #66301b 100%);
@@ -121,11 +120,12 @@
     h3,
     p {
       margin: 0;
-      font-family: $font-montser;
+      font-family: $font-gilroy;
+      color: #F1F1F1;
     }
 
     h3 {
-      font-weight: 600;
+      font-weight: 700;
     }
 
     p {
@@ -140,14 +140,15 @@
     >p,
     .section-footer-common-policy {
       margin: 0;
-      font-family: $font-montser;
+      font-family: $font-gilroy;
     }
+  }
 
-    .section-footer-common-policy {
-      color: #d9b056;
-      text-align: right;
-      text-decoration: none;
-    }
+  .section-footer-common-policy {
+    color: #d9b056;
+    text-align: right;
+    text-decoration: none;
+    display: inline-block;
   }
 
   .section-footer-common-social {
@@ -161,29 +162,33 @@
   }
 
   .section-footer-common-note {
-    margin: 0;
+    margin: 0 auto;
     color: #8fb7e8;
-    font-family: $font-montser;
+    font-family: "Inter", sans-serif;
     font-style: italic;
     text-align: center;
   }
 
   .section-footer-common-go-top {
     display: block;
+    transform: rotate(90deg);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+  }
 
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
+  .section-footer-common-consultation {
+    width: 100%;
   }
 
   @include desktop {
-    min-height: 10.8rem;
+    .group-bg {
+      padding: 1rem 0 .5rem;
+    }
 
     .section-footer-common-consultation {
-      top: .79rem;
-      width: 15.8rem;
+      max-width: 15.8rem;
     }
 
     .section-footer-common-heading {
@@ -199,14 +204,14 @@
     }
 
     .section-footer-common-intro {
-      margin-top: .35rem;
+      margin: .35rem 0;
       font-size: .18rem;
+      line-height: calc(26 / 18);
     }
 
     .section-footer-common-form {
       grid-template-columns: repeat(3, 1fr);
-      gap: .32rem;
-      margin-top: .24rem;
+      gap: .4rem .32rem;
 
       label {
         font-size: .18rem;
@@ -227,8 +232,7 @@
     }
 
     .section-footer-common-contact {
-      top: 5.05rem;
-      width: 15.54rem;
+      max-width: 15.54rem;
 
       h2 {
         font-size: .5rem;
@@ -238,20 +242,20 @@
     .section-footer-common-contact-list {
       grid-template-columns: repeat(4, 1fr);
       gap: .56rem;
-      margin-top: .28rem;
+      margin: .28rem 0 .63rem;
     }
 
     .section-footer-common-contact-item {
       img {
         width: .34rem;
         height: .34rem;
-        margin-bottom: .12rem;
+        margin-bottom: .2rem;
       }
 
       h3,
       p {
         font-size: .18rem;
-        line-height: 1.45;
+        line-height: calc(26 / 18);
       }
 
       h3 {
@@ -260,15 +264,16 @@
     }
 
     .section-footer-common-bottom {
-      right: 1.7rem;
-      bottom: 1.92rem;
-      left: 1.7rem;
+      margin-bottom: .8rem;
       grid-template-columns: 1fr auto 1fr;
 
-      >p,
-      .section-footer-common-policy {
+      &>p {
         font-size: .17rem;
       }
+    }
+
+    .section-footer-common-policy {
+      font-size: .17rem;
     }
 
     .section-footer-common-social {
@@ -281,11 +286,9 @@
     }
 
     .section-footer-common-note {
-      right: 3rem;
-      bottom: .2rem;
-      left: 3rem;
+      max-width: 13.2rem;
       font-size: .14rem;
-      line-height: 1.42;
+      line-height: calc(20 / 14);
     }
 
     .section-footer-common-go-top {
@@ -293,20 +296,60 @@
       bottom: .56rem;
       width: .5rem;
       height: .5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .35s ease, visibility .35s ease;
+
+      &.is-active {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  @include screen-low {
+    .group-bg {
+      padding: .6rem 0 .2rem;
+    }
+
+    .section-footer-common-contact-list {
+      margin: .2rem 0;
+    }
+
+    .section-footer-common-bottom {
+      margin-bottom: .3rem;
+    }
+
+    .section-footer-common-intro {
+      font-size: .14rem;
+      margin: .3rem 0;
+    }
+
+    .section-footer-common-contact-item {
+      h3 {
+        margin-bottom: .1rem;
+      }
+
+      p,
+      h3 {
+        font-size: .14rem;
+      }
+    }
+
+    .section-footer-common-note {
+      font-size: .12rem;
     }
   }
 
   @include tablet {
-    min-height: 9rem;
+    height: 100%;
 
-    .section-footer-common-consultation {
-      top: .7rem;
-      width: calc(100% - .8rem);
+    .wrapper {
+      gap: .8rem;
     }
 
-    .section-footer-common-heading h2,
-    .section-footer-common-contact h2 {
-      font-size: .4rem;
+    .section-footer-common-consultation {
+      width: calc(100% - .8rem);
     }
 
     .section-footer-common-heading img {
@@ -316,7 +359,6 @@
 
     .section-footer-common-intro {
       margin-top: .25rem;
-      font-size: .15rem;
     }
 
     .section-footer-common-form {
@@ -324,20 +366,16 @@
       gap: .24rem;
       margin-top: .24rem;
 
-      label {
-        font-size: .15rem;
-      }
-
       input {
-        height: .28rem;
+        height: .4rem;
       }
 
       button {
+        margin-top: .2rem;
         grid-column: 2;
         justify-self: center;
-        width: 1.5rem;
-        height: .38rem;
-        font-size: .15rem;
+        width: 1.8rem;
+        height: .4rem;
       }
     }
 
@@ -352,47 +390,30 @@
       margin-top: .3rem;
     }
 
-    .section-footer-common-contact-item {
-      img {
-        width: .3rem;
-        height: .3rem;
-      }
-
-      h3,
-      p {
-        font-size: .14rem;
-      }
-    }
-
     .section-footer-common-bottom {
-      right: .4rem;
-      bottom: 1.1rem;
-      left: .4rem;
-      grid-template-columns: 1fr auto 1fr;
-      font-size: .13rem;
+      grid-template-columns: 1fr;
+      gap: .3rem;
+      margin-bottom: .4rem;
+
+      p {
+        text-align: center;
+        font-size: .18rem;
+      }
     }
 
-    .section-footer-common-social {
-      gap: .12rem;
-
-      img {
-        width: .28rem;
-        height: .28rem;
-      }
+    .section-footer-common-policy {
+      text-align: center;
+      font-size: .18rem;
     }
 
     .section-footer-common-note {
-      right: .5rem;
-      bottom: .18rem;
-      left: .5rem;
-      font-size: .11rem;
+      font-size: .18rem;
     }
 
     .section-footer-common-go-top {
       right: .2rem;
       bottom: .45rem;
-      width: .42rem;
-      height: .42rem;
+      position: fixed;
     }
   }
 
@@ -401,7 +422,6 @@
     min-height: 10rem;
 
     .section-footer-common-consultation {
-      top: .7rem;
       width: calc(100% - .5rem);
     }
 
@@ -643,7 +663,7 @@
   }
 
   .st2 {
-    font-family: $font-montser;
+    font-family: $font-sfpro;
   }
 
   .st3 {

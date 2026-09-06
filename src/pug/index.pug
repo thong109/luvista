@@ -16,14 +16,15 @@ block content
           .inner
             .group-bg
               .keyvisual-media
-                img(src=imgPC + 'hero.jpg' alt="Phối cảnh dự án LUVISTA Quy Nhơn" width="1920" height="1080" loading="eager")
-              .keyvisual-shade
-              img.keyvisual-slogan#keyvisual-title(src=imgPC + 'slogan.svg' alt="LUVISTA - Tuyệt tác sống bên vịnh biển" width="682" height="177")
-              a.keyvisual-scroll(href="#section-overview" aria-label="Xem tổng quan dự án")
-                img(src=imgPC + 'arrow.svg' alt="" width="63" height="32")
-              img.keyvisual-star.is-one(src=imgPC + 'star-large.svg' alt="")
-              img.keyvisual-star.is-two(src=imgPC + 'star-small.svg' alt="")
-              img.keyvisual-star.is-three(src=imgPC + 'star-small.svg' alt="")
+                img.object-common(src=imgPC + 'hero.jpg' alt="Phối cảnh dự án LUVISTA Quy Nhơn" width="1920" height="1080" loading="eager")
+              .keyvisual-title
+                img.keyvisual-star.is-one(src=imgPC + 'star-large.svg' alt="")
+                h1.hidden LUVISTA Quy Nhơn
+                img.image-common.keyvisual-slogan#keyvisual-title(src=imgPC + 'slogan.svg' alt="LUVISTA - Tuyệt tác sống bên vịnh biển" width="682" height="177")
+                a.keyvisual-scroll(href="#section-overview" aria-label="Xem tổng quan dự án")
+                  img(src=imgPC + 'arrow.svg' alt="" width="63" height="32")
+              img.keyvisual-star.is-two(src=imgPC + 'star-large.svg' alt="")
+              img.keyvisual-star.is-three(src=imgPC + 'star-large.svg' alt="")
       section.panel.section-top-overview.overview#section-overview(aria-labelledby="overview-title")
         .group-central
           .inner
@@ -48,8 +49,7 @@ block content
             .group-bg
               .location-content
                 .location-heading
-                  h2.hero-title#location-title Vị trí dự án
-                  img(src=imgPC + 'star-title.svg' alt="" width="30" height="30")
+                  h2.title-common-primary.is-gold Vị trí dự án
                 .location-list
                   - var locationGroups = [{time: '02', places: ['Điểm du lịch Ghềnh Ráng - Tiên Sa', 'Bến xe Quy Nhơn', 'Chợ Ghềnh Ráng', 'MM Mega Market', 'Kim Cúc Plaza', 'GO Quy Nhơn', 'Rạp chiếu phim CGV']}, {time: '05', places: ['Coop Mart', 'Quảng trường Nguyễn Tất Thành', 'Bãi biển Quy Nhơn', 'Trung tâm Khám phá KH Quy Nhơn', 'ICISE Quy Nhơn', 'Công viên sáng tạo TMA']}, {time: '10', places: ['Ga Quy Nhơn', 'Trường THPT Lê Quý Đôn']}, {time: '07', places: ['Trung tâm bảo hiểm Quy Nhơn', 'Bệnh viện', 'Sân vận động']}, {time: '20', places: ['Ga Diêu Trì', 'Trung tâm AI Bình Định']}, {time: '30', places: ['Sân bay Phù Cát', 'Kỳ Co - Điểm du lịch Eo Gió']}]
                   each group in locationGroups
@@ -66,20 +66,10 @@ block content
         .group-central
           .inner
             .group-bg.amenities-frame
-              img.amenities-map(src=imgPC + 'amenities-map.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể tiện ích dự án LUVISTA" loading="eager" decoding="async")
-              .amenities-shade
-              .amenities-heading
-                h2 Tiện ích dự án
-                img(src=imgPC + 'star-title.svg' width="30" height="30" alt="")
-              - var amenityTowers = [{name: 'The Heritage', x: 19.6, y: 21}, {name: 'The Heightd', x: 25.3, y: 60}, {name: 'The Horizon', x: 38.7, y: 26.8}, {name: 'The Hill', x: 46, y: 61.5}, {name: 'The Harmony', x: 51.4, y: 26.8}]
-              each tower in amenityTowers
-                span.amenities-tower(style='--x:' + tower.x + '%;--y:' + tower.y + '%')= tower.name
-              - var amenityMarkers = [{n:'01',x:16.7,y:47},{n:'02',x:17.8,y:34},{n:'03',x:22.8,y:30},{n:'04',x:27.5,y:47},{n:'05',x:27.1,y:53},{n:'06',x:26.1,y:56.5},{n:'07',x:25.6,y:51.8},{n:'08',x:21.2,y:54},{n:'09',x:21.1,y:33.5},{n:'10',x:24.1,y:40},{n:'11',x:28.3,y:30},{n:'12',x:26.5,y:36.5},{n:'13',x:22.6,y:40},{n:'14',x:21.9,y:42.5},{n:'15',x:20.2,y:47.8},{n:'16',x:22.8,y:45.5},{n:'17',x:22.4,y:50},{n:'18',x:18.2,y:50.5},{n:'19',x:15.4,y:52},{n:'20',x:17.3,y:56},{n:'21',x:44.9,y:34},{n:'22',x:42.8,y:39.8},{n:'23',x:45,y:40.5},{n:'24',x:44.5,y:45},{n:'25',x:49.5,y:44.8},{n:'26',x:47.5,y:45.5},{n:'27',x:46.5,y:51},{n:'28',x:40.8,y:47.5},{n:'29',x:39.8,y:50},{n:'30',x:39.2,y:45},{n:'31',x:41.5,y:51},{n:'32',x:44.2,y:53},{n:'33',x:47,y:51.5},{n:'34',x:52,y:45.5},{n:'35',x:54,y:45.5},{n:'36',x:53.2,y:51.5},{n:'37',x:51.5,y:51.5},{n:'38',x:42.5,y:48.5},{n:'39',x:44.1,y:48.5},{n:'40',x:45.8,y:47.8}]
-              each marker in amenityMarkers
-                span.amenities-marker.is-internal(style='--x:' + marker.x + '%;--y:' + marker.y + '%')= marker.n
-              - var externalMarkers = [{n:'01',x:3,y:46},{n:'02',x:12.5,y:30},{n:'02',x:13,y:38},{n:'02',x:12,y:59},{n:'02',x:22.5,y:60},{n:'02',x:34,y:47},{n:'02',x:59,y:39},{n:'03',x:65,y:52},{n:'04',x:67,y:61},{n:'05',x:64,y:48},{n:'06',x:43,y:82},{n:'07',x:48,y:89}]
-              each marker in externalMarkers
-                span.amenities-marker.is-external(style='--x:' + marker.x + '%;--y:' + marker.y + '%')= marker.n
+              .amenities-map
+                img.amenities-map(src=imgPC + 'amenities-map.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể tiện ích dự án LUVISTA" loading="eager" decoding="async")
+                img(src=imgPC+"location-diagram.svg" class="js-inline-svg" alt="Location Diagram")
+              h2.title-common-primary.is-gold Tiện ích dự án
               - var externalAmenities = ['Công viên trung tâm', 'Phố thương mại', 'Nhà mẫu<br>Nhà sinh hoạt cộng đồng', 'Sân Pickleball', 'Công viên', 'Đường dạo bộ ven hồ', 'Hồ cảnh quan']
               - var internalAmenities = ['Vườn nghệ thuật', 'Đường dạo bộ trên cao', 'Khu vườn Hoàng Hôn', 'Vườn Trị liệu và Thiền định', 'Sân tập Yoga và Thái cực quyền', 'Khu đọc sách ngoài trời', 'Bãi đỗ trực thăng', 'Vườn rau hữu cơ', 'Phòng tập Gym', 'Phòng sinh hoạt cộng đồng', 'Hồ bơi', 'Phòng thay đồ', 'Ghế tắm nắng', 'Hồ cảnh quan', 'Vườn xanh', 'Sân tập dưỡng sinh', 'Khu sinh hoạt cộng đồng (ngoài trời)', 'Khu vui chơi trẻ em', 'Công viên thú cưng', 'Khu BBQ ngoài trời', 'Lối vào quảng trường chính', 'BBQ gia đình', 'Sân khấu ngoài trời', 'Hồ bơi trung tâm', 'Sen tắm đứng ngoài trời', 'Bể Jacuzzi', 'Ghế tắm nắng', 'Hồ bơi lưng núi', 'Khu thay đồ', 'Sân chơi cát', 'Sân khấu trình diễn', 'Cigar Lounge', 'Quầy Bar', 'Sân chơi trẻ em', 'Hồ thư giãn', 'Hồ bơi lưng núi', 'Ghế tắm nắng', 'Không gian tập gym', 'Phòng tập Yoga/Pilates', 'Phòng đọc sách']
               aside.amenities-legend
@@ -152,8 +142,8 @@ block content
         .group-central
           .inner
             .group-bg
-              img.core-values-line.is-top(src=imgPC + 'value-line.png' width="880" height="161" alt="")
-              img.core-values-line.is-bottom(src=imgPC + 'value-line.png' width="880" height="161" alt="")
+              img.core-values-line.is-top(src=imgPC + 'values-line-01.png' width="880" height="161" alt="")
+              img.core-values-line.is-bottom(src=imgPC + 'values-line-02.png' width="880" height="161" alt="")
               .wrapper
                 h2.core-values-heading
                   span 05
@@ -169,20 +159,21 @@ block content
         .group-central
           .inner
             .group-bg
-              h2.title-common-primary.is-gold Tin tức
               - var newsItems = [{image: 'news-01.png', alt: 'Không gian thương mại và căn hộ LUVISTA'}, {image: 'news-02.png', alt: 'Hồ bơi và cảnh quan LUVISTA'}, {image: 'news-03.png', alt: 'Quảng trường và tiện ích LUVISTA'},{image: 'news-01.png', alt: 'Không gian thương mại và căn hộ LUVISTA'}, {image: 'news-02.png', alt: 'Hồ bơi và cảnh quan LUVISTA'}, {image: 'news-03.png', alt: 'Quảng trường và tiện ích LUVISTA'}]
-              .news-list.js-news-slider
-                .swiper
-                  .swiper-wrapper
-                    each item in newsItems
-                      .swiper-slide
-                        article.news-item
-                          a.news-link(href="#")
-                            .news-image
-                              img.object-common(src=imgPC + item.image width="487" height="556" alt=item.alt loading="eager")
-                            time(datetime="2025-12-29") 29/12/2025
-                            p Tận hưởng cuộc sống ngay lập tức và “đón lõng” những sóng phát triển dồn dập ngày mai, dự án là điểm đến cân bằng hoàn hảo mọi yếu tố để chủ nhân tận hưởng hiện tại và mở ra tương lai rực rỡ.
-                .news-pagination.swiper-pagination(aria-label="Trang tin tức")
+              .wrapper
+                h2.title-common-primary.is-gold Tin tức
+                .news-list.js-news-slider
+                  .swiper
+                    .swiper-wrapper
+                      each item in newsItems
+                        .swiper-slide
+                          article.news-item
+                            a.news-link(href="#")
+                              .news-image
+                                img.object-common(src=imgPC + item.image width="487" height="556" alt=item.alt loading="eager")
+                              time(datetime="2025-12-29") 29/12/2025
+                              p Tận hưởng cuộc sống ngay lập tức và “đón lõng” những sóng phát triển dồn dập ngày mai, dự án là điểm đến cân bằng hoàn hảo mọi yếu tố để chủ nhân tận hưởng hiện tại và mở ra tương lai rực rỡ.
+                  .news-pagination.swiper-pagination(aria-label="Trang tin tức")
       section.panel.section-top-developer.developer#section-developer(aria-labelledby="developer-title")
         .group-central
           .inner
@@ -206,44 +197,41 @@ block content
         .group-central
           .inner
             .group-bg
-              img.section-footer-common-wave(src=imgPC + 'footer-wave.svg' width="1920" height="780" alt="")
-              .section-footer-common-consultation
-                .section-footer-common-heading
-                  h2#footer-consultation-title Đăng ký tư vấn
-                  img(src=imgPC + 'footer-star.svg' width="30" height="30" alt="")
-                p.section-footer-common-intro Quý khách vui lòng để lại thông tin, đội ngũ chuyên viên sẽ liên hệ tư vấn trong thời gian sớm nhất.
-                form.section-footer-common-form(action="" method="post")
-                  label
-                    span Họ tên (*)
-                    input(type="text" name="name" required)
-                  label
-                    span Email
-                    input(type="email" name="email")
-                  label
-                    span Điện thoại (*)
-                    input(type="tel" name="phone" required)
-                  button(type="submit") Liên hệ ngay
-              .section-footer-common-contact
-                h2 Thông tin liên hệ
-                - var footerContacts = [{icon: 'footer-location.svg', title: 'Sales Office', detail: 'Tòa nhà Repubulic Plaza Cộng Hòa, 18E Cộng Hòa, Phường Tân Sơn Nhất, TP.HCM'}, {icon: 'footer-location.svg', title: 'Sales Gallery', detail: 'Đường Chế Lan Viên, Phường Quy Nhơn, Tỉnh Gia Lai'}, {icon: 'footer-phone.svg', title: 'Hotline', detail: '0888 790 288'}, {icon: 'footer-email.svg', title: 'Email', detail: 'info@luvista.com.vn'}]
-                .section-footer-common-contact-list
-                  each item in footerContacts
-                    .section-footer-common-contact-item
-                      img(src=imgPC + item.icon width="34" height="34" alt="")
-                      h3= item.title
-                      p= item.detail
-              .section-footer-common-bottom
-                p © 2026 Luvista. All Rights Reserved.
-                .section-footer-common-social
-                  a(href="#" aria-label="Facebook")
-                    img(src=imgPC + 'footer-facebook.svg' width="34" height="34" alt="")
-                  a(href="#" aria-label="Youtube")
-                    img(src=imgPC + 'footer-youtube.svg' width="34" height="34" alt="")
-                  a(href="#" aria-label="Tiktok")
-                    img(src=imgPC + 'footer-tiktok.svg' width="34" height="34" alt="")
-                  a(href="#" aria-label="Zalo")
-                    img(src=imgPC + 'footer-zalo.svg' width="34" height="34" alt="")
-                a.section-footer-common-policy(href="#") Chính sách bảo mật thông tin cá nhân
-              p.section-footer-common-note Lưu ý: Chúng tôi đã nỗ lực và cẩn trọng để hoàn thiện tài liệu này. Tuy nhiên tài liệu chỉ dùng với mục đích tham khảo. Hình ảnh, sơ đồ kỹ thuật, bố trí nội ngoại thất hay thông tin mô tả về dự án chỉ nhằm mục đích minh họa, không phải là thông tin hiện thực hay cam kết pháp lý. Thông tin chính thức về dự án sẽ được căn cứ trên hợp đồng mua bán và các tài liệu được thỏa thuận, ký kết chính thức với khách hàng.
-              a.section-footer-common-go-top(href="#section-home" aria-label="Về đầu trang")
-                img(src=imgPC + 'footer-go-top.svg' width="50" height="50" alt="")
+              .wrapper
+                .section-footer-common-consultation
+                  .section-footer-common-heading
+                    h2.title-common-primary.is-gold Đăng ký tư vấn
+                  p.section-footer-common-intro Quý khách vui lòng để lại thông tin, đội ngũ chuyên viên sẽ liên hệ tư vấn trong thời gian sớm nhất.
+                  form.section-footer-common-form(action="" method="post")
+                    label
+                      input(type="text" name="name" required placeholder="Họ tên (*)")
+                    label
+                      input(type="email" name="email" placeholder="Email")
+                    label
+                      input(type="tel" name="phone" required placeholder="Số điện thoại (*)")
+                    button(type="submit") Liên hệ ngay
+                .section-footer-common-contact
+                  h2.title-common-primary.is-gold.no-icon Thông tin liên hệ
+                  - var footerContacts = [{icon: 'footer-location.svg', title: 'Sales Office', detail: 'Tòa nhà Repubulic Plaza Cộng Hòa, 18E Cộng Hòa, Phường Tân Sơn Nhất, TP.HCM'}, {icon: 'footer-location.svg', title: 'Sales Gallery', detail: 'Đường Chế Lan Viên, Phường Quy Nhơn, Tỉnh Gia Lai'}, {icon: 'footer-phone.svg', title: 'Hotline', detail: '0888 790 288'}, {icon: 'footer-email.svg', title: 'Email', detail: 'info@luvista.com.vn'}]
+                  .section-footer-common-contact-list
+                    each item in footerContacts
+                      .section-footer-common-contact-item
+                        img(src=imgPC + item.icon width="34" height="34" alt="")
+                        h3= item.title
+                        p= item.detail
+                  .section-footer-common-bottom
+                    p © 2026 Luvista. All Rights Reserved.
+                    .section-footer-common-social
+                      a(href="#" aria-label="Facebook")
+                        img.object-common(src=imgPC + 'footer-facebook.svg' width="34" height="34" alt="")
+                      a(href="#" aria-label="Youtube")
+                        img.object-common(src=imgPC + 'footer-youtube.svg' width="34" height="34" alt="")
+                      a(href="#" aria-label="Tiktok")
+                        img.object-common(src=imgPC + 'footer-tiktok.svg' width="34" height="34" alt="")
+                      a(href="#" aria-label="Zalo")
+                        img.object-common(src=imgPC + 'footer-zalo.svg' width="34" height="34" alt="")
+                    .section-footer-common-policy
+                      a.trans(href="#") Chính sách bảo mật thông tin cá nhân
+                  p.section-footer-common-note Lưu ý: Chúng tôi đã nỗ lực và cẩn trọng để hoàn thiện tài liệu này. Tuy nhiên tài liệu chỉ dùng với mục đích tham khảo. Hình ảnh, sơ đồ kỹ thuật, bố trí nội ngoại thất hay thông tin mô tả về dự án chỉ nhằm mục đích minh họa, không phải là thông tin hiện thực hay cam kết pháp lý. Thông tin chính thức về dự án sẽ được căn cứ trên hợp đồng mua bán và các tài liệu được thỏa thuận, ký kết chính thức với khách hàng.
+                a.section-footer-common-go-top.js-button-top.trans(href="#section-home" aria-label="Về đầu trang")
+                  img.object-common(src=imgPC + 'footer-go-top.svg' width="50" height="50" alt="Button Go Top" loading="eager")

@@ -151,8 +151,14 @@ html(lang="en" class="is-page-"+page class=pageClass)
     link(rel="stylesheet" href=`${path}/css/${page.replace(/-/gi,'_')}.css`)
   body
     .mask#mask(aria-hidden="true")
+      //- Intro version 1
+      //- .intro-logo
+      //-   .intro-logo-mask
+
+      //- Intro version 2: symbol first, wordmark second
       .intro-logo
-        .intro-logo-mask
+        img(src=path+"/resources/images/top/intro-logo-2.svg" alt="" class="js-inline-svg intro-symbol")
+        img.intro-wordmark(src=path+"/resources/images/top/intro-word.svg" alt="")
     include ../_parts/_header.pug
     block content
     include ../_parts/_footer.pug

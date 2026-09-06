@@ -2,8 +2,6 @@
 @use "../../_base/base"as *;
 
 .mask {
-  --intro-symbol-width: 1.2rem;
-  --intro-symbol-height: 1.1rem;
   position: fixed;
   z-index: 99999999;
   inset: 0;
@@ -12,52 +10,51 @@
   height: 100dvh;
   background: #0b294d;
   opacity: 1;
-  -webkit-mask-image: url(../resources/images/top/intro-symbol.svg), linear-gradient(#fff 0 0);
-  mask-image: url(../resources/images/top/intro-symbol.svg), linear-gradient(#fff 0 0);
-  -webkit-mask-position: 50% 50%, center;
-  mask-position: 50% 50%, center;
-  -webkit-mask-size: 0 0, 100% 100%;
-  mask-size: 0 0, 100% 100%;
-  -webkit-mask-repeat: no-repeat, no-repeat;
-  mask-repeat: no-repeat, no-repeat;
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
 
   .intro-logo {
     position: absolute;
     top: 50%;
     left: 50%;
-    overflow: hidden;
     width: 4.6rem;
     aspect-ratio: 250 / 60;
     transform: translate(-50%, -50%);
   }
 
-  .intro-logo-mask {
+  .intro-symbol {
     position: absolute;
-    inset: 0;
-    width: 100%;
+    bottom: 0;
+    left: 0;
+    width: 26.2%;
     height: 100%;
-    -webkit-mask: url(../resources/images/top/intro-logo.svg) center / contain no-repeat;
-    mask: url(../resources/images/top/intro-logo.svg) center / contain no-repeat;
-    background: #f3cfb8;
     opacity: 0;
-    transform: translateY(.18rem);
+    transform: translateY(.14rem);
+
+    >path {
+      opacity: 0;
+      clip-path: inset(100% 0 0);
+      transform: translateY(.05rem);
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+  }
+
+  .intro-wordmark {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 70.8%;
+    height: 56%;
+    opacity: 0;
+    transform: translateY(.12rem);
   }
 
   @include tablet {
-    --intro-symbol-width: 1.05rem;
-    --intro-symbol-height: .96rem;
-
     .intro-logo {
-      width: 4rem;
+      width: 5rem;
     }
   }
 
   @include mobile {
-    --intro-symbol-width: .76rem;
-    --intro-symbol-height: .7rem;
-
     .intro-logo {
       width: 2.9rem;
     }
@@ -65,34 +62,53 @@
 }
 
 .mask.showed {
-  .intro-logo-mask {
-    animation: introLogoIn 1s cubic-bezier(.22, 1, .36, 1) forwards;
+  .intro-symbol {
+    opacity: 1;
+    transform: translateY(0);
+
+    >path {
+      animation: introSymbolLineIn .7s cubic-bezier(.22, 1, .36, 1) forwards;
+
+      @for $line from 1 through 5 {
+        &:nth-child(#{$line}) {
+          animation-delay: #{($line - 1) * .24}s;
+        }
+      }
+    }
+  }
+
+  .intro-wordmark {
+    animation: introPartIn .8s 1.75s cubic-bezier(.22, 1, .36, 1) forwards;
   }
 }
 
 .mask.hide {
   pointer-events: none;
-  animation: introReveal 1.15s cubic-bezier(.76, 0, .24, 1) forwards;
-
-  .intro-logo-mask {
-    animation: introLogoOut .25s ease forwards;
-  }
+  animation: introFadeOut .7s ease forwards;
 }
 
-@keyframes introLogoIn {
+@keyframes introPartIn {
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes introLogoOut {
+@keyframes introSymbolLineIn {
   to {
-    opacity: 0;
-    transform: translateY(-.12rem);
+    opacity: 1;
+    clip-path: inset(0 0 0);
+    transform: translateY(0);
   }
 }
 
+@keyframes introFadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Intro version 1: legacy mask zoom reveal (disabled).
 @keyframes introReveal {
   0% {
     -webkit-mask-image: url(../resources/images/top/intro-symbol.svg), linear-gradient(#fff 0 0);
@@ -146,11 +162,33 @@
     mask-size: 100% 100%, 100% 100%;
   }
 }
+*/
 
 @media (prefers-reduced-motion: reduce) {
   .mask,
   .mask * {
     animation-duration: .01ms !important;
     animation-delay: 0s !important;
+  }
+}
+
+
+@keyframes arrowMove {
+  0% {
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(50%);
+    opacity: 0;
   }
 }
