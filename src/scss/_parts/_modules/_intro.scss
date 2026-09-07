@@ -176,7 +176,7 @@
 
 @keyframes arrowMove {
   0% {
-    transform: translateX(-50%);
+    transform: translateY(-20%);
     opacity: 0;
   }
 
@@ -189,7 +189,7 @@
   }
 
   100% {
-    transform: translateX(50%);
+    transform: translateY(20%);
     opacity: 0;
   }
 }

@@ -23,8 +23,9 @@ block content
                 img.keyvisual-star.is-one(src=imgPC + 'star-large.svg' alt="")
                 h1.hidden LUVISTA Quy Nhơn
                 img.image-common.keyvisual-slogan#keyvisual-title(src=imgPC + 'slogan.svg' alt="LUVISTA - Tuyệt tác sống bên vịnh biển" width="682" height="177")
-                a.keyvisual-scroll(href="#section-overview" aria-label="Xem tổng quan dự án")
-                  img(src=imgPC + 'arrow.svg' alt="" width="63" height="32")
+                span.keyvisual-scroll(href="#section-overview" aria-label="Xem tổng quan dự án")
+                  svg.object-common(width="32" height="63" viewBox="0 0 32 63" fill="none")
+                    path(d="M31.3535 46.5L15.8535 62L0.353515 46.5M15.8535 62L15.8535 -6.77527e-07" stroke="white")
               img.keyvisual-star.is-two(src=imgPC + 'star-large.svg' alt="")
               img.keyvisual-star.is-three(src=imgPC + 'star-large.svg' alt="")
       section.panel.section-top-overview.overview#section-overview(aria-labelledby="overview-title")
@@ -47,21 +48,35 @@ block content
         .group-central
           .inner
             .group-bg
+              .location-map(role="img" aria-label="Bản đồ vị trí LUVISTA và các tiện ích kết nối tại Quy Nhơn")
+                img.location-background(src=imgPC + 'location-background.jpg' width="1920" height="1080" alt="")
+                img.location-overlay.location-icons(src=imgPC + 'location-icons.svg' width="1920" height="1080" alt="")
+                img.location-logo(src=imgPC + 'location-logo.svg' width="295" height="192" alt="")
+                img(src=imgPC+"location-diagram-02.svg" class="js-inline-svg location-line" alt="Map")
+                .location-glow
+                  img(src=imgPC + 'location-glow.svg' alt="")
               .location-content
-                .location-heading
-                  h2.title-common-primary.is-gold Vị trí dự án
-                .location-list
-                  - var locationGroups = [{time: '02', places: ['Điểm du lịch Ghềnh Ráng - Tiên Sa', 'Bến xe Quy Nhơn', 'Chợ Ghềnh Ráng', 'MM Mega Market', 'Kim Cúc Plaza', 'GO Quy Nhơn', 'Rạp chiếu phim CGV']}, {time: '05', places: ['Coop Mart', 'Quảng trường Nguyễn Tất Thành', 'Bãi biển Quy Nhơn', 'Trung tâm Khám phá KH Quy Nhơn', 'ICISE Quy Nhơn', 'Công viên sáng tạo TMA']}, {time: '10', places: ['Ga Quy Nhơn', 'Trường THPT Lê Quý Đôn']}, {time: '07', places: ['Trung tâm bảo hiểm Quy Nhơn', 'Bệnh viện', 'Sân vận động']}, {time: '20', places: ['Ga Diêu Trì', 'Trung tâm AI Bình Định']}, {time: '30', places: ['Sân bay Phù Cát', 'Kỳ Co - Điểm du lịch Eo Gió']}]
-                  each group in locationGroups
-                    .location-item
+                h2.title-common-primary.is-gold#location-title Vị trí dự án
+                - var locationGroups = [{time: '02', places: ['Điểm du lịch Ghềnh Ráng - Tiên Sa', 'Bến xe Quy Nhơn', 'Chợ Ghềnh Ráng', 'MM Mega Market', 'Kim Cúc Plaza', 'GO Quy Nhơn', 'Rạp chiếu phim CGV']}, {time: '05', places: ['Coop Mart', 'Quảng trường Nguyễn Tất Thành', 'Bãi biển Quy Nhơn', 'Trung tâm Khám phá KH Quy Nhơn', 'ICISE Quy Nhơn', 'Công viên sáng tạo TMA']}, {time: '07', places: ['Trung tâm bảo hiểm Quy Nhơn', 'Bệnh viện', 'Sân vận động']}, {time: '10', places: ['Ga Quy Nhơn', 'Trường THPT Lê Quý Đôn']}, {time: '20', places: ['Ga Diêu Trì', 'Trung tâm AI Bình Định']}, {time: '30', places: ['Sân bay Phù Cát', 'Kỳ Co - Điểm du lịch Eo Gió']}]
+                .location-navigation
+                  button.location-arrow.is-prev(type="button" aria-label="Nhóm thời gian trước")
+                    img(src=imgPC + 'location-prev.svg' width="39" height="39" alt="")
+                  .location-tabs(role="tablist" aria-label="Thời gian di chuyển")
+                    each group, index in locationGroups
+                      button.location-tab(type="button" role="tab" id='location-tab-' + group.time aria-controls='location-panel-' + group.time aria-selected=index === 0 ? 'true' : 'false' tabindex=index === 0 ? '0' : '-1')
+                        strong= group.time
+                        span Phút
+                  button.location-arrow.is-next(type="button" aria-label="Nhóm thời gian tiếp theo")
+                    img(src=imgPC + 'location-next.svg' width="39" height="39" alt="")
+                .location-panels
+                  each group, index in locationGroups
+                    .location-panel(role="tabpanel" id='location-panel-' + group.time aria-labelledby='location-tab-' + group.time hidden=index !== 0 tabindex="0")
                       p.location-time
                         strong= group.time
                         span Phút
                       ul
                         each place in group.places
                           li= place
-              .location-map
-                img.map-icon(src=imgCommonPC + 'location_img_03.png' width="1141" height="980" alt="Map" loading="eager")
       section.panel.section-top-amenities.amenities#section-amenities(aria-label="Tiện ích dự án")
         .group-central
           .inner

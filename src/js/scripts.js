@@ -2527,6 +2527,44 @@
     s.parentNode.insertBefore(wf, s);
   })();
 
+  const initLocationTabs = () => {
+    const section = document.querySelector('.section-top-location');
+    if (!section) return;
+    const tabs = [...section.querySelectorAll('[role="tab"]')];
+    const panels = [...section.querySelectorAll('[role="tabpanel"]')];
+    const track = section.querySelector('.location-tabs');
+    if (!tabs.length || !track) return;
+    let active = 0;
+    const select = (index, focus = false) => {
+      active = (index + tabs.length) % tabs.length;
+      tabs.forEach((tab, i) => {
+        tab.setAttribute('aria-selected', String(i === active));
+        tab.tabIndex = i === active ? 0 : -1;
+        panels[i].hidden = i !== active;
+      });
+      const tab = tabs[active];
+      const left = tab.offsetLeft - tabs[0].offsetLeft;
+      if (left < track.scrollLeft) track.scrollLeft = left;
+      else if (left + tab.offsetWidth > track.scrollLeft + track.clientWidth) {
+        track.scrollLeft = left + tab.offsetWidth - track.clientWidth;
+      }
+      if (focus) tab.focus({ preventScroll: true });
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(index));
+      tab.addEventListener('keydown', event => {
+        const next = { ArrowRight: active + 1, ArrowLeft: active - 1, Home: 0, End: tabs.length - 1 }[event.key];
+        if (next === undefined) return;
+        event.preventDefault();
+        event.stopPropagation();
+        select(next, true);
+      });
+    });
+    section.querySelector('.location-arrow.is-prev')?.addEventListener('click', () => select(active - 1));
+    section.querySelector('.location-arrow.is-next')?.addEventListener('click', () => select(active + 1));
+  };
+
+  initLocationTabs();
   detectDevice();
   buttonTop();
   initIntro();
