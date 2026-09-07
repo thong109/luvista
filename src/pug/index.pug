@@ -16,7 +16,9 @@ block content
           .inner
             .group-bg
               .keyvisual-media
-                img.object-common(src=imgPC + 'hero.jpg' alt="Phối cảnh dự án LUVISTA Quy Nhơn" width="1920" height="1080" loading="eager")
+                picture
+                  source(media="(max-width: 768.98px)" srcset=imgPC+"hero-mo.jpg")
+                  img.object-common(src=imgPC+"hero.jpg" alt="Phối cảnh dự án LUVISTA Quy Nhơn" width="1920" height="1080" loading="eager")
               .keyvisual-title
                 img.keyvisual-star.is-one(src=imgPC + 'star-large.svg' alt="")
                 h1.hidden LUVISTA Quy Nhơn
@@ -41,8 +43,6 @@ block content
                     .overview-fact
                       span= fact.label
                       strong!= fact.value
-              .overview-picture
-                img.object-common(src=imgPC + 'overview.jpg' alt="Toàn cảnh dự án LUVISTA" width="1920" height="719" loading="eager")
       section.panel.section-top-location.location#section-location(aria-labelledby="location-title")
         .group-central
           .inner
@@ -69,37 +69,40 @@ block content
               .amenities-map
                 img.amenities-map(src=imgPC + 'amenities-map.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể tiện ích dự án LUVISTA" loading="eager" decoding="async")
                 img(src=imgPC+"location-diagram.svg" class="js-inline-svg" alt="Location Diagram")
-              h2.title-common-primary.is-gold Tiện ích dự án
-              - var externalAmenities = ['Công viên trung tâm', 'Phố thương mại', 'Nhà mẫu<br>Nhà sinh hoạt cộng đồng', 'Sân Pickleball', 'Công viên', 'Đường dạo bộ ven hồ', 'Hồ cảnh quan']
-              - var internalAmenities = ['Vườn nghệ thuật', 'Đường dạo bộ trên cao', 'Khu vườn Hoàng Hôn', 'Vườn Trị liệu và Thiền định', 'Sân tập Yoga và Thái cực quyền', 'Khu đọc sách ngoài trời', 'Bãi đỗ trực thăng', 'Vườn rau hữu cơ', 'Phòng tập Gym', 'Phòng sinh hoạt cộng đồng', 'Hồ bơi', 'Phòng thay đồ', 'Ghế tắm nắng', 'Hồ cảnh quan', 'Vườn xanh', 'Sân tập dưỡng sinh', 'Khu sinh hoạt cộng đồng (ngoài trời)', 'Khu vui chơi trẻ em', 'Công viên thú cưng', 'Khu BBQ ngoài trời', 'Lối vào quảng trường chính', 'BBQ gia đình', 'Sân khấu ngoài trời', 'Hồ bơi trung tâm', 'Sen tắm đứng ngoài trời', 'Bể Jacuzzi', 'Ghế tắm nắng', 'Hồ bơi lưng núi', 'Khu thay đồ', 'Sân chơi cát', 'Sân khấu trình diễn', 'Cigar Lounge', 'Quầy Bar', 'Sân chơi trẻ em', 'Hồ thư giãn', 'Hồ bơi lưng núi', 'Ghế tắm nắng', 'Không gian tập gym', 'Phòng tập Yoga/Pilates', 'Phòng đọc sách']
-              aside.amenities-legend
-                .amenities-legend-group.is-external
-                  h3 Tiện ích cảnh quan ngoại khu
-                  ol
-                    each item, index in externalAmenities
-                      li
-                        span= ('0' + (index + 1)).slice(-2)
-                        p!= item
-                .amenities-legend-group.is-internal
-                  h3 Tiện ích bên trong dự án
-                  .amenities-columns
+              .amenities-wrapper
+                h2.title-common-primary.is-gold Tiện ích dự án
+                - var externalAmenities = ['Công viên trung tâm', 'Phố thương mại', 'Nhà mẫu<br>Nhà sinh hoạt cộng đồng', 'Sân Pickleball', 'Công viên', 'Đường dạo bộ ven hồ', 'Hồ cảnh quan']
+                - var internalAmenities = ['Vườn nghệ thuật', 'Đường dạo bộ trên cao', 'Khu vườn Hoàng Hôn', 'Vườn Trị liệu và Thiền định', 'Sân tập Yoga và Thái cực quyền', 'Khu đọc sách ngoài trời', 'Bãi đỗ trực thăng', 'Vườn rau hữu cơ', 'Phòng tập Gym', 'Phòng sinh hoạt cộng đồng', 'Hồ bơi', 'Phòng thay đồ', 'Ghế tắm nắng', 'Hồ cảnh quan', 'Vườn xanh', 'Sân tập dưỡng sinh', 'Khu sinh hoạt cộng đồng (ngoài trời)', 'Khu vui chơi trẻ em', 'Công viên thú cưng', 'Khu BBQ ngoài trời', 'Lối vào quảng trường chính', 'BBQ gia đình', 'Sân khấu ngoài trời', 'Hồ bơi trung tâm', 'Sen tắm đứng ngoài trời', 'Bể Jacuzzi', 'Ghế tắm nắng', 'Hồ bơi lưng núi', 'Khu thay đồ', 'Sân chơi cát', 'Sân khấu trình diễn', 'Cigar Lounge', 'Quầy Bar', 'Sân chơi trẻ em', 'Hồ thư giãn', 'Hồ bơi lưng núi', 'Ghế tắm nắng', 'Không gian tập gym', 'Phòng tập Yoga/Pilates', 'Phòng đọc sách']
+                aside.amenities-legend
+                  .amenities-legend-group.is-external
+                    h3 Tiện ích cảnh quan ngoại khu
                     ol
-                      each item, index in internalAmenities.slice(0, 20)
+                      each item, index in externalAmenities
                         li
                           span= ('0' + (index + 1)).slice(-2)
-                          p= item
-                    ol(start="21")
-                      each item, index in internalAmenities.slice(20)
-                        li
-                          span= index + 21
-                          p= item
+                          p!= item
+                  .amenities-legend-group.is-internal
+                    h3 Tiện ích bên trong dự án
+                    .amenities-columns
+                      ol
+                        each item, index in internalAmenities.slice(0, 20)
+                          li
+                            span= ('0' + (index + 1)).slice(-2)
+                            p= item
+                      ol(start="21")
+                        each item, index in internalAmenities.slice(20)
+                          li
+                            span= index + 21
+                            p= item
       section.panel.section-top-masterplan.masterplan#section-masterplan(aria-labelledby="masterplan-title")
         .group-central
           .inner
             .group-bg
               picture.masterplan-picture
+                source(media="(max-width: 768.98px)" srcset=imgPC+"masterplan-bg-mo.jpg")
                 img.object-common(src=imgPC + 'masterplan-bg.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể dự án LUVISTA" loading="eager")
-              img.masterplan-bottom(src=imgPC + 'masterplan-bottom.svg' width="1920" height="149" alt="")
+              .masterplan-map
+                img(src=imgPC+"masterplan-diagram.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
               h2.title-common-primary Mặt bằng dự án
               .masterplan-guide
                 span Hover và click vào tháp để xem thông tin

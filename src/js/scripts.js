@@ -826,7 +826,7 @@
         loop: true,
         speed: 700,
         slidesPerView: 1,
-        spaceBetween: 35,
+        spaceBetween: 10,
         watchSlidesProgress: true,
         navigation: {
           prevEl: container.querySelector(".project-gallery-arrow.is-prev"),

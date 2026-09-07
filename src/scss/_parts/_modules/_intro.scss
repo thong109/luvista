@@ -165,6 +165,7 @@
 */
 
 @media (prefers-reduced-motion: reduce) {
+
   .mask,
   .mask * {
     animation-duration: .01ms !important;
@@ -190,5 +191,26 @@
   100% {
     transform: translateX(50%);
     opacity: 0;
+  }
+}
+
+.ani-wawe {
+  animation: wave 4s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+@keyframes wave {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-10%);
+  }
+}
+
+@keyframes lineDown {
+  to {
+    stroke-dashoffset: 0;
   }
 }

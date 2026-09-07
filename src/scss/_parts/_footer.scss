@@ -30,23 +30,6 @@
     pointer-events: none;
   }
 
-  .section-footer-common-heading {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-
-    h2 {
-      margin: 0;
-      background: linear-gradient(110deg, #713621 0%, #bc7b53 25%, #f6d2bb 56%, #c0927c 82%, #66301b 100%);
-      background-clip: text;
-      color: transparent;
-      font-family: $font-default;
-      font-weight: 400;
-      line-height: 1;
-      text-transform: uppercase;
-    }
-  }
-
   .section-footer-common-intro {
     margin: 0;
     font-family: $font-sfpro;
@@ -91,18 +74,6 @@
 
   .section-footer-common-contact {
     width: 100%;
-
-    h2 {
-      margin: 0;
-      background: linear-gradient(110deg, #713621 0%, #bc7b53 25%, #f6d2bb 56%, #c0927c 82%, #66301b 100%);
-      background-clip: text;
-      color: transparent;
-      font-family: $font-default;
-      font-weight: 400;
-      line-height: 1;
-      text-align: center;
-      text-transform: uppercase;
-    }
   }
 
   .section-footer-common-contact-list {
@@ -176,6 +147,14 @@
     bottom: 0;
     right: 0;
     z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .35s ease, visibility .35s ease;
+
+    &.is-active {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 
   .section-footer-common-consultation {
@@ -189,18 +168,6 @@
 
     .section-footer-common-consultation {
       max-width: 15.8rem;
-    }
-
-    .section-footer-common-heading {
-      h2 {
-        font-size: .5rem;
-      }
-
-      img {
-        width: .3rem;
-        height: .3rem;
-        margin-top: -.08rem;
-      }
     }
 
     .section-footer-common-intro {
@@ -233,10 +200,6 @@
 
     .section-footer-common-contact {
       max-width: 15.54rem;
-
-      h2 {
-        font-size: .5rem;
-      }
     }
 
     .section-footer-common-contact-list {
@@ -296,14 +259,6 @@
       bottom: .56rem;
       width: .5rem;
       height: .5rem;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity .35s ease, visibility .35s ease;
-
-      &.is-active {
-        opacity: 1;
-        visibility: visible;
-      }
     }
   }
 
@@ -380,7 +335,6 @@
     }
 
     .section-footer-common-contact {
-      top: 4rem;
       width: calc(100% - .8rem);
     }
 
@@ -419,63 +373,47 @@
 
   @include mobile {
     height: auto;
-    min-height: 10rem;
 
-    .section-footer-common-consultation {
-      width: calc(100% - .5rem);
+    .group-bg {
+      padding: 0.4rem 0;
     }
 
-    .section-footer-common-heading {
-      h2 {
-        font-size: .32rem;
-      }
-
-      img {
-        width: .18rem;
-        height: .18rem;
-      }
-    }
+    .section-footer-common-consultation {}
 
     .section-footer-common-intro {
       margin-top: .2rem;
-      font-size: .13rem;
+      font-size: .15rem;
       line-height: 1.5;
     }
 
     .section-footer-common-form {
       grid-template-columns: 1fr;
       gap: .18rem;
-      margin-top: .25rem;
+      margin: .25rem 0 0.5rem;
 
       label {
-        font-size: .13rem;
+        font-size: .17rem;
       }
 
       input {
-        height: .28rem;
+        height: .4rem;
       }
 
       button {
+        margin-top: 0.3rem;
         justify-self: center;
         width: 1.4rem;
         height: .38rem;
-        font-size: .13rem;
+        font-size: .15rem;
       }
     }
 
-    .section-footer-common-contact {
-      top: 4rem;
-      width: calc(100% - .5rem);
-
-      h2 {
-        font-size: .32rem;
-      }
-    }
+    .section-footer-common-contact {}
 
     .section-footer-common-contact-list {
       grid-template-columns: repeat(2, 1fr);
       gap: .3rem .2rem;
-      margin-top: .3rem;
+      margin: .3rem 0 0.4rem;
     }
 
     .section-footer-common-contact-item {
@@ -487,7 +425,7 @@
 
       h3,
       p {
-        font-size: .12rem;
+        font-size: .15rem;
         line-height: 1.4;
       }
 
@@ -497,16 +435,14 @@
     }
 
     .section-footer-common-bottom {
-      right: .25rem;
-      bottom: 1.35rem;
-      left: .25rem;
+      margin-bottom: 0.3rem;
       display: flex;
       flex-direction: column;
       gap: .16rem;
 
       >p,
       .section-footer-common-policy {
-        font-size: .12rem;
+        font-size: .16rem;
         text-align: center;
       }
     }
@@ -516,22 +452,20 @@
       gap: .12rem;
 
       img {
-        width: .28rem;
-        height: .28rem;
+        width: .35rem;
+        height: .35rem;
       }
     }
 
     .section-footer-common-note {
-      right: .25rem;
-      bottom: .18rem;
-      left: .25rem;
-      font-size: .1rem;
+      font-size: .14rem;
       line-height: 1.35;
     }
 
     .section-footer-common-go-top {
-      right: .15rem;
-      bottom: .75rem;
+      position: fixed;
+      right: .1rem;
+      bottom: .2rem;
       width: .4rem;
       height: .4rem;
     }

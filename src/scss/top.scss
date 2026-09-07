@@ -178,6 +178,17 @@ body {
 .overview {
   text-align: center;
 
+  .group-bg {
+    &::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 38%;
+      background: linear-gradient(0deg, #133862, rgba(18, 53, 93, 0));
+      pointer-events: none;
+    }
+  }
+
   .overview-light {
     position: absolute;
     top: .38rem;
@@ -242,26 +253,10 @@ body {
     }
   }
 
-  .overview-picture {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
-    &::after {
-      content: "";
-      position: absolute;
-      inset: auto 0 0;
-      height: 38%;
-      background: linear-gradient(0deg, #133862, rgba(18, 53, 93, 0));
-      pointer-events: none;
-    }
-  }
-
   @include desktop {
     .group-bg {
       padding-top: .69rem;
+      background: url(../resources/images/top/overview.jpg) no-repeat center / cover;
     }
 
     .overview-location {
@@ -348,10 +343,11 @@ body {
   }
 
   @include mobile {
-    height: 100%;
+    height: 9.5rem;
 
     .group-bg {
       padding: .4rem .2rem 0;
+      background: url(../resources/images/top/overview-mo.jpg) no-repeat center / cover;
     }
 
     .overview-location {
@@ -373,6 +369,8 @@ body {
     }
 
     .overview-fact {
+      padding: 0.3rem 0 0;
+
       span {
         font-size: .15rem;
       }
@@ -554,7 +552,6 @@ body {
 
   @include mobile {
     height: auto;
-    min-height: 10rem;
 
     .group-bg {
       overflow-y: auto;
@@ -581,13 +578,15 @@ body {
       }
 
       li {
-        padding-left: .12rem;
-        font-size: .11rem;
+        padding: 0.02rem 0 0 .2rem;
+        font-size: .16rem;
       }
     }
 
     .location-time {
       height: .66rem;
+      padding-bottom: 0.2rem;
+      margin-bottom: 0.2rem;
 
       strong {
         font-size: .48rem;
@@ -616,6 +615,11 @@ body {
 .amenities {
   position: relative;
   color: #fff;
+
+  .amenities-wrapper {
+    width: 100%;
+    height: 100%;
+  }
 
   .amenities-frame {
     background: #143963;
@@ -652,9 +656,6 @@ body {
     inset: 0;
     width: 100%;
     height: 100%;
-  }
-
-  .amenities-map {
     object-fit: cover;
   }
 
@@ -861,11 +862,6 @@ body {
       margin-bottom: .4rem;
     }
 
-    .amenities-heading {
-      top: .7rem;
-      left: .35rem;
-    }
-
     .amenities-tower,
     .amenities-marker {
       display: none;
@@ -888,39 +884,23 @@ body {
   }
 
   @include mobile {
-
-    .amenities-map {
-      height: 4.8rem;
-      min-height: 0;
-    }
-
-    .amenities-heading {
-      top: .75rem;
-      left: .2rem;
-
-      h2 {
-        font-size: .34rem;
-      }
-
-      img {
-        width: .22rem;
-        height: .22rem;
-      }
-    }
-
-    .amenities-legend {
-      margin-top: -.25rem;
-      padding: 0 .2rem .4rem;
+    .amenities-wrapper {
+      padding: 0.4rem 0.2rem;
     }
 
     .amenities-legend-group {
       h3 {
-        font-size: .18rem;
+        font-size: .2rem;
+      }
+
+      p {
+        font-size: 0.14rem;
       }
 
       &.is-external ol,
       .amenities-columns {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.08rem;
       }
 
       li {
@@ -929,6 +909,14 @@ body {
 
       &.is-internal {
         margin-top: .3rem;
+      }
+    }
+
+    .amenities-frame {
+
+      &::before,
+      &::after {
+        display: none;
       }
     }
   }
@@ -944,12 +932,39 @@ body {
   }
 
   .masterplan-picture,
+  .masterplan-map,
   .masterplan-top,
   .masterplan-bottom {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
+  }
+
+  .masterplan-map {
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .tower {
+      fill: transparent;
+      stroke: #BC7B53;
+      stroke-width: 2;
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      transition: stroke-dashoffset 1.2s ease;
+
+      &:hover {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .line-down {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: lineDown 1.2s ease forwards;
+    }
   }
 
   .masterplan-picture {
@@ -1063,13 +1078,10 @@ body {
   }
 
   @include mobile {
-    height: 100svh;
-    min-height: 6.4rem;
+    height: 5.8rem;
 
-    .masterplan-picture {
-      img {
-        object-position: 52% center;
-      }
+    .group-bg {
+      padding: 0.4rem 0.2rem;
     }
 
     .masterplan-top {
@@ -1081,23 +1093,20 @@ body {
     }
 
     .masterplan-guide {
-      top: 1.55rem;
-      left: 50%;
-      width: 3.4rem;
+      width: 3.1rem;
       height: .5rem;
-      transform: translateX(-50%);
 
       span {
-        font-size: .11rem;
-        line-height: .38rem;
+        font-size: .14rem;
+        line-height: .5rem;
       }
+    }
 
-      .masterplan-guide-arrow {
-        top: .1rem;
-        right: .08rem;
-        width: .2rem;
-        height: .13rem;
-      }
+    .masterplan-guide-arrow {
+      top: .1rem;
+      right: .08rem;
+      width: .2rem;
+      height: .13rem;
     }
   }
 }
@@ -1276,8 +1285,11 @@ body {
   }
 
   @include mobile {
-    height: 100svh;
-    min-height: 6.4rem;
+    height: auto;
+
+    .group-bg {
+      padding: 0.4rem 0;
+    }
 
     .project-gallery-line {
       width: 70%;
@@ -1285,13 +1297,7 @@ body {
     }
 
     .project-gallery-slider {
-      top: 1.75rem;
       width: 100%;
-      padding: 0 .45rem;
-    }
-
-    .project-gallery-image {
-      height: 3.25rem;
     }
 
     .project-gallery-item {
@@ -1302,8 +1308,7 @@ body {
     }
 
     .project-gallery-arrow {
-      width: .38rem;
-      height: .26rem;
+      display: none;
     }
   }
 }
@@ -1487,8 +1492,11 @@ body {
   }
 
   @include mobile {
-    height: 100svh;
-    min-height: 6.4rem;
+    height: auto;
+
+    .group-bg {
+      padding: 0.4rem 0;
+    }
 
     .core-values-line {
       width: 70%;
@@ -1516,7 +1524,6 @@ body {
 
     .core-values-list {
       grid-template-columns: 1fr;
-      width: calc(100% - .6rem);
       gap: .13rem;
     }
 
@@ -1526,8 +1533,8 @@ body {
       align-items: start;
 
       p {
-        padding-top: .08rem;
-        font-size: .13rem;
+        padding-top: .06rem;
+        font-size: .15rem;
         line-height: 1.4;
       }
     }
@@ -1678,38 +1685,31 @@ body {
   }
 
   @include mobile {
-    height: 100svh;
-    min-height: 6.4rem;
+    height: auto;
 
-    .news-list {
-      width: calc(100% - .6rem);
+    .group-bg {
+      padding: 0.4rem 0;
     }
 
     .news-image {
-      height: 3.35rem;
-      margin-bottom: .12rem;
+      margin-bottom: .16rem;
     }
 
     .news-link {
       time {
         margin-bottom: .06rem;
-        font-size: .13rem;
+        font-size: .15rem;
       }
 
       p {
-        font-size: .13rem;
+        font-size: .18rem;
         line-height: 1.4;
       }
     }
 
     .news-pagination {
-      bottom: .32rem;
+      margin-top: 0.3rem;
       gap: .08rem;
-
-      .swiper-pagination-bullet {
-        width: .1rem;
-        height: .1rem;
-      }
     }
   }
 }
@@ -1930,33 +1930,36 @@ body {
     .developer-partner,
     .developer-award {
       top: 4.05rem;
-      width: 1.45rem;
+      width: 1.8rem;
 
       p {
         margin-bottom: .12rem;
         font-size: .11rem;
-        white-space: normal;
       }
     }
 
+    .developer-content {
+      padding: 0.6rem 0.2rem;
+    }
+
     .developer-partner {
-      left: calc(50% - 1.65rem);
+      left: 0.2rem;
 
       img {
         width: 1.45rem;
         height: auto;
+        margin: 0 auto;
       }
     }
 
     .developer-award {
-      left: calc(50% + .2rem);
+      right: 0.2rem;
+      left: unset;
     }
 
     .developer-award-logo {
       width: 1.45rem;
       height: .7rem;
-      transform: scale(.7);
-      transform-origin: top left;
     }
   }
 }
