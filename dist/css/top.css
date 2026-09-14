@@ -97,14 +97,14 @@ body {
 }
 @media (min-width: 768px) and (max-width: 1024.98px) {
   .keyvisual {
-    height: 9.8rem;
+    height: 12.4rem;
   }
   .keyvisual .keyvisual-media img {
-    -o-object-position: 58% center;
-       object-position: 58% center;
+    -o-object-position: center bottom;
+       object-position: center bottom;
   }
   .keyvisual .keyvisual-title {
-    top: 23%;
+    top: 18%;
     left: 7%;
     width: 58%;
   }
@@ -267,7 +267,7 @@ body {
 }
 @media (min-width: 768px) and (max-width: 1024.98px) {
   .overview {
-    height: 9.8rem;
+    height: 12.4rem;
   }
   .overview .group-bg {
     padding: 0.5rem 0.3rem 0;
@@ -458,9 +458,6 @@ body {
   margin-top: 0.41rem;
 }
 .location .location-panel {
-  display: grid;
-  grid-template-columns: 46% 54%;
-  align-items: center;
   min-height: 2.75rem;
   padding: 0.31rem 0.06rem;
   border: 1px solid #336aab;
@@ -544,6 +541,13 @@ body {
     animation: location-panel-enter 0.45s ease both;
   }
 }
+@media print, (min-width: 768px) {
+  .location .location-panel {
+    display: grid;
+    grid-template-columns: 46% 54%;
+    align-items: center;
+  }
+}
 @media (min-width: 1025px) and (max-width: 1439.98px) {
   .location .location-content {
     width: 38%;
@@ -595,6 +599,9 @@ body {
     margin-left: -45%;
     aspect-ratio: 1920/1081;
     flex-shrink: 0;
+  }
+  .location .title-common-primary {
+    margin: 0 auto 0.3rem;
   }
 }
 @media only screen and (max-width: 767.98px) {
@@ -854,11 +861,12 @@ body {
   width: 0.28rem;
   height: 0.28rem;
   place-items: center;
-  border: 1px solid currentColor;
+  border: 1px solid #fff;
   border-radius: 50%;
   font-size: 0.16rem;
   line-height: 1.625;
   font-weight: 500;
+  background-color: #163963;
 }
 .amenities .amenities-legend-group.is-external {
   margin-left: 0;
@@ -883,8 +891,8 @@ body {
 @media print, (min-width: 768px) {
   .amenities .amenities-legend {
     position: absolute;
-    top: 0.9rem;
-    bottom: 0.9rem;
+    top: 1.38rem;
+    bottom: 1.32rem;
     right: 0;
     width: 6rem;
     max-height: calc(100% - 0.98rem);
@@ -913,12 +921,16 @@ body {
   .amenities .title-common-primary {
     position: unset;
   }
+  .amenities .amenities-wrapper {
+    padding: 0.4rem 0.2rem 0.6rem;
+  }
   .amenities .amenities-map {
     position: relative;
     height: auto;
-    -o-object-position: center;
-       object-position: center;
-    margin-bottom: 0.4rem;
+    transform-origin: center left;
+    transform: scale(1.4);
+    overflow: hidden;
+    margin-bottom: 1.4rem;
   }
   .amenities .amenities-tower,
   .amenities .amenities-marker {
@@ -956,6 +968,13 @@ body {
   }
   .amenities .amenities-legend-group.is-internal {
     margin-top: 0.3rem;
+  }
+  .amenities .amenities-map {
+    height: 2.5rem;
+    transform: scale(1.5);
+    transform-origin: center left;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
   }
   .amenities .amenities-frame::before, .amenities .amenities-frame::after {
     display: none;
@@ -1115,10 +1134,10 @@ body {
 }
 @media (min-width: 768px) and (max-width: 1024.98px) {
   .masterplan {
-    height: 9.8rem;
+    height: 8.2rem;
   }
   .masterplan .title-common-primary {
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.2rem;
   }
 }
 @media only screen and (max-width: 767.98px) {
@@ -1706,11 +1725,9 @@ body {
   position: absolute;
   z-index: 2;
   inset: 0;
-}
-.developer .developer-logo-primary,
-.developer .developer-partner,
-.developer .developer-award {
-  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 .developer .developer-partner,
 .developer .developer-award {
@@ -1736,69 +1753,23 @@ body {
   position: absolute;
 }
 @media print, (min-width: 768px) {
-  .developer .title-common-primary {
-    position: relative;
-    top: 4.15rem;
-  }
   .developer .developer-arch {
-    top: 3.13rem;
     width: 13.7rem;
     height: 7.64rem;
   }
-  .developer .developer-logo-primary {
-    top: 5.29rem;
-    left: 50%;
-    width: 1.6rem;
-    height: 1.64rem;
-    transform: translateX(-50%);
-  }
-  .developer .developer-partner {
-    bottom: 1.9rem;
-    left: 6rem;
-  }
-  .developer .developer-partner p {
-    margin-bottom: 0.15rem;
-    font-size: 0.2rem;
-  }
-  .developer .developer-partner img {
-    width: 2.41rem;
-    height: 1.21rem;
-    -o-object-fit: contain;
-       object-fit: contain;
-  }
-  .developer .developer-award {
-    bottom: 2.1rem;
-    right: 6rem;
-  }
-  .developer .developer-award p {
-    margin-bottom: 0.27rem;
-    font-size: 0.2rem;
-  }
-  .developer .developer-award-logo {
-    width: 2.19rem;
-    height: 0.9rem;
-  }
-  .developer .developer-award-main {
+  .developer .developer-arch {
     bottom: 0;
-    left: 0;
+  }
+  .developer .developer-content {
+    padding-bottom: 1.85rem;
   }
 }
 @media (min-width: 768px) and (max-height: 599.98px) {
-  .developer .title-common-primary {
-    top: 3.55rem;
+  .developer .developer-content {
+    padding-bottom: 0.3rem;
   }
   .developer .developer-logo-primary {
-    top: 4.29rem;
     width: 1.5rem;
-    height: 1.2rem;
-  }
-  .developer .developer-partner {
-    bottom: 0.3rem;
-    left: 4.2rem;
-  }
-  .developer .developer-award {
-    bottom: 0.5rem;
-    right: 4.4rem;
   }
 }
 @media (min-width: 768px) and (max-width: 1024.98px) {
@@ -1808,34 +1779,14 @@ body {
   .developer .developer-arch {
     top: unset;
     bottom: 0;
-    width: 10rem;
+    width: 11rem;
     height: auto;
-  }
-  .developer .title-common-primary {
-    top: 4.95rem;
   }
   .developer .developer-logo-primary {
-    top: 5.85rem;
-    left: 50%;
-    width: 1.35rem;
-    height: auto;
-    transform: translateX(-50%);
+    width: 1.2rem;
   }
-  .developer .developer-partner,
-  .developer .developer-award {
-    top: 7.7rem;
-    width: 2.2rem;
-  }
-  .developer .developer-partner p,
-  .developer .developer-award p {
-    margin-bottom: 0.15rem;
-    font-size: 0.16rem;
-  }
-  .developer .developer-partner {
-    left: calc(50% - 2.7rem);
-  }
-  .developer .developer-award {
-    left: calc(50% + 0.5rem);
+  .developer .developer-content {
+    padding-bottom: 1rem;
   }
 }
 @media only screen and (max-width: 767.98px) {
@@ -1843,7 +1794,7 @@ body {
     min-height: 6.4rem;
   }
   .developer .developer-arch {
-    top: 1.3rem;
+    bottom: 4rem;
     width: 7.2rem;
     height: auto;
   }
@@ -1851,41 +1802,8 @@ body {
     width: 70%;
     height: auto;
   }
-  .developer .developer-logo-primary {
-    top: 2.65rem;
-    left: 50%;
-    width: 1.05rem;
-    height: auto;
-    transform: translateX(-50%);
-  }
-  .developer .developer-partner,
-  .developer .developer-award {
-    top: 4.05rem;
-    width: 1.8rem;
-  }
-  .developer .developer-partner p,
-  .developer .developer-award p {
-    margin-bottom: 0.12rem;
-    font-size: 0.11rem;
-  }
   .developer .developer-content {
     padding: 0.6rem 0.2rem;
-  }
-  .developer .developer-partner {
-    left: 0.2rem;
-  }
-  .developer .developer-partner img {
-    width: 1.45rem;
-    height: auto;
-    margin: 0 auto;
-  }
-  .developer .developer-award {
-    right: 0.2rem;
-    left: unset;
-  }
-  .developer .developer-award-logo {
-    width: 1.45rem;
-    height: 0.7rem;
   }
 }
 
@@ -1897,5 +1815,73 @@ body {
   50% {
     opacity: 1;
     transform: scale(1.12);
+  }
+}
+.list-top-developer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+.list-top-developer .developer-logo-primary {
+  width: 100%;
+}
+.list-top-developer .developer-partner {
+  width: 50%;
+}
+.list-top-developer .logo-primary {
+  margin: 0 auto;
+}
+.list-top-developer .logo-partner {
+  margin: 0 auto;
+}
+@media print, (min-width: 768px) {
+  .list-top-developer {
+    max-width: 9.6rem;
+    justify-content: space-between;
+  }
+  .list-top-developer .logo-primary {
+    width: 1.6rem;
+    margin-bottom: 0.27rem;
+  }
+  .list-top-developer .logo-partner {
+    width: 2.41rem;
+  }
+  .list-top-developer .developer-partner p {
+    margin-bottom: 0.27rem;
+    font-size: 0.2rem;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024.98px) {
+  .list-top-developer .developer-partner p {
+    margin-bottom: 0.15rem;
+    font-size: 0.16rem;
+  }
+  .list-top-developer .logo-primary {
+    width: 1.2rem;
+  }
+  .list-top-developer .logo-partner {
+    width: 2rem;
+  }
+}
+@media only screen and (max-width: 767.98px) {
+  .list-top-developer {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
+  }
+  .list-top-developer .logo-primary {
+    width: 1.2rem;
+    margin-bottom: 0.27rem;
+  }
+  .list-top-developer .logo-partner {
+    width: 1.45rem;
+  }
+  .list-top-developer .developer-partner {
+    width: 100%;
+  }
+  .list-top-developer .developer-partner p {
+    margin-bottom: 0.27rem;
+    font-size: 0.2rem;
   }
 }

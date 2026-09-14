@@ -17,9 +17,9 @@ block content
             .group-bg
               .keyvisual-media
                 picture
-                  source(media="(max-width: 768.98px)" srcset=imgPC+"hero-mo.jpg")
-                  img.object-common(src=imgPC+"hero.jpg" alt="Phối cảnh dự án LUVISTA Quy Nhơn" width="1920" height="1080" loading="eager")
-              .keyvisual-title
+                  source(media="(max-width: 1024px)" srcset=imgPC+"hero-mo.jpg")
+                  img.js-preload.object-common(src=imgPC+"hero.jpg" alt="Phối cảnh dự án LUVISTA Quy Nhơn" width="1920" height="1080" loading="eager")
+              .keyvisual-title.js-title.hero-title
                 img.keyvisual-star.is-one(src=imgPC + 'star-large.svg' alt="")
                 h1.hidden LUVISTA Quy Nhơn
                 img.image-common.keyvisual-slogan#keyvisual-title(src=imgPC + 'slogan.svg' alt="LUVISTA - Tuyệt tác sống bên vịnh biển" width="682" height="177")
@@ -34,11 +34,11 @@ block content
             .group-bg
               img.overview-light(src=imgPC + 'overview-light.png' alt="")
               .wrapper
-                h2.title-common-primary Tổng quan
-                .overview-location
+                h2.title-common-primary.js-title.hero-title Tổng quan
+                .overview-location.js-title.hero-sub
                   span Vị trí
                   strong Đường Chế Lan Viên, Phường Quy Nhơn, Tỉnh Gia Lai
-                .overview-facts
+                .overview-facts.js-title.hero-sub
                   - var facts = [{label: 'Quy mô', value: '8.3ha'}, {label: 'Số tòa tháp', value: '5 tòa'}, {label: 'Chiều cao', value: '21 tầng, 1 tầng hầm'}, {label: 'Cơ cấu sản phẩm', value: '1,596 căn hộ +<br> 34 shophouse'}, {label: 'Mật độ xây dựng', value: '50%'}, {label: 'Hình thức sở hữu', value: 'Sở hữu lâu dài'}]
                   each fact in facts
                     .overview-fact
@@ -56,9 +56,9 @@ block content
                 .location-glow
                   img(src=imgPC + 'location-glow.svg' alt="")
               .location-content
-                h2.title-common-primary.is-gold#location-title Vị trí dự án
+                h2.title-common-primary.is-gold#location-title.js-title.hero-title Vị trí dự án
                 - var locationGroups = [{time: '02', places: ['Điểm du lịch Ghềnh Ráng - Tiên Sa', 'Bến xe Quy Nhơn', 'Chợ Ghềnh Ráng', 'MM Mega Market', 'Kim Cúc Plaza', 'GO Quy Nhơn', 'Rạp chiếu phim CGV']}, {time: '05', places: ['Coop Mart', 'Quảng trường Nguyễn Tất Thành', 'Bãi biển Quy Nhơn', 'Trung tâm Khám phá KH Quy Nhơn', 'ICISE Quy Nhơn', 'Công viên sáng tạo TMA']}, {time: '07', places: ['Trung tâm bảo hiểm Quy Nhơn', 'Bệnh viện', 'Sân vận động']}, {time: '10', places: ['Ga Quy Nhơn', 'Trường THPT Lê Quý Đôn']}, {time: '20', places: ['Ga Diêu Trì', 'Trung tâm AI Bình Định']}, {time: '30', places: ['Sân bay Phù Cát', 'Kỳ Co - Điểm du lịch Eo Gió']}]
-                .location-navigation
+                .location-navigation.js-title.hero-sub
                   button.location-arrow.is-prev(type="button" aria-label="Nhóm thời gian trước")
                     img(src=imgPC + 'location-prev.svg' width="39" height="39" alt="")
                   .location-tabs(role="tablist" aria-label="Thời gian di chuyển")
@@ -68,7 +68,7 @@ block content
                         span Phút
                   button.location-arrow.is-next(type="button" aria-label="Nhóm thời gian tiếp theo")
                     img(src=imgPC + 'location-next.svg' width="39" height="39" alt="")
-                .location-panels
+                .location-panels.js-title.hero-sub
                   each group, index in locationGroups
                     .location-panel(role="tabpanel" id='location-panel-' + group.time aria-labelledby='location-tab-' + group.time hidden=index !== 0 tabindex="0")
                       p.location-time
@@ -82,13 +82,13 @@ block content
           .inner
             .group-bg.amenities-frame
               .amenities-map
-                img.amenities-map(src=imgPC + 'amenities-map.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể tiện ích dự án LUVISTA" loading="eager" decoding="async")
+                img.object-common(src=imgPC + 'amenities-map.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể tiện ích dự án LUVISTA" loading="eager" decoding="async")
                 img(src=imgPC+"location-diagram.svg" class="js-inline-svg" alt="Location Diagram")
               .amenities-wrapper
-                h2.title-common-primary.is-gold Tiện ích dự án
+                h2.title-common-primary.is-gold.js-title.hero-title Tiện ích dự án
                 - var externalAmenities = ['Công viên trung tâm', 'Phố thương mại', 'Nhà mẫu<br>Nhà sinh hoạt cộng đồng', 'Sân Pickleball', 'Công viên', 'Đường dạo bộ ven hồ', 'Hồ cảnh quan']
                 - var internalAmenities = ['Vườn nghệ thuật', 'Đường dạo bộ trên cao', 'Khu vườn Hoàng Hôn', 'Vườn Trị liệu và Thiền định', 'Sân tập Yoga và Thái cực quyền', 'Khu đọc sách ngoài trời', 'Bãi đỗ trực thăng', 'Vườn rau hữu cơ', 'Phòng tập Gym', 'Phòng sinh hoạt cộng đồng', 'Hồ bơi', 'Phòng thay đồ', 'Ghế tắm nắng', 'Hồ cảnh quan', 'Vườn xanh', 'Sân tập dưỡng sinh', 'Khu sinh hoạt cộng đồng (ngoài trời)', 'Khu vui chơi trẻ em', 'Công viên thú cưng', 'Khu BBQ ngoài trời', 'Lối vào quảng trường chính', 'BBQ gia đình', 'Sân khấu ngoài trời', 'Hồ bơi trung tâm', 'Sen tắm đứng ngoài trời', 'Bể Jacuzzi', 'Ghế tắm nắng', 'Hồ bơi lưng núi', 'Khu thay đồ', 'Sân chơi cát', 'Sân khấu trình diễn', 'Cigar Lounge', 'Quầy Bar', 'Sân chơi trẻ em', 'Hồ thư giãn', 'Hồ bơi lưng núi', 'Ghế tắm nắng', 'Không gian tập gym', 'Phòng tập Yoga/Pilates', 'Phòng đọc sách']
-                aside.amenities-legend
+                aside.amenities-legend.js-title.hero-sub
                   .amenities-legend-group.is-external
                     h3 Tiện ích cảnh quan ngoại khu
                     ol
@@ -114,12 +114,12 @@ block content
           .inner
             .group-bg
               picture.masterplan-picture
-                source(media="(max-width: 768.98px)" srcset=imgPC+"masterplan-bg-mo.jpg")
+                source(media="(max-width: 767.98px)" srcset=imgPC+"masterplan-bg-mo.jpg")
                 img.object-common(src=imgPC + 'masterplan-bg.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể dự án LUVISTA" loading="eager")
               .masterplan-map
                 img(src=imgPC+"masterplan-diagram.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
-              h2.title-common-primary Mặt bằng dự án
-              .masterplan-guide
+              h2.title-common-primary.js-title.hero-title Mặt bằng dự án
+              .masterplan-guide.js-title.hero-title
                 span Hover và click vào tháp để xem thông tin
       section.panel.section-top-project-gallery.project-gallery#section-project-gallery(aria-labelledby="project-gallery-title")
         .group-central
@@ -128,8 +128,8 @@ block content
               img.project-gallery-line.is-top(src=imgPC + 'gallery-line-01.png' width="713" height="161" alt="")
               img.project-gallery-line.is-bottom(src=imgPC + 'gallery-line-02.png' width="692" height="161" alt="")
               .wrapper
-                h2.title-common-primary.is-gold Hình ảnh dự án
-                .project-gallery-slider.js-project-gallery
+                h2.title-common-primary.is-gold.js-title.hero-title Hình ảnh dự án
+                .project-gallery-slider.js-project-gallery.js-title.hero-sub
                   .swiper
                     .swiper-wrapper
                       .swiper-slide
@@ -163,11 +163,11 @@ block content
               img.core-values-line.is-top(src=imgPC + 'values-line-01.png' width="880" height="161" alt="")
               img.core-values-line.is-bottom(src=imgPC + 'values-line-02.png' width="880" height="161" alt="")
               .wrapper
-                h2.core-values-heading
+                h2.core-values-heading.js-title.hero-title
                   span 05
                   p.title-common-primary.is-gold Giá trị Trụ Cột
                 - var coreValues = [{number: '01', text: 'Quỹ đất vàng <strong>cuối cùng</strong> của Phường nội đô Quy Nhơn Nam'}, {number: '02', text: 'Địa thế <strong>tựa sơn, hướng hải</strong> lưng tựa núi vững chãi, mặt hướng biển xanh đón trọn vượng khí.'}, {number: '03', text: 'Tiện ích cao cấp với Triết lý sống <strong>Urban Wellness</strong> cân bằng, viên mãn ngay giữa lòng đô thị'}, {number: '04', text: 'Pháp lý <strong>minh bạch – Sở hữu lâu dài – Sổ hồng</strong> từng căn'}, {number: '05', text: 'Chủ đầu tư có <strong>tiềm lực tài chính mạnh mẽ</strong>, cam kết về tiến độ và chất lượng vượt trội'}]
-                .core-values-list
+                .core-values-list.js-title.hero-sub
                   each item in coreValues
                     article.core-values-item
                       .core-values-number
@@ -179,8 +179,8 @@ block content
             .group-bg
               - var newsItems = [{image: 'news-01.png', alt: 'Không gian thương mại và căn hộ LUVISTA'}, {image: 'news-02.png', alt: 'Hồ bơi và cảnh quan LUVISTA'}, {image: 'news-03.png', alt: 'Quảng trường và tiện ích LUVISTA'},{image: 'news-01.png', alt: 'Không gian thương mại và căn hộ LUVISTA'}, {image: 'news-02.png', alt: 'Hồ bơi và cảnh quan LUVISTA'}, {image: 'news-03.png', alt: 'Quảng trường và tiện ích LUVISTA'}]
               .wrapper
-                h2.title-common-primary.is-gold Tin tức
-                .news-list.js-news-slider
+                h2.title-common-primary.is-gold.js-title.hero-title Tin tức
+                .news-list.js-news-slider.js-title.hero-sub
                   .swiper
                     .swiper-wrapper
                       each item in newsItems
@@ -202,15 +202,19 @@ block content
               img.developer-bottom(src=imgPC + 'developer-bottom.png' width="1920" height="198" alt="")
               img.developer-line(src=imgPC + 'developer-line.png' width="896" height="161" alt="")
               .developer-content
-                h2.title-common-primary.is-gold Chủ đầu tư
-                img.image-common.developer-logo-primary(src=imgPC + 'developer-tnt.png' width="160" height="164" alt="TNT Homes Quy Nhơn")
-                .developer-partner
-                  p Đơn vị phát triển
-                  img.image-common(src=imgPC + 'developer-conasi.png' width="241" height="121" alt="Conasi")
-                .developer-award
-                  p Giải thưởng - chứng nhận
-                  .developer-award-logo
-                    img.image-common.developer-award-main(src=imgPC + 'developer-award-logo.png' width="219" height="90" alt="Edge")
+                h2.title-common-primary.is-gold.js-title.hero-title Chủ đầu tư
+                .list-top-developer
+                  .developer-logo-primary.js-title.hero-title
+                    .logo-primary
+                      img.image-common(src=imgPC + 'developer-tnt.png' width="160" height="164" alt="TNT Homes Quy Nhơn")
+                  .developer-partner.js-title.hero-title
+                    p Đơn vị phát triển
+                    .logo-partner
+                      img.image-common(src=imgPC + 'developer-conasi.png' width="241" height="121" alt="Conasi")
+                  .developer-partner.js-title.hero-title
+                    p Giải thưởng - chứng nhận
+                    .logo-partner
+                      img.image-common(src=imgPC + 'developer-award-logo.png' width="219" height="90" alt="Edge")
       section.panel.section-footer-common#section-contact(aria-labelledby="footer-consultation-title")
         .group-central
           .inner

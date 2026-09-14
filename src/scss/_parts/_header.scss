@@ -52,11 +52,22 @@
   }
 
   span:first-child {
-    top: -0.02rem;
+    top: 0.02rem;
   }
 
   span {
     position: relative;
+  }
+
+  .button-icon {
+    display: block;
+    width: 0.17rem;
+    height: 0.17rem;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 
@@ -81,7 +92,7 @@
   position: relative;
   transform: translateX(-100%);
   transition: transform 0.35s ease;
-
+  height: 100%;
 
   &::before {
     position: absolute;

@@ -322,7 +322,7 @@ input[type=search] {
 @font-face {
   font-family: SVN-Gilroy;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   src: url("../resources/fonts/SVN-Gilroy-Bold.otf") format("opentype");
   font-display: swap;
 }
@@ -514,10 +514,19 @@ html.is-touchable .trans:hover {
   stroke: #edc8b1;
 }
 .header-common-navigation .button-close span:first-child {
-  top: -0.02rem;
+  top: 0.02rem;
 }
 .header-common-navigation .button-close span {
   position: relative;
+}
+.header-common-navigation .button-close .button-icon {
+  display: block;
+  width: 0.17rem;
+  height: 0.17rem;
+}
+.header-common-navigation .button-close .button-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .header-common-navigation .header-menu {
@@ -541,6 +550,7 @@ html.is-touchable .trans:hover {
   position: relative;
   transform: translateX(-100%);
   transition: transform 0.35s ease;
+  height: 100%;
 }
 .header-common-navigation .navigation-wrapper::before {
   position: absolute;

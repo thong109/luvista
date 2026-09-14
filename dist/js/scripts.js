@@ -968,7 +968,11 @@
     const elements = getPopupElements("contactPopup");
     if (!trigger || !elements) return;
 
-    const { popup, closeBtn, overlay } = elements;
+    const {
+      popup,
+      closeBtn,
+      overlay
+    } = elements;
 
     const openPopup = (event) => {
       event?.preventDefault();
@@ -1066,9 +1070,30 @@
     return isIOS && /Zalo/i.test(ua);
   };
 
+  const waitForCriticalImages = () => {
+    const images = [...document.querySelectorAll(".js-preload")];
+
+    return Promise.all(
+      images.map((img) => {
+        if (img.complete && img.naturalWidth > 0) {
+          return Promise.resolve();
+        }
+
+        return new Promise((resolve) => {
+          img.addEventListener("load", resolve, {
+            once: true
+          });
+          img.addEventListener("error", resolve, {
+            once: true
+          });
+        });
+      })
+    );
+  };
+
   // End helper
 
-  const initIntro = () => {
+  const initIntro = async () => {
     Done();
     const isTablet = () => window.innerWidth < 1024.98;
     const maskIntro = document.getElementById("mask");
@@ -1660,8 +1685,7 @@
   };
 
   const galleryImagesSlider = (scope = document) => {
-    const sliders = scope.matches?.('.js-gallery-images-slider') ?
-      [scope] : scope.querySelectorAll('.js-gallery-images-slider');
+    const sliders = scope.matches?.('.js-gallery-images-slider') ? [scope] : scope.querySelectorAll('.js-gallery-images-slider');
     if (!sliders.length) return;
 
     sliders.forEach((slider) => {
@@ -1847,9 +1871,9 @@
       if (!input || !fileName) return;
 
       input.addEventListener('change', () => {
-        const name = input.files?.[0]?.name || 'Chọn CV';
+        const name = input.files?. [0]?.name || 'Chọn CV';
         fileName.textContent = name;
-        fileName.title = input.files?.[0]?.name || '';
+        fileName.title = input.files?. [0]?.name || '';
       });
     });
   };
@@ -1891,7 +1915,9 @@
 
       if (!window.matchMedia('(min-width: 1025px)').matches) {
         section.classList.add('is-static');
-        gsap.set(track, { clearProps: 'transform' });
+        gsap.set(track, {
+          clearProps: 'transform'
+        });
         panels.forEach((panel) => {
           revealPanel(panel, {
             trigger: panel,
@@ -1902,7 +1928,9 @@
         return;
       }
 
-      gsap.set(track, { x: 0 });
+      gsap.set(track, {
+        x: 0
+      });
       const revealAnimations = Array.from(panels, (panel) => revealPanel(panel, null, true));
       const revealedPanels = new Set();
 
@@ -2391,64 +2419,64 @@
 
       promises.push(
         fetch(src)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(
-                `HTTP ${response.status}: ${src}`
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `HTTP ${response.status}: ${src}`
+            );
+          }
+
+          return response.text();
+        })
+        .then((svg) => {
+          const parser = new DOMParser();
+
+          const svgDoc = parser.parseFromString(
+            svg,
+            "image/svg+xml"
+          );
+
+          const svgElement = svgDoc.querySelector("svg");
+
+          if (!svgElement) {
+            throw new Error(
+              `Invalid SVG: ${src}`
+            );
+          }
+
+          // Import SVG vào document hiện tại
+          const importedSvg = document.importNode(
+            svgElement,
+            true
+          );
+
+          // Giữ lại class của img
+          importedSvg.classList.add(
+            ...img.classList
+          );
+
+          // Copy các attribute khác của img
+          [...img.attributes].forEach((attr) => {
+            if (
+              attr.name !== "src" &&
+              attr.name !== "class"
+            ) {
+              importedSvg.setAttribute(
+                attr.name,
+                attr.value
               );
             }
+          });
 
-            return response.text();
-          })
-          .then((svg) => {
-            const parser = new DOMParser();
-
-            const svgDoc = parser.parseFromString(
-              svg,
-              "image/svg+xml"
-            );
-
-            const svgElement = svgDoc.querySelector("svg");
-
-            if (!svgElement) {
-              throw new Error(
-                `Invalid SVG: ${src}`
-              );
-            }
-
-            // Import SVG vào document hiện tại
-            const importedSvg = document.importNode(
-              svgElement,
-              true
-            );
-
-            // Giữ lại class của img
-            importedSvg.classList.add(
-              ...img.classList
-            );
-
-            // Copy các attribute khác của img
-            [...img.attributes].forEach((attr) => {
-              if (
-                attr.name !== "src" &&
-                attr.name !== "class"
-              ) {
-                importedSvg.setAttribute(
-                  attr.name,
-                  attr.value
-                );
-              }
-            });
-
-            // Thay img bằng SVG inline
-            img.replaceWith(importedSvg);
-          })
-          .catch((error) => {
-            console.error(
-              "Cannot load SVG:",
-              error
-            );
-          })
+          // Thay img bằng SVG inline
+          img.replaceWith(importedSvg);
+        })
+        .catch((error) => {
+          console.error(
+            "Cannot load SVG:",
+            error
+          );
+        })
       );
     });
 
@@ -2489,7 +2517,9 @@
         if (s?.active) {
           window.__APP_STATE__?.goto?.(0, 1);
         } else {
-          $("html, body").stop(true).animate({ scrollTop: 0 }, 500);
+          $("html, body").stop(true).animate({
+            scrollTop: 0
+          }, 500);
         }
       });
       return;
@@ -2503,7 +2533,9 @@
     $(window).on("scroll", toggle);
     $btn.on("click", (event) => {
       event.preventDefault();
-      $("html, body").stop(true).animate({ scrollTop: 0 }, 500);
+      $("html, body").stop(true).animate({
+        scrollTop: 0
+      }, 500);
     });
   };
 
@@ -2548,12 +2580,19 @@
       else if (left + tab.offsetWidth > track.scrollLeft + track.clientWidth) {
         track.scrollLeft = left + tab.offsetWidth - track.clientWidth;
       }
-      if (focus) tab.focus({ preventScroll: true });
+      if (focus) tab.focus({
+        preventScroll: true
+      });
     };
     tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => select(index));
       tab.addEventListener('keydown', event => {
-        const next = { ArrowRight: active + 1, ArrowLeft: active - 1, Home: 0, End: tabs.length - 1 }[event.key];
+        const next = {
+          ArrowRight: active + 1,
+          ArrowLeft: active - 1,
+          Home: 0,
+          End: tabs.length - 1
+        } [event.key];
         if (next === undefined) return;
         event.preventDefault();
         event.stopPropagation();
@@ -2564,10 +2603,13 @@
     section.querySelector('.location-arrow.is-next')?.addEventListener('click', () => select(active + 1));
   };
 
+  waitForCriticalImages().then(() => {
+    initIntro();
+  });
+
   initLocationTabs();
   detectDevice();
   buttonTop();
-  initIntro();
   initContactPopup();
   triggerClick();
   fadeInAnimation();
