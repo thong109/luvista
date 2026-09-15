@@ -472,8 +472,14 @@
   }
 }
 
-.media-popup {
-  display: none;
+.section-gallery {
+  width: 100%;
+
+  @include height-zoom {
+    .wrapper {
+      max-width: 14rem;
+    }
+  }
 }
 
 // .media-popup {

@@ -786,34 +786,6 @@
     }
   };
 
-  const slideKeyvisual = () => {
-    const sliders = document.querySelectorAll('.js-slider-keyvisual');
-    if (!sliders.length) return;
-
-    updateParallax(sliders);
-
-    sliders.forEach((element) => {
-      const swiper = new Swiper(element, {
-        loop: true,
-        parallax: true,
-        speed: 2000,
-        autoplay: {
-          delay: 3000,
-          disableOnInteraction: false
-        },
-        pagination: {
-          el: element.querySelector('.swiper-pagination'),
-          clickable: true
-        },
-        grabCursor: true
-      });
-
-      kvSliders.push(swiper);
-    });
-
-    window.addEventListener('resize', () => updateParallax(sliders));
-  }
-
   const projectGallerySlider = () => {
     const containers = document.querySelectorAll(".js-project-gallery");
     if (!containers.length || typeof Swiper === "undefined") return;
@@ -842,19 +814,48 @@
     });
   };
 
+  const sliderKeyvisual = () => {
+    const sliders = document.querySelectorAll(".js-slider-keyvisual");
+    if (!sliders.length || typeof Swiper === "undefined") return;
+
+    updateParallax(sliders);
+
+    sliders.forEach((element) => {
+      if (element.swiper) return;
+      const swiper = new Swiper(element, {
+        loop: true,
+        parallax: true,
+        speed: 2000,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: element.querySelector(".swiper-pagination"),
+          clickable: true,
+        },
+        grabCursor: true,
+      });
+
+      kvSliders.push(swiper);
+    });
+
+    window.addEventListener("resize", () => updateParallax(sliders));
+  };
+
   let kvSliders = [];
   const updateParallax = (sliders) => {
-    const isPC = window.matchMedia('(min-width: 768px)').matches;
+    const isPC = window.matchMedia("(min-width: 768px)").matches;
     const parallaxValue = isPC ? 365 : 300;
 
     sliders.forEach((element) => {
-      const slideImages = element.querySelectorAll('.slider-image');
+      const slideImages = element.querySelectorAll(".slider-image");
       slideImages.forEach((img) => {
         img.dataset.swiperParallax = parallaxValue;
         img.dataset.swiperParallaxOpacity = 1;
       });
     });
-  }
+  };
 
   const newsSlider = () => {
     const containers = document.querySelectorAll(".js-news-slider");
@@ -2093,7 +2094,7 @@
     });
   };
 
-  const sliderGalleryDetail = (scope = document) => {
+  const sliderGalleryDetail = (scope = document, initialSlide = 0) => {
     const sliders = scope.querySelectorAll(".js-slider-gallery-detail");
     if (!sliders.length) return;
 
@@ -2110,6 +2111,7 @@
       };
 
       new Swiper(slider, {
+        initialSlide,
         loop: true,
         speed: 500,
         slidesPerView: 1,
@@ -2184,14 +2186,14 @@
       window.__APP_STATE__?.observer?.disable();
 
       setTimeout(() => {
-        popup.classList.add("active");
+        popup.classList.add("is-open");
       }, 300);
     };
 
     const close = (popup) => {
       if (!popup) return;
 
-      popup.classList.remove("active");
+      popup.classList.remove("is-open");
 
       // Xóa HTML động tương ứng
       if (popup === media?.popup) {
@@ -2218,7 +2220,7 @@
 
       // Nếu vẫn còn popup trước đó
       if (currentPopup) {
-        currentPopup.classList.add("active");
+        currentPopup.classList.add("is-open");
         return;
       }
 
@@ -2245,20 +2247,24 @@
     document.addEventListener("click", (e) => {
       if (!currentPopup) return;
 
+      // click nút close (bất kỳ element nào có class close bên trong popup)
       if (e.target.closest(".js-close-popup")) {
         close(currentPopup);
         return;
       }
 
+      // Không đóng khi tương tác bên trong nội dung popup (form, input, nút gửi...)
       if (e.target.closest(".popup-wrapper, .popup-box")) {
         return;
       }
 
+      // click backdrop: #popup-consult (container là .popup-overlay)
       if (e.target === currentPopup) {
         close(currentPopup);
         return;
       }
 
+      // click backdrop: media popup (lớp .popup-overlay con)
       const backdrop = currentPopup.querySelector(":scope > .popup-overlay");
       if (backdrop && e.target === backdrop) {
         close(currentPopup);
@@ -2289,7 +2295,7 @@
         const slideItems = images
           .map(
             (img) => `
-          <div class="swiper-slide" data-title="${img.alt}">
+          <div class="swiper-slide">
             <div class="slide-wrapper">
               <div class="slide-image">
                 <img class="object-common" src="${img.url}" alt="${img.alt}"
@@ -2319,9 +2325,7 @@
           </section>`;
 
         open(media.popup.id);
-        if (window.Swiper) {
-          setTimeout(() => sliderGalleryDetail(body), 350);
-        }
+        if (window.Swiper) sliderGalleryDetail(body);
         return;
       }
 
@@ -2331,29 +2335,23 @@
           title
         } = media;
         const url = video.dataset.url;
-        const poster = video.dataset.poster;
         open(media.popup.id);
 
-        const mediaContent = url ? (() => {
-          const finalUrl = url.includes("?") ?
-            url + "&autoplay=1&mute=1" :
-            url + "?autoplay=1&mute=1";
-
-          return `<iframe class="object-common"
-            src="${finalUrl}"
-            allow="autoplay; encrypted-media"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen>
-          </iframe>`;
-        })() : `<img class="object-common" src="${poster || ''}"
-          alt="${video.dataset.title || ''}" loading="eager" />`;
+        const finalUrl = url.includes("?") ?
+          url + "&autoplay=1&mute=1" :
+          url + "?autoplay=1&mute=1";
 
         body.innerHTML = `
             <section class="section-gallery">
               <div class="wrapper">
                 <div class="list-top-gallery-detail">
                   <div class="slide-video yt-iframe-wrap">
-                    ${mediaContent}
+                    <iframe class="object-common"
+                      src="${finalUrl}"
+                      allow="autoplay; encrypted-media"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allowfullscreen>
+                    </iframe>
                   </div>
                 </div>
                 <div class="swiper-controller">
@@ -2616,7 +2614,7 @@
   scrollPage();
   initPanelZoomAnimation();
   initMobileNavLinks();
-  slideKeyvisual();
+  sliderKeyvisual();
   projectGallerySlider();
   newsSlider();
   window.addEventListener("scroll", handleDarkBg, {

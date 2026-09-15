@@ -15,17 +15,24 @@ block content
         .group-central
           .inner
             .group-bg
-              .keyvisual-media
-                picture
-                  source(media="(max-width: 1024px)" srcset=imgPC+"hero-mo.jpg")
-                  img.js-preload.object-common(src=imgPC+"hero.jpg" alt="Phối cảnh dự án LUVISTA Quy Nhơn" width="1920" height="1080" loading="eager")
+              .keyvisual-media.swiper.js-slider-keyvisual
+                .swiper-wrapper
+                  .swiper-slide
+                    picture.slider-image
+                      source(media="(max-width: 1024px)" srcset=imgPC+"hero-mo.jpg")
+                      img.js-preload.object-common(src=imgPC+"hero.jpg" alt="Phối cảnh dự án LUVISTA Quy Nhơn" width="1920" height="1080" loading="eager")
+                  .swiper-slide
+                    picture.slider-image
+                      source(media="(max-width: 1024px)" srcset=imgPC+"hero-mo.jpg")
+                      img.js-preload.object-common(src=imgPC+"hero.jpg" alt="Phối cảnh dự án LUVISTA Quy Nhơn" width="1920" height="1080" loading="eager")
               .keyvisual-title.js-title.hero-title
                 img.keyvisual-star.is-one(src=imgPC + 'star-large.svg' alt="")
                 h1.hidden LUVISTA Quy Nhơn
                 img.image-common.keyvisual-slogan#keyvisual-title(src=imgPC + 'slogan.svg' alt="LUVISTA - Tuyệt tác sống bên vịnh biển" width="682" height="177")
-                span.keyvisual-scroll(href="#section-overview" aria-label="Xem tổng quan dự án")
-                  svg.object-common(width="32" height="63" viewBox="0 0 32 63" fill="none")
-                    path(d="M31.3535 46.5L15.8535 62L0.353515 46.5M15.8535 62L15.8535 -6.77527e-07" stroke="white")
+              span.keyvisual-scroll(href="#section-overview" aria-label="Xem tổng quan dự án")
+                svg.object-common(width="32" height="63" viewBox="-10 -10 52 82" fill="none")
+                  path(d="M31.3535 46.5L15.8535 62L0.353515 46.5M15.8535 62L15.8535 -6.77527e-07" stroke="#163963")
+                span Cuộn xuống
               img.keyvisual-star.is-two(src=imgPC + 'star-large.svg' alt="")
               img.keyvisual-star.is-three(src=imgPC + 'star-large.svg' alt="")
       section.panel.section-top-overview.overview#section-overview(aria-labelledby="overview-title")
@@ -39,20 +46,20 @@ block content
                   span Vị trí
                   strong Đường Chế Lan Viên, Phường Quy Nhơn, Tỉnh Gia Lai
                 .overview-facts.js-title.hero-sub
-                  - var facts = [{label: 'Quy mô', value: '8.3ha'}, {label: 'Số tòa tháp', value: '5 tòa'}, {label: 'Chiều cao', value: '21 tầng, 1 tầng hầm'}, {label: 'Cơ cấu sản phẩm', value: '1,596 căn hộ +<br> 34 shophouse'}, {label: 'Mật độ xây dựng', value: '50%'}, {label: 'Hình thức sở hữu', value: 'Sở hữu lâu dài'}]
+                  - var facts = [{label: 'Quy mô', value: '8.3<span class="unit">ha</span>'}, {label: 'Số tòa tháp', value: '5 <span class="unit">toà</span>'}, {label: 'tầng và 1 tầng hầm', value: '23'}, {label: 'Sản phẩm', value: '1,630'}, {label: 'Mật độ xây dựng', value: '50%'}, {label: 'Hình thức sở hữu', value: 'Dài lâu',small: true},{label: 'Bàn giao giai đoạn 1', value: 'Quý III/2028', small: true}]
                   each fact in facts
                     .overview-fact
+                      strong(class=fact.small ? 'is-small' : '')!= fact.value
                       span= fact.label
-                      strong!= fact.value
       section.panel.section-top-location.location#section-location(aria-labelledby="location-title")
         .group-central
           .inner
             .group-bg
               .location-map(role="img" aria-label="Bản đồ vị trí LUVISTA và các tiện ích kết nối tại Quy Nhơn")
                 img.location-background(src=imgPC + 'location-background.jpg' width="1920" height="1080" alt="")
+                img(src=imgPC+"location-diagram-02.svg" class="js-inline-svg location-line" alt="Map")
                 img.location-overlay.location-icons(src=imgPC + 'location-icons.svg' width="1920" height="1080" alt="")
                 img.location-logo(src=imgPC + 'location-logo.svg' width="295" height="192" alt="")
-                img(src=imgPC+"location-diagram-02.svg" class="js-inline-svg location-line" alt="Map")
                 .location-glow
                   img(src=imgPC + 'location-glow.svg' alt="")
               .location-content
@@ -129,29 +136,16 @@ block content
               img.project-gallery-line.is-bottom(src=imgPC + 'gallery-line-02.png' width="692" height="161" alt="")
               .wrapper
                 h2.title-common-primary.is-gold.js-title.hero-title Hình ảnh dự án
+                - var projectGallery = [{url: imgPC + 'gallery-project-01.jpg', alt: 'Lối vào quảng trường chính', w: 1920, h: 1080}, {url: imgPC + 'gallery-project-02.jpg', alt: 'Hồ bơi lưng núi', w: 1920, h: 1080}]
                 .project-gallery-slider.js-project-gallery.js-title.hero-sub
                   .swiper
                     .swiper-wrapper
-                      .swiper-slide
-                        figure.project-gallery-item
-                          .project-gallery-image
-                            img.object-common(src=imgPC + 'gallery-project-01.jpg' width="1920" height="1080" alt="Hồ bơi lưng núi" loading="eager")
-                          figcaption Lối vào quảng trường chính
-                      .swiper-slide
-                        figure.project-gallery-item
-                          .project-gallery-image
-                            img.object-common(src=imgPC + 'gallery-project-02.jpg' width="1920" height="1080" alt="Lối vào quảng trường chính" loading="eager")
-                          figcaption Hồ bơi lưng núi
-                      .swiper-slide
-                        figure.project-gallery-item
-                          .project-gallery-image
-                            img.object-common(src=imgPC + 'gallery-project-01.jpg' width="1920" height="1080" alt="Hồ bơi lưng núi" loading="eager")
-                          figcaption Lối vào quảng trường chính
-                      .swiper-slide
-                        figure.project-gallery-item
-                          .project-gallery-image
-                            img.object-common(src=imgPC + 'gallery-project-02.jpg' width="1920" height="1080" alt="Lối vào quảng trường chính" loading="eager")
-                          figcaption Hồ bơi lưng núi
+                      each image, index in projectGallery.concat(projectGallery)
+                        .swiper-slide
+                          figure.project-gallery-item
+                            button.project-gallery-image.js-slide-image(type="button" data-gallery=JSON.stringify(projectGallery) data-index=index % projectGallery.length data-title=image.alt aria-label='Xem ảnh: ' + image.alt)
+                              img.object-common(src=image.url width=image.w height=image.h alt=image.alt loading="eager")
+                            figcaption= image.alt
                   button.project-gallery-arrow.is-prev(type="button" aria-label="Ảnh trước")
                     img(src=imgPC + 'gallery-arrow-prev.svg' width="51" height="34" alt="")
                   button.project-gallery-arrow.is-next(type="button" aria-label="Ảnh tiếp theo")
@@ -190,7 +184,8 @@ block content
                               .news-image
                                 img.object-common(src=imgPC + item.image width="487" height="556" alt=item.alt loading="eager")
                               time(datetime="2025-12-29") 29/12/2025
-                              p Tận hưởng cuộc sống ngay lập tức và “đón lõng” những sóng phát triển dồn dập ngày mai, dự án là điểm đến cân bằng hoàn hảo mọi yếu tố để chủ nhân tận hưởng hiện tại và mở ra tương lai rực rỡ.
+                              p.news-title Tận hưởng cuộc sống ngay lập tức và “đón lõng” những sóng phát triển dồn dập ngày mai
+                              p.news-desc dự án là điểm đến cân bằng hoàn hảo mọi yếu tố để chủ nhân tận hưởng hiện tại và mở ra tương lai rực rỡ.
                   .news-pagination.swiper-pagination(aria-label="Trang tin tức")
       section.panel.section-top-developer.developer#section-developer(aria-labelledby="developer-title")
         .group-central
@@ -234,7 +229,7 @@ block content
                     button(type="submit") Liên hệ ngay
                 .section-footer-common-contact
                   h2.title-common-primary.is-gold.no-icon Thông tin liên hệ
-                  - var footerContacts = [{icon: 'footer-location.svg', title: 'Sales Office', detail: 'Tòa nhà Repubulic Plaza Cộng Hòa, 18E Cộng Hòa, Phường Tân Sơn Nhất, TP.HCM'}, {icon: 'footer-location.svg', title: 'Sales Gallery', detail: 'Đường Chế Lan Viên, Phường Quy Nhơn, Tỉnh Gia Lai'}, {icon: 'footer-phone.svg', title: 'Hotline', detail: '0888 790 288'}, {icon: 'footer-email.svg', title: 'Email', detail: 'info@luvista.com.vn'}]
+                  - var footerContacts = [{icon: 'footer-location.svg', title: 'Sales Office', detail: 'Tòa nhà Repubulic Plaza Cộng Hòa, 18E Cộng Hòa, Phường Tân Sơn Nhất, TP.HCM'}, {icon: 'footer-location.svg', title: 'Sales Gallery', detail: 'Đường Chế Lan Viên, Phường Quy Nhơn Nam, Tỉnh Gia Lai'}, {icon: 'footer-phone.svg', title: 'Hotline', detail: '0888 790 288'}, {icon: 'footer-email.svg', title: 'Email', detail: 'info@luvista.vn'}]
                   .section-footer-common-contact-list
                     each item in footerContacts
                       .section-footer-common-contact-item
@@ -242,7 +237,7 @@ block content
                         h3= item.title
                         p= item.detail
                   .section-footer-common-bottom
-                    p © 2026 Luvista. All Rights Reserved.
+                    p © 2026 Luvista · Website by <a href="https://leaddigital.vn/" target="_blank" class="trans">Lead Digital</a>
                     .section-footer-common-social
                       a(href="#" aria-label="Facebook")
                         img.object-common(src=imgPC + 'footer-facebook.svg' width="34" height="34" alt="")
