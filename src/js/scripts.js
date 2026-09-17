@@ -2537,6 +2537,258 @@
     });
   };
 
+  const initUtilitiesPairs = () => {
+    const amenities = document.getElementById("section-amenities");
+    const pinLayer = amenities?.querySelector("svg.amenities-overlay");
+    if (pinLayer) {
+      const frame = amenities.querySelector(".amenities-frame");
+      const pins = [...pinLayer.querySelectorAll("[data-pair]")];
+      const mapToggle = document.createElement("div");
+      mapToggle.className = "utilities-map-toggle amenities-map-toggle";
+      mapToggle.innerHTML = `
+        <figure class="toggle-image" style="display:none">
+          <img class="toggle-img object-common" alt="" loading="lazy">
+        </figure>
+        <span class="toggle-text"></span>
+      `;
+      frame.appendChild(mapToggle);
+      const demoImage = amenities.querySelector(".amenities-map > img.object-common")?.src;
+      let activePin = null;
+
+      const hidePinToggle = () => {
+        activePin?.classList.remove("is-active");
+        activePin = null;
+        mapToggle.classList.remove("is-active");
+      };
+
+      const showToggleAt = (label, target, pin = null) => {
+        if (!label || !target) return;
+        activePin?.classList.remove("is-active");
+        activePin = pin;
+        pin?.classList.add("is-active");
+        const showDemoImage = pin?.dataset.pair === "internal-30" && Boolean(demoImage);
+        const toggleFigure = mapToggle.querySelector(".toggle-image");
+        toggleFigure.style.display = showDemoImage ? "" : "none";
+        mapToggle.classList.toggle("has-image", showDemoImage);
+        if (showDemoImage) {
+          const toggleImage = toggleFigure.querySelector("img");
+          toggleImage.src = demoImage;
+          toggleImage.alt = "Bản đồ minh họa vị trí tiện ích số 30";
+        }
+        mapToggle.querySelector(".toggle-text").textContent = [...label.childNodes]
+          .map((node) => node.textContent.trim())
+          .filter(Boolean)
+          .join(" ");
+        const targetRect = target.getBoundingClientRect();
+        const frameRect = frame.getBoundingClientRect();
+        const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        mapToggle.style.left = `${(targetRect.left - frameRect.left + targetRect.width / 2) / rem}rem`;
+        mapToggle.style.top = `${(targetRect.top - frameRect.top + targetRect.height / 2) / rem}rem`;
+        mapToggle.classList.add("is-active");
+      };
+
+      const showPinToggle = (pin) => {
+        const [type, value] = pin.dataset.pair.split("-");
+        const number = Number(value);
+        const items = amenities.querySelectorAll(`.amenities-legend-group.is-${type} .amenities-columns li`);
+        showToggleAt(items[number - 1]?.querySelector("p"), pin, pin);
+      };
+
+      pins.forEach((pin) => {
+        pin.addEventListener("mouseenter", () => showPinToggle(pin));
+        pin.addEventListener("mouseleave", hidePinToggle);
+      });
+
+      amenities.querySelectorAll(".amenities-legend-group .amenities-columns li").forEach((item) => {
+        const type = item.closest(".amenities-legend-group").classList.contains("is-external")
+          ? "external" : "internal";
+        const number = item.querySelector("span")?.textContent.trim();
+        const pin = [...pins].find((candidate) =>
+          candidate.dataset.pair === `${type}-${number}`
+        );
+        item.addEventListener("mouseenter", () => {
+          if (pin) showPinToggle(pin);
+          else showToggleAt(item.querySelector("p"), item.querySelector("span"));
+        });
+        item.addEventListener("mouseleave", hidePinToggle);
+      });
+    }
+
+    const popup = document.getElementById("utilitiesDiagram");
+    if (!popup) return;
+    // data-pair nằm trên .item-wrapper, không phải .list-item
+    const pairItems = popup.querySelectorAll(".item-wrapper[data-pair]");
+    if (!pairItems.length) return;
+
+    const toggle = document.createElement("div");
+    toggle.className = "utilities-map-toggle";
+    toggle.innerHTML = `
+    <figure class="toggle-image">
+      <img class="toggle-img object-common" src="" alt="" loading="lazy">
+    </figure>
+    <span class="toggle-text"></span>
+  `;
+
+    const getActivePanel = () =>
+      popup.querySelector(".tab-panel.active");
+
+    const getSvgContainer = (panel) => {
+      if (!panel) return null;
+      // SVG inline nằm trong inner-tab-panel.active
+      return (
+        panel.querySelector(".inner-tab-panel.active svg") ||
+        panel.querySelector("svg")
+      );
+    };
+
+    const getPairContent = (pair, source) => {
+      const panel =
+        source?.closest(".tab-panel") ||
+        getActivePanel();
+      const item =
+        source?.closest(".item-wrapper[data-pair]") ||
+        panel?.querySelector(
+          `.item-wrapper[data-pair="${pair}"]`,
+        ) ||
+        popup.querySelector(`.item-wrapper[data-pair="${pair}"]`);
+      return {
+        image: item?.dataset.image || source?.dataset.image || "",
+        text: item?.querySelector(".text")?.textContent?.trim() || "",
+      };
+    };
+
+    const positionToggle = (source, pair) => {
+      const panel =
+        source?.closest(".tab-panel") ||
+        getActivePanel();
+      if (!panel) return;
+
+      // Tìm .premises-bg bên trong .inner-tab-panel.active
+      const activeInnerPanel = panel.querySelector(".inner-tab-panel.active");
+      const premisesBg = activeInnerPanel?.querySelector(".premises-bg") || panel.querySelector(".premises-bg");
+      if (!premisesBg) return;
+
+      const svgContainer = getSvgContainer(panel);
+      if (!svgContainer) return;
+
+      const svgEl = svgContainer.nodeType === 1 ? svgContainer : svgContainer.querySelector("svg");
+      if (!svgEl) return;
+
+      const target = svgEl.querySelector(`[data-pair="${pair}"]`);
+      if (!target || !premisesBg) return;
+      if (toggle.parentNode !== premisesBg) premisesBg.appendChild(toggle);
+
+      const premisesRect = premisesBg.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      toggle.style.left = `${targetRect.left - premisesRect.left + targetRect.width / 2}px`;
+      toggle.style.top = `${targetRect.top - premisesRect.top + targetRect.height / 2 - 10}px`;
+    };
+
+    const setSvgPairActive = (pair) => {
+      const panel = getActivePanel();
+      if (!panel) return;
+      const svgContainer = getSvgContainer(panel);
+      if (!svgContainer) return;
+      const svgEl = svgContainer.nodeType === 1 ? svgContainer : svgContainer.querySelector("svg");
+      if (!svgEl) return;
+
+      svgEl.querySelectorAll("[data-pair]").forEach((g) => {
+        g.classList.toggle("is-active", g.getAttribute("data-pair") === pair);
+      });
+    };
+
+    const setActivePair = (pair, source) => {
+      pairItems.forEach((item) => {
+        item.classList.toggle("is-active", item.dataset.pair === pair);
+      });
+      setSvgPairActive(pair);
+
+      if (pair) {
+        toggle.classList.add("is-active");
+        const content = getPairContent(pair, source);
+        const toggleFigure = toggle.querySelector(".toggle-image");
+        const toggleImage = toggle.querySelector(".toggle-img");
+        const toggleText = toggle.querySelector(".toggle-text");
+
+        if (content.image) {
+          toggleFigure.style.display = "";
+          toggleImage.src = content.image;
+          toggleImage.alt = content.text;
+        } else {
+          toggleFigure.style.display = "none";
+          toggleImage.src = "";
+        }
+
+        if (toggleText) toggleText.textContent = content.text;
+        positionToggle(source, pair);
+      } else {
+        toggle.classList.remove("is-active");
+      }
+    };
+
+    // Đảm bảo toggle nằm trong đúng inner-tab-panel khi chuyển tab
+    const ensureToggleInActivePanel = () => {
+      const activePanel = getActivePanel();
+      if (!activePanel) return;
+      // Tìm .premises-bg bên trong .inner-tab-panel.active
+      const activeInnerPanel = activePanel.querySelector(".inner-tab-panel.active");
+      if (!activeInnerPanel) return;
+      const premisesBg = activeInnerPanel.querySelector(".premises-bg");
+      if (!premisesBg) return;
+      if (toggle.parentNode !== premisesBg) {
+        premisesBg.appendChild(toggle);
+      }
+    };
+
+    pairItems.forEach((item) => {
+      item.addEventListener("mouseenter", () =>
+        setActivePair(item.dataset.pair, item),
+      );
+      item.addEventListener("mouseleave", () => setActivePair(""));
+    });
+
+    const addSvgHoverListeners = () => {
+      const activePanel = getActivePanel();
+      if (!activePanel) return;
+      const svgContainer = getSvgContainer(activePanel);
+      if (!svgContainer) return;
+      const svgEl = svgContainer.nodeType === 1 ? svgContainer : svgContainer.querySelector("svg");
+      if (!svgEl) return;
+
+      svgEl.querySelectorAll("[data-pair]").forEach((g) => {
+        g.style.cursor = "pointer";
+        g.addEventListener("mouseenter", () =>
+          setActivePair(g.getAttribute("data-pair"), g),
+        );
+        g.addEventListener("mouseleave", () => setActivePair(""));
+      });
+    };
+
+    ensureToggleInActivePanel();
+
+    addSvgHoverListeners();
+
+    popup.querySelectorAll(".tab-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        setActivePair("");
+        setTimeout(() => {
+          addSvgHoverListeners();
+          ensureToggleInActivePanel();
+        }, 350);
+      });
+    });
+
+    popup.querySelectorAll(".inner-tab-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        setActivePair("");
+        setTimeout(() => {
+          addSvgHoverListeners();
+          ensureToggleInActivePanel();
+        }, 350);
+      });
+    });
+  };
+
   window.WebFontConfig = {
     custom: {
       families: [
@@ -2601,11 +2853,34 @@
     section.querySelector('.location-arrow.is-next')?.addEventListener('click', () => select(active + 1));
   };
 
+  const initAmenitiesDrawers = () => {
+    const groups = [...document.querySelectorAll('.amenities-legend-group')];
+    groups.forEach(group => {
+      const button = group.querySelector('.amenities-toggle');
+      const close = group.querySelector('.amenities-close');
+      button?.addEventListener('click', () => {
+        const willOpen = !group.classList.contains('is-open');
+        groups.forEach(item => {
+          item.classList.remove('is-open');
+          item.querySelector('.amenities-toggle')?.setAttribute('aria-expanded', 'false');
+        });
+        group.classList.toggle('is-open', willOpen);
+        button.setAttribute('aria-expanded', String(willOpen));
+      });
+      close?.addEventListener('click', () => {
+        group.classList.remove('is-open');
+        button?.setAttribute('aria-expanded', 'false');
+        button?.focus();
+      });
+    });
+  };
+
   waitForCriticalImages().then(() => {
     initIntro();
   });
 
   initLocationTabs();
+  initAmenitiesDrawers();
   detectDevice();
   buttonTop();
   initContactPopup();
@@ -2640,5 +2915,5 @@
     hasTitle: false,
   });
   initPopup();
-  inlineSvg();
+  inlineSvg().then(initUtilitiesPairs);
 })();

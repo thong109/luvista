@@ -90,31 +90,51 @@ block content
             .group-bg.amenities-frame
               .amenities-map
                 img.object-common(src=imgPC + 'amenities-map.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể tiện ích dự án LUVISTA" loading="eager" decoding="async")
-                img(src=imgPC+"location-diagram.svg" class="js-inline-svg" alt="Location Diagram")
+                img.amenities-overlay.js-inline-svg(src=imgPC + 'amenities-overlay.svg' width="1920" height="1080" alt="Các vị trí và tên tháp tiện ích")
               .amenities-wrapper
                 h2.title-common-primary.is-gold.js-title.hero-title Tiện ích dự án
                 - var externalAmenities = ['Công viên trung tâm', 'Phố thương mại', 'Nhà mẫu<br>Nhà sinh hoạt cộng đồng', 'Sân Pickleball', 'Công viên', 'Đường dạo bộ ven hồ', 'Hồ cảnh quan']
                 - var internalAmenities = ['Vườn nghệ thuật', 'Đường dạo bộ trên cao', 'Khu vườn Hoàng Hôn', 'Vườn Trị liệu và Thiền định', 'Sân tập Yoga và Thái cực quyền', 'Khu đọc sách ngoài trời', 'Bãi đỗ trực thăng', 'Vườn rau hữu cơ', 'Phòng tập Gym', 'Phòng sinh hoạt cộng đồng', 'Hồ bơi', 'Phòng thay đồ', 'Ghế tắm nắng', 'Hồ cảnh quan', 'Vườn xanh', 'Sân tập dưỡng sinh', 'Khu sinh hoạt cộng đồng (ngoài trời)', 'Khu vui chơi trẻ em', 'Công viên thú cưng', 'Khu BBQ ngoài trời', 'Lối vào quảng trường chính', 'BBQ gia đình', 'Sân khấu ngoài trời', 'Hồ bơi trung tâm', 'Sen tắm đứng ngoài trời', 'Bể Jacuzzi', 'Ghế tắm nắng', 'Hồ bơi lưng núi', 'Khu thay đồ', 'Sân chơi cát', 'Sân khấu trình diễn', 'Cigar Lounge', 'Quầy Bar', 'Sân chơi trẻ em', 'Hồ thư giãn', 'Hồ bơi lưng núi', 'Ghế tắm nắng', 'Không gian tập gym', 'Phòng tập Yoga/Pilates', 'Phòng đọc sách']
                 aside.amenities-legend.js-title.hero-sub
                   .amenities-legend-group.is-external
-                    h3 Tiện ích cảnh quan ngoại khu
-                    ol
-                      each item, index in externalAmenities
-                        li
-                          span= ('0' + (index + 1)).slice(-2)
-                          p!= item
-                  .amenities-legend-group.is-internal
-                    h3 Tiện ích bên trong dự án
-                    .amenities-columns
+                    button.amenities-toggle(type="button" aria-expanded="false" aria-controls="external-amenities") Tiện ích cảnh quan ngoại khu
+                      img(src=imgPC + 'amenities-chevron.svg' width="19" height="19" alt="")
+                    button.amenities-close(type="button" aria-label="Đóng tiện ích cảnh quan ngoại khu") ×
+                    .amenities-columns.is-external-columns#external-amenities
                       ol
-                        each item, index in internalAmenities.slice(0, 20)
+                        each item, index in externalAmenities.slice(0, 3)
+                          li
+                            span= ('0' + (index + 1)).slice(-2)
+                            p!= item
+                      ol(start="4")
+                        each item, index in externalAmenities.slice(3)
+                          li
+                            span= ('0' + (index + 4)).slice(-2)
+                            p!= item
+                  .amenities-legend-group.is-internal
+                    button.amenities-toggle(type="button" aria-expanded="false" aria-controls="internal-amenities") Tiện ích bên trong dự án
+                      img(src=imgPC + 'amenities-chevron.svg' width="19" height="19" alt="")
+                    button.amenities-close(type="button" aria-label="Đóng tiện ích bên trong dự án") ×
+                    .amenities-columns#internal-amenities
+                      ol
+                        each item, index in internalAmenities.slice(0, 10)
                           li
                             span= ('0' + (index + 1)).slice(-2)
                             p= item
+                      ol(start="11")
+                        each item, index in internalAmenities.slice(10, 20)
+                          li
+                            span= index + 11
+                            p= item
                       ol(start="21")
-                        each item, index in internalAmenities.slice(20)
+                        each item, index in internalAmenities.slice(20, 30)
                           li
                             span= index + 21
+                            p= item
+                      ol(start="31")
+                        each item, index in internalAmenities.slice(30)
+                          li
+                            span= index + 31
                             p= item
       section.panel.section-top-masterplan.masterplan#section-masterplan(aria-labelledby="masterplan-title")
         .group-central
