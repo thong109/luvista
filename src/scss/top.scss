@@ -1736,10 +1736,17 @@ body {
     position: relative;
     padding-top: calc(479 / 772.5 * 100%);
 
+    &:hover {
+      img {
+        transform: scale(1.1);
+      }
+    }
+
     img {
       position: absolute;
       top: 0;
       left: 0;
+      transition: transform .35s ease;
     }
   }
 
@@ -2160,6 +2167,12 @@ body {
     time {
       color: #f6d3bc;
     }
+
+    &:hover {
+      img {
+        transform: scale(1.1);
+      }
+    }
   }
 
   .news-title {
@@ -2181,6 +2194,7 @@ body {
       position: absolute;
       top: 0;
       left: 0;
+      transition: transform .35s ease;
     }
   }
 
@@ -2483,7 +2497,11 @@ body {
     }
 
     .logo-partner {
-      width: 2.41rem;
+      width: 1.88rem;
+
+      .is-large {
+        width: 2.22rem;
+      }
     }
 
     .developer-partner {

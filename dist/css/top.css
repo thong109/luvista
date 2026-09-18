@@ -1431,10 +1431,14 @@ body {
   position: relative;
   padding-top: 62.0064724919%;
 }
+.project-gallery .project-gallery-image:hover img {
+  transform: scale(1.1);
+}
 .project-gallery .project-gallery-image img {
   position: absolute;
   top: 0;
   left: 0;
+  transition: transform 0.35s ease;
 }
 .project-gallery .project-gallery-arrow {
   position: absolute;
@@ -1783,6 +1787,9 @@ body {
 .news .news-link time {
   color: #f6d3bc;
 }
+.news .news-link:hover img {
+  transform: scale(1.1);
+}
 .news .news-title {
   font-weight: 600;
   display: -webkit-box;
@@ -1806,6 +1813,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  transition: transform 0.35s ease;
 }
 .news .news-pagination {
   position: unset;
@@ -2061,7 +2069,10 @@ body {
     margin-bottom: 0.27rem;
   }
   .list-top-developer .logo-partner {
-    width: 2.41rem;
+    width: 1.88rem;
+  }
+  .list-top-developer .logo-partner .is-large {
+    width: 2.22rem;
   }
   .list-top-developer .developer-partner p {
     margin-bottom: 0.27rem;

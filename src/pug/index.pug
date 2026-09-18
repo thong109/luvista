@@ -166,9 +166,9 @@ block content
                             button.project-gallery-image.js-slide-image(type="button" data-gallery=JSON.stringify(projectGallery) data-index=index % projectGallery.length data-title=image.alt aria-label='Xem ảnh: ' + image.alt)
                               img.object-common(src=image.url width=image.w height=image.h alt=image.alt loading="eager")
                             figcaption= image.alt
-                  button.project-gallery-arrow.is-prev(type="button" aria-label="Ảnh trước")
+                  button.project-gallery-arrow.is-prev.trans(type="button" aria-label="Ảnh trước")
                     img(src=imgPC + 'gallery-arrow-prev.svg' width="51" height="34" alt="")
-                  button.project-gallery-arrow.is-next(type="button" aria-label="Ảnh tiếp theo")
+                  button.project-gallery-arrow.is-next.trans(type="button" aria-label="Ảnh tiếp theo")
                     img(src=imgPC + 'gallery-arrow-next.svg' width="51" height="34" alt="")
       section.panel.section-top-core-values.core-values#section-core-values(aria-labelledby="core-values-title")
         .group-central
@@ -221,15 +221,15 @@ block content
                 .list-top-developer
                   .developer-logo-primary.js-title.hero-title
                     .logo-primary
-                      img.image-common(src=imgPC + 'developer-tnt.png' width="160" height="164" alt="TNT Homes Quy Nhơn")
+                      img.image-common(src=imgPC + 'developer-tnt.svg' width="160" height="164" alt="TNT Homes Quy Nhơn")
                   .developer-partner.js-title.hero-title
                     p Đơn vị phát triển
-                    .logo-partner
-                      img.image-common(src=imgPC + 'developer-conasi.png' width="241" height="121" alt="Conasi")
+                    .logo-partner.is-large
+                      img.image-common(src=imgPC + 'developer-conasi.svg' width="241" height="121" alt="Conasi")
                   .developer-partner.js-title.hero-title
                     p Giải thưởng - chứng nhận
                     .logo-partner
-                      img.image-common(src=imgPC + 'developer-award-logo.png' width="219" height="90" alt="Edge")
+                      img.image-common(src=imgPC + 'developer-award-logo.svg' width="219" height="90" alt="Edge")
       section.panel.section-footer-common#section-contact(aria-labelledby="footer-consultation-title")
         .group-central
           .inner
@@ -246,7 +246,7 @@ block content
                       input(type="email" name="email" placeholder="Email")
                     label
                       input(type="tel" name="phone" required placeholder="Số điện thoại (*)")
-                    button(type="submit") Liên hệ ngay
+                    button.trans(type="submit") Liên hệ ngay
                 .section-footer-common-contact
                   h2.title-common-primary.is-gold.no-icon Thông tin liên hệ
                   - var footerContacts = [{icon: 'footer-location.svg', title: 'Sales Office', detail: 'Tòa nhà Repubulic Plaza Cộng Hòa, 18E Cộng Hòa, Phường Tân Sơn Nhất, TP.HCM'}, {icon: 'footer-location.svg', title: 'Sales Gallery', detail: 'Đường Chế Lan Viên, Phường Quy Nhơn Nam, Tỉnh Gia Lai'}, {icon: 'footer-phone.svg', title: 'Hotline', detail: '0888 790 288'}, {icon: 'footer-email.svg', title: 'Email', detail: 'info@luvista.vn'}]
@@ -259,13 +259,13 @@ block content
                   .section-footer-common-bottom
                     p © 2026 Luvista · Website by <a href="https://leaddigital.vn/" target="_blank" class="trans">Lead Digital</a>
                     .section-footer-common-social
-                      a(href="#" aria-label="Facebook")
+                      a.trans(href="#" aria-label="Facebook")
                         img.object-common(src=imgPC + 'footer-facebook.svg' width="34" height="34" alt="")
-                      a(href="#" aria-label="Youtube")
+                      a.trans(href="#" aria-label="Youtube")
                         img.object-common(src=imgPC + 'footer-youtube.svg' width="34" height="34" alt="")
-                      a(href="#" aria-label="Tiktok")
+                      a.trans(href="#" aria-label="Tiktok")
                         img.object-common(src=imgPC + 'footer-tiktok.svg' width="34" height="34" alt="")
-                      a(href="#" aria-label="Zalo")
+                      a.trans(href="#" aria-label="Zalo")
                         img.object-common(src=imgPC + 'footer-zalo.svg' width="34" height="34" alt="")
                     .section-footer-common-policy
                       a.trans(href="#") Chính sách bảo mật thông tin cá nhân
