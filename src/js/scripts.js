@@ -872,9 +872,9 @@
         spaceBetween: 20,
         watchOverflow: true,
         grabCursor: true,
-        pagination: {
-          el: container.querySelector(".news-pagination"),
-          clickable: true,
+        navigation: {
+          prevEl: container.querySelector(".news-arrow.is-prev"),
+          nextEl: container.querySelector(".news-arrow.is-next"),
         },
         breakpoints: {
           768: {
@@ -883,7 +883,7 @@
           },
           1025: {
             slidesPerView: 3,
-            spaceBetween: 58,
+            spaceBetween: 32,
           },
         },
       });
@@ -1361,9 +1361,16 @@
     }
 
     let isOpen = false;
+    let closeTimer;
+    let menuTrigger;
+    const navigation = header.querySelector('.header-common-navigation');
 
     // OPEN
     const openMenu = (element) => {
+      window.clearTimeout(closeTimer);
+      menuTrigger = element;
+      navigation.inert = false;
+      element.setAttribute('aria-expanded', 'true');
       // RESET
       overlayMenu.classList.remove(classClosing);
 
@@ -1390,11 +1397,18 @@
       window.__APP_STATE__?.observer?.disable();
 
       isOpen = true;
+      requestAnimationFrame(() => {
+        if (isOpen) buttonClose.focus({ preventScroll: true });
+      });
     };
 
     // CLOSE
     const closeMenu = () => {
+      if (!isOpen) return;
       isOpen = false;
+      navigation.inert = true;
+      menuTrigger?.setAttribute('aria-expanded', 'false');
+      menuTrigger?.focus({ preventScroll: true });
 
       header.classList.add('is-menu-closing');
 
@@ -1412,7 +1426,7 @@
         el.classList.add(classClosing);
       });
 
-      setTimeout(() => {
+      closeTimer = window.setTimeout(() => {
         header.classList.remove('is-menu-open');
 
         header.classList.remove('is-menu-closing');
@@ -1453,6 +1467,24 @@
 
     // BUTTON CLOSE
     buttonClose.addEventListener('click', closeMenu);
+    document.addEventListener('keydown', (event) => {
+      if (!isOpen) return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeMenu();
+      }
+      if (event.key !== 'Tab') return;
+      const focusable = [...navigation.querySelectorAll('a[href], button:not([disabled])')];
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
   };
 
   const fadeInAnimation = () => {
@@ -2817,6 +2849,16 @@
     const track = section.querySelector('.location-tabs');
     if (!tabs.length || !track) return;
     let active = 0;
+    let autoplayTimer;
+    let isVisible = false;
+    const content = section.querySelector('.location-content') || section;
+    const stopAutoplay = () => window.clearTimeout(autoplayTimer);
+    const startAutoplay = () => {
+      stopAutoplay();
+      if (tabs.length < 2 || !isVisible || document.hidden ||
+        content.matches(':hover') || content.contains(document.activeElement)) return;
+      autoplayTimer = window.setTimeout(() => select(active + 1), 5000);
+    };
     const select = (index, focus = false) => {
       active = (index + tabs.length) % tabs.length;
       tabs.forEach((tab, i) => {
@@ -2833,6 +2875,7 @@
       if (focus) tab.focus({
         preventScroll: true
       });
+      startAutoplay();
     };
     tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => select(index));
@@ -2851,25 +2894,71 @@
     });
     section.querySelector('.location-arrow.is-prev')?.addEventListener('click', () => select(active - 1));
     section.querySelector('.location-arrow.is-next')?.addEventListener('click', () => select(active + 1));
+    content.addEventListener('mouseenter', stopAutoplay);
+    content.addEventListener('mouseleave', startAutoplay);
+    content.addEventListener('focusin', stopAutoplay);
+    content.addEventListener('focusout', () => {
+      window.setTimeout(startAutoplay, 0);
+    });
+    document.addEventListener('visibilitychange', startAutoplay);
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      startAutoplay();
+    }, { threshold: 0 });
+    observer.observe(section);
   };
 
   const initAmenitiesDrawers = () => {
     const groups = [...document.querySelectorAll('.amenities-legend-group')];
+    const animations = new Map();
+    const setOpen = (group, open) => {
+      if (group.classList.contains('is-open') === open) return;
+      const before = group.getBoundingClientRect();
+      const columns = group.querySelector('.amenities-columns');
+      const contentOpacity = columns ? getComputedStyle(columns).opacity : '0';
+      animations.get(group)?.forEach(animation => animation.cancel());
+      group.classList.toggle('is-open', open);
+      group.querySelector('.amenities-toggle')?.setAttribute('aria-expanded', String(open));
+      const after = group.getBoundingClientRect();
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const timing = { duration: 550, easing: 'cubic-bezier(.22, 1, .36, 1)' };
+      const resize = group.animate([
+        { height: `${before.height}px`, flexBasis: `${before.width}px`, minWidth: '0', overflow: 'hidden' },
+        { height: `${after.height}px`, flexBasis: `${after.width}px`, minWidth: '0', overflow: 'hidden' }
+      ], timing);
+      const running = [resize];
+      // Keep text at its expanded width while the outer panel reveals it.
+      // Otherwise wrapping and scrollbars change on every animation frame.
+      if (columns) {
+        const width = `${open ? after.width : before.width}px`;
+        running.push(columns.animate([
+          { width, display: 'grid', overflow: 'hidden' },
+          { width, display: 'grid', overflow: 'hidden' }
+        ], timing));
+        running.push(columns.animate([
+          { opacity: open ? 0 : contentOpacity },
+          { opacity: open ? 1 : 0 }
+        ], { duration: open ? 300 : 150, delay: open ? 140 : 0, fill: 'both' }));
+      }
+      animations.set(group, running);
+      resize.onfinish = () => {
+        if (animations.get(group) !== running) return;
+        running.forEach(animation => animation.cancel());
+        animations.delete(group);
+      };
+    };
     groups.forEach(group => {
       const button = group.querySelector('.amenities-toggle');
       const close = group.querySelector('.amenities-close');
       button?.addEventListener('click', () => {
         const willOpen = !group.classList.contains('is-open');
         groups.forEach(item => {
-          item.classList.remove('is-open');
-          item.querySelector('.amenities-toggle')?.setAttribute('aria-expanded', 'false');
+          if (item !== group) setOpen(item, false);
         });
-        group.classList.toggle('is-open', willOpen);
-        button.setAttribute('aria-expanded', String(willOpen));
+        setOpen(group, willOpen);
       });
       close?.addEventListener('click', () => {
-        group.classList.remove('is-open');
-        button?.setAttribute('aria-expanded', 'false');
+        setOpen(group, false);
         button?.focus();
       });
     });

@@ -3,55 +3,44 @@ header.header-common
     img.image-common(src=imgCommonPC + 'logo.svg' alt="LUVISTA" width="250" height="60")
   nav.header-common-tools(aria-label="Tiện ích")
     a.header-common-tool(href="#" aria-label="Xem dự án 360 độ")
-      img.image-common.is-view-360(src=imgCommonPC + 'view-360.svg' alt="" width="14" height="14")
+      span.header-tool-icon.is-view-360(aria-hidden="true")
       span 360°
     a.header-common-tool(href="#" aria-label="Liên hệ")
-      img.image-common.is-contact(src=imgCommonPC + 'contact.svg' alt="" width="21" height="23")
+      span.header-tool-icon.is-contact(aria-hidden="true")
     a.header-common-tool(href="tel:+84000000000" aria-label="Gọi điện")
-      img.image-common.is-phone(src=imgCommonPC + 'phone.svg' alt="" width="12" height="18")
+      span.header-tool-icon.is-phone(aria-hidden="true")
     button.header-common-tool.header-common-lang(type="button" aria-label="Chọn ngôn ngữ")
       span VN
-      img.image-common.is-chevron(src=imgCommonPC + 'chevron.svg' alt="" width="10" height="7")
-    button.header-common-menu.js-click(type="button" aria-label="Mở menu")
+      span.header-tool-icon.is-chevron(aria-hidden="true")
+    button.header-common-menu.js-click(type="button" aria-label="Mở menu" aria-controls="site-navigation" aria-expanded="false")
       span Menu
-      img.image-common.is-menu(src=imgCommonPC + 'menu.svg' alt="" width="23" height="23")
-  .header-common-navigation
+      span.is-menu(aria-hidden="true")
+  .header-common-navigation#site-navigation(role="dialog" aria-modal="true" aria-label="Menu chính" inert data-lenis-prevent)
     .navigation-wrapper
-      nav.navigation-menu
-        .menu-heading
-          button.button-close.js-button-close.trans(type="button")
-            span MENU
-            span.button-icon
-              svg(width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg")
-                path(d="M0.5 0.5L16.299 16.299" stroke="white" stroke-linecap="round")
-                path(d="M0.5 16.2991L16.299 0.500099" stroke="white" stroke-linecap="round")
-        ul.menu.main-menu.header-menu#main-menu.header-menu
-          li.menu-item.menu-link
-            a.link-wrapper.item-link.trans(href=path+"/")
-              span.item-link-text trang chủ
-              span.item-link-text-clone trang chủ
-          li.menu-item.menu-link
-            a.link-wrapper.item-link.trans(href=path+"/introduction/")
-              span.item-link-text Giới thiệu
-              span.item-link-text-clone Giới thiệu
-          li.menu-item.menu-link
-            a.link-wrapper.item-link.trans(href=path+"/projects/")
-              span.item-link-text Dự án
-              span.item-link-text-clone Dự án
-          li.menu-item.menu-link
-            a.link-wrapper.item-link.trans(href=path+"/gallery/")
-              span.item-link-text Thư viện
-              span.item-link-text-clone Thư viện
-          li.menu-item.menu-link
-            a.link-wrapper.item-link.trans(href=path+"/recruitment/")
-              span.item-link-text Tuyển dụng
-              span.item-link-text-clone Tuyển dụng
-          li.menu-item.menu-link
-            a.link-wrapper.item-link.trans(href=path+"/news/")
-              span.item-link-text Tin tức
-              span.item-link-text-clone Tin tức
-          li.menu-item.menu-link
-            a.link-wrapper.item-link.trans(href=path+"/contact/")
-              span.item-link-text Liên hệ
-              span.item-link-text-clone Liên hệ
+      img.navigation-wave(src=imgCommonPC + 'menu-wave.png' alt="" aria-hidden="true")
+      a.navigation-brand(href=path + '/#section-home' aria-label="LUVISTA - Trang chủ")
+        img(src=imgCommonPC + 'menu-logo.svg' alt="LUVISTA" width="459" height="110")
+      .menu-heading
+        button.button-close.js-button-close(type="button" aria-label="Đóng menu")
+          span MENU
+          span.button-icon
+            svg(width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true")
+              path(d="M0.5 0.5L16.299 16.299" stroke="currentColor" stroke-linecap="round")
+              path(d="M0.5 16.2991L16.299 0.500099" stroke="currentColor" stroke-linecap="round")
+      .navigation-content
+        nav.navigation-menu(aria-label="Điều hướng chính")
+          - var menuLinks = [{label: 'Trang chủ', target: 'home'}, {label: 'Giới thiệu', target: 'overview'}, {label: 'Vị trí', target: 'location'}, {label: 'Mặt bằng', target: 'masterplan'}, {label: 'Tiện ích', target: 'amenities'}, {label: 'Thư viện', target: 'project-gallery'}, {label: 'Tin tức', target: 'news'}, {label: 'Liên hệ', target: 'contact'}]
+          ul.menu.main-menu.header-menu#main-menu
+            each item in menuLinks
+              li.menu-item.menu-link
+                a.link-wrapper.item-link(href=path + '/#section-' + item.target)
+                  span.item-link-text= item.label
+        .navigation-footer
+          a.navigation-hotline(href="tel:0888790288")
+            img(src=imgCommonPC + 'menu-phone.svg' alt="" width="32" height="32")
+            span Hotline: #[strong 0888 790 288]
+          .navigation-socials(aria-label="Mạng xã hội")
+            each social in ['Facebook', 'Youtube', 'Tiktok', 'Zalo']
+              a.header-icon(href="#" aria-label=social)
+                img(src=imgCommonPC + 'menu-' + social.toLowerCase() + '.svg' alt="" width="34" height="34")
     .overlay-menu

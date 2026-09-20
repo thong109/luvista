@@ -35,7 +35,7 @@ block content
                 span Cuộn xuống
               img.keyvisual-star.is-two(src=imgPC + 'star-large.svg' alt="")
               img.keyvisual-star.is-three(src=imgPC + 'star-large.svg' alt="")
-      section.panel.section-top-overview.overview#section-overview(aria-labelledby="overview-title")
+      section.panel.section-top-overview.overview.js-bg#section-overview(aria-labelledby="overview-title")
         .group-central
           .inner
             .group-bg
@@ -44,9 +44,9 @@ block content
                 h2.title-common-primary.js-title.hero-title Tổng quan
                 .overview-location.js-title.hero-sub
                   span Vị trí
-                  strong Đường Chế Lan Viên, Phường Quy Nhơn, Tỉnh Gia Lai
+                  strong Đường Chế Lan Viên, Phường Quy Nhơn Nam, Tỉnh Gia Lai
                 .overview-facts.js-title.hero-sub
-                  - var facts = [{label: 'Quy mô', value: '8.3<span class="unit">ha</span>'}, {label: 'Số tòa tháp', value: '5 <span class="unit">toà</span>'}, {label: 'tầng và 1 tầng hầm', value: '23'}, {label: 'Sản phẩm', value: '1,630'}, {label: 'Mật độ xây dựng', value: '50%'}, {label: 'Hình thức sở hữu', value: 'Dài lâu',small: true},{label: 'Bàn giao giai đoạn 1', value: 'Quý III/2028', small: true}]
+                  - var facts = [{label: 'Quy mô', value: '8.3<span class="unit">ha</span>'}, {label: 'Số tòa tháp', value: '5<span class="unit">toà</span>'}, {label: 'tầng và 1 tầng hầm', value: '23'}, {label: 'Sản phẩm', value: '1,630'}, {label: 'Mật độ xây dựng', value: '50%'}, {label: 'Hình thức sở hữu', value: 'Dài lâu',small: true},{label: 'Bàn giao giai đoạn 1', value: 'Quý III/2028', small: true}]
                   each fact in facts
                     .overview-fact
                       strong(class=fact.small ? 'is-small' : '')!= fact.value
@@ -202,11 +202,20 @@ block content
                           article.news-item
                             a.news-link(href="#")
                               .news-image
-                                img.object-common(src=imgPC + item.image width="487" height="556" alt=item.alt loading="eager")
-                              time(datetime="2025-12-29") 29/12/2025
-                              p.news-title Tận hưởng cuộc sống ngay lập tức và “đón lõng” những sóng phát triển dồn dập ngày mai
-                              p.news-desc dự án là điểm đến cân bằng hoàn hảo mọi yếu tố để chủ nhân tận hưởng hiện tại và mở ra tương lai rực rỡ.
-                  .news-pagination.swiper-pagination(aria-label="Trang tin tức")
+                                img.object-common(src=imgPC + item.image width="506" height="334" alt=item.alt loading="eager")
+                              .news-content
+                                time.news-date(datetime="2025-12-29" aria-label="Ngày 29 tháng 12 năm 2025")
+                                  span.news-day 29
+                                  span.news-month 12/2025
+                                .news-summary
+                                  p.news-title Tận hưởng cuộc sống ngay lập tức và “đón lõng” những sóng phát triển dồn dập ngày mai, dự án là điểm đến cân bằng hoàn hảo mọi yếu tố để chủ nhân
+                                  span.news-more
+                                    span Xem chi tiết
+                                    img(src=imgPC + 'news-detail-arrow.svg' width="14" height="10" alt="")
+                  button.news-arrow.is-prev(type="button" aria-label="Tin trước")
+                    img(src=imgPC + 'news-prev.svg' width="34" height="34" alt="")
+                  button.news-arrow.is-next(type="button" aria-label="Tin tiếp theo")
+                    img(src=imgPC + 'news-next.svg' width="34" height="34" alt="")
       section.panel.section-top-developer.developer#section-developer(aria-labelledby="developer-title")
         .group-central
           .inner
@@ -271,4 +280,4 @@ block content
                       a.trans(href="#") Chính sách bảo mật thông tin cá nhân
                   p.section-footer-common-note Lưu ý: Chúng tôi đã nỗ lực và cẩn trọng để hoàn thiện tài liệu này. Tuy nhiên tài liệu chỉ dùng với mục đích tham khảo. Hình ảnh, sơ đồ kỹ thuật, bố trí nội ngoại thất hay thông tin mô tả về dự án chỉ nhằm mục đích minh họa, không phải là thông tin hiện thực hay cam kết pháp lý. Thông tin chính thức về dự án sẽ được căn cứ trên hợp đồng mua bán và các tài liệu được thỏa thuận, ký kết chính thức với khách hàng.
                 a.section-footer-common-go-top.js-button-top.trans(href="#section-home" aria-label="Về đầu trang")
-                  img.object-common(src=imgPC + 'footer-go-top.svg' width="50" height="50" alt="Button Go Top" loading="eager")
+                  img.object-common.js-inline-svg(src=imgPC + 'footer-go-top.svg' width="50" height="50" alt="" loading="eager")

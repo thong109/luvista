@@ -1,6 +1,20 @@
 <svg width="295" height="192" viewBox="0 0 295 192" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g clip-path="url(#clip0_736_6452)">
-<path d="M254.135 16.4682L225.422 34.0841L259.868 89.6612L288.581 72.0453L254.135 16.4682Z" fill="#C72127"/>
+<path d="M254.135 16.4682L225.422 34.0841L259.868 89.6612L288.581 72.0453L254.135 16.4682Z" fill="#C72127">
+<animate
+	attributeName="fill"
+	values="#C72127;#1a508b;#edc8b1;#C72127"
+	dur="3s"
+	repeatCount="indefinite"
+	calcMode="spline"
+	keyTimes="0;0.333;0.666;1"
+	keySplines="
+		0.4 0 0.2 1;
+		0.4 0 0.2 1;
+		0.4 0 0.2 1
+	"
+/>
+</path>
 <circle cx="5" cy="5" r="5" transform="matrix(-1 0 0 1 262 48.0001)" fill="#F6D2BB"/>
 <path d="M158.674 106.669V70.1168L257.252 52.8644L158.674 106.669Z" fill="url(#paint0_linear_736_6452)"/>
 <rect x="9.98145" y="6.047" width="187.318" height="186.369" fill="url(#pattern0_736_6452)"/>

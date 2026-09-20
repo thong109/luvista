@@ -234,13 +234,13 @@ body {
     flex-direction: column;
     gap: 0.08rem;
     font-weight: 500;
+    color: $ink;
 
     span {
       color: #444;
     }
 
     strong {
-      color: $ink;
       font-family: $font-default;
     }
   }
@@ -256,6 +256,7 @@ body {
     display: flex;
     min-width: 0;
     flex-direction: column;
+    justify-content: space-between;
     font-weight: 500;
 
     &::after {
@@ -273,7 +274,8 @@ body {
       font-family: $font-sfpro;
     }
 
-    strong {
+    strong,
+    .unit {
       color: $ink;
       font-family: $font-default;
     }
@@ -316,6 +318,7 @@ body {
 
     .overview-fact {
       gap: 0.17rem;
+      min-height: .95rem;
 
       span {
         font-size: .2rem;
@@ -323,8 +326,8 @@ body {
       }
 
       .is-small {
-        font-size: .5rem;
-        line-height: calc(35 / 50);
+        font-size: .45rem;
+        line-height: calc(35 / 45);
       }
 
       strong {
@@ -479,7 +482,7 @@ body {
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: fill;
+    object-fit: contain;
   }
 
   .location-overlay {
@@ -713,6 +716,16 @@ body {
         opacity: 1;
         animation: location-panel-enter .45s ease both;
       }
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .location-map {
+      inset: 50% 0 auto auto;
+      width: min(100%, 177.7778vh);
+      height: auto;
+      aspect-ratio: 1920 / 1080;
+      transform: translateY(-50%);
     }
   }
 
@@ -1225,7 +1238,7 @@ body {
     flex: 0 0 min(5.67rem, 29.53vw);
     margin: 0;
     color: #163963;
-    background: linear-gradient(108deg, rgba(255, 225, 206, .94), rgba(206, 140, 100, .9));
+    background: rgba($color: #F6D8C5, $alpha: .9);
     backdrop-filter: blur(.05rem);
     border-radius: .2rem .2rem 0 0;
     pointer-events: auto;
@@ -1233,20 +1246,20 @@ body {
     &.is-internal {
       flex-basis: min(4.88rem, 25.42vw);
       margin: 0;
-      background: linear-gradient(108deg, rgba(246, 210, 187, .94), rgba(206, 140, 100, .9));
 
       &.is-open {
-        flex-basis: min(12.8rem, calc(100vw - 6.4rem));
+        flex-basis: min(66.667vw, calc(100% - min(5.67rem, 29.53vw) - .2rem));
       }
     }
 
     .amenities-toggle {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: .28rem;
       width: 100%;
       min-height: .7rem;
-      padding: .15rem .46rem 0;
+      padding: .15rem .75rem .07rem .45rem;
       border: 0;
       color: #163963;
       background: none;
@@ -1254,6 +1267,7 @@ body {
       text-align: left;
       text-transform: uppercase;
       cursor: pointer;
+      white-space: nowrap;
 
       img {
         width: .19rem;
@@ -1280,7 +1294,7 @@ body {
     >.amenities-columns {
       display: none;
       max-height: min(65vh, 7rem);
-      padding: 0 .46rem .52rem;
+      padding: 0 .4rem .52rem;
       overflow-y: auto;
     }
 
@@ -1290,10 +1304,7 @@ body {
       }
 
       .amenities-toggle {
-        justify-content: flex-start;
-        gap: .28rem;
-        min-height: .68rem;
-        padding: .1rem .75rem 0 .46rem;
+        min-height: .7rem;
       }
 
       .amenities-close {
@@ -1344,12 +1355,7 @@ body {
     }
 
     &.is-internal .amenities-columns {
-      grid-template-columns: 3rem 3.3rem 2.81rem minmax(0, 1fr);
-      padding: 0 .24rem .63rem .49rem;
-    }
-
-    &.is-internal.is-open .amenities-toggle {
-      padding-left: .49rem;
+      grid-template-columns: minmax(0, 300fr) minmax(0, 330fr) minmax(0, 281fr) minmax(0, 223fr);
     }
 
     p {
@@ -1357,10 +1363,31 @@ body {
     }
   }
 
-  @media (min-width: 1025px) and (max-width: 1599.98px) {
-    .amenities-legend-group.is-internal .amenities-columns {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: .24rem;
+  @media (min-width: 1025px) {
+    .amenities-legend-group.is-internal {
+      .amenities-columns {
+        gap: 1.146vw;
+        padding: 0 2.083vw 2.708vw;
+      }
+
+      .amenities-columns ol {
+        gap: .677vw;
+      }
+
+      .amenities-columns li {
+        grid-template-columns: 1.458vw minmax(0, 1fr);
+        min-height: 1.458vw;
+        gap: .573vw;
+        font-size: .9375vw;
+        line-height: 1.354vw;
+      }
+
+      .amenities-columns li>span {
+        width: 1.458vw;
+        height: 1.458vw;
+        font-size: .833vw;
+        line-height: 1.458vw;
+      }
     }
   }
 
@@ -1412,9 +1439,10 @@ body {
 
     .amenities-legend-group .amenities-toggle {
       min-height: .55rem;
-      padding: .12rem .15rem;
+      padding: .12rem .45rem .12rem .15rem;
       font-size: .14rem;
       line-height: 1.35;
+      white-space: normal;
     }
 
     .amenities-legend-group .amenities-toggle img {
@@ -1615,7 +1643,11 @@ body {
       margin-bottom: .4rem;
     }
 
-    .masterplan-picture {}
+    .masterplan-picture,
+    .masterplan-map {
+      transform-origin: center;
+      transform: translateY(6%) scale(1.14);
+    }
   }
 
   @include height {
@@ -2142,7 +2174,10 @@ body {
   }
 
   .news-list {
+    position: relative;
     z-index: 2;
+    width: 100%;
+    margin-top: .5rem;
 
     .swiper {
       overflow: hidden;
@@ -2158,113 +2193,145 @@ body {
     color: #fff;
     text-decoration: none;
 
-    time,
-    p {
+    &:hover .news-image img {
+      transform: scale(1.04);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #f6d2bb;
+      outline-offset: -2px;
+    }
+  }
+
+  .news-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 506 / 334;
+
+    img {
       display: block;
-      font-family: $font-sfpro;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
     }
 
-    time {
-      color: #f6d3bc;
-    }
+  }
 
-    &:hover {
-      img {
-        transform: scale(1.1);
-      }
+  .news-content {
+    display: grid;
+    grid-template-columns: .61rem minmax(0, 1fr);
+    align-items: start;
+    gap: .25rem;
+    margin-top: .21rem;
+  }
+
+  .news-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: .96rem;
+    margin-top: .05rem;
+    background: #123050;
+    color: #fff;
+    font-family: $font-sfpro;
+    font-weight: 400;
+  }
+
+  .news-day {
+    font-size: .3rem;
+    line-height: .3rem;
+  }
+
+  .news-month {
+    font-size: .16rem;
+    line-height: .26rem;
+    white-space: nowrap;
+  }
+
+  .news-more {
+    display: inline-flex;
+    align-items: center;
+    gap: .12rem;
+    margin-top: .15rem;
+    color: #f6d2bb;
+    font: 500 .18rem/.26rem $font-sfpro;
+
+    img {
+      display: block;
+      width: .14rem;
+      height: .1rem;
+      transform: rotate(180deg);
     }
   }
 
   .news-title {
-    font-weight: 600;
-    @include text-ellipse(2);
-  }
-
-  .news-desc {
     margin: 0;
-    @include text-ellipse(2);
+    font: 500 .18rem/.26rem $font-sfpro;
+    @include text-ellipse(3);
   }
 
-  .news-image {
-    overflow: hidden;
-    position: relative;
-    padding-top: calc(556 / 487 * 100%);
+  .news-arrow {
+    position: absolute;
+    top: calc((100% - 1.4rem) / 2);
+    transform: translateY(-50%);
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: .44rem;
+    height: .44rem;
+    padding: .05rem;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
 
     img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transition: transform .35s ease;
-    }
-  }
-
-  .news-pagination {
-    position: unset;
-    display: flex;
-    justify-content: center;
-
-    .swiper-pagination-bullet {
       display: block;
-      margin: 0 !important;
-      padding: 0;
-      border: 1px solid #fff;
-      border-radius: 50%;
-      background: transparent;
-      opacity: 1;
-      cursor: pointer;
+      width: 100%;
+      height: 100%;
     }
 
-    .swiper-pagination-bullet-active {
-      background: #fff;
+    &.is-prev {
+      left: -.98rem;
+    }
+
+    &.is-next {
+      right: -.98rem;
+
+      img {
+        transform: rotate(180deg);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid #f6d2bb;
+      outline-offset: 2px;
+    }
+
+    &.swiper-button-lock {
+      display: none;
     }
   }
 
   @include desktop {
     .news-list {
-      top: 2.17rem;
       width: 15.78rem;
-    }
-
-    .news-image {
-      margin-bottom: .3rem;
-    }
-
-    .news-link {
-      time {
-        margin-bottom: .18rem;
-        font-size: .2rem;
-        line-height: calc(26 / 20);
-      }
-
-      p {
-        font-size: .18rem;
-        line-height: calc(26 / 18);
-      }
-    }
-
-    .news-title {
-      margin-bottom: .12rem;
-    }
-
-    .news-pagination {
-      gap: .12rem;
-      margin-top: .4rem;
-
-      .swiper-pagination-bullet {
-        width: .16rem;
-        height: .16rem;
-      }
     }
   }
 
   @include screen-low {
-    .news-image {
-      padding-top: 90%;
-    }
-
     .news-list {
       width: 100%;
-      padding: 0 2rem;
+      padding: 0 .65rem;
+    }
+
+    .news-arrow.is-prev {
+      left: 0;
+    }
+
+    .news-arrow.is-next {
+      right: 0;
     }
   }
 
@@ -2273,6 +2340,15 @@ body {
 
     .news-list {
       width: 100%;
+      padding: 0 .55rem;
+    }
+
+    .news-arrow.is-prev {
+      left: 0;
+    }
+
+    .news-arrow.is-next {
+      right: 0;
     }
   }
 
@@ -2280,32 +2356,43 @@ body {
     height: auto;
 
     .group-bg {
-      padding: 0.4rem 0;
+      padding: .4rem 0;
     }
 
-    .news-image {
-      margin-bottom: .16rem;
+    .news-list {
+      margin-top: .3rem;
     }
 
-    .news-link {
-      time {
-        margin-bottom: .06rem;
-        font-size: .15rem;
-      }
+    .news-content {
+      grid-template-columns: .55rem minmax(0, 1fr);
+      gap: .14rem;
+      margin-top: .18rem;
+    }
 
-      p {
-        font-size: .18rem;
-        line-height: 1.4;
-      }
+    .news-date {
+      min-height: .85rem;
+    }
+
+    .news-day {
+      font-size: .26rem;
+    }
+
+    .news-month {
+      font-size: .13rem;
     }
 
     .news-title {
-      margin-bottom: .2rem;
+      font-size: .16rem;
+      line-height: .24rem;
     }
 
-    .news-pagination {
-      margin-top: 0.3rem;
-      gap: .08rem;
+    .news-more {
+      margin-top: .12rem;
+      font-size: .15rem;
+    }
+
+    .news-arrow {
+      display: none;
     }
   }
 }
@@ -2497,10 +2584,10 @@ body {
     }
 
     .logo-partner {
-      width: 1.88rem;
+      width: 2.2rem;
 
-      .is-large {
-        width: 2.22rem;
+      &.is-large {
+        width: 2.4rem;
       }
     }
 
