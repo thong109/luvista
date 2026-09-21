@@ -5,8 +5,8 @@ block vars
   - var page = 'top'
   - var imgPC = path + '/resources/images/top/'
   - var imgSP = path + '/resources/images/top/'
-  - var imgCommonPC = path + '/resources/images/top/'
-  - var imgCommonSP = path + '/resources/images/top/'
+  - var imgCommonPC = path + '/resources/images/common/'
+  - var imgCommonSP = path + '/resources/images/common/'
 
 block content
   main.home
@@ -152,8 +152,8 @@ block content
         .group-central
           .inner
             .group-bg
-              img.project-gallery-line.is-top(src=imgPC + 'gallery-line-01.png' width="713" height="161" alt="")
-              img.project-gallery-line.is-bottom(src=imgPC + 'gallery-line-02.png' width="692" height="161" alt="")
+              img.project-gallery-line.is-top(src=imgPC + 'gallery-line-02.png' width="713" height="161" alt="")
+              img.project-gallery-line.is-bottom(src=imgPC + 'gallery-line-01.png' width="692" height="161" alt="")
               .wrapper
                 h2.title-common-primary.is-gold.js-title.hero-title Hình ảnh dự án
                 - var projectGallery = [{url: imgPC + 'gallery-project-01.jpg', alt: 'Lối vào quảng trường chính', w: 1920, h: 1080}, {url: imgPC + 'gallery-project-02.jpg', alt: 'Hồ bơi lưng núi', w: 1920, h: 1080}]
@@ -200,9 +200,9 @@ block content
                       each item in newsItems
                         .swiper-slide
                           article.news-item
-                            a.news-link(href="#")
+                            a.news-link(href=path+"/news/detail/")
                               .news-image
-                                img.object-common(src=imgPC + item.image width="506" height="334" alt=item.alt loading="eager")
+                                img.object-common(src=imgCommonPC + item.image width="506" height="334" alt=item.alt loading="eager")
                               .news-content
                                 time.news-date(datetime="2025-12-29" aria-label="Ngày 29 tháng 12 năm 2025")
                                   span.news-day 29
@@ -211,7 +211,7 @@ block content
                                   p.news-title Tận hưởng cuộc sống ngay lập tức và “đón lõng” những sóng phát triển dồn dập ngày mai, dự án là điểm đến cân bằng hoàn hảo mọi yếu tố để chủ nhân
                                   span.news-more
                                     span Xem chi tiết
-                                    img(src=imgPC + 'news-detail-arrow.svg' width="14" height="10" alt="")
+                                    img(src=imgCommonPC + 'news-detail-arrow.svg' width="14" height="10" alt="")
                   button.news-arrow.is-prev(type="button" aria-label="Tin trước")
                     img(src=imgPC + 'news-prev.svg' width="34" height="34" alt="")
                   button.news-arrow.is-next(type="button" aria-label="Tin tiếp theo")

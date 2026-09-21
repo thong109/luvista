@@ -1,0 +1,52 @@
+extends ../_base/_layout.pug
+block vars
+  - var metaTitle = 'LUVISTA Quy Nhơn | Thư viện'
+  - var path = '..'
+  - var page = 'gallery'
+  - var imgPC = path + '/resources/images/gallery/'
+  - var imgSP = path + '/resources/images/gallery/'
+  - var imgCommonPC = path + '/resources/images/common/'
+  - var imgCommonSP = path + '/resources/images/common/'
+
+block content
+  main.home
+    .slider-stage
+      section.panel.section-top-project-gallery.project-gallery(aria-labelledby="project-gallery-images")
+        .group-central
+          .inner
+            .group-bg
+              img.project-gallery-line.is-top(src=imgPC + 'gallery-line-02.png' width="713" height="161" alt="")
+              img.project-gallery-line.is-bottom(src=imgPC + 'gallery-line-01.png' width="692" height="161" alt="")
+              .wrapper
+                h2.title-common-primary.is-gold.js-title.hero-title Hình ảnh dự án
+                - var projectGallery = [{url: imgPC + 'gallery-project-01.jpg', alt: 'Lối vào quảng trường chính', w: 1920, h: 1080}, {url: imgPC + 'gallery-project-02.jpg', alt: 'Hồ bơi lưng núi', w: 1920, h: 1080}]
+                .project-gallery-slider.js-project-gallery.js-title.hero-sub
+                  .swiper
+                    .swiper-wrapper
+                      each image, index in projectGallery.concat(projectGallery)
+                        .swiper-slide
+                          figure.project-gallery-item
+                            button.project-gallery-image.js-slide-image(type="button" data-gallery=JSON.stringify(projectGallery) data-index=index % projectGallery.length data-title=image.alt aria-label='Xem ảnh: ' + image.alt)
+                              img.object-common(src=image.url width=image.w height=image.h alt=image.alt loading="eager")
+                            figcaption= image.alt
+                  button.project-gallery-arrow.is-prev.trans(type="button" aria-label="Ảnh trước")
+                    img(src=imgPC + 'gallery-arrow-prev.svg' width="51" height="34" alt="")
+                  button.project-gallery-arrow.is-next.trans(type="button" aria-label="Ảnh tiếp theo")
+                    img(src=imgPC + 'gallery-arrow-next.svg' width="51" height="34" alt="")
+      section.panel.section-project-videos.project-videos(aria-labelledby="project-gallery-videos")
+        .group-central
+          .inner
+            .group-bg
+              img.project-gallery-line.is-top(src=imgPC + 'gallery-line-02.png' width="713" height="161" alt="")
+              img.project-gallery-line.is-bottom(src=imgPC + 'gallery-line-01.png' width="692" height="161" alt="")
+              .wrapper
+                h2.title-common-primary.is-gold.js-title.hero-title Video dự án
+      section.panel.section-project-documents.project-documents(aria-labelledby="project-gallery-documents")
+        .group-central
+          .inner
+            .group-bg
+              img.project-gallery-line.is-top(src=imgPC + 'gallery-line-02.png' width="713" height="161" alt="")
+              img.project-gallery-line.is-bottom(src=imgPC + 'gallery-line-01.png' width="692" height="161" alt="")
+              .wrapper
+                h2.title-common-primary.is-gold.js-title.hero-title tài liệu dự án
+                

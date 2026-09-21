@@ -5,7 +5,7 @@ header.header-common
     a.header-common-tool(href="#" aria-label="Xem dự án 360 độ")
       span.header-tool-icon.is-view-360(aria-hidden="true")
       span 360°
-    a.header-common-tool(href="#" aria-label="Liên hệ")
+    span.header-common-tool(href="#" aria-label="Liên hệ" data-modal-open)
       span.header-tool-icon.is-contact(aria-hidden="true")
     a.header-common-tool(href="tel:+84000000000" aria-label="Gọi điện")
       span.header-tool-icon.is-phone(aria-hidden="true")
@@ -29,11 +29,11 @@ header.header-common
               path(d="M0.5 16.2991L16.299 0.500099" stroke="currentColor" stroke-linecap="round")
       .navigation-content
         nav.navigation-menu(aria-label="Điều hướng chính")
-          - var menuLinks = [{label: 'Trang chủ', target: 'home'}, {label: 'Giới thiệu', target: 'overview'}, {label: 'Vị trí', target: 'location'}, {label: 'Mặt bằng', target: 'masterplan'}, {label: 'Tiện ích', target: 'amenities'}, {label: 'Thư viện', target: 'project-gallery'}, {label: 'Tin tức', target: 'news'}, {label: 'Liên hệ', target: 'contact'}]
+          - var menuLinks = [{label: 'Trang chủ', target: 'home'}, {label: 'Giới thiệu', target: 'overview'}, {label: 'Vị trí', target: 'location'}, {label: 'Mặt bằng', target: 'masterplan'}, {label: 'Tiện ích', target: 'utilities'}, {label: 'Thư viện', target: 'gallery'}, {label: 'Tin tức', target: 'news'}, {label: 'Liên hệ', target: 'contact'}]
           ul.menu.main-menu.header-menu#main-menu
             each item in menuLinks
               li.menu-item.menu-link
-                a.link-wrapper.item-link(href=path + '/#section-' + item.target)
+                a.link-wrapper.item-link(href=path + '/' + item.target)
                   span.item-link-text= item.label
         .navigation-footer
           a.navigation-hotline(href="tel:0888790288")
@@ -44,3 +44,23 @@ header.header-common
               a.header-icon(href="#" aria-label=social)
                 img(src=imgCommonPC + 'menu-' + social.toLowerCase() + '.svg' alt="" width="34" height="34")
     .overlay-menu
+  .modal-overlay.js-modal-overlay
+    .popup-form#popupForm
+      .popup-form__image
+        img(src=imgCommonPC+"form_bg.jpeg" width="1920" height="1080" loading="eager" alt="form bg")
+      .popup-form__content
+        button.popup-form__close(type="button" aria-label="Đóng popup").
+        .popup-form__inner
+          h2.popup-form__title.
+            ĐĂNG KÝ TƯ VẤN
+          p.popup-form__desc.
+            Quý khách vui lòng để lại thông tin, đội ngũ chuyên viên sẽ liên hệ tư vấn trong thời gian sớm nhất
+          form.popup-form__form
+            .form-group
+              input(type="text" name="fullname" placeholder="Họ tên (*)", required)
+            .form-group
+              input(type="email" name="email" placeholder="Email")
+            .form-group
+              input(type="tel" name="phone" placeholder="Điện thoại (*)", required)
+            .form-action
+              button.form-submit(type="submit") LIÊN HỆ NGAY

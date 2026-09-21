@@ -145,8 +145,6 @@ html(lang="en" class="is-page-"+page class=pageClass)
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     title #{metaTitle}
     link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css")
-    if page === 'top'
-      link(rel="preload" as="image" href=path+"/resources/images/top/amenities-map-figma.png" fetchpriority="high")
     link(rel="stylesheet" href=path+"/css/common.css")
     link(rel="stylesheet" href=`${path}/css/${page.replace(/-/gi,'_')}.css`)
   body

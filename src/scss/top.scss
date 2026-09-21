@@ -1149,10 +1149,11 @@ body {
 
     &::after {
       z-index: 1;
-      background: url("../resources/images/top/amenities-bottom-figma.png") center bottom / 100% 100% no-repeat;
+      background: linear-gradient(0deg, #133862, rgba(18, 53, 93, 0));
       height: 29.1%;
       top: auto;
       bottom: 0;
+      pointer-events: none;
     }
   }
 
@@ -1620,7 +1621,7 @@ body {
     }
 
     .title-common-primary {
-      margin-bottom: 0.78rem;
+      margin-bottom: 0.3rem;
     }
 
     .masterplan-guide {
@@ -2132,7 +2133,8 @@ body {
 
     .core-values-list {
       grid-template-columns: 1fr;
-      gap: .13rem;
+      gap: .3rem;
+      padding-top: 0.1rem;
     }
 
     .core-values-item {
@@ -2627,7 +2629,11 @@ body {
     }
 
     .logo-partner {
-      width: 1.45rem;
+      width: 1.5rem;
+
+      &.is-large {
+        width: 1.7rem;
+      }
     }
 
     .developer-partner {

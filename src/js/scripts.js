@@ -1398,7 +1398,9 @@
 
       isOpen = true;
       requestAnimationFrame(() => {
-        if (isOpen) buttonClose.focus({ preventScroll: true });
+        if (isOpen) buttonClose.focus({
+          preventScroll: true
+        });
       });
     };
 
@@ -1408,7 +1410,9 @@
       isOpen = false;
       navigation.inert = true;
       menuTrigger?.setAttribute('aria-expanded', 'false');
-      menuTrigger?.focus({ preventScroll: true });
+      menuTrigger?.focus({
+        preventScroll: true
+      });
 
       header.classList.add('is-menu-closing');
 
@@ -2632,8 +2636,8 @@
       });
 
       amenities.querySelectorAll(".amenities-legend-group .amenities-columns li").forEach((item) => {
-        const type = item.closest(".amenities-legend-group").classList.contains("is-external")
-          ? "external" : "internal";
+        const type = item.closest(".amenities-legend-group").classList.contains("is-external") ?
+          "external" : "internal";
         const number = item.querySelector("span")?.textContent.trim();
         const pin = [...pins].find((candidate) =>
           candidate.dataset.pair === `${type}-${number}`
@@ -2821,6 +2825,43 @@
     });
   };
 
+  const initContactModal = () => {
+    const modal = document.querySelector(".js-modal-overlay");
+    if (!modal) return;
+
+    const openButtons = document.querySelectorAll("[data-modal-open]");
+    const closeButtons = document.querySelectorAll(
+      "[data-modal-close], .popup-form__close"
+    );
+
+    const openModal = () => {
+      modal.classList.add("is-open");
+      document.body.style.overflow = 'hidden';
+      // WinScroll.stop();
+      freezeWindow(true);
+      window.__APP_STATE__?.observer?.disable();
+    };
+    const closeModal = () => {
+      modal.classList.remove("is-open");
+      document.body.style.overflow = '';
+      freezeWindow(false);
+      if (window.__APP_STATE__?.sliderState?.active) {
+        window.__APP_STATE__?.observer?.enable();
+      }
+    };
+
+    openButtons.forEach((btn) => btn.addEventListener("click", openModal));
+    closeButtons.forEach((btn) => btn.addEventListener("click", closeModal));
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" || e.key === "Esc") closeModal();
+    });
+  };
+
   window.WebFontConfig = {
     custom: {
       families: [
@@ -2904,7 +2945,9 @@
     const observer = new IntersectionObserver(([entry]) => {
       isVisible = entry.isIntersecting;
       startAutoplay();
-    }, { threshold: 0 });
+    }, {
+      threshold: 0
+    });
     observer.observe(section);
   };
 
@@ -2921,24 +2964,50 @@
       group.querySelector('.amenities-toggle')?.setAttribute('aria-expanded', String(open));
       const after = group.getBoundingClientRect();
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const timing = { duration: 550, easing: 'cubic-bezier(.22, 1, .36, 1)' };
-      const resize = group.animate([
-        { height: `${before.height}px`, flexBasis: `${before.width}px`, minWidth: '0', overflow: 'hidden' },
-        { height: `${after.height}px`, flexBasis: `${after.width}px`, minWidth: '0', overflow: 'hidden' }
+      const timing = {
+        duration: 550,
+        easing: 'cubic-bezier(.22, 1, .36, 1)'
+      };
+      const resize = group.animate([{
+          height: `${before.height}px`,
+          flexBasis: `${before.width}px`,
+          minWidth: '0',
+          overflow: 'hidden'
+        },
+        {
+          height: `${after.height}px`,
+          flexBasis: `${after.width}px`,
+          minWidth: '0',
+          overflow: 'hidden'
+        }
       ], timing);
       const running = [resize];
       // Keep text at its expanded width while the outer panel reveals it.
       // Otherwise wrapping and scrollbars change on every animation frame.
       if (columns) {
         const width = `${open ? after.width : before.width}px`;
-        running.push(columns.animate([
-          { width, display: 'grid', overflow: 'hidden' },
-          { width, display: 'grid', overflow: 'hidden' }
+        running.push(columns.animate([{
+            width,
+            display: 'grid',
+            overflow: 'hidden'
+          },
+          {
+            width,
+            display: 'grid',
+            overflow: 'hidden'
+          }
         ], timing));
-        running.push(columns.animate([
-          { opacity: open ? 0 : contentOpacity },
-          { opacity: open ? 1 : 0 }
-        ], { duration: open ? 300 : 150, delay: open ? 140 : 0, fill: 'both' }));
+        running.push(columns.animate([{
+            opacity: open ? 0 : contentOpacity
+          },
+          {
+            opacity: open ? 1 : 0
+          }
+        ], {
+          duration: open ? 300 : 150,
+          delay: open ? 140 : 0,
+          fill: 'both'
+        }));
       }
       animations.set(group, running);
       resize.onfinish = () => {
@@ -2960,6 +3029,57 @@
       close?.addEventListener('click', () => {
         setOpen(group, false);
         button?.focus();
+      });
+    });
+  };
+
+  const innerTabs = () => {
+    const tabs = document.querySelectorAll('.js-inner-tabs');
+
+    tabs.forEach(function (tab) {
+      const buttons = tab.querySelectorAll('.inner-tab-btn');
+      const panels = tab.querySelectorAll('.inner-tab-panel');
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          const target = button.dataset.tab;
+          const nextPanel = tab.querySelector(`#${target}`);
+          const currentPanel = tab.querySelector('.inner-tab-panel.active');
+
+          if (!nextPanel || currentPanel === nextPanel) return;
+
+          // Button
+          buttons.forEach(function (item) {
+            item.classList.remove('active');
+          });
+
+          button.classList.add('active');
+
+          // Fade out panel hiện tại
+          if (currentPanel) {
+            gsap.to(currentPanel, {
+              autoAlpha: 0,
+              duration: 0.2,
+              ease: 'power1.inOut',
+              onComplete: function () {
+                currentPanel.classList.remove('active');
+
+                // Panel mới
+                nextPanel.classList.add('active');
+
+                gsap.fromTo(
+                  nextPanel, {
+                    autoAlpha: 0
+                  }, {
+                    autoAlpha: 1,
+                    duration: 0.25,
+                    ease: 'power1.out'
+                  }
+                );
+              }
+            });
+          }
+        });
       });
     });
   };
@@ -3005,4 +3125,6 @@
   });
   initPopup();
   inlineSvg().then(initUtilitiesPairs);
+  initContactModal();
+  innerTabs();
 })();

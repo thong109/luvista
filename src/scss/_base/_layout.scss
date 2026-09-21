@@ -120,7 +120,7 @@
 html {
   line-height: 1;
   @include scroll-hidden;
-  background: $color-default;
+  background: #163963;
 
   @include desktop {
     overflow: auto scroll;
@@ -148,7 +148,6 @@ html {
 }
 
 body {
-  background: $color-default;
   color: $color-default;
   font-family: $font-default;
   font-size: $fontsize-default;
