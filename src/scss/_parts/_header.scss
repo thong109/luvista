@@ -47,7 +47,7 @@ html.is-dark-bg {
 .navigation-wrapper {
   position: relative;
   isolation: isolate;
-  min-height: max(100dvh, 560px);
+  min-height: max(100dvh, 5.6rem);
   overflow: hidden;
   background: $ink;
 }
@@ -94,14 +94,14 @@ html.is-dark-bg {
   border: 0;
   background: transparent;
   color: #edc8b1;
-  font: 600 clamp(12px, .9375vw, 18px)/25px $font-sfpro;
+  font: 600 clamp(.12rem, .9375vw, .18rem)/.25rem $font-sfpro;
   cursor: pointer;
 
   .button-icon,
   svg {
     display: block;
-    width: 17px;
-    height: 17px;
+    width: .17rem;
+    height: .17rem;
   }
 }
 
@@ -109,7 +109,7 @@ html.is-dark-bg {
   position: relative;
   width: 39.53%;
   margin-left: 53.85%;
-  padding-top: max(50.93vh, 260px);
+  padding-top: max(50.93vh, 2.6rem);
   padding-bottom: 7.68vh;
 }
 
@@ -127,11 +127,11 @@ html.is-dark-bg {
 .navigation-menu .item-link {
   display: inline-block;
   color: #f6d2bb;
-  font: 600 clamp(20px, 1.5625vw, 30px)/1.2 $font-default;
+  font: 600 clamp(.2rem, 1.5625vw, .3rem)/1.2 $font-default;
   text-transform: uppercase;
   text-decoration: none;
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(.14rem);
   transition: opacity .4s ease, transform .5s ease, color .2s ease;
 
   &:hover {
@@ -154,7 +154,7 @@ html.is-dark-bg {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: .16rem;
   margin-top: 7.7vh;
   padding-top: 2.96vh;
   border-top: 1px solid rgba(#f6d2bb, .18);
@@ -166,11 +166,11 @@ html.is-dark-bg {
   gap: .73vw;
   color: #f1f1f1;
   white-space: nowrap;
-  font: 400 clamp(12px, 1.146vw, 22px)/1.2 $font-gilroy;
+  font: 400 clamp(.12rem, 1.146vw, .22rem)/1.2 $font-gilroy;
 
   img {
-    width: clamp(20px, 1.67vw, 32px);
-    height: clamp(20px, 1.67vw, 32px);
+    width: clamp(.2rem, 1.67vw, .32rem);
+    height: clamp(.2rem, 1.67vw, .32rem);
   }
 
   strong {
@@ -186,8 +186,8 @@ html.is-dark-bg {
   .header-icon,
   img {
     display: block;
-    width: clamp(22px, 1.78vw, 34px);
-    height: clamp(22px, 1.78vw, 34px);
+    width: clamp(.22rem, 1.78vw, .34rem);
+    height: clamp(.22rem, 1.78vw, .34rem);
   }
 }
 
@@ -217,62 +217,62 @@ html.is-dark-bg {
   }
 
   .header-common-navigation .menu-heading {
-    top: 24px;
-    right: 24px;
+    top: .24rem;
+    right: .24rem;
   }
 
   .header-common-navigation .button-close {
-    gap: 12px;
-    font-size: 14px;
+    gap: .12rem;
+    font-size: .14rem;
   }
 
   .navigation-brand {
-    top: 100px;
+    top: 1rem;
     left: 7%;
-    width: min(60%, 300px);
+    width: min(60%, 3rem);
   }
 
   .navigation-wave {
-    top: 130px;
+    top: 1.3rem;
     left: -90%;
     width: 260%;
-    height: 400px;
+    height: 4rem;
   }
 
   .navigation-content {
     width: 86%;
     margin: 0 auto;
-    padding-top: max(290px, 40vh);
-    padding-bottom: 40px;
+    padding-top: max(2.9rem, 40vh);
+    padding-bottom: .4rem;
   }
 
   .navigation-menu .header-menu {
     grid-template-columns: 1fr 1fr;
-    gap: 28px 20px;
+    gap: .28rem .2rem;
   }
 
   .navigation-menu .item-link {
-    font-size: clamp(20px, 5.3vw, 26px);
+    font-size: clamp(.2rem, 5.3vw, .26rem);
   }
 
   .navigation-footer {
-    margin-top: 42px;
-    padding-top: 24px;
-    gap: 24px;
+    margin-top: .42rem;
+    padding-top: .24rem;
+    gap: .24rem;
   }
 
   .navigation-hotline {
-    gap: 10px;
-    font-size: 15px;
+    gap: .1rem;
+    font-size: .15rem;
   }
 
   .navigation-socials {
-    gap: 16px;
+    gap: .16rem;
 
     .header-icon,
     img {
-      width: 30px;
-      height: 30px;
+      width: .3rem;
+      height: .3rem;
     }
   }
 }
@@ -284,91 +284,91 @@ html.is-dark-bg {
 
   .header-common-navigation .menu-heading {
     position: fixed;
-    top: 16px;
+    top: .16rem;
   }
 
   .header-common-navigation .button-close {
-    min-height: 36px;
-    padding: 0 8px;
-    border-radius: 4px;
+    min-height: .36rem;
+    padding: 0 .08rem;
+    border-radius: .04rem;
     background: $ink;
   }
 
   .navigation-brand {
     top: 12vh;
-    width: min(23.91%, 340px);
+    width: min(23.91%, 3.4rem);
   }
 
   .navigation-content {
-    padding-top: clamp(90px, 30vh, 220px);
-    padding-bottom: 24px;
+    padding-top: clamp(.9rem, 30vh, 2.2rem);
+    padding-bottom: .24rem;
   }
 
   .navigation-menu .header-menu {
-    row-gap: clamp(12px, 3vh, 24px);
+    row-gap: clamp(.12rem, 3vh, .24rem);
   }
 
   .navigation-menu .item-link {
-    font-size: clamp(20px, 3.6vh, 26px);
+    font-size: clamp(.2rem, 3.6vh, .26rem);
   }
 
   .navigation-footer {
     flex-wrap: wrap;
-    margin-top: 28px;
-    padding-top: 18px;
-    gap: 16px;
+    margin-top: .28rem;
+    padding-top: .18rem;
+    gap: .16rem;
   }
 }
 
 @media (min-width: 768px) and (max-height: 480px) {
   .navigation-content {
-    padding-top: 72px;
+    padding-top: .72rem;
   }
 
   .navigation-brand {
-    top: 80px;
+    top: .8rem;
   }
 
   .navigation-menu .header-menu {
-    row-gap: 12px;
+    row-gap: .12rem;
   }
 
   .navigation-menu .item-link {
-    font-size: 20px;
+    font-size: .2rem;
   }
 
   .navigation-footer {
-    margin-top: 20px;
-    padding-top: 12px;
+    margin-top: .2rem;
+    padding-top: .12rem;
   }
 }
 
 @media (max-width: 767.98px) and (max-height: 740px) {
   .navigation-brand {
-    top: 68px;
-    width: min(52%, 240px);
+    top: .68rem;
+    width: min(52%, 2.4rem);
   }
 
   .navigation-wave {
-    top: 90px;
-    height: 300px;
+    top: .9rem;
+    height: 3rem;
   }
 
   .navigation-content {
-    padding-top: 170px;
+    padding-top: 1.7rem;
   }
 
   .navigation-menu .header-menu {
-    row-gap: 16px;
+    row-gap: .16rem;
   }
 
   .navigation-menu .item-link {
-    font-size: 20px;
+    font-size: .2rem;
   }
 
   .navigation-footer {
-    margin-top: 24px;
-    padding-top: 16px;
+    margin-top: .24rem;
+    padding-top: .16rem;
   }
 }
 
@@ -385,16 +385,16 @@ html.is-dark-bg {
 
 @media (min-width: 1025px) and (max-height: 480px) {
   .navigation-content {
-    padding-top: min(72px, 18vh);
+    padding-top: min(.72rem, 18vh);
     padding-bottom: 3vh;
   }
 
   .navigation-menu .header-menu {
-    row-gap: min(12px, 2.5vh);
+    row-gap: min(.12rem, 2.5vh);
   }
 
   .navigation-menu .item-link {
-    font-size: min(20px, 5.5vh);
+    font-size: min(.2rem, 5.5vh);
   }
 
   .navigation-footer {
@@ -404,14 +404,14 @@ html.is-dark-bg {
   }
 
   .navigation-hotline {
-    font-size: min(16px, 4vh);
+    font-size: min(.16rem, 4vh);
   }
 
   .navigation-socials .header-icon,
   .navigation-socials img,
   .navigation-hotline img {
-    width: min(26px, 6vh);
-    height: min(26px, 6vh);
+    width: min(.26rem, 6vh);
+    height: min(.26rem, 6vh);
   }
 }
 

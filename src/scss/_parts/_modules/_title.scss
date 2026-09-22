@@ -25,6 +25,10 @@
     }
   }
 
+  &.is-left {
+    justify-content: flex-start;
+  }
+
   &.no-icon {
     &::after {
       display: none;
@@ -74,6 +78,10 @@
     &::after {
       width: 0.24rem;
       height: 0.24rem;
+    }
+
+    &.is-left {
+      justify-content: center;
     }
   }
 }

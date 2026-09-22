@@ -1,0 +1,65 @@
+extends ../_base/_layout.pug
+block vars
+  - var metaTitle = 'LUVISTA Quy Nhơn | Giới thiệu'
+  - var path = '..'
+  - var page = 'overview'
+  - var imgPC = path + '/resources/images/overview/'
+  - var imgSP = path + '/resources/images/overview/'
+  - var imgCommonPC = path + '/resources/images/common/'
+  - var imgCommonSP = path + '/resources/images/common/'
+
+block content
+  main.home
+    .slider-stage
+      section.panel.section-overview.overview#section-overview(aria-labelledby="overview-title" data-transition="simple")
+        .group-central
+          .inner
+            .group-bg
+              img.overview-wave.is-bottom(src=imgPC + 'wave-bottom.svg' width="2732" height="617" alt="" aria-hidden="true")
+              figure.overview-photo
+                img.photo-image(src=imgPC + 'photo.png' width="1934" height="1080" alt="Phối cảnh tòa tháp và cảnh quan dự án LUVISTA" loading="eager" decoding="async")
+              img.overview-wave.is-top(src=imgPC + 'wave-top.svg' width="2202" height="498" alt="" aria-hidden="true")
+              img.overview-star.is-large(src=imgPC + 'star.svg' width="65" height="65" alt="" aria-hidden="true")
+              img.overview-star.is-medium(src=imgPC + 'star.svg' width="36" height="36" alt="" aria-hidden="true")
+              img.overview-star.is-small(src=imgPC + 'star.svg' width="27" height="27" alt="" aria-hidden="true")
+              .overview-content
+                h1.title-common-primary.is-left.is-gold.hero-title.js-title Giới thiệu
+                h2.overview-subtitle.hero-sub.js-title Tổng quan về dự án
+                dl.overview-location.hero-sub.js-title
+                  dt Vị trí:
+                  dd Đường Chế Lan Viên, Phường Quy Nhơn Nam, Tỉnh Gia Lai
+                - var facts = [{label: 'Quy mô:', value: '8.3 ha'}, {label: 'Số tòa tháp:', value: '5 tòa'}, {label: 'Chiều cao:', value: '21 tầng, 1 tầng hầm'}, {label: 'Cơ cấu sản phẩm:', value: '1,596 căn hộ + 34 shophouse'}, {label: 'Mật độ xây dựng:', value: '50%'}, {label: 'Hình thức sở hữu:', value: 'Sở hữu lâu dài'}]
+                dl.overview-facts.hero-sub.js-title
+                  each fact in facts
+                    dt= fact.label
+                    dd= fact.value
+                  dt Kết nối thuận lợi:
+                  dd.is-note Trường học, bệnh viện, siêu thị, chợ... trong phạm vi di chuyển 10 phút; 30 phút tới sân bay Phù Cát, khu du lịch Kỳ Co – Eo Gió;...
+                  dt Tiện ích nội khu:
+                  dd.is-note Công viên, hồ bơi, đường dạo bộ, khu vui chơi trẻ em, trường mẫu giáo, sân chơi, clubhouse, quảng trường,...
+      section.panel.section-overview-scale#section-scale(aria-labelledby="scale-title" data-transition="simple")
+        .group-central
+          .inner
+            .group-bg
+              img.scale-glow(src=imgPC + 'scale-glow.svg' width="1380" height="1380" alt="" aria-hidden="true")
+              figure.scale-photo
+                img(src=imgPC + 'scale-photo.png' width="1920" height="1080" alt="Kiến trúc các tòa tháp và phố thương mại LUVISTA Quy Nhơn" loading="eager" decoding="async")
+              img.scale-wave(src=imgPC + 'scale-wave.svg' width="2804" height="634" alt="" aria-hidden="true")
+              .scale-content
+                h2.title-common-primary.hero-title.js-title.is-gold.is-left Quy mô, ý tưởng thiết kế
+                h3.scale-subtitle.hero-sub.js-title LUVISTA Quy Nhơn - Kiến trúc xây dựng để trường tồn
+                .scale-copy.hero-sub.js-title
+                  p Những công trình trường tồn qua thế kỷ đều có một điểm chung - vật liệu địa phương, được chọn lọc kỹ lưỡng và sử dụng đúng cách.
+                  p Khối đế ốp đá granit vàng Bình Định - hàng triệu năm tuổi, khai thác ngay trên mảnh đất Bình Định. Cứng vượt thời gian, không phai màu, không cần bảo trì - thế hệ kế thừa sẽ chạm vào đúng nguyên vẹn như ngày hoàn thiện đầu tiên.
+                  p Năm tháp khoác gạch thẻ đỏ nung - vật liệu đã đi qua hàng thế kỷ kiến trúc Việt Nam, từ Hội An, Huế đến Bình Định. Điều hòa nhiệt tự nhiên, góp phần đạt chuẩn EDGE quốc tế. Sắc đỏ nâu ấm đổi sắc thái theo từng giờ - tạo silhouette không thể nhầm lẫn.
+                  p Sở hữu Luvista không chỉ là quyết định của hôm nay - mà là di sản kiến trúc còn nguyên giá trị để trao lại cho thế hệ tiếp theo. Luvista Quy Nhơn không khấu hao theo thời gian - chúng tăng giá trị.
+              .scale-materials
+                figure.material-card
+                  img.object-common(src=imgPC + 'scale-granite.png' width="1700" height="790" alt="Chi tiết đá granit vàng Bình Định ở khối đế" loading="lazy" decoding="async")
+                  figcaption Đá Granit vàng Bình Định
+                figure.material-card
+                  img.object-common(src=imgPC + 'scale-brick.png' width="854" height="536" alt="Gạch thẻ đỏ trên mặt đứng tòa tháp" loading="lazy" decoding="async")
+                  figcaption Gạch thẻ đỏ
+              img.scale-star.is-large(src=imgPC + 'star.svg' width="64" height="64" alt="" aria-hidden="true")
+              img.scale-star.is-medium(src=imgPC + 'star.svg' width="36" height="36" alt="" aria-hidden="true")
+              img.scale-star.is-small(src=imgPC + 'star.svg' width="28" height="28" alt="" aria-hidden="true")

@@ -153,6 +153,15 @@
 
     const SLIDER_COUNT = panels.length;
 
+    const prepareNextPanel = (index) => {
+      const next = panels[index + 1];
+      if (next?.dataset.transition !== "simple") return;
+      next.querySelectorAll("img").forEach((image) => {
+        image.loading = "eager";
+        image.decode?.().catch(() => {});
+      });
+    };
+
     const updateNav = (i) =>
       navItems.forEach((n, j) =>
         n.classList.toggle("active", j === i && j < SLIDER_COUNT)
@@ -353,10 +362,18 @@
 
       s.animating = true;
       const prev = s.cur;
+      const simpleTransition = panels[i].dataset.transition === "simple" &&
+        (prev < 0 || panels[prev].dataset.transition === "simple");
+
+      if (simpleTransition) {
+        // Move one composited wrapper; keep the masked/blurred scene stationary inside it.
+        gsap.set(outers[i], { willChange: "transform", force3D: true });
+        gsap.set([inners[i], images[i]].filter(Boolean), { yPercent: 0 });
+      }
 
       const tl = gsap.timeline({
         defaults: {
-          duration: 1.05,
+          duration: simpleTransition ? 0.85 : 1.05,
           ease: "power1.inOut",
         },
         onStart: () => {
@@ -374,6 +391,10 @@
         },
         onComplete: () => {
           s.animating = false;
+          if (simpleTransition) {
+            gsap.set(outers[i], { clearProps: "willChange" });
+          }
+          prepareNextPanel(i);
           panels.forEach((p, idx) => {
             if (idx !== i)
               gsap.set(p, {
@@ -406,7 +427,7 @@
           zIndex: 0,
         });
 
-        if (images[s.cur]) {
+        if (images[s.cur] && !simpleTransition) {
           tl.to(
             images[s.cur], {
               yPercent: -14 * d,
@@ -416,7 +437,7 @@
         }
       }
 
-      const curTargets = [outers[i], inners[i]].filter(Boolean);
+      const curTargets = (simpleTransition ? [outers[i]] : [outers[i], inners[i]]).filter(Boolean);
       if (curTargets.length) {
         tl.fromTo(
           curTargets, {
@@ -429,7 +450,7 @@
         );
       }
 
-      if (images[i]) {
+      if (images[i] && !simpleTransition) {
         tl.fromTo(
           images[i], {
             yPercent: 14 * d,
@@ -445,11 +466,11 @@
           tl.fromTo(
             h, {
               autoAlpha: 0,
-              yPercent: 200 * d,
+              yPercent: (simpleTransition ? 60 : 200) * d,
             }, {
               autoAlpha: 1,
               yPercent: 0,
-              duration: 0.9,
+              duration: simpleTransition ? 0.6 : 0.9,
               ease: "power2.out",
             },
             0.18
@@ -462,11 +483,11 @@
           tl.fromTo(
             sub, {
               autoAlpha: 0,
-              yPercent: 200 * d,
+              yPercent: (simpleTransition ? 20 : 200) * d,
             }, {
               autoAlpha: 1,
               yPercent: 0,
-              duration: 0.8,
+              duration: simpleTransition ? 0.55 : 0.8,
               ease: "power2.out",
             },
             0.28
@@ -593,7 +614,7 @@
     const scrollPanelList = (direction, deltaY = 0) => {
       const panel = panels[s.cur];
       const list = panel?.querySelector(
-        ".capability-list, .amenities-legend"
+        ".capability-list, .amenities-legend, .overview-content, .scale-content"
       );
       if (!list || list.scrollHeight <= list.clientHeight + 2) return false;
 
@@ -2575,8 +2596,8 @@
 
   const initUtilitiesPairs = () => {
     const amenities = document.getElementById("section-amenities");
-    const pinLayer = amenities?.querySelector("svg.amenities-overlay");
-    if (pinLayer) {
+    amenities?.querySelectorAll("svg.amenities-overlay").forEach((pinLayer) => {
+      const panel = pinLayer.closest(".amenities-panel") || amenities;
       const frame = amenities.querySelector(".amenities-frame");
       const pins = [...pinLayer.querySelectorAll("[data-pair]")];
       const mapToggle = document.createElement("div");
@@ -2588,7 +2609,7 @@
         <span class="toggle-text"></span>
       `;
       frame.appendChild(mapToggle);
-      const demoImage = amenities.querySelector(".amenities-map > img.object-common")?.src;
+      const demoImage = panel.querySelector(".amenities-map > img.object-common")?.src;
       let activePin = null;
 
       const hidePinToggle = () => {
@@ -2596,6 +2617,10 @@
         activePin = null;
         mapToggle.classList.remove("is-active");
       };
+
+      amenities.querySelectorAll(".amenities-tab").forEach((button) => {
+        button.addEventListener("click", hidePinToggle);
+      });
 
       const showToggleAt = (label, target, pin = null) => {
         if (!label || !target) return;
@@ -2626,7 +2651,7 @@
       const showPinToggle = (pin) => {
         const [type, value] = pin.dataset.pair.split("-");
         const number = Number(value);
-        const items = amenities.querySelectorAll(`.amenities-legend-group.is-${type} .amenities-columns li`);
+        const items = panel.querySelectorAll(`.amenities-legend-group.is-${type} .amenities-columns li`);
         showToggleAt(items[number - 1]?.querySelector("p"), pin, pin);
       };
 
@@ -2635,7 +2660,7 @@
         pin.addEventListener("mouseleave", hidePinToggle);
       });
 
-      amenities.querySelectorAll(".amenities-legend-group .amenities-columns li").forEach((item) => {
+      panel.querySelectorAll(".amenities-legend-group .amenities-columns li").forEach((item) => {
         const type = item.closest(".amenities-legend-group").classList.contains("is-external") ?
           "external" : "internal";
         const number = item.querySelector("span")?.textContent.trim();
@@ -2648,7 +2673,7 @@
         });
         item.addEventListener("mouseleave", hidePinToggle);
       });
-    }
+    });
 
     const popup = document.getElementById("utilitiesDiagram");
     if (!popup) return;
@@ -3041,19 +3066,48 @@
       const panels = tab.querySelectorAll('.inner-tab-panel');
 
       buttons.forEach(function (button) {
+        if (button.getAttribute('role') === 'tab') {
+          button.addEventListener('keydown', function (event) {
+            const enabled = [...buttons].filter(item => !item.disabled);
+            const index = enabled.indexOf(button);
+            const targets = {
+              ArrowRight: (index + 1) % enabled.length,
+              ArrowLeft: (index - 1 + enabled.length) % enabled.length,
+              Home: 0,
+              End: enabled.length - 1
+            };
+            if (!(event.key in targets)) return;
+            event.preventDefault();
+            const target = enabled[targets[event.key]];
+            target.focus();
+            target.click();
+          });
+        }
+
         button.addEventListener('click', function () {
           const target = button.dataset.tab;
           const nextPanel = tab.querySelector(`#${target}`);
           const currentPanel = tab.querySelector('.inner-tab-panel.active');
 
-          if (!nextPanel || currentPanel === nextPanel) return;
+          if (!nextPanel || button.disabled) return;
+
+          // Cancel pending transitions before a rapid click selects another panel.
+          gsap.killTweensOf(panels);
 
           // Button
           buttons.forEach(function (item) {
-            item.classList.remove('active');
+            const active = item === button;
+            item.classList.toggle('active', active);
+            if (item.getAttribute('role') === 'tab') {
+              item.setAttribute('aria-selected', String(active));
+              item.tabIndex = active ? 0 : -1;
+            }
           });
 
-          button.classList.add('active');
+          if (currentPanel === nextPanel) {
+            gsap.set(nextPanel, { autoAlpha: 1 });
+            return;
+          }
 
           // Fade out panel hiện tại
           if (currentPanel) {
