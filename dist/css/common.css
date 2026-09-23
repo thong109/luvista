@@ -1279,7 +1279,7 @@ html.is-touchable .trans:hover {
 }
 .section-footer-common .group-bg {
   overflow: hidden;
-  background: url(../resources/images/top/footer-bg.jpg) center center/cover no-repeat;
+  background: url(../resources/images/common/footer-bg.jpg) center center/cover no-repeat;
 }
 .section-footer-common .wrapper {
   display: flex;

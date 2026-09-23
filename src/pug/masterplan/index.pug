@@ -1,0 +1,43 @@
+extends ../_base/_layout.pug
+block vars
+  - var metaTitle = 'LUVISTA Quy Nhơn | Mặt bằng'
+  - var path = '..'
+  - var page = 'masterplan'
+  - var imgPC = path + '/resources/images/masterplan/'
+  - var imgSP = path + '/resources/images/masterplan/'
+  - var imgCommonPC = path + '/resources/images/common/'
+  - var imgCommonSP = path + '/resources/images/common/'
+
+block content
+  main.home
+    .slider-stage
+      section.panel.section-masterplan-article#section-masterplan(aria-label="Mặt bằng tầng căn hộ CH2" data-transition="simple")
+        .group-central
+          .inner
+            .group-bg
+              img.masterplan-base(src=imgPC + 'floor-base.svg' width="1920" height="1080" alt="" aria-hidden="true")
+              img.masterplan-background(src=imgPC + 'floor-background.png' width="1920" height="1080" alt="" aria-hidden="true")
+              .masterplan-floor-picker.js-masterplan-floor(data-lenis-prevent)
+                .masterplan-floor-select(role="combobox" tabindex="0" aria-label="Chọn tầng căn hộ CH2" aria-haspopup="listbox" aria-expanded="false" aria-controls="masterplan-floor-options")
+                  span.floor-current Tầng 5 ~ 20 (CH2)
+                  img.floor-chevron(src=imgPC + 'floor-chevron.svg' width="18" height="15" alt="" aria-hidden="true")
+                .masterplan-floor-options#masterplan-floor-options(role="listbox" aria-label="Tầng căn hộ CH2" hidden)
+                  .floor-option#floor-option-all(role="option" aria-selected="true" data-value="5-20" data-plan=imgPC + 'floor-ch2.png') Tầng 5 ~ 20 (CH2)
+                  //- The supplied CH2 plan is shared by floors 5–20; map data-plan here when separate plans are supplied.
+                  each floor in Array.from({length: 16}, (_, index) => index + 5)
+                    .floor-option(id='floor-option-' + floor role="option" aria-selected="false" data-value=floor data-plan=imgPC + 'floor-ch2.png')= 'Tầng ' + floor + ' (CH2)'
+              .masterplan-compass(role="img" aria-label="La bàn: Bắc, Đông, Tây, Nam")
+                img.compass-rose(src=imgPC + 'compass.svg' alt="" aria-hidden="true")
+                img.compass-north(src=imgPC + 'compass-north.svg' alt="" aria-hidden="true")
+                img.compass-east(src=imgPC + 'compass-east.svg' alt="" aria-hidden="true")
+                img.compass-west(src=imgPC + 'compass-west.svg' alt="" aria-hidden="true")
+                img.compass-south(src=imgPC + 'compass-south.svg' alt="" aria-hidden="true")
+              figure.masterplan-drawing(tabindex="0" aria-label="Sơ đồ mặt bằng; có thể cuộn ngang trên màn hình nhỏ")
+                img#masterplan-floor-image(src=imgPC + 'floor-ch2.png' width="1443" height="1002" alt="Mặt bằng tầng 5 đến 20 (CH2): The Horizon, The Harmony và The Hill" loading="eager" fetchpriority="high" decoding="async")
+              p.masterplan-pan-hint Vuốt ngang để xem toàn bộ mặt bằng
+              ul.masterplan-legend(aria-label="Chú giải loại căn hộ")
+                each item, index in ['3 phòng ngủ', '2 phòng ngủ', '1 phòng ngủ +1', 'studio']
+                  li(class='is-type-' + index)
+                    span.legend-swatch(aria-hidden="true")
+                    span Căn hộ
+                    span= item

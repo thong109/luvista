@@ -1,0 +1,342 @@
+@charset "utf-8";
+@use "_base/base"as *;
+
+.section-masterplan-article {
+  color: #f6d2bb;
+
+  .group-bg {
+    isolation: isolate;
+    background: #163963;
+  }
+
+  .masterplan-base,
+  .masterplan-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  .masterplan-drawing {
+    position: absolute;
+    top: calc(40 / 1080 * 100%);
+    left: 50%;
+    width: calc(1443 / 1920 * 100%);
+    height: calc(1002 / 1080 * 100%);
+    margin: 0;
+    transform: translateX(-50%);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #f6d2bb;
+      outline-offset: 2px;
+    }
+  }
+
+  .masterplan-pan-hint {
+    display: none;
+  }
+
+  .masterplan-floor-picker {
+    position: absolute;
+    z-index: 3;
+    top: calc(57 / 1080 * 100%);
+    right: calc(80 / 1920 * 100%);
+    width: 3.23rem;
+  }
+
+  .masterplan-floor-select {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: .44rem;
+    padding: 0 .44rem 0 0;
+    border: 0;
+    border-radius: 0;
+    appearance: none;
+    background: transparent;
+    color: #f6d2bb;
+    font-family: $font-default;
+    font-size: .4rem;
+    font-weight: 400;
+    line-height: .8rem;
+    text-align: right;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 1px solid rgba(#f6d2bb, .7);
+      outline-offset: 4px;
+      border-radius: .06rem;
+    }
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .masterplan-floor-options {
+    position: absolute;
+    top: calc(100% + .08rem);
+    right: 0;
+    width: 100%;
+    max-height: min(3.4rem, 55svh);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: .08rem;
+    border: 1px solid rgba(#f6d2bb, .35);
+    border-radius: .12rem;
+    background: linear-gradient(160deg, #204d76, #102e50);
+    box-shadow: 0 .16rem .4rem rgba(#00152b, .35);
+    scrollbar-width: thin;
+    scrollbar-color: #c3a493 transparent;
+
+    &[hidden] { display: none; }
+  }
+
+  .floor-option {
+    position: relative;
+    padding: .1rem .35rem .1rem .14rem;
+    border-radius: .06rem;
+    color: #f6d2bb;
+    font-size: .22rem;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: background-color .2s ease, color .2s ease;
+
+    &:hover,
+    &.is-focused { background: rgba(#f6d2bb, .12); color: #fff; }
+    &[aria-selected="true"] {
+      background: #f6d2bb;
+      color: #163963;
+      &::after { position: absolute; right: .12rem; content: "✓"; }
+    }
+  }
+
+  .masterplan-floor-picker.is-open .floor-chevron {
+    transform: translateY(-50%) rotate(0deg);
+  }
+
+  .floor-chevron {
+    transition: transform .2s ease;
+    position: absolute;
+    top: 50%;
+    right: .02rem;
+    width: .18rem;
+    height: auto;
+    transform: translateY(-50%) rotate(180deg);
+    pointer-events: none;
+  }
+
+  .masterplan-compass {
+    position: absolute;
+    z-index: 1;
+    top: 15.83%;
+    left: 5.89%;
+    width: 7.29%;
+    aspect-ratio: 140 / 136;
+
+    img {
+      position: absolute;
+      height: auto;
+    }
+
+    .compass-rose {
+      left: 12.07%;
+      top: 14.77%;
+      width: 66.39%;
+    }
+
+    .compass-north {
+      left: 0;
+      top: 0;
+      width: 24.28%;
+    }
+
+    .compass-east {
+      left: 63.92%;
+      top: 1.43%;
+      width: 36.08%;
+    }
+
+    .compass-west {
+      left: 0;
+      top: 82.4%;
+      width: 24.69%;
+    }
+
+    .compass-south {
+      left: 65.29%;
+      top: 83.35%;
+      width: 33.2%;
+    }
+  }
+
+  .masterplan-legend {
+    position: absolute;
+    z-index: 1;
+    top: calc(858 / 1080 * 100%);
+    right: calc(81 / 1920 * 100%);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 4.13rem;
+    margin: 0;
+    padding: .13rem .12rem .06rem;
+    border-radius: .1rem;
+    background: #fff;
+    color: #5a5a5a;
+    list-style: none;
+    font-family: $font-sfpro;
+    font-size: .14rem;
+    line-height: .15rem;
+    text-align: center;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .legend-swatch {
+      width: .24rem;
+      height: .24rem;
+      margin-bottom: .11rem;
+    }
+
+    .is-type-0 .legend-swatch {
+      background: #236295;
+    }
+
+    .is-type-1 .legend-swatch {
+      background: #79a1c5;
+    }
+
+    .is-type-2 .legend-swatch {
+      background: #c3a493;
+    }
+
+    .is-type-3 .legend-swatch {
+      background: #956b57;
+    }
+  }
+
+  @include screen-low {
+    .masterplan-floor-picker {
+      top: .75rem;
+    }
+
+    .masterplan-floor-select {
+      font-size: .32rem;
+      line-height: .6rem;
+    }
+  }
+
+  @include tablet {
+    height: auto;
+
+    .group-bg {
+      min-height: 100svh;
+      padding: 1.6rem .25rem .4rem;
+    }
+
+    .masterplan-drawing {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: 100%;
+      height: auto;
+      transform: none;
+    }
+
+    .masterplan-drawing img {
+      height: auto;
+    }
+
+    .masterplan-compass {
+      top: 1rem;
+      width: .85rem;
+    }
+
+    .masterplan-floor-picker {
+      top: .85rem;
+      right: .3rem;
+    }
+
+    .masterplan-legend {
+      position: relative;
+      top: auto;
+      right: auto;
+      margin: .25rem auto 0;
+    }
+  }
+
+  @include mobile {
+    height: auto;
+
+    .group-bg {
+      min-height: 100svh;
+      padding: 1.9rem .16rem .35rem;
+    }
+
+    .masterplan-floor-picker {
+      top: .95rem;
+      right: .2rem;
+      width: 2.6rem;
+    }
+
+    .masterplan-floor-select {
+      font-size: .28rem;
+      line-height: .6rem;
+      padding-right: .3rem;
+    }
+
+    .masterplan-compass {
+      top: .95rem;
+      left: .2rem;
+      width: .75rem;
+    }
+
+    .masterplan-drawing {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: 100%;
+      height: auto;
+      transform: none;
+      overflow-x: auto;
+    }
+
+    .masterplan-drawing img {
+      width: auto;
+      min-width: 100%;
+      max-width: none;
+      height: 4.5rem;
+    }
+
+    .masterplan-pan-hint {
+      position: relative;
+      display: block;
+      margin: .12rem 0 0;
+      color: #fff;
+      font-family: $font-sfpro;
+      font-size: .13rem;
+      text-align: center;
+    }
+
+    .masterplan-legend {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: 100%;
+      margin: .25rem auto 0;
+      font-size: .13rem;
+    }
+  }
+}

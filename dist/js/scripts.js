@@ -97,6 +97,56 @@
     init();
   };
 
+  const smoothScroll = () => {
+    const header = document.querySelector(".header-common");
+    const headerHeight = header ? header.offsetHeight : 0;
+
+    const closeMenu = () => {
+      document
+        .querySelectorAll(".js-click")
+        .forEach((el) => el.classList.remove("is-click-active"));
+
+      document
+        .querySelector(".header-common-navigation")
+        ?.classList.remove("is-click-active");
+
+      document.querySelector(".mask-common")?.classList.remove("is-active");
+
+      freezeWindow(false);
+    };
+
+    document
+      .querySelectorAll('a[href*="#"]:not([href="#"])')
+      .forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          const id = this.hash.replace("#", "");
+          const target = document.getElementById(id);
+          if (!target) return;
+
+          e.preventDefault();
+
+          const targetPosition =
+            target.getBoundingClientRect().top +
+            window.pageYOffset;
+
+          const currentScroll = window.pageYOffset;
+
+          // Nếu đã gần vị trí thì chỉ đóng menu
+          if (Math.abs(currentScroll - targetPosition) < 4) {
+            closeMenu();
+            return;
+          }
+
+          closeMenu();
+
+          window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth",
+          });
+        });
+      });
+  };
+
   const app = () => {
     if (window.innerWidth < 1024.98) return;
     const isTablet = () => window.innerWidth < 1024.98;
@@ -245,7 +295,7 @@
 
     /* ---------------- EXPLORE CTA ---------------- */
     const exploreBtn = document.querySelector(
-      ".section-top-keyvisual .hero-sub",
+      ".section-top-keyvisual .hero-sub, .section-overview-keyvisual .keyvisual-scroll",
     );
 
     if (exploreBtn) {
@@ -658,6 +708,7 @@
 
       observer = Observer.create({
         type: "wheel,touch",
+        ignore: ".masterplan-floor-picker",
         wheelSpeed: -1,
         tolerance: 14,
         preventDefault: true,
@@ -3138,10 +3189,83 @@
     });
   };
 
+  const initMasterplanFloors = () => {
+    document.querySelectorAll(".js-masterplan-floor").forEach((picker) => {
+      const section = picker.closest(".section-masterplan-article");
+      const image = section?.querySelector("#masterplan-floor-image");
+      const trigger = picker.querySelector('[role="combobox"]');
+      const list = picker.querySelector('[role="listbox"]');
+      const options = Array.from(picker.querySelectorAll('[role="option"]'));
+      if (!image || !trigger || !list || !options.length) return;
+      let active = 0;
+
+      const highlight = (index) => {
+        active = Math.max(0, Math.min(options.length - 1, index));
+        options.forEach((option, i) => option.classList.toggle("is-focused", i === active));
+        trigger.setAttribute("aria-activedescendant", options[active].id);
+        const option = options[active];
+        if (option.offsetTop < list.scrollTop) list.scrollTop = option.offsetTop;
+        else if (option.offsetTop + option.offsetHeight > list.scrollTop + list.clientHeight)
+          list.scrollTop = option.offsetTop + option.offsetHeight - list.clientHeight;
+      };
+      const close = () => {
+        list.hidden = true;
+        picker.classList.remove("is-open");
+        trigger.setAttribute("aria-expanded", "false");
+        trigger.removeAttribute("aria-activedescendant");
+      };
+      const open = () => {
+        list.hidden = false;
+        picker.classList.add("is-open");
+        trigger.setAttribute("aria-expanded", "true");
+        highlight(options.findIndex(option => option.getAttribute("aria-selected") === "true"));
+      };
+      const updateFloor = (option) => {
+        const source = option.dataset.plan;
+        if (source && image.getAttribute("src") !== source) image.src = source;
+        image.alt = `Mặt bằng ${option.textContent.trim()}: The Horizon, The Harmony và The Hill`;
+        section.dataset.floor = option.dataset.value;
+        trigger.querySelector(".floor-current").textContent = option.textContent.trim();
+        options.forEach(item => item.setAttribute("aria-selected", String(item === option)));
+      };
+
+      trigger.addEventListener("click", () => list.hidden ? open() : close());
+      list.addEventListener("mousedown", event => event.preventDefault());
+      options.forEach(option => option.addEventListener("click", () => {
+        updateFloor(option);
+        close();
+        trigger.focus({ preventScroll: true });
+      }));
+      trigger.addEventListener("keydown", (event) => {
+        if (["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) {
+          event.preventDefault();
+          if (list.hidden) open();
+          else highlight(event.key === "Home" ? 0 : event.key === "End" ? options.length - 1 : active + (event.key === "ArrowDown" ? 1 : -1));
+        } else if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          if (list.hidden) open();
+          else { updateFloor(options[active]); close(); }
+        } else if (event.key === "Escape") {
+          event.preventDefault();
+          close();
+        } else if (event.key === "Tab") close();
+      });
+      document.addEventListener("pointerdown", event => { if (!picker.contains(event.target)) close(); });
+      picker.addEventListener("focusout", event => {
+        if (event.relatedTarget && !picker.contains(event.relatedTarget)) close();
+      });
+      picker.addEventListener("wheel", event => event.stopPropagation(), { passive: true });
+      picker.addEventListener("touchmove", event => event.stopPropagation(), { passive: true });
+      updateFloor(options.find(option => option.getAttribute("aria-selected") === "true") || options[0]);
+    });
+  };
+
   waitForCriticalImages().then(() => {
     initIntro();
   });
 
+  smoothScroll();
+  initMasterplanFloors();
   initLocationTabs();
   initAmenitiesDrawers();
   detectDevice();
