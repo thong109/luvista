@@ -1,0 +1,115 @@
+extends ../_base/_layout.pug
+block vars
+  - var metaTitle = 'LUVISTA Quy Nhơn | Vị trí'
+  - var path = '..'
+  - var page = 'location'
+  - var imgPC = path + '/resources/images/location/'
+  - var imgSP = path + '/resources/images/location/'
+  - var imgCommonPC = path + '/resources/images/common/'
+  - var imgCommonSP = path + '/resources/images/common/'
+
+block content
+  main.home
+    .slider-stage
+      section.panel.section-top-location.location#section-location(aria-labelledby="location-title")
+        .group-central
+          .inner
+            .group-bg
+              .location-map(role="img" aria-label="Bản đồ vị trí LUVISTA và các tiện ích kết nối tại Quy Nhơn")
+                img.location-background(src=imgPC + 'location-background.jpg' width="1920" height="1080" alt="")
+                img(src=imgPC+"location-diagram-02.svg" class="js-inline-svg location-line" alt="Map")
+                img.location-overlay.location-icons(src=imgPC + 'location-icons.svg' width="1920" height="1080" alt="")
+                img.location-logo(src=imgPC + 'location-logo.svg' width="295" height="192" alt="")
+                .location-glow
+                  img(src=imgPC + 'location-glow.svg' alt="")
+              .location-content
+                h2.title-common-primary.is-gold#location-title.js-title.hero-title Vị trí dự án
+                - var locationGroups = [{time: '02', places: ['Điểm du lịch Ghềnh Ráng - Tiên Sa', 'Bến xe Quy Nhơn', 'Chợ Ghềnh Ráng', 'MM Mega Market', 'Kim Cúc Plaza', 'GO Quy Nhơn', 'Rạp chiếu phim CGV']}, {time: '05', places: ['Coop Mart', 'Quảng trường Nguyễn Tất Thành', 'Bãi biển Quy Nhơn', 'Trung tâm Khám phá KH Quy Nhơn', 'ICISE Quy Nhơn', 'Công viên sáng tạo TMA']}, {time: '07', places: ['Trung tâm bảo hiểm Quy Nhơn', 'Bệnh viện', 'Sân vận động']}, {time: '10', places: ['Ga Quy Nhơn', 'Trường THPT Lê Quý Đôn']}, {time: '20', places: ['Ga Diêu Trì', 'Trung tâm AI Bình Định']}, {time: '30', places: ['Sân bay Phù Cát', 'Kỳ Co - Điểm du lịch Eo Gió']}]
+                .location-navigation.js-title.hero-sub
+                  button.location-arrow.is-prev(type="button" aria-label="Nhóm thời gian trước")
+                    img(src=imgPC + 'location-prev.svg' width="39" height="39" alt="")
+                  .location-tabs(role="tablist" aria-label="Thời gian di chuyển")
+                    each group, index in locationGroups
+                      button.location-tab(type="button" role="tab" id='location-tab-' + group.time aria-controls='location-panel-' + group.time aria-selected=index === 0 ? 'true' : 'false' tabindex=index === 0 ? '0' : '-1')
+                        strong= group.time
+                        span Phút
+                  button.location-arrow.is-next(type="button" aria-label="Nhóm thời gian tiếp theo")
+                    img(src=imgPC + 'location-next.svg' width="39" height="39" alt="")
+                .location-panels.js-title.hero-sub
+                  each group, index in locationGroups
+                    .location-panel(role="tabpanel" id='location-panel-' + group.time aria-labelledby='location-tab-' + group.time hidden=index !== 0 tabindex="0")
+                      p.location-time
+                        strong= group.time
+                        span Phút
+                      ul
+                        each place in group.places
+                          li= place
+      section.panel.section-location-regional(aria-labelledby="regional-title")
+        .group-central
+          .inner
+            .group-bg
+              .regional-glow(aria-hidden="true")
+              .regional-wave(aria-hidden="true")
+              h2.title-common-primary.is-gold#regional-title Liên kết vùng
+              - var regionalPhotos = [{image: 'regional-ghenh-rang.png', title: 'Điểm du lịch Ghềnh Ráng - Tiên Sa'}, {image: 'regional-ben-xe.png', title: 'Bến xe Quy Nhơn'}, {image: 'regional-mega-market.png', title: 'MM Mega Market'}, {image: 'regional-kim-cuc.png', title: 'Kim Cúc Plaza'}]
+              .regional-groups.swiper
+                .swiper-wrapper
+                  each time in ['02', '05', '07', '10', '20', '30']
+                    .regional-group.swiper-slide
+                      p.regional-time
+                        strong= time
+                        span phút
+                      .regional-rule(aria-hidden="true")
+                      .regional-photos.swiper(aria-label='Tiện ích trong ' + time + ' phút')
+                        .swiper-wrapper
+                          each photo, index in regionalPhotos
+                            figure.regional-photo.swiper-slide
+                              .regional-photo-frame
+                                img(class='regional-image-' + index src=imgPC + photo.image alt=photo.title width="840" height="520")
+                              figcaption= photo.title
+              .regional-controls.hidden
+                button.regional-prev(type="button" aria-label="Nhóm phút trước") ‹
+                button.regional-play(type="button" aria-label="Tạm dừng trình chiếu" aria-pressed="false") Tạm dừng
+                button.regional-next(type="button" aria-label="Nhóm phút tiếp theo") ›
+      section.panel.section-footer-common#section-contact(aria-labelledby="footer-consultation-title")
+        .group-central
+          .inner
+            .group-bg
+              .wrapper
+                .section-footer-common-consultation
+                  .section-footer-common-heading
+                    h2.title-common-primary.is-gold Đăng ký tư vấn
+                  p.section-footer-common-intro Quý khách vui lòng để lại thông tin, đội ngũ chuyên viên sẽ liên hệ tư vấn trong thời gian sớm nhất.
+                  form.section-footer-common-form(action="" method="post")
+                    label
+                      input(type="text" name="name" required placeholder="Họ tên (*)")
+                    label
+                      input(type="email" name="email" placeholder="Email")
+                    label
+                      input(type="tel" name="phone" required placeholder="Số điện thoại (*)")
+                    button.trans(type="submit") Liên hệ ngay
+                .section-footer-common-contact
+                  h2.title-common-primary.is-gold.no-icon Thông tin liên hệ
+                  - var footerContacts = [{icon: 'footer-location.svg', title: 'Sales Office', detail: 'Tòa nhà Repubulic Plaza Cộng Hòa, 18E Cộng Hòa, Phường Tân Sơn Nhất, TP.HCM'}, {icon: 'footer-location.svg', title: 'Sales Gallery', detail: 'Đường Chế Lan Viên, Phường Quy Nhơn Nam, Tỉnh Gia Lai'}, {icon: 'footer-phone.svg', title: 'Hotline', detail: '0888 790 288'}, {icon: 'footer-email.svg', title: 'Email', detail: 'info@luvista.vn'}]
+                  .section-footer-common-contact-list
+                    each item in footerContacts
+                      .section-footer-common-contact-item
+                        img(src=imgCommonPC + item.icon width="34" height="34" alt="")
+                        h3= item.title
+                        p= item.detail
+                  .section-footer-common-bottom
+                    p © 2026 Luvista · Website by <a href="https://leaddigital.vn/" target="_blank" class="trans">Lead Digital</a>
+                    .section-footer-common-social
+                      a.trans(href="#" aria-label="Facebook")
+                        img.object-common(src=imgCommonPC + 'footer-facebook.svg' width="34" height="34" alt="")
+                      a.trans(href="#" aria-label="Youtube")
+                        img.object-common(src=imgCommonPC + 'footer-youtube.svg' width="34" height="34" alt="")
+                      a.trans(href="#" aria-label="Tiktok")
+                        img.object-common(src=imgCommonPC + 'footer-tiktok.svg' width="34" height="34" alt="")
+                      a.trans(href="#" aria-label="Zalo")
+                        img.object-common(src=imgCommonPC + 'footer-zalo.svg' width="34" height="34" alt="")
+                    .section-footer-common-policy
+                      a.trans(href="#") Chính sách bảo mật thông tin cá nhân
+                  p.section-footer-common-note Lưu ý: Chúng tôi đã nỗ lực và cẩn trọng để hoàn thiện tài liệu này. Tuy nhiên tài liệu chỉ dùng với mục đích tham khảo. Hình ảnh, sơ đồ kỹ thuật, bố trí nội ngoại thất hay thông tin mô tả về dự án chỉ nhằm mục đích minh họa, không phải là thông tin hiện thực hay cam kết pháp lý. Thông tin chính thức về dự án sẽ được căn cứ trên hợp đồng mua bán và các tài liệu được thỏa thuận, ký kết chính thức với khách hàng.
+                a.section-footer-common-go-top.js-button-top.trans(href="#section-home" aria-label="Về đầu trang")
+                  img.object-common.js-inline-svg(src=imgCommonPC + 'footer-go-top.svg' width="50" height="50" alt="" loading="eager")

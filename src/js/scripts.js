@@ -714,6 +714,7 @@
         preventDefault: true,
 
         onDown: (self) => {
+          if (self.event?.type.startsWith('touch') && self.event.target?.closest?.('.regional-photos, .js-project-videos, .js-project-documents')) return;
           if (!s.animating && s.active && !s.switching) {
             const isAmenitiesTouch =
               self.event?.type.startsWith("touch") &&
@@ -725,6 +726,7 @@
         },
 
         onUp: (self) => {
+          if (self.event?.type.startsWith('touch') && self.event.target?.closest?.('.regional-photos, .js-project-videos, .js-project-documents')) return;
           if (!s.animating && s.active && !s.switching) {
             const isAmenitiesTouch =
               self.event?.type.startsWith("touch") &&
@@ -883,6 +885,63 @@
           },
         },
       });
+    });
+  };
+
+  const projectVideosSlider = () => {
+    if (typeof Swiper === 'undefined') return;
+    document.querySelectorAll('.js-project-videos').forEach(element => {
+      if (element.swiper) return;
+      const slider = new Swiper(element, {
+        slidesPerView: 'auto',
+        spaceBetween: 16,
+        speed: 650,
+        loop: false,
+        grabCursor: true,
+        watchSlidesProgress: true,
+        mousewheel: { forceToAxis: true },
+        breakpoints: { 1025: { spaceBetween: '1.875%' } },
+      });
+      element.addEventListener('keydown', event => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        event.stopPropagation();
+        if (event.key === 'ArrowLeft') slider.slidePrev();
+        else if (event.key === 'ArrowRight') slider.slideNext();
+        else slider.slideTo(event.key === 'Home' ? 0 : slider.slides.length - 1);
+      });
+    });
+  };
+
+  const projectDocumentsSlider = () => {
+    const element = document.querySelector('.js-project-documents');
+    if (!element || element.swiper || typeof Swiper === 'undefined') return;
+    const slider = new Swiper(element, {
+      slidesPerView: 1,
+      slidesPerGroup: 1,
+      longSwipesRatio: 0.15,
+      speed: 650,
+      loop: false,
+      grabCursor: true,
+      watchSlidesProgress: true,
+      mousewheel: { forceToAxis: true },
+      pagination: {
+        el: element.closest('.section-project-documents').querySelector('.documents-pagination'),
+        clickable: true,
+        renderBullet: (index, className) => `<button type="button" class="${className}" aria-label="Trang tài liệu ${index + 1}"><span aria-hidden="true"></span></button>`,
+      },
+      breakpoints: {
+        768: { slidesPerView: 2, slidesPerGroup: 2 },
+        1025: { slidesPerView: 3, slidesPerGroup: 3 },
+      },
+    });
+    element.addEventListener('keydown', event => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.key === 'ArrowLeft') slider.slidePrev();
+      else if (event.key === 'ArrowRight') slider.slideNext();
+      else slider.slideTo(event.key === 'Home' ? 0 : slider.slides.length - 1);
     });
   };
 
@@ -2958,6 +3017,109 @@
     s.parentNode.insertBefore(wf, s);
   })();
 
+  const initLocationRegional = () => {
+    const section = document.querySelector('.section-location-regional');
+    if (!section || typeof Swiper === 'undefined') return;
+    const outer = new Swiper(section.querySelector('.regional-groups'), {
+      slidesPerView: 1,
+      speed: 650,
+      loop: false,
+      allowTouchMove: false,
+      autoHeight: true,
+    });
+    const photos = [...section.querySelectorAll('.regional-photos')].map(element => new Swiper(element, {
+      slidesPerView: 1,
+      spaceBetween: 16,
+      speed: 650,
+      nested: true,
+      loop: false,
+      breakpoints: { 768: { slidesPerView: 2, spaceBetween: 30 } },
+    }));
+    const previous = section.querySelector('.regional-prev');
+    const next = section.querySelector('.regional-next');
+    const play = section.querySelector('.regional-play');
+    let timer;
+    let visible = false;
+    let paused = false;
+    let enterAtEnd = false;
+    let dragging = false;
+    const stop = () => window.clearTimeout(timer);
+    const schedule = () => {
+      stop();
+      if (!visible || document.hidden || paused || dragging || outer.animating) return;
+      const current = photos[outer.activeIndex];
+      if (current.animating || (current.isEnd && outer.isEnd)) return;
+      // Hold the final pair for a full interval before advancing the minute group.
+      timer = window.setTimeout(() => {
+        if (current.isEnd) outer.slideNext();
+        else current.slideNext();
+      }, 3000);
+    };
+    const updateControls = () => {
+      previous.disabled = outer.isBeginning;
+      next.disabled = outer.isEnd;
+    };
+    outer.on('slideChange', () => {
+      stop();
+      photos[outer.activeIndex].update();
+      photos[outer.activeIndex].slideTo(enterAtEnd ? photos[outer.activeIndex].slides.length - 1 : 0, 0);
+      enterAtEnd = false;
+      updateControls();
+    });
+    outer.on('slideChangeTransitionEnd', schedule);
+    photos.forEach(slider => {
+      let gesture;
+      slider.on('touchStart', (_, event) => {
+        const point = event.touches?.[0] || event;
+        gesture = { x: point.clientX, y: point.clientY, beginning: slider.isBeginning, end: slider.isEnd };
+        dragging = true;
+        stop();
+      });
+      slider.on('sliderFirstMove', stop);
+      slider.on('touchEnd', (_, event) => {
+        dragging = false;
+        const point = event.changedTouches?.[0] || event;
+        if (gesture && event.type !== 'pointercancel' && event.type !== 'touchcancel' && !outer.animating) {
+          const dx = point.clientX - gesture.x;
+          const dy = point.clientY - gesture.y;
+          if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+            if (dx < 0 && gesture.end && !outer.isEnd) outer.slideNext();
+            else if (dx > 0 && gesture.beginning && !outer.isBeginning) {
+              enterAtEnd = true;
+              outer.slidePrev();
+            }
+          }
+        }
+        gesture = null;
+        schedule();
+      });
+      slider.on('slideChangeTransitionStart', stop);
+      slider.on('slideChangeTransitionEnd', schedule);
+      slider.on('resize', schedule);
+    });
+    previous.addEventListener('click', () => outer.slidePrev());
+    next.addEventListener('click', () => outer.slideNext());
+    play.addEventListener('click', () => {
+      paused = !paused;
+      play.setAttribute('aria-pressed', String(paused));
+      play.setAttribute('aria-label', paused ? 'Tiếp tục trình chiếu' : 'Tạm dừng trình chiếu');
+      play.textContent = paused ? 'Tiếp tục' : 'Tạm dừng';
+      schedule();
+    });
+    const syncVisibility = () => {
+      const bounds = section.getBoundingClientRect();
+      visible = isDesktop() ? section.classList.contains('is-active') : bounds.top < innerHeight && bounds.bottom > 0;
+      schedule();
+    };
+    new IntersectionObserver(syncVisibility).observe(section);
+    new MutationObserver(syncVisibility).observe(section, { attributes: true, attributeFilter: ['class'] });
+    window.addEventListener('slider:panel-change', syncVisibility);
+    window.addEventListener('resize', syncVisibility);
+    document.addEventListener('visibilitychange', syncVisibility);
+    updateControls();
+    syncVisibility();
+  };
+
   const initLocationTabs = () => {
     const section = document.querySelector('.section-top-location');
     if (!section) return;
@@ -3267,6 +3429,7 @@
   smoothScroll();
   initMasterplanFloors();
   initLocationTabs();
+  initLocationRegional();
   initAmenitiesDrawers();
   detectDevice();
   buttonTop();
@@ -3278,6 +3441,8 @@
   initMobileNavLinks();
   sliderKeyvisual();
   projectGallerySlider();
+  projectVideosSlider();
+  projectDocumentsSlider();
   newsSlider();
   window.addEventListener("scroll", handleDarkBg, {
     passive: true

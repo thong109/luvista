@@ -1,6 +1,224 @@
 @charset "utf-8";
 @use "_base/base"as *;
 
+.masterplan {
+  position: relative;
+  height: 100vh;
+  color: #163963;
+
+  .group-bg {
+    background: #c8e5ed;
+  }
+
+  .masterplan-picture,
+  .masterplan-map,
+  .masterplan-top,
+  .masterplan-bottom {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .masterplan-map {
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .tower {
+      fill: transparent;
+      stroke: #BC7B53;
+      stroke-width: 3;
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      transition: stroke-dashoffset 1.2s ease;
+
+      &:hover {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .masterplan-map .line-down[stroke] {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+    }
+
+    .masterplan-map .line-down:not([stroke]) {
+      opacity: 0;
+    }
+
+    &.is-active .masterplan-map {
+      .line-down[stroke] {
+        animation: masterplan-line-draw 2s linear infinite both;
+      }
+
+      .line-down:not([stroke]) {
+        animation: masterplan-label-enter .6s ease both;
+      }
+    }
+  }
+
+  .masterplan-picture {
+    &::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: calc(149 / 1080 * 100%);
+      background: linear-gradient(0deg, #133862, rgba(18, 53, 93, 0));
+      pointer-events: none;
+    }
+  }
+
+  .masterplan-top,
+  .masterplan-bottom {
+    z-index: 1;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  .masterplan-bottom {
+    top: auto;
+    bottom: 0;
+  }
+
+  .masterplan-guide {
+    position: relative;
+    color: #fff;
+    font-family: $font-sfpro;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.09rem;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url(../resources/images/top/masterplan-hint.svg) center center / contain no-repeat;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      width: 0.15rem;
+      height: 0.19rem;
+      background: url(../resources/images/top/masterplan-arrow.svg) center center / contain no-repeat;
+    }
+
+    span {
+      position: relative;
+      z-index: 2;
+      display: block;
+    }
+  }
+
+  @include desktop {
+    .group-bg {
+      padding-top: 0.65rem;
+    }
+
+    .masterplan-top {
+      height: 3.5rem;
+    }
+
+    .masterplan-bottom {
+      height: 1.49rem;
+    }
+
+    .title-common-primary {
+      margin-bottom: 0.3rem;
+    }
+
+    .masterplan-guide {
+      width: 4.12rem;
+      height: .49rem;
+
+      span {
+        font-size: .2rem;
+        line-height: calc(49 / 20);
+      }
+    }
+  }
+
+  @include screen-low {
+    .group-bg {
+      padding-top: 0.5rem;
+    }
+
+    .title-common-primary {
+      margin-bottom: .4rem;
+    }
+
+    .masterplan-picture,
+    .masterplan-map {
+      transform-origin: center;
+      transform: translateY(6%) scale(1.14);
+    }
+  }
+
+  @include height {
+    .group-bg {
+      padding-top: 0.2rem;
+    }
+
+    .title-common-primary {
+      margin-bottom: .2rem;
+    }
+  }
+
+  @include tablet {
+    height: 8.2rem;
+
+    .title-common-primary {
+      margin-bottom: .2rem;
+    }
+  }
+
+  @include mobile {
+    height: 5.8rem;
+
+    .group-bg {
+      padding: 0.4rem 0.2rem;
+    }
+
+    .masterplan-map {
+      display: none;
+    }
+
+    .masterplan-top {
+      height: 2.2rem;
+    }
+
+    .masterplan-bottom {
+      height: 1rem;
+    }
+
+    .masterplan-guide {
+      width: 3.1rem;
+      height: .5rem;
+
+      span {
+        font-size: .14rem;
+        line-height: .5rem;
+      }
+    }
+
+    .masterplan-guide-arrow {
+      top: .1rem;
+      right: .08rem;
+      width: .2rem;
+      height: .13rem;
+    }
+  }
+}
+
 .section-masterplan-article {
   color: #f6d2bb;
 
@@ -98,7 +316,9 @@
     scrollbar-width: thin;
     scrollbar-color: #c3a493 transparent;
 
-    &[hidden] { display: none; }
+    &[hidden] {
+      display: none;
+    }
   }
 
   .floor-option {
@@ -112,11 +332,20 @@
     transition: background-color .2s ease, color .2s ease;
 
     &:hover,
-    &.is-focused { background: rgba(#f6d2bb, .12); color: #fff; }
+    &.is-focused {
+      background: rgba(#f6d2bb, .12);
+      color: #fff;
+    }
+
     &[aria-selected="true"] {
       background: #f6d2bb;
       color: #163963;
-      &::after { position: absolute; right: .12rem; content: "✓"; }
+
+      &::after {
+        position: absolute;
+        right: .12rem;
+        content: "✓";
+      }
     }
   }
 

@@ -11,6 +11,18 @@ block vars
 block content
   main.home
     .slider-stage
+      section.panel.section-top-masterplan.masterplan#section-masterplan(aria-labelledby="masterplan-title")
+        .group-central
+          .inner
+            .group-bg
+              picture.masterplan-picture
+                source(media="(max-width: 767.98px)" srcset=imgPC+"masterplan-bg-mo.jpg")
+                img.object-common(src=imgPC + 'masterplan-bg.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể dự án LUVISTA" loading="eager")
+              .masterplan-map
+                img(src=imgPC+"masterplan-diagram.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
+              h2.title-common-primary.js-title.hero-title Mặt bằng dự án
+              .masterplan-guide.js-title.hero-title
+                span Hover và click vào tháp để xem thông tin
       section.panel.section-masterplan-article#section-masterplan(aria-label="Mặt bằng tầng căn hộ CH2" data-transition="simple")
         .group-central
           .inner
@@ -23,7 +35,6 @@ block content
                   img.floor-chevron(src=imgPC + 'floor-chevron.svg' width="18" height="15" alt="" aria-hidden="true")
                 .masterplan-floor-options#masterplan-floor-options(role="listbox" aria-label="Tầng căn hộ CH2" hidden)
                   .floor-option#floor-option-all(role="option" aria-selected="true" data-value="5-20" data-plan=imgPC + 'floor-ch2.png') Tầng 5 ~ 20 (CH2)
-                  //- The supplied CH2 plan is shared by floors 5–20; map data-plan here when separate plans are supplied.
                   each floor in Array.from({length: 16}, (_, index) => index + 5)
                     .floor-option(id='floor-option-' + floor role="option" aria-selected="false" data-value=floor data-plan=imgPC + 'floor-ch2.png')= 'Tầng ' + floor + ' (CH2)'
               .masterplan-compass(role="img" aria-label="La bàn: Bắc, Đông, Tây, Nam")
