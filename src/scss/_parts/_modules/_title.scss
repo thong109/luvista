@@ -58,7 +58,7 @@
   }
 
   @include screen-low {
-    font-size: .4rem !important;
+    font-size: .4rem;
     line-height: calc(80 / 50);
     gap: 0.06rem;
     margin-bottom: 0.26rem;
@@ -67,6 +67,11 @@
       width: 0.28rem;
       height: 0.28rem;
     }
+  }
+
+  @include tablet {
+    font-size: .35rem;
+    line-height: 1.5;
   }
 
   @include mobile {

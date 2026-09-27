@@ -162,7 +162,7 @@
     height: auto;
 
     .group-bg {
-      padding: 0.4rem 0;
+      padding: 1rem 0 0.4rem;
     }
 
     .project-gallery-slider {
@@ -189,6 +189,8 @@
 
   .group-bg {
     background: #163963;
+    display: flex;
+    align-items: center;
   }
 
   .project-videos-content {
@@ -197,30 +199,7 @@
   }
 
   .title-common-primary {
-    padding-top: 12.963vh;
     margin: 0 0 7.037vh;
-  }
-
-  .project-video-wave {
-    position: absolute;
-    height: 1.61rem;
-    opacity: .3;
-    mix-blend-mode: screen;
-    pointer-events: none;
-    background: url('../resources/images/gallery/video-wave.png') left center / 8.965rem 100% no-repeat;
-
-    &.is-top {
-      top: .38rem;
-      right: 0;
-      width: 7.13rem;
-      transform: scaleX(-1);
-    }
-
-    &.is-bottom {
-      bottom: .71rem;
-      left: 0;
-      width: 6.92rem;
-    }
   }
 
   .project-video-slider {
@@ -251,20 +230,13 @@
 
     >img {
       position: absolute;
-      width: 113.717%;
-      height: 103.168%;
+      width: 100%;
+      height: 100%;
       max-width: none;
-      left: -8.482%;
-      top: -.684%;
+      left: 0;
+      top: 0;
       object-fit: cover;
       transition: transform .35s ease;
-    }
-
-    &.is-overview>img {
-      width: 115.590%;
-      height: 108.142%;
-      left: -15.274%;
-      top: -3.967%;
     }
 
     &:hover>img {
@@ -306,7 +278,6 @@
   @media (min-width: 1025px) and (max-height: 900px),
   (min-width: 1025px) and (min-aspect-ratio: 2/1) {
     .title-common-primary {
-      padding-top: clamp(.8rem, 13vh, 1.4rem);
       margin-bottom: clamp(.2rem, 5vh, .54rem);
       font-size: clamp(.28rem, 5vh, .4rem) !important;
       line-height: 1.2;
@@ -373,6 +344,8 @@
 
   .group-bg {
     background: #163963;
+    display: flex;
+    align-items: center;
   }
 
   .documents-content {
@@ -381,30 +354,7 @@
   }
 
   .title-common-primary {
-    padding-top: 12.963vh;
     margin: 0 0 6.296vh;
-  }
-
-  .documents-wave {
-    position: absolute;
-    height: 1.61rem;
-    opacity: .3;
-    mix-blend-mode: screen;
-    pointer-events: none;
-    background: url('../resources/images/gallery/documents-wave.png') left center / 8.965rem 100% no-repeat;
-
-    &.is-top {
-      top: .38rem;
-      right: 0;
-      width: 7.13rem;
-      transform: scaleX(-1);
-    }
-
-    &.is-bottom {
-      bottom: .71rem;
-      left: 0;
-      width: 6.92rem;
-    }
   }
 
   .documents-slider {
@@ -490,7 +440,6 @@
   @media (min-width: 1025px) and (max-height: 900px),
   (min-width: 1025px) and (min-aspect-ratio: 2/1) {
     .title-common-primary {
-      padding-top: clamp(.8rem, 10vh, 1.12rem);
       margin-bottom: clamp(.16rem, 4vh, .4rem);
       font-size: clamp(.28rem, 5vh, .4rem) !important;
       line-height: 1.2;

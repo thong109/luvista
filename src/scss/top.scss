@@ -280,6 +280,10 @@ body {
       font-family: $font-default;
     }
 
+    .unit {
+      margin-left: .08rem;
+    }
+
     &:last-child {
       &::after {
         display: none;
@@ -434,18 +438,18 @@ body {
 
     .overview-facts {
       grid-template-columns: repeat(2, 1fr);
-      gap: .3rem 0;
+      gap: .2rem 0;
       margin-top: .4rem;
       padding-top: 0;
     }
 
     .overview-fact {
       span {
-        font-size: .15rem;
+        font-size: .2rem;
       }
 
       strong {
-        font-size: .21rem;
+        font-size: .35rem;
       }
 
       &:last-child {
@@ -1439,11 +1443,16 @@ body {
     }
 
     .amenities-legend-group .amenities-toggle {
+      justify-content: space-between;
       min-height: .55rem;
-      padding: .12rem .45rem .12rem .15rem;
-      font-size: .14rem;
+      padding: .12rem .15rem;
+      font-size: .2rem;
       line-height: 1.35;
       white-space: normal;
+    }
+
+    .amenities-legend-group .amenities-close {
+      display: none !important;
     }
 
     .amenities-legend-group .amenities-toggle img {
@@ -1452,7 +1461,6 @@ body {
 
     .amenities-legend-group.is-open .amenities-toggle {
       min-height: .55rem;
-      padding: .12rem .45rem .12rem .15rem;
     }
 
     .amenities-legend-group.is-open .amenities-toggle img {
@@ -1670,15 +1678,13 @@ body {
   }
 
   @include mobile {
-    height: 5.8rem;
+    height: 6rem;
 
     .group-bg {
       padding: 0.4rem 0.2rem;
     }
 
-    .masterplan-map {
-      display: none;
-    }
+    .masterplan-map {}
 
     .masterplan-top {
       height: 2.2rem;
@@ -1689,12 +1695,102 @@ body {
     }
 
     .masterplan-guide {
-      width: 3.1rem;
-      height: .5rem;
+      width: 3.4rem;
+      z-index: 3;
+      max-width: 100%;
+      height: .45rem;
+      padding: 0 .19rem;
+      justify-content: space-between;
+      color: #163963;
+      border: .05rem solid transparent;
+      border-left-width: .06rem;
+      border-right-width: .06rem;
+      border-radius: .09rem;
+      background: linear-gradient(102.192deg, #d7aa92, #f6d2bb) padding-box;
 
-      span {
-        font-size: .14rem;
-        line-height: .5rem;
+      &::before {
+        top: -.055rem;
+        left: -.065rem;
+        width: calc(100% + .13rem);
+        height: .56rem;
+        background-image: url(../resources/images/top/masterplan-hint-mo.svg);
+        background-size: 100% 100%;
+        pointer-events: none;
+      }
+
+      &::after {
+        position: relative;
+        flex: 0 0 .14rem;
+        width: .14rem;
+        height: .1rem;
+        background-image: url(../resources/images/top/masterplan-arrow-mo.svg);
+        pointer-events: none;
+        transition: transform .2s ease;
+      }
+
+      span,
+      .masterplan-guide-toggle {
+        font-size: .16rem;
+        font-weight: 500;
+        line-height: 1.25;
+      }
+
+      &:has(.masterplan-guide-toggle[aria-expanded="true"])::after {
+        transform: rotate(180deg);
+      }
+    }
+
+    .masterplan-guide-toggle {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      width: 100%;
+      padding: 0 .48rem 0 .19rem;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font-family: inherit;
+      text-align: left;
+      cursor: pointer;
+
+      &:focus-visible {
+        outline: 2px solid #163963;
+        outline-offset: .05rem;
+      }
+    }
+
+    .masterplan-guide::after {
+      margin-left: auto;
+    }
+
+    .masterplan-tower-options {
+      position: absolute;
+      top: calc(100% + .12rem);
+      left: -.06rem;
+      right: -.06rem;
+      margin: 0;
+      padding: .06rem;
+      list-style: none;
+      border: 1px solid #f6d2bb;
+      border-radius: .04rem;
+      background: #f6d2bb;
+      box-shadow: 0 .08rem .2rem rgba(22, 57, 99, .15);
+
+      &[hidden] {
+        display: none;
+      }
+
+      a {
+        display: block;
+        padding: .08rem .1rem;
+        color: #163963;
+        font: 500 .16rem/1.25 $font-sfpro;
+        text-decoration: none;
+
+        &:hover,
+        &:focus-visible {
+          background: #e9c9cc;
+        }
       }
     }
 
@@ -1933,24 +2029,6 @@ body {
     align-items: center;
   }
 
-  .core-values-line {
-    position: absolute;
-    width: 8.8rem;
-    height: 1.61rem;
-    mix-blend-mode: screen;
-    pointer-events: none;
-  }
-
-  .core-values-line.is-top {
-    top: 1.67rem;
-    right: 0;
-  }
-
-  .core-values-line.is-bottom {
-    bottom: 1.04rem;
-    left: 0;
-  }
-
   .core-values-heading {
     display: flex;
     align-items: flex-end;
@@ -2105,11 +2183,6 @@ body {
 
     .group-bg {
       padding: 0.4rem 0;
-    }
-
-    .core-values-line {
-      width: 70%;
-      height: auto;
     }
 
     .core-values-heading {
@@ -2643,6 +2716,49 @@ body {
         margin-bottom: .27rem;
         font-size: .2rem;
       }
+    }
+  }
+}
+
+.core-values-line {
+  position: absolute;
+  mix-blend-mode: screen;
+  pointer-events: none;
+
+  &.is-top {
+    right: 0;
+    aspect-ratio: 1023 / 159;
+  }
+
+  &.is-bottom {
+    left: 0;
+    aspect-ratio: 916 / 186;
+  }
+
+  @include desktop {
+    &.is-top {
+      top: .33rem;
+      width: 10.23rem;
+      height: 1.59rem;
+    }
+
+    &.is-bottom {
+      width: 9.16rem;
+      height: 1.86rem;
+      bottom: .54rem;
+    }
+  }
+
+  @include mobile {
+    width: 8rem;
+    height: 1.5rem;
+
+    &.is-top {
+      top: .6rem;
+    }
+
+    &.is-bottom {
+      bottom: .2rem;
     }
   }
 }

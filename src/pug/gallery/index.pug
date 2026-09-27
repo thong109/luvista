@@ -15,8 +15,8 @@ block content
         .group-central
           .inner
             .group-bg
-              img.project-gallery-line.is-top(src=imgPC + 'gallery-line-02.png' width="713" height="161" alt="")
-              img.project-gallery-line.is-bottom(src=imgPC + 'gallery-line-01.png' width="692" height="161" alt="")
+              canvas.project-video-wave.is-top(data-wave-src=imgPC + 'video-wave-top.svg' aria-hidden="true")
+              canvas.project-video-wave.is-bottom(data-wave-src=imgPC + 'video-wave-bottom.svg' aria-hidden="true")
               .wrapper
                 h2.title-common-primary.is-gold.js-title.hero-title Hình ảnh dự án
                 - var projectGallery = [{url: imgPC + 'gallery-project-01.jpg', alt: 'Lối vào quảng trường chính', w: 1920, h: 1080}, {url: imgPC + 'gallery-project-02.jpg', alt: 'Hồ bơi lưng núi', w: 1920, h: 1080}]
@@ -37,8 +37,8 @@ block content
         .group-central
           .inner
             .group-bg
-              .project-video-wave.is-top(aria-hidden="true")
-              .project-video-wave.is-bottom(aria-hidden="true")
+              canvas.project-video-wave.is-top(data-wave-src=imgPC + 'video-wave-top.svg' aria-hidden="true")
+              canvas.project-video-wave.is-bottom(data-wave-src=imgPC + 'video-wave-bottom.svg' aria-hidden="true")
               .project-videos-content
                 h2.title-common-primary.is-gold.js-title.hero-title#project-gallery-videos Video dự án
                 - var demoVideoUrl = 'https://www.youtube.com/embed/M7lc1UVf-VE'
@@ -56,8 +56,8 @@ block content
         .group-central
           .inner
             .group-bg
-              .documents-wave.is-top(aria-hidden="true")
-              .documents-wave.is-bottom(aria-hidden="true")
+              canvas.project-video-wave.is-top(data-wave-src=imgPC + 'video-wave-top.svg' aria-hidden="true")
+              canvas.project-video-wave.is-bottom(data-wave-src=imgPC + 'video-wave-bottom.svg' aria-hidden="true")
               .documents-content
                 h2.title-common-primary.is-gold.js-title.hero-title Tài liệu dự án
                 - var projectDocuments = [{image: 'documents-flyer.png', title: 'Luvista Flyer'}, {image: 'documents-brochure.png', title: 'Brochue dự án'}, {image: 'documents-sales.png', title: 'Tài liệu bán hàng'}]
@@ -74,6 +74,8 @@ block content
         .group-central
           .inner
             .group-bg
+              canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-01.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
+              canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-02.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
               .wrapper
                 .section-footer-common-consultation
                   .section-footer-common-heading

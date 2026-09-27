@@ -39,7 +39,7 @@ block content
         .group-central
           .inner
             .group-bg
-              img.overview-light(src=imgPC + 'overview-light.png' alt="")
+              canvas.project-video-wave.is-top(data-wave-src=imgPC + 'video-wave-top.svg' aria-hidden="true")
               .wrapper
                 h2.title-common-primary.js-title.hero-title Tổng quan
                 .overview-location.js-title.hero-sub
@@ -144,16 +144,22 @@ block content
                 source(media="(max-width: 767.98px)" srcset=imgPC+"masterplan-bg-mo.jpg")
                 img.object-common(src=imgPC + 'masterplan-bg.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể dự án LUVISTA" loading="eager")
               .masterplan-map
-                img(src=imgPC+"masterplan-diagram.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
+                img.md(src=imgPC+"masterplan-diagram.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
+                img.sm(src=imgPC+"masterplan-diagram-mo.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
               h2.title-common-primary.js-title.hero-title Mặt bằng dự án
               .masterplan-guide.js-title.hero-title
-                span Hover và click vào tháp để xem thông tin
+                span.md Hover và click vào tháp để xem thông tin
+                button.masterplan-guide-toggle.sm(type="button" aria-expanded="false" aria-controls="masterplan-tower-options") Chọn tháp để xem thông tin
+                ul.masterplan-tower-options.sm#masterplan-tower-options(aria-label="Chọn tháp" hidden)
+                  each tower in [{name: 'The Hill', value: 'the-hill'}, {name: 'The Horizon', value: 'the-horizon'}, {name: 'The Harmony', value: 'the-harmony'}]
+                    li
+                      a(href=path + '/masterplan/')= tower.name
       section.panel.section-top-project-gallery.project-gallery#section-project-gallery(aria-labelledby="project-gallery-title")
         .group-central
           .inner
             .group-bg
-              img.project-gallery-line.is-top(src=imgPC + 'gallery-line-02.png' width="713" height="161" alt="")
-              img.project-gallery-line.is-bottom(src=imgPC + 'gallery-line-01.png' width="692" height="161" alt="")
+              canvas.project-video-wave.is-top(data-wave-src=imgPC + 'video-wave-top.svg' aria-hidden="true")
+              canvas.project-video-wave.is-bottom(data-wave-src=imgPC + 'video-wave-bottom.svg' aria-hidden="true")
               .wrapper
                 h2.title-common-primary.is-gold.js-title.hero-title Hình ảnh dự án
                 - var projectGallery = [{url: imgPC + 'gallery-project-01.jpg', alt: 'Lối vào quảng trường chính', w: 1920, h: 1080}, {url: imgPC + 'gallery-project-02.jpg', alt: 'Hồ bơi lưng núi', w: 1920, h: 1080}]
@@ -174,8 +180,8 @@ block content
         .group-central
           .inner
             .group-bg
-              img.core-values-line.is-top(src=imgPC + 'values-line-01.png' width="880" height="161" alt="")
-              img.core-values-line.is-bottom(src=imgPC + 'values-line-02.png' width="880" height="161" alt="")
+              canvas.core-values-line.is-top(data-wave-src=imgPC + 'values-wave-01.svg' aria-hidden="true")
+              canvas.core-values-line.is-bottom(data-wave-src=imgPC + 'values-wave-02.svg' aria-hidden="true")
               .wrapper
                 h2.core-values-heading.js-title.hero-title
                   span 05
@@ -243,6 +249,8 @@ block content
         .group-central
           .inner
             .group-bg
+              canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-01.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
+              canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-02.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
               .wrapper
                 .section-footer-common-consultation
                   .section-footer-common-heading

@@ -15,6 +15,23 @@
     }
   }
 
+  .keyvisual-media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+
+    .swiper-slide {
+      overflow: hidden;
+    }
+
+    .slider-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
   .keyvisual-photo {
     display: block;
     width: 100%;
@@ -59,6 +76,13 @@
       height: auto;
     }
 
+    .keyvisual-scroll-arrow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      animation: arrowMove 1.8s ease-in-out infinite;
+    }
+
     &:focus-visible {
       background-color: rgba(#013764, .35);
       box-shadow: 0 0 20px rgba(#f6d2bb, .2);
@@ -68,6 +92,10 @@
 
     @media (prefers-reduced-motion: reduce) {
       transition: none;
+
+      .keyvisual-scroll-arrow {
+        animation: none;
+      }
 
       &:hover {
         transform: translateX(-50%);
@@ -385,6 +413,12 @@
 .section-overview-scale {
   color: #fff;
 
+  &.is-active {
+    .ani-zoom {
+      animation-play-state: running;
+    }
+  }
+
   .group-bg {
     isolation: isolate;
     background: linear-gradient(180deg, #0c436e, #013764);
@@ -403,12 +437,17 @@
     position: relative;
     margin: 0;
     overflow: hidden;
-  }
 
-  .scale-photo img {
-    display: block;
-    max-width: none;
-    object-fit: cover;
+    img {
+      display: block;
+      max-width: none;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .scale-wave {
@@ -523,14 +562,6 @@
       height: 100%;
     }
 
-    .scale-photo img {
-      position: absolute;
-      top: 0;
-      left: calc(-299 / 945 * 100%);
-      width: calc(1920 / 945 * 100%);
-      height: 100%;
-    }
-
     .scale-content {
       position: absolute;
       top: calc(142 / 1080 * 100%);
@@ -565,11 +596,8 @@
       top: .95rem;
       bottom: .25rem;
       left: 54%;
-      width: 42%;
+      width: 36%;
       max-height: none;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      scrollbar-width: thin;
     }
 
     .scale-subtitle {
@@ -616,12 +644,6 @@
       inset: auto;
       width: 100%;
       height: 5.8rem;
-    }
-
-    .scale-photo img {
-      left: -32%;
-      width: 200%;
-      height: 100%;
     }
 
     .scale-content {
@@ -678,14 +700,6 @@
       height: 3.6rem;
     }
 
-    .scale-photo img {
-      position: absolute;
-      top: 0;
-      left: -30%;
-      width: 180%;
-      height: 100%;
-    }
-
     .scale-subtitle {
       font-size: .24rem;
       margin-bottom: .2rem;
@@ -706,7 +720,9 @@
 
     .scale-wave {
       top: 78%;
-      height: 25%;
+      width: 8rem;
+      height: 2rem;
+      left: 1.1rem;
     }
 
     .scale-star {
@@ -717,6 +733,12 @@
 
 .section-overview {
   color: #fff;
+
+  &.is-active {
+    .ani-zoom {
+      animation-play-state: running;
+    }
+  }
 
   .group-bg {
     isolation: isolate;
@@ -751,9 +773,9 @@
   .photo-image {
     position: absolute;
     top: 0;
-    left: calc(-550 / 918 * 100%);
-    width: calc(1657 / 918 * 100%);
-    height: calc(925 / 918 * 100%);
+    left: 0;
+    width: 100%;
+    height: 100%;
     max-width: none;
     object-fit: cover;
   }
@@ -764,27 +786,15 @@
     max-width: none;
     pointer-events: none;
     mix-blend-mode: screen;
-  }
 
-  .overview-wave.is-top {
-    top: 5.89%;
-    left: 49.86%;
-    width: 114.68%;
-    height: 46.1%;
-  }
-
-  .overview-wave.is-bottom {
-    top: calc(684 / 1080 * 100%);
-    left: calc(-1312 / 1920 * 100%);
-    width: calc(2732 / 1920 * 100%);
-    height: calc(617 / 1080 * 100%);
-    // Figma's blurred alpha mask is offset inside the larger wave artwork.
-    mask-image: url("../resources/images/overview/wave-mask.svg");
-    mask-mode: alpha;
-    mask-repeat: no-repeat;
-    mask-size: calc(1884 / 2732 * 100%) calc(896 / 617 * 100%);
-    mask-position: calc(1062 / (2732 - 1884) * 100%) calc(-250 / (617 - 896) * 100%);
-    opacity: .5;
+    &.is-bottom {
+      mask-image: url("../resources/images/overview/wave-mask.svg");
+      mask-mode: alpha;
+      mask-repeat: no-repeat;
+      mask-size: calc(1884 / 2732 * 100%) calc(896 / 617 * 100%);
+      mask-position: calc(1062 / (2732 - 1884) * 100%) calc(-250 / (617 - 896) * 100%);
+      opacity: .5;
+    }
   }
 
   .overview-star {
@@ -922,6 +932,22 @@
     .overview-facts .is-note {
       font-size: inherit;
     }
+
+    .overview-wave {
+      &.is-top {
+        top: 5.89%;
+        left: 49.86%;
+        width: 114.68%;
+        height: 46.1%;
+      }
+
+      &.is-bottom {
+        top: calc(684 / 1080 * 100%);
+        left: calc(-1312 / 1920 * 100%);
+        width: calc(2732 / 1920 * 100%);
+        height: calc(617 / 1080 * 100%);
+      }
+    }
   }
 
   @include screen-low {
@@ -934,11 +960,8 @@
       top: .95rem;
       bottom: .25rem;
       left: 54%;
-      width: 42%;
+      width: 36%;
       max-height: none;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      scrollbar-width: thin;
     }
 
     .title-common-primary {
@@ -1073,14 +1096,19 @@
       display: none;
     }
 
-    .overview-wave.is-top {
-      top: 2%;
-      height: 20%;
-    }
+    .overview-wave {
+      width: 8rem;
+      height: 1.8rem;
 
-    .overview-wave.is-bottom {
-      top: 26%;
-      height: 20%;
+      &.is-top {
+        top: 2%;
+        left: .3rem;
+      }
+
+      &.is-bottom {
+        top: 30%;
+        right: -0.3rem;
+      }
     }
   }
 }
@@ -1094,24 +1122,6 @@
     background: #163963;
     display: flex;
     align-items: center;
-  }
-
-  .core-values-line {
-    position: absolute;
-    width: 8.8rem;
-    height: 1.61rem;
-    mix-blend-mode: screen;
-    pointer-events: none;
-  }
-
-  .core-values-line.is-top {
-    top: 1.67rem;
-    right: 0;
-  }
-
-  .core-values-line.is-bottom {
-    bottom: 1.04rem;
-    left: 0;
   }
 
   .core-values-heading {
@@ -1270,11 +1280,6 @@
       padding: 0.4rem 0;
     }
 
-    .core-values-line {
-      width: 70%;
-      height: auto;
-    }
-
     .core-values-heading {
       top: .72rem;
       gap: .05rem;
@@ -1321,6 +1326,49 @@
       left: 0;
       width: .95rem;
       height: auto;
+    }
+  }
+}
+
+.core-values-line {
+  position: absolute;
+  mix-blend-mode: screen;
+  pointer-events: none;
+
+  &.is-top {
+    right: 0;
+    aspect-ratio: 1023 / 159;
+  }
+
+  &.is-bottom {
+    left: 0;
+    aspect-ratio: 916 / 186;
+  }
+
+  @include desktop {
+    &.is-top {
+      top: .33rem;
+      width: 10.23rem;
+      height: 1.59rem;
+    }
+
+    &.is-bottom {
+      width: 9.16rem;
+      height: 1.86rem;
+      bottom: .54rem;
+    }
+  }
+
+  @include mobile {
+    width: 8rem;
+    height: 1.5rem;
+
+    &.is-top {
+      top: .6rem;
+    }
+
+    &.is-bottom {
+      bottom: .2rem;
     }
   }
 }

@@ -12,6 +12,12 @@
 @use "_parts/_modules/list";
 @use "_parts/_modules/paragraph";
 
+:where(canvas[data-wave-src]) {
+  display: block;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
 .slider-stage {
   width: 100%;
   height: 100%;
@@ -609,6 +615,10 @@ section {
       top: 0;
       left: 0;
     }
+
+    img {
+      object-fit: contain;
+    }
   }
 
   .swiper-pagination {
@@ -716,6 +726,50 @@ section {
     .swiper-button-prev,
     .swiper-button-next {
       display: none;
+    }
+  }
+}
+
+.project-video-wave {
+  position: absolute;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1023 / 189;
+
+  &.is-top {
+    right: 0;
+  }
+
+  &.is-bottom {
+    left: 0;
+  }
+
+  @include desktop {
+    &.is-top {
+      top: .38rem;
+      width: 10.23rem;
+      height: 1.61rem;
+    }
+
+    &.is-bottom {
+      bottom: .71rem;
+      width: 9.16rem;
+      height: 2.07rem;
+    }
+  }
+
+  @include mobile {
+    width: 8rem;
+    height: 1.8rem;
+
+    &.is-top {
+      top: .6rem;
+    }
+
+    &.is-bottom {
+      bottom: .2rem;
     }
   }
 }

@@ -15,23 +15,30 @@ block content
         .group-central
           .inner
             .group-bg
-              img.keyvisual-photo(src=imgPC + 'keyvisual-pool.png' width="1920" height="1080" alt="Hồ bơi và cảnh quan giữa các tòa căn hộ LUVISTA Quy Nhơn" loading="eager" fetchpriority="high" decoding="async")
+              .keyvisual-media.swiper.js-slider-keyvisual
+                .swiper-wrapper
+                  - var keyvisualSlides = ['keyvisual-pool.png', 'keyvisual-pool.png']
+                  each image, index in keyvisualSlides
+                    .swiper-slide
+                      picture.slider-image
+                        img.keyvisual-photo(src=imgPC + image width="1920" height="1080" alt="Hồ bơi và cảnh quan giữa các tòa căn hộ LUVISTA Quy Nhơn" loading="eager" fetchpriority=index === 0 ? 'high' : 'auto' decoding="async")
               img.keyvisual-star(src=imgPC + 'partner-title-star.svg' width="30" height="30" alt="" aria-hidden="true")
               a.keyvisual-scroll(href="#section-overview" aria-label="Xem tổng quan dự án")
-                img(src=imgPC + 'keyvisual-scroll.svg' width="74" height="74" alt="" aria-hidden="true")
+                img.keyvisual-scroll-circle(src=imgPC + 'keyvisual-scroll.svg' width="74" height="74" alt="" aria-hidden="true")
+                img.keyvisual-scroll-arrow(src=imgPC + 'keyvisual-scroll-arrow.svg' width="74" height="74" alt="" aria-hidden="true")
       section.panel.section-overview.overview#section-overview(aria-labelledby="overview-title" data-transition="simple")
         .group-central
           .inner
             .group-bg
-              img.overview-wave.is-bottom(src=imgPC + 'wave-bottom.svg' width="2732" height="617" alt="" aria-hidden="true")
+              canvas.overview-wave.is-bottom(data-wave-src=imgPC + 'wave-bottom.svg' aria-hidden="true")
               figure.overview-photo
-                img.photo-image(src=imgPC + 'photo.png' width="1934" height="1080" alt="Phối cảnh tòa tháp và cảnh quan dự án LUVISTA" loading="eager" decoding="async")
-              img.overview-wave.is-top(src=imgPC + 'wave-top.svg' width="2202" height="498" alt="" aria-hidden="true")
+                img.photo-image.ani-zoom(src=imgPC + 'photo.png' width="1934" height="1080" alt="Phối cảnh tòa tháp và cảnh quan dự án LUVISTA" loading="eager" decoding="async")
+              canvas.overview-wave.is-top(data-wave-src=imgPC + 'wave-top.svg' aria-hidden="true")
               img.overview-star.is-large(src=imgPC + 'star.svg' width="65" height="65" alt="" aria-hidden="true")
               img.overview-star.is-medium(src=imgPC + 'star.svg' width="36" height="36" alt="" aria-hidden="true")
               img.overview-star.is-small(src=imgPC + 'star.svg' width="27" height="27" alt="" aria-hidden="true")
               .overview-content
-                h1.title-common-primary.is-left.is-gold.hero-title.js-title Giới thiệu
+                h1.title-common-primary.is-left.is-gold.js-title.hero-title Giới thiệu
                 h2.overview-subtitle.hero-sub.js-title Tổng quan về dự án
                 dl.overview-location.hero-sub.js-title
                   dt Vị trí:
@@ -50,9 +57,9 @@ block content
           .inner
             .group-bg
               img.scale-glow(src=imgPC + 'scale-glow.svg' width="1380" height="1380" alt="" aria-hidden="true")
-              figure.scale-photo
+              figure.scale-photo.ani-zoom
                 img(src=imgPC + 'scale-photo.png' width="1920" height="1080" alt="Kiến trúc các tòa tháp và phố thương mại LUVISTA Quy Nhơn" loading="eager" decoding="async")
-              img.scale-wave(src=imgPC + 'scale-wave.svg' width="2804" height="634" alt="" aria-hidden="true")
+              canvas.scale-wave(data-wave-src=imgPC + 'scale-wave.svg' aria-hidden="true")
               .scale-content
                 h2.title-common-primary.hero-title.js-title.is-gold.is-left Quy mô, ý tưởng thiết kế
                 h3.scale-subtitle.hero-sub.js-title LUVISTA Quy Nhơn - Kiến trúc xây dựng để trường tồn
@@ -75,8 +82,8 @@ block content
         .group-central
           .inner
             .group-bg
-              img.core-values-line.is-top(src=imgPC + 'values-line-01.png' width="880" height="161" alt="")
-              img.core-values-line.is-bottom(src=imgPC + 'values-line-02.png' width="880" height="161" alt="")
+              canvas.core-values-line.is-top(data-wave-src=imgPC + 'values-wave-01.svg' aria-hidden="true")
+              canvas.core-values-line.is-bottom(data-wave-src=imgPC + 'values-wave-02.svg' aria-hidden="true")
               .wrapper
                 h2.core-values-heading.js-title.hero-title
                   span 05
@@ -123,6 +130,8 @@ block content
         .group-central
           .inner
             .group-bg
+              canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-01.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
+              canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-02.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
               .wrapper
                 .section-footer-common-consultation
                   .section-footer-common-heading

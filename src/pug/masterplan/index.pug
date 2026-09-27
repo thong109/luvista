@@ -9,6 +9,31 @@ block vars
   - var imgCommonSP = path + '/resources/images/common/'
 
 block content
+  template#masterplan-studio-detail
+    section.apartment-detail(aria-label="Mặt bằng căn hộ Studio")
+      canvas.regional-wave(data-wave-src=imgPC + 'apartment-wave.svg' aria-hidden="true")
+      p.title-common-primary.is-gold Mặt bằng căn hộ
+      .apartment-detail-info
+        p.apartment-detail-towers Tháp:
+          br
+          | The Hill, The Horizon, The Harmony
+        p.apartment-detail-floor(data-apartment-floor) Tầng 5 ~ 20 (CH2)
+        p.apartment-detail-title Căn hộ Studio
+        dl
+          each item in [{label: 'Diện tích thông thủy:', value: '46.37 – 47.42 m²'}, {label: 'Diện tích tim tường:', value: '50.40 – 51.03 m²'}, {label: 'Phòng khách', value: '1'}, {label: 'Phòng ngủ:', value: '1'}, {label: 'Phòng tắm:', value: '1'}]
+            div
+              dt= item.label
+              dd= item.value
+      .apartment-detail-plan
+        .swiper.js-apartment-slider
+          .swiper-wrapper
+            //- Demo: reuse the Studio image until the second view is available.
+            - var studioImages = [{src: imgPC + 'apartment-studio.png', alt: 'Mặt bằng căn hộ Studio'}, {src: imgPC + 'apartment-studio.png', alt: 'Mặt bằng căn hộ Studio — ảnh demo 2'}]
+            each image in studioImages
+              .swiper-slide
+                .apartment-detail-image
+                  img(src=image.src width="1560" height="1800" alt=image.alt)
+          .apartment-detail-dots.swiper-pagination
   main.home
     .slider-stage
       section.panel.section-top-masterplan.masterplan#section-masterplan(aria-labelledby="masterplan-title")
@@ -19,36 +44,110 @@ block content
                 source(media="(max-width: 767.98px)" srcset=imgPC+"masterplan-bg-mo.jpg")
                 img.object-common(src=imgPC + 'masterplan-bg.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể dự án LUVISTA" loading="eager")
               .masterplan-map
-                img(src=imgPC+"masterplan-diagram.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
+                img.md(src=imgPC+"masterplan-diagram.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
+                img.sm(src=imgPC+"masterplan-diagram-mo.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
               h2.title-common-primary.js-title.hero-title Mặt bằng dự án
               .masterplan-guide.js-title.hero-title
-                span Hover và click vào tháp để xem thông tin
-      section.panel.section-masterplan-article#section-masterplan(aria-label="Mặt bằng tầng căn hộ CH2" data-transition="simple")
+                span.md Hover và click vào tháp để xem thông tin
+                button.masterplan-guide-toggle.sm(type="button" aria-expanded="false" aria-controls="masterplan-tower-options") Chọn tháp để xem thông tin
+                ul.masterplan-tower-options.sm#masterplan-tower-options(aria-label="Chọn tháp" hidden)
+                  each tower in [{name: 'The Hill', value: 'the-hill'}, {name: 'The Horizon', value: 'the-horizon'}, {name: 'The Harmony', value: 'the-harmony'}]
+                    li
+                      a(href=path + '/masterplan/?tower=' + tower.value + '#section-masterplan-article')= tower.name
+      section.panel.section-masterplan-article#section-masterplan-article(aria-label="Mặt bằng tầng căn hộ CH2" data-transition="simple")
         .group-central
           .inner
             .group-bg
-              img.masterplan-base(src=imgPC + 'floor-base.svg' width="1920" height="1080" alt="" aria-hidden="true")
-              img.masterplan-background(src=imgPC + 'floor-background.png' width="1920" height="1080" alt="" aria-hidden="true")
-              .masterplan-floor-picker.js-masterplan-floor(data-lenis-prevent)
-                .masterplan-floor-select(role="combobox" tabindex="0" aria-label="Chọn tầng căn hộ CH2" aria-haspopup="listbox" aria-expanded="false" aria-controls="masterplan-floor-options")
-                  span.floor-current Tầng 5 ~ 20 (CH2)
-                  img.floor-chevron(src=imgPC + 'floor-chevron.svg' width="18" height="15" alt="" aria-hidden="true")
-                .masterplan-floor-options#masterplan-floor-options(role="listbox" aria-label="Tầng căn hộ CH2" hidden)
-                  .floor-option#floor-option-all(role="option" aria-selected="true" data-value="5-20" data-plan=imgPC + 'floor-ch2.png') Tầng 5 ~ 20 (CH2)
-                  each floor in Array.from({length: 16}, (_, index) => index + 5)
-                    .floor-option(id='floor-option-' + floor role="option" aria-selected="false" data-value=floor data-plan=imgPC + 'floor-ch2.png')= 'Tầng ' + floor + ' (CH2)'
-              .masterplan-compass(role="img" aria-label="La bàn: Bắc, Đông, Tây, Nam")
+              img.masterplan-background.md(src=imgPC + 'floor-background.png' width="1920" height="1080" alt="" aria-hidden="true")
+              img.masterplan-background-mobile.sm(src=imgPC + 'floor-background-mo.png' width="1095" height="616" alt="" aria-hidden="true")
+              .masterplan-pickers
+                .masterplan-tower-picker.masterplan-floor-picker.js-masterplan-tower.sm(data-lenis-prevent)
+                  .masterplan-floor-select(role="combobox" tabindex="0" aria-label="Chọn tháp" aria-haspopup="listbox" aria-expanded="false" aria-controls="masterplan-article-towers")
+                    span.floor-current The Horizon
+                    img.floor-chevron(src=imgPC + 'floor-chevron-mo.svg' alt="" aria-hidden="true")
+                  .masterplan-floor-options#masterplan-article-towers(role="listbox" aria-label="Tháp" hidden)
+                    each tower in [{name: 'The Hill', value: 'the-hill'}, {name: 'The Horizon', value: 'the-horizon'}, {name: 'The Harmony', value: 'the-harmony'}]
+                      .floor-option(id='article-' + tower.value role="option" aria-selected=tower.value === 'the-horizon' data-value=tower.value data-plan=imgPC + (tower.value === 'the-horizon' ? 'floor-horizon-mo.png' : 'floor-ch2.png'))= tower.name
+                img.masterplan-picker-divider.sm(src=imgPC + 'floor-divider-mo.svg' alt="" aria-hidden="true")
+                .masterplan-floor-picker.js-masterplan-floor(data-lenis-prevent)
+                  .masterplan-floor-select(role="combobox" tabindex="0" aria-label="Chọn tầng căn hộ CH2" aria-haspopup="listbox" aria-expanded="false" aria-controls="masterplan-floor-options")
+                    span.floor-current Tầng 5 ~ 20 (CH2)
+                    img.floor-chevron.md(src=imgPC + 'floor-chevron.svg' width="18" height="15" alt="" aria-hidden="true")
+                    img.floor-chevron.sm(src=imgPC + 'floor-chevron-mo.svg' alt="" aria-hidden="true")
+                  .masterplan-floor-options#masterplan-floor-options(role="listbox" aria-label="Tầng căn hộ CH2" hidden)
+                    .floor-option#floor-option-all(role="option" aria-selected="true" data-value="5-20" data-plan=imgPC + 'floor-ch2.png') Tầng 5 ~ 20 (CH2)
+                    each floor in Array.from({length: 16}, (_, index) => index + 5)
+                      .floor-option(id='floor-option-' + floor role="option" aria-selected="false" data-value=floor data-plan=imgPC + 'floor-ch2.png')= 'Tầng ' + floor + ' (CH2)'
+              .masterplan-compass.md(role="img" aria-label="La bàn: Bắc, Đông, Tây, Nam")
                 img.compass-rose(src=imgPC + 'compass.svg' alt="" aria-hidden="true")
-                img.compass-north(src=imgPC + 'compass-north.svg' alt="" aria-hidden="true")
-                img.compass-east(src=imgPC + 'compass-east.svg' alt="" aria-hidden="true")
-                img.compass-west(src=imgPC + 'compass-west.svg' alt="" aria-hidden="true")
-                img.compass-south(src=imgPC + 'compass-south.svg' alt="" aria-hidden="true")
-              figure.masterplan-drawing(tabindex="0" aria-label="Sơ đồ mặt bằng; có thể cuộn ngang trên màn hình nhỏ")
-                img#masterplan-floor-image(src=imgPC + 'floor-ch2.png' width="1443" height="1002" alt="Mặt bằng tầng 5 đến 20 (CH2): The Horizon, The Harmony và The Hill" loading="eager" fetchpriority="high" decoding="async")
+              img.masterplan-compass-mobile.sm(src=imgPC + 'compass.svg' width="140" height="136" alt="La bàn: Bắc, Đông, Tây, Nam")
+              .masterplan-road.sm
+                p View vịnh Quy Nhơn
+                strong ĐƯỜNG CHẾ LAN VIÊN
+              .masterplan-mobile-plan.sm
+                img#masterplan-mobile-floor-image(src=imgPC + 'floor-horizon-mo.png' width="636" height="634" alt="Mặt bằng tầng 5 đến 20 (CH2), tháp The Horizon" loading="eager")
+              .masterplan-drawing-wrapper.md
+                .masterplan-drawing-scroll(tabindex="0" aria-label="Sơ đồ mặt bằng; có thể cuộn ngang trên màn hình nhỏ")
+                  .masterplan-drawing
+                    img#masterplan-floor-image(src=imgPC + 'floor-ch2.png' width="1443" height="1002" alt="Mặt bằng tầng 5 đến 20 (CH2): The Horizon, The Harmony và The Hill" loading="eager" fetchpriority="high" decoding="async")
+                    img(src=imgPC+"masterplan-diagram-02.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
+                //- Demo areas; replace with approved apartment data.
+                - var unitTypes = [{title: 'CH 3 PHÒNG NGỦ', label: '3 phòng ngủ', net: '90.00 – 95.00 m²', gross: '98.00 – 103.00 m²'}, {title: 'CH 2 PHÒNG NGỦ', label: '2 phòng ngủ', net: '65.70 – 68.65 m²', gross: '71.00 – 74.00 m²'}, {title: 'CH 1 PHÒNG NGỦ +1', label: '1 phòng ngủ +1', net: '45.91 – 48.90 m²', gross: '50.00 – 53.00 m²'}, {title: 'CH STUDIO', label: 'studio', net: '46.37 – 47.42 m²', gross: '50.40 – 51.03 m²'}]
+                each unit, index in unitTypes
+                  .masterplan-hover-box(id='masterplan-hover-type-' + (index + 1) data-unit-type=index + 1 role="tooltip")
+                    h3= unit.title
+                    p DT thông thủy:
+                      strong= unit.net
+                    p DT tim tường:
+                      strong= unit.gross
               p.masterplan-pan-hint Vuốt ngang để xem toàn bộ mặt bằng
               ul.masterplan-legend(aria-label="Chú giải loại căn hộ")
-                each item, index in ['3 phòng ngủ', '2 phòng ngủ', '1 phòng ngủ +1', 'studio']
-                  li(class='is-type-' + index)
+                each unit, index in unitTypes
+                  li(class='is-type-' + (index + 1) data-unit-type=index + 1 tabindex="0" aria-describedby='masterplan-hover-type-' + (index + 1))
                     span.legend-swatch(aria-hidden="true")
                     span Căn hộ
-                    span= item
+                    span= unit.label
+      section.panel.section-footer-common#section-contact(aria-labelledby="footer-consultation-title")
+        .group-central
+          .inner
+            .group-bg
+              canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-01.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
+              canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-02.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
+              .wrapper
+                .section-footer-common-consultation
+                  .section-footer-common-heading
+                    h2.title-common-primary.is-gold Đăng ký tư vấn
+                  p.section-footer-common-intro Quý khách vui lòng để lại thông tin, đội ngũ chuyên viên sẽ liên hệ tư vấn trong thời gian sớm nhất.
+                  form.section-footer-common-form(action="" method="post")
+                    label
+                      input(type="text" name="name" required placeholder="Họ tên (*)")
+                    label
+                      input(type="email" name="email" placeholder="Email")
+                    label
+                      input(type="tel" name="phone" required placeholder="Số điện thoại (*)")
+                    button.trans(type="submit") Liên hệ ngay
+                .section-footer-common-contact
+                  h2.title-common-primary.is-gold.no-icon Thông tin liên hệ
+                  - var footerContacts = [{icon: 'footer-location.svg', title: 'Sales Office', detail: 'Tòa nhà Repubulic Plaza Cộng Hòa, 18E Cộng Hòa, Phường Tân Sơn Nhất, TP.HCM'}, {icon: 'footer-location.svg', title: 'Sales Gallery', detail: 'Đường Chế Lan Viên, Phường Quy Nhơn Nam, Tỉnh Gia Lai'}, {icon: 'footer-phone.svg', title: 'Hotline', detail: '0888 790 288'}, {icon: 'footer-email.svg', title: 'Email', detail: 'info@luvista.vn'}]
+                  .section-footer-common-contact-list
+                    each item in footerContacts
+                      .section-footer-common-contact-item
+                        img(src=imgCommonPC + item.icon width="34" height="34" alt="")
+                        h3= item.title
+                        p= item.detail
+                  .section-footer-common-bottom
+                    p © 2026 Luvista · Website by <a href="https://leaddigital.vn/" target="_blank" class="trans">Lead Digital</a>
+                    .section-footer-common-social
+                      a.trans(href="#" aria-label="Facebook")
+                        img.object-common(src=imgCommonPC + 'footer-facebook.svg' width="34" height="34" alt="")
+                      a.trans(href="#" aria-label="Youtube")
+                        img.object-common(src=imgCommonPC + 'footer-youtube.svg' width="34" height="34" alt="")
+                      a.trans(href="#" aria-label="Tiktok")
+                        img.object-common(src=imgCommonPC + 'footer-tiktok.svg' width="34" height="34" alt="")
+                      a.trans(href="#" aria-label="Zalo")
+                        img.object-common(src=imgCommonPC + 'footer-zalo.svg' width="34" height="34" alt="")
+                    .section-footer-common-policy
+                      a.trans(href="#") Chính sách bảo mật thông tin cá nhân
+                  p.section-footer-common-note Lưu ý: Chúng tôi đã nỗ lực và cẩn trọng để hoàn thiện tài liệu này. Tuy nhiên tài liệu chỉ dùng với mục đích tham khảo. Hình ảnh, sơ đồ kỹ thuật, bố trí nội ngoại thất hay thông tin mô tả về dự án chỉ nhằm mục đích minh họa, không phải là thông tin hiện thực hay cam kết pháp lý. Thông tin chính thức về dự án sẽ được căn cứ trên hợp đồng mua bán và các tài liệu được thỏa thuận, ký kết chính thức với khách hàng.
+                a.section-footer-common-go-top.js-button-top.trans(href="#section-home" aria-label="Về đầu trang")
+                  img.object-common.js-inline-svg(src=imgCommonPC + 'footer-go-top.svg' width="50" height="50" alt="" loading="eager")

@@ -234,6 +234,9 @@ body {
   color: #143963;
   font-family: "Noto Serif Display Condensed", serif;
 }
+.overview .overview-fact .unit {
+  margin-left: 0.08rem;
+}
 .overview .overview-fact:last-child::after {
   display: none;
 }
@@ -351,15 +354,15 @@ body {
   }
   .overview .overview-facts {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.3rem 0;
+    gap: 0.2rem 0;
     margin-top: 0.4rem;
     padding-top: 0;
   }
   .overview .overview-fact span {
-    font-size: 0.15rem;
+    font-size: 0.2rem;
   }
   .overview .overview-fact strong {
-    font-size: 0.21rem;
+    font-size: 0.35rem;
   }
   .overview .overview-fact:last-child {
     grid-column: span 2;
@@ -1185,18 +1188,21 @@ body {
     border-radius: 0.12rem;
   }
   .amenities .amenities-legend-group .amenities-toggle {
+    justify-content: space-between;
     min-height: 0.55rem;
-    padding: 0.12rem 0.45rem 0.12rem 0.15rem;
-    font-size: 0.14rem;
+    padding: 0.12rem 0.15rem;
+    font-size: 0.2rem;
     line-height: 1.35;
     white-space: normal;
+  }
+  .amenities .amenities-legend-group .amenities-close {
+    display: none !important;
   }
   .amenities .amenities-legend-group .amenities-toggle img {
     margin-top: 0;
   }
   .amenities .amenities-legend-group.is-open .amenities-toggle {
     min-height: 0.55rem;
-    padding: 0.12rem 0.45rem 0.12rem 0.15rem;
   }
   .amenities .amenities-legend-group.is-open .amenities-toggle img {
     margin-top: 0;
@@ -1375,13 +1381,10 @@ body {
 }
 @media only screen and (max-width: 767.98px) {
   .masterplan {
-    height: 5.8rem;
+    height: 6rem;
   }
   .masterplan .group-bg {
     padding: 0.4rem 0.2rem;
-  }
-  .masterplan .masterplan-map {
-    display: none;
   }
   .masterplan .masterplan-top {
     height: 2.2rem;
@@ -1390,12 +1393,91 @@ body {
     height: 1rem;
   }
   .masterplan .masterplan-guide {
-    width: 3.1rem;
-    height: 0.5rem;
+    width: 3.4rem;
+    z-index: 3;
+    max-width: 100%;
+    height: 0.45rem;
+    padding: 0 0.19rem;
+    justify-content: space-between;
+    color: #163963;
+    border: 0.05rem solid transparent;
+    border-left-width: 0.06rem;
+    border-right-width: 0.06rem;
+    border-radius: 0.09rem;
+    background: linear-gradient(102.192deg, #d7aa92, #f6d2bb) padding-box;
   }
-  .masterplan .masterplan-guide span {
-    font-size: 0.14rem;
-    line-height: 0.5rem;
+  .masterplan .masterplan-guide::before {
+    top: -0.055rem;
+    left: -0.065rem;
+    width: calc(100% + 0.13rem);
+    height: 0.56rem;
+    background-image: url(../resources/images/top/masterplan-hint-mo.svg);
+    background-size: 100% 100%;
+    pointer-events: none;
+  }
+  .masterplan .masterplan-guide::after {
+    position: relative;
+    flex: 0 0 0.14rem;
+    width: 0.14rem;
+    height: 0.1rem;
+    background-image: url(../resources/images/top/masterplan-arrow-mo.svg);
+    pointer-events: none;
+    transition: transform 0.2s ease;
+  }
+  .masterplan .masterplan-guide span,
+  .masterplan .masterplan-guide .masterplan-guide-toggle {
+    font-size: 0.16rem;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+  .masterplan .masterplan-guide:has(.masterplan-guide-toggle[aria-expanded=true])::after {
+    transform: rotate(180deg);
+  }
+  .masterplan .masterplan-guide-toggle {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    padding: 0 0.48rem 0 0.19rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .masterplan .masterplan-guide-toggle:focus-visible {
+    outline: 2px solid #163963;
+    outline-offset: 0.05rem;
+  }
+  .masterplan .masterplan-guide::after {
+    margin-left: auto;
+  }
+  .masterplan .masterplan-tower-options {
+    position: absolute;
+    top: calc(100% + 0.12rem);
+    left: -0.06rem;
+    right: -0.06rem;
+    margin: 0;
+    padding: 0.06rem;
+    list-style: none;
+    border: 1px solid #f6d2bb;
+    border-radius: 0.04rem;
+    background: #f6d2bb;
+    box-shadow: 0 0.08rem 0.2rem rgba(22, 57, 99, 0.15);
+  }
+  .masterplan .masterplan-tower-options[hidden] {
+    display: none;
+  }
+  .masterplan .masterplan-tower-options a {
+    display: block;
+    padding: 0.08rem 0.1rem;
+    color: #163963;
+    font: 500 0.16rem/1.25 "SF Pro Display", sans-serif;
+    text-decoration: none;
+  }
+  .masterplan .masterplan-tower-options a:hover, .masterplan .masterplan-tower-options a:focus-visible {
+    background: #e9c9cc;
   }
   .masterplan .masterplan-guide-arrow {
     top: 0.1rem;
@@ -1589,21 +1671,6 @@ body {
   display: flex;
   align-items: center;
 }
-.core-values .core-values-line {
-  position: absolute;
-  width: 8.8rem;
-  height: 1.61rem;
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-.core-values .core-values-line.is-top {
-  top: 1.67rem;
-  right: 0;
-}
-.core-values .core-values-line.is-bottom {
-  bottom: 1.04rem;
-  left: 0;
-}
 .core-values .core-values-heading {
   display: flex;
   align-items: flex-end;
@@ -1737,10 +1804,6 @@ body {
   }
   .core-values .group-bg {
     padding: 0.4rem 0;
-  }
-  .core-values .core-values-line {
-    width: 70%;
-    height: auto;
   }
   .core-values .core-values-heading {
     top: 0.72rem;
@@ -2193,5 +2256,43 @@ body {
   .list-top-developer .developer-partner p {
     margin-bottom: 0.27rem;
     font-size: 0.2rem;
+  }
+}
+
+.core-values-line {
+  position: absolute;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.core-values-line.is-top {
+  right: 0;
+  aspect-ratio: 1023/159;
+}
+.core-values-line.is-bottom {
+  left: 0;
+  aspect-ratio: 916/186;
+}
+@media print, (min-width: 768px) {
+  .core-values-line.is-top {
+    top: 0.33rem;
+    width: 10.23rem;
+    height: 1.59rem;
+  }
+  .core-values-line.is-bottom {
+    width: 9.16rem;
+    height: 1.86rem;
+    bottom: 0.54rem;
+  }
+}
+@media only screen and (max-width: 767.98px) {
+  .core-values-line {
+    width: 8rem;
+    height: 1.5rem;
+  }
+  .core-values-line.is-top {
+    top: 0.6rem;
+  }
+  .core-values-line.is-bottom {
+    bottom: 0.2rem;
   }
 }

@@ -8,7 +8,17 @@
 
   .group-bg {
     overflow: hidden;
-    background: url(../resources/images/common/footer-bg.jpg) center center/cover no-repeat;
+    background: #163963;
+  }
+
+  .footer-wave {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    mix-blend-mode: unset;
+    pointer-events: none;
+    z-index: 0;
   }
 
   .wrapper {
@@ -17,6 +27,8 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    position: relative;
+    z-index: 1;
   }
 
   .section-footer-common-wave {
@@ -151,14 +163,29 @@
     visibility: hidden;
     transition: opacity .35s ease, visibility .35s ease;
 
-    svg { display: block; width: 100%; height: 100%; }
-    circle { transition: fill .25s ease; }
-    path { transition: stroke .25s ease; }
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    circle {
+      transition: fill .25s ease;
+    }
+
+    path {
+      transition: stroke .25s ease;
+    }
 
     &:hover,
     &:focus-visible {
-      circle { fill: #143963; }
-      path { stroke: #f6d3bc; }
+      circle {
+        fill: #143963;
+      }
+
+      path {
+        stroke: #f6d3bc;
+      }
     }
 
     &.is-active {
@@ -173,7 +200,17 @@
 
   @include desktop {
     .group-bg {
-      padding: 1rem 0 .5rem;
+      padding: 1.2rem 0 .5rem;
+    }
+
+    .footer-wave {
+      &:nth-child(1) {
+        height: 5.96rem;
+      }
+
+      &:nth-child(2) {
+        height: 5.15rem;
+      }
     }
 
     .wrapper {
@@ -313,6 +350,18 @@
   @include tablet {
     height: 100%;
 
+    .footer-wave {
+      width: 14.4rem;
+
+      &:nth-child(1) {
+        height: 4rem;
+      }
+
+      &:nth-child(2) {
+        height: 3rem;
+      }
+    }
+
     .wrapper {
       gap: .8rem;
     }
@@ -390,6 +439,18 @@
 
     .group-bg {
       padding: 0.4rem 0;
+    }
+
+    .footer-wave {
+      width: 19rem;
+
+      &:nth-child(1) {
+        height: 5.96rem;
+      }
+
+      &:nth-child(2) {
+        height: 5.15rem;
+      }
     }
 
     .section-footer-common-consultation {}

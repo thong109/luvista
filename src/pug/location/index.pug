@@ -48,33 +48,36 @@ block content
         .group-central
           .inner
             .group-bg
-              .regional-glow(aria-hidden="true")
-              .regional-wave(aria-hidden="true")
-              h2.title-common-primary.is-gold#regional-title Liên kết vùng
-              - var regionalPhotos = [{image: 'regional-ghenh-rang.png', title: 'Điểm du lịch Ghềnh Ráng - Tiên Sa'}, {image: 'regional-ben-xe.png', title: 'Bến xe Quy Nhơn'}, {image: 'regional-mega-market.png', title: 'MM Mega Market'}, {image: 'regional-kim-cuc.png', title: 'Kim Cúc Plaza'}]
-              .regional-groups.swiper
-                .swiper-wrapper
-                  each time in ['02', '05', '07', '10', '20', '30']
-                    .regional-group.swiper-slide
-                      p.regional-time
-                        strong= time
-                        span phút
-                      .regional-rule(aria-hidden="true")
-                      .regional-photos.swiper(aria-label='Tiện ích trong ' + time + ' phút')
-                        .swiper-wrapper
-                          each photo, index in regionalPhotos
-                            figure.regional-photo.swiper-slide
-                              .regional-photo-frame
-                                img(class='regional-image-' + index src=imgPC + photo.image alt=photo.title width="840" height="520")
-                              figcaption= photo.title
-              .regional-controls.hidden
-                button.regional-prev(type="button" aria-label="Nhóm phút trước") ‹
-                button.regional-play(type="button" aria-label="Tạm dừng trình chiếu" aria-pressed="false") Tạm dừng
-                button.regional-next(type="button" aria-label="Nhóm phút tiếp theo") ›
+              .regional-wrapper
+                .regional-glow(aria-hidden="true")
+                canvas.regional-wave(data-wave-src=imgPC + 'regional-wave.svg' aria-hidden="true")
+                h2.title-common-primary.is-gold#regional-title Liên kết vùng
+                - var regionalPhotos = [{image: 'regional-ghenh-rang.png', title: 'Điểm du lịch Ghềnh Ráng - Tiên Sa'}, {image: 'regional-ben-xe.png', title: 'Bến xe Quy Nhơn'}, {image: 'regional-mega-market.png', title: 'MM Mega Market'}, {image: 'regional-kim-cuc.png', title: 'Kim Cúc Plaza'}]
+                .regional-groups.swiper
+                  .swiper-wrapper
+                    each time in ['02', '05', '07', '10', '20', '30']
+                      .regional-group.swiper-slide
+                        p.regional-time
+                          strong= time
+                          span phút
+                        .regional-rule(aria-hidden="true")
+                        .regional-photos.swiper(aria-label='Tiện ích trong ' + time + ' phút')
+                          .swiper-wrapper
+                            each photo, index in regionalPhotos
+                              figure.regional-photo.swiper-slide
+                                .regional-photo-frame
+                                  img(class='regional-image-' + index src=imgPC + photo.image alt=photo.title width="840" height="520")
+                                figcaption= photo.title
+                .regional-controls.hidden
+                  button.regional-prev(type="button" aria-label="Nhóm phút trước") ‹
+                  button.regional-play(type="button" aria-label="Tạm dừng trình chiếu" aria-pressed="false") Tạm dừng
+                  button.regional-next(type="button" aria-label="Nhóm phút tiếp theo") ›
       section.panel.section-footer-common#section-contact(aria-labelledby="footer-consultation-title")
         .group-central
           .inner
             .group-bg
+              canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-01.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
+              canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-02.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
               .wrapper
                 .section-footer-common-consultation
                   .section-footer-common-heading

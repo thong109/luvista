@@ -55,14 +55,7 @@ html.is-dark-bg {
 .navigation-wave {
   position: absolute;
   z-index: -1;
-  top: 5.09vh;
-  left: -32.66%;
-  width: 165.26%;
   max-width: none;
-  height: 90.46vh;
-  object-fit: fill;
-  mix-blend-mode: screen;
-  pointer-events: none;
 }
 
 .navigation-brand {
@@ -198,6 +191,15 @@ html.is-dark-bg {
 
 .overlay-menu {
   display: none;
+}
+
+@include desktop {
+  .navigation-wave {
+    top: 5.09vh;
+    left: -32.66%;
+    width: 165.26%;
+    height: 90.46vh;
+  }
 }
 
 @media (max-width: 1024px) {

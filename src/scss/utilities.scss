@@ -70,8 +70,8 @@
   }
 
   .amenities-tabs {
-    position: relative;
-    z-index: 25;
+    position: absolute;
+    z-index: 2;
 
     pointer-events: none;
   }
@@ -133,6 +133,7 @@
       text-align: left;
       text-transform: uppercase;
       cursor: pointer;
+      transition: padding .35s ease;
 
       img {
         width: .19rem;
@@ -209,11 +210,8 @@
       >span {
         display: grid;
         place-items: center;
-        width: .28rem;
-        height: .28rem;
         color: #fff;
         background: url("../resources/images/utilities/amenities-panel-internal.svg") center / contain no-repeat;
-        font: 500 .16rem/.28rem $font-sfpro;
       }
     }
 
@@ -231,7 +229,6 @@
       display: grid;
       align-content: end;
       gap: .28rem;
-      padding-bottom: 3.7%;
     }
 
     .amenities-map {
@@ -250,7 +247,8 @@
     .amenities-tabs {
       display: flex;
       gap: .1rem;
-      margin-left: 3.4375%;
+      left: 3.4375%;
+      bottom: .93rem;
     }
 
     .amenities-legend {
@@ -277,6 +275,14 @@
 
       &.is-internal .amenities-columns {
         grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      li {
+        >span {
+          width: .28rem;
+          height: .28rem;
+          font: 500 .16rem/.28rem $font-sfpro;
+        }
       }
     }
   }
@@ -352,8 +358,10 @@
       margin-bottom: .12rem;
 
       .amenities-toggle {
+        justify-content: space-between;
         min-height: .55rem;
         font-size: .2rem;
+        line-height: 1.35;
       }
 
       &.is-open {
@@ -447,12 +455,22 @@
       margin-bottom: .12rem;
 
       .amenities-toggle {
+        justify-content: space-between;
         min-height: .55rem;
         font-size: .2rem;
+        line-height: 1.35;
       }
 
       &.is-open {
         border-radius: .12rem;
+
+        .amenities-toggle {
+          padding: .12rem .2rem;
+        }
+      }
+
+      .amenities-close {
+        display: none !important;
       }
 
       >.amenities-columns,
@@ -467,6 +485,12 @@
         gap: .08rem;
         font-size: .14rem;
         line-height: .2rem;
+
+        >span {
+          width: .24rem;
+          height: .24rem;
+          font: 500 .12rem/.24rem $font-sfpro;
+        }
       }
     }
 

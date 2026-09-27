@@ -1,6 +1,258 @@
 @charset "utf-8";
 @use "_base/base"as *;
 
+.masterplan-drawing .js-premises-detail-item {
+  cursor: pointer;
+}
+
+#premisesDetailPopup {
+  .popup-box {
+    background: #193c64;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  .popup-body {
+    display: block;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  @media (max-width: 1024.98px) {
+    .popup-body {
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior-y: contain;
+    }
+  }
+
+  .popup-close {
+    top: 6%;
+    right: 4%;
+    margin: 0;
+    background: none;
+    width: .4rem;
+    height: .5rem;
+    color: #f6d2bb;
+
+    &::after {
+      content: 'X';
+      font: 400 .4rem/1 $font-default;
+    }
+  }
+}
+
+.apartment-detail {
+  position: relative;
+  height: 100%;
+  min-height: 0;
+  padding: .6rem .5rem .3rem;
+  display: grid;
+  grid-template-columns: 31% 1fr;
+  grid-template-rows: auto minmax(0, 1fr);
+  column-gap: 8%;
+  overflow: hidden;
+  background: #163963;
+  color: #f1f1f1;
+
+  >* {
+    position: relative;
+    z-index: 1;
+  }
+
+  >.title-common-primary {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+
+  >.regional-wave {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    left: 0;
+    bottom: 0;
+    width: 12.26rem;
+    height: 3.98rem;
+    mix-blend-mode: screen;
+  }
+
+  &-towers {
+    font: 400 .2rem/1.3 $font-gilroy;
+    margin: 0;
+  }
+
+  &-floor {
+    font: 400 .3rem/1.6 $font-default;
+    color: #f6d2bb;
+    margin: .12rem 0 1.1rem;
+  }
+
+  .apartment-detail-title {
+    font: 400 .4rem/1.4 $font-default;
+    text-transform: uppercase;
+    margin: 0 0 .4rem;
+  }
+
+  dl {
+    margin: 0;
+    font: 600 .18rem/1.45 $font-gilroy;
+
+    >div {
+      display: flex;
+      justify-content: space-between;
+      gap: .1rem;
+      margin-bottom: .18rem;
+    }
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  &-plan {
+    align-self: start;
+    min-width: 0;
+    min-height: 0;
+
+    .swiper {
+      width: 100%;
+    }
+  }
+
+  &-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1800 / 1055;
+    margin-inline: auto;
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 86.6667%;
+      height: auto;
+      max-width: none;
+      transform: translate(-50%, -50%) rotate(-90deg);
+    }
+  }
+
+  &-dots.swiper-pagination {
+    position: static;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: .35rem;
+
+    &.swiper-pagination-lock {
+      display: none;
+    }
+
+    .swiper-pagination-bullet {
+      width: .11rem;
+      height: .11rem;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      border-radius: 50%;
+      opacity: 1;
+      background: url('../resources/images/masterplan/apartment-dot.svg') center / contain no-repeat;
+    }
+
+    .swiper-pagination-bullet-active {
+      background-image: url('../resources/images/masterplan/apartment-dot-active.svg');
+    }
+  }
+
+  @media (max-width: 1024.98px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    min-height: 100%;
+    padding: .7rem .22rem .5rem;
+
+    >.title-common-primary {
+      margin: 0 auto .35rem;
+    }
+
+    &-floor {
+      margin-bottom: .25rem;
+      font-size: .35rem;
+    }
+
+    .apartment-detail-title {
+      font-size: .45rem;
+      margin: 0 auto .2rem;
+    }
+
+    &-plan {
+      width: 100%;
+      padding-top: .25rem;
+      align-self: stretch;
+    }
+
+    &-dots.swiper-pagination {
+      margin-top: min(.35rem, 20px);
+    }
+
+    &-towers,
+    dl {
+      font-size: .18rem;
+    }
+  }
+
+  @media (min-width: 1025px) and (max-height: 700px) {
+    padding-top: 6svh;
+    padding-bottom: 3svh;
+
+    >.title-common-primary {
+      margin-bottom: 2svh;
+      font-size: min(.4rem, 5svh);
+    }
+
+    &-floor {
+      font-size: min(.26rem, 4svh);
+      margin: 1svh 0 3svh;
+    }
+
+    &-towers,
+    dl {
+      font-size: min(.18rem, 2.8svh);
+    }
+
+    .apartment-detail-title {
+      font-size: min(.36rem, 4.5svh);
+      margin-bottom: 2svh;
+    }
+
+    dl>div {
+      margin-bottom: 1.5svh;
+    }
+
+    &-plan {
+      padding-top: 2svh;
+      align-self: stretch;
+      container-type: size;
+    }
+
+    &-image {
+      width: min(100%, calc((100cqh - 35px) * 1800 / 1055));
+    }
+
+    &-dots.swiper-pagination {
+      margin-top: min(.35rem, 20px);
+    }
+  }
+
+  @media (min-width: 1025px) and (max-height: 500px) and (min-aspect-ratio: 1/1) {
+    grid-template-columns: 38% minmax(0, 1fr);
+    column-gap: 4%;
+  }
+}
+
 .masterplan {
   position: relative;
   height: 100vh;
@@ -182,14 +434,10 @@
   }
 
   @include mobile {
-    height: 5.8rem;
+    height: 6rem;
 
     .group-bg {
-      padding: 0.4rem 0.2rem;
-    }
-
-    .masterplan-map {
-      display: none;
+      padding: 1rem 0.2rem .4rem;
     }
 
     .masterplan-top {
@@ -201,12 +449,102 @@
     }
 
     .masterplan-guide {
-      width: 3.1rem;
-      height: .5rem;
+      width: 3.4rem;
+      z-index: 3;
+      max-width: 100%;
+      height: .45rem;
+      padding: 0 .19rem;
+      justify-content: space-between;
+      color: #163963;
+      border: .05rem solid transparent;
+      border-left-width: .06rem;
+      border-right-width: .06rem;
+      border-radius: .09rem;
+      background: linear-gradient(102.192deg, #d7aa92, #f6d2bb) padding-box;
 
-      span {
-        font-size: .14rem;
-        line-height: .5rem;
+      &::before {
+        top: -.055rem;
+        left: -.065rem;
+        width: calc(100% + .13rem);
+        height: .56rem;
+        background-image: url(../resources/images/top/masterplan-hint-mo.svg);
+        background-size: 100% 100%;
+        pointer-events: none;
+      }
+
+      &::after {
+        position: relative;
+        flex: 0 0 .14rem;
+        width: .14rem;
+        height: .1rem;
+        background-image: url(../resources/images/top/masterplan-arrow-mo.svg);
+        pointer-events: none;
+        transition: transform .2s ease;
+      }
+
+      span,
+      .masterplan-guide-toggle {
+        font-size: .16rem;
+        font-weight: 500;
+        line-height: 1.25;
+      }
+
+      &:has(.masterplan-guide-toggle[aria-expanded="true"])::after {
+        transform: rotate(180deg);
+      }
+    }
+
+    .masterplan-guide-toggle {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      width: 100%;
+      padding: 0 .48rem 0 .19rem;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font-family: inherit;
+      text-align: left;
+      cursor: pointer;
+
+      &:focus-visible {
+        outline: 2px solid #163963;
+        outline-offset: .05rem;
+      }
+    }
+
+    .masterplan-guide::after {
+      margin-left: auto;
+    }
+
+    .masterplan-tower-options {
+      position: absolute;
+      top: calc(100% + .12rem);
+      left: -.06rem;
+      right: -.06rem;
+      margin: 0;
+      padding: .06rem;
+      list-style: none;
+      border: 1px solid #f6d2bb;
+      border-radius: .04rem;
+      background: #f6d2bb;
+      box-shadow: 0 .08rem .2rem rgba(22, 57, 99, .15);
+
+      &[hidden] {
+        display: none;
+      }
+
+      a {
+        display: block;
+        padding: .08rem .1rem;
+        color: #163963;
+        font: 500 .16rem/1.25 $font-sfpro;
+        text-decoration: none;
+
+        &:hover,
+        &:focus-visible {
+          background: #e9c9cc;
+        }
       }
     }
 
@@ -223,8 +561,11 @@
   color: #f6d2bb;
 
   .group-bg {
-    isolation: isolate;
     background: #163963;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 
   .masterplan-base,
@@ -237,38 +578,29 @@
     pointer-events: none;
   }
 
-  .masterplan-drawing {
-    position: absolute;
-    top: calc(40 / 1080 * 100%);
-    left: 50%;
-    width: calc(1443 / 1920 * 100%);
-    height: calc(1002 / 1080 * 100%);
-    margin: 0;
-    transform: translateX(-50%);
-
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    &:focus-visible {
-      outline: 2px solid #f6d2bb;
-      outline-offset: 2px;
-    }
-  }
-
   .masterplan-pan-hint {
     display: none;
   }
 
+  @for $type from 1 through 4 {
+
+    &:has(.masterplan-legend li[data-unit-type="#{$type}"]:is(:hover, :focus-visible)),
+    &:has(.masterplan-drawing svg [data-unit-type="#{$type}"]:hover) {
+
+      .masterplan-drawing svg [data-unit-type="#{$type}"],
+      .masterplan-hover-box[data-unit-type="#{$type}"] {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  .masterplan-pickers {
+    display: contents;
+  }
+
   .masterplan-floor-picker {
-    position: absolute;
     z-index: 3;
-    top: calc(57 / 1080 * 100%);
-    right: calc(80 / 1920 * 100%);
-    width: 3.23rem;
   }
 
   .masterplan-floor-select {
@@ -323,7 +655,7 @@
 
   .floor-option {
     position: relative;
-    padding: .1rem .35rem .1rem .14rem;
+    padding: .1rem .2rem .1rem .1rem;
     border-radius: .06rem;
     color: #f6d2bb;
     font-size: .22rem;
@@ -343,7 +675,7 @@
 
       &::after {
         position: absolute;
-        right: .12rem;
+        right: .04rem;
         content: "✓";
       }
     }
@@ -373,58 +705,22 @@
     aspect-ratio: 140 / 136;
 
     img {
-      position: absolute;
-      height: auto;
-    }
-
-    .compass-rose {
-      left: 12.07%;
-      top: 14.77%;
-      width: 66.39%;
-    }
-
-    .compass-north {
-      left: 0;
-      top: 0;
-      width: 24.28%;
-    }
-
-    .compass-east {
-      left: 63.92%;
-      top: 1.43%;
-      width: 36.08%;
-    }
-
-    .compass-west {
-      left: 0;
-      top: 82.4%;
-      width: 24.69%;
-    }
-
-    .compass-south {
-      left: 65.29%;
-      top: 83.35%;
-      width: 33.2%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 
   .masterplan-legend {
-    position: absolute;
     z-index: 1;
-    top: calc(858 / 1080 * 100%);
-    right: calc(81 / 1920 * 100%);
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    width: 4.13rem;
-    margin: 0;
     padding: .13rem .12rem .06rem;
     border-radius: .1rem;
     background: #fff;
     color: #5a5a5a;
     list-style: none;
     font-family: $font-sfpro;
-    font-size: .14rem;
-    line-height: .15rem;
     text-align: center;
 
     li {
@@ -439,20 +735,45 @@
       margin-bottom: .11rem;
     }
 
-    .is-type-0 .legend-swatch {
+    .is-type-1 .legend-swatch {
       background: #236295;
     }
 
-    .is-type-1 .legend-swatch {
+    .is-type-2 .legend-swatch {
       background: #79a1c5;
     }
 
-    .is-type-2 .legend-swatch {
+    .is-type-3 .legend-swatch {
       background: #c3a493;
     }
 
-    .is-type-3 .legend-swatch {
+    .is-type-4 .legend-swatch {
       background: #956b57;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .group-bg {
+      padding: .2rem 0;
+    }
+  }
+
+  @include desktop {
+    .masterplan-legend {
+      position: absolute;
+      right: .81rem;
+      bottom: 1.38rem;
+      width: 4.13rem;
+      margin: 0;
+      font-size: .14rem;
+      line-height: .15rem;
+    }
+
+    .masterplan-floor-picker {
+      position: absolute;
+      top: calc(120 / 1080 * 100%);
+      right: calc(80 / 1920 * 100%);
+      width: 3.23rem;
     }
   }
 
@@ -475,19 +796,6 @@
       padding: 1.6rem .25rem .4rem;
     }
 
-    .masterplan-drawing {
-      position: relative;
-      top: auto;
-      left: auto;
-      width: 100%;
-      height: auto;
-      transform: none;
-    }
-
-    .masterplan-drawing img {
-      height: auto;
-    }
-
     .masterplan-compass {
       top: 1rem;
       width: .85rem;
@@ -499,9 +807,7 @@
     }
 
     .masterplan-legend {
-      position: relative;
-      top: auto;
-      right: auto;
+      position: unset;
       margin: .25rem auto 0;
     }
   }
@@ -510,62 +816,282 @@
     height: auto;
 
     .group-bg {
-      min-height: 100svh;
-      padding: 1.9rem .16rem .35rem;
+      position: relative;
+      display: block;
+      height: auto;
+      min-height: 0;
+      padding: .4rem 0;
+      overflow: hidden;
+    }
+
+    .masterplan-pickers {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: .2rem;
+      margin: 0 0 .2rem;
+      padding: 0 .2rem;
     }
 
     .masterplan-floor-picker {
-      top: .95rem;
-      right: .2rem;
-      width: 2.6rem;
+      position: relative;
+      top: auto;
+      right: auto;
+      min-width: 0;
+      width: auto;
     }
 
     .masterplan-floor-select {
-      font-size: .28rem;
-      line-height: .6rem;
-      padding-right: .3rem;
+      min-height: 0;
+      padding-right: 0.2rem;
+      font-size: 0.2rem;
+      line-height: 1.4;
     }
 
-    .masterplan-compass {
-      top: .95rem;
-      left: .2rem;
-      width: .75rem;
+    .floor-chevron {
+      right: 0.00737rem;
+      width: 0.09526rem;
+      height: 0.0825rem;
     }
 
-    .masterplan-drawing {
-      position: relative;
-      top: auto;
-      left: auto;
-      width: 100%;
-      height: auto;
-      transform: none;
-      overflow-x: auto;
+    .masterplan-floor-options {
+      min-width: 1.65rem;
     }
 
-    .masterplan-drawing img {
-      width: auto;
-      min-width: 100%;
+    .floor-option {
+      font-size: .16rem;
+    }
+
+    .masterplan-picker-divider {
+      flex-shrink: 0;
+      width: 0.0055rem;
+      height: 0.2255rem;
+    }
+
+    .masterplan-base-mobile {
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 240%;
       max-width: none;
-      height: 4.5rem;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .masterplan-background-mobile {
+      position: absolute;
+      top: 55%;
+      left: -31.5%;
+      width: 136.875%;
+      max-width: none;
+      height: 51.3333%;
+      pointer-events: none;
+    }
+
+    .masterplan-road {
+      position: relative;
+      margin: 0 auto;
+      max-width: 3.3rem;
+      color: #fff;
+      text-align: center;
+
+      p {
+        margin: 0 0 .08rem;
+        font: 400 .18rem/1.25 $font-gilroy;
+      }
+
+      strong {
+        position: relative;
+        display: block;
+        padding: 0.06rem 0;
+        font: 600 .2rem/1.2 $font-sfpro;
+
+        &::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background:
+            url(../resources/images/masterplan/floor-road-line-mo.svg) center top / 100% 0.00781rem no-repeat;
+          pointer-events: none;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background:
+            url(../resources/images/masterplan/floor-road-line-mo.svg) center bottom / 100% 0.00781rem no-repeat;
+          pointer-events: none;
+        }
+      }
+    }
+
+    .masterplan-compass-mobile {
+      position: absolute;
+      top: 31.58%;
+      left: 4.13%;
+      width: 14.24%;
+      height: 9.23%;
+      object-fit: contain;
+    }
+
+    .masterplan-mobile-plan {
+      position: relative;
+      width: calc(100% - .2rem);
+      margin: 0 auto;
+      aspect-ratio: 636 / 634;
+
+      >img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
     }
 
     .masterplan-pan-hint {
-      position: relative;
-      display: block;
-      margin: .12rem 0 0;
-      color: #fff;
-      font-family: $font-sfpro;
-      font-size: .13rem;
-      text-align: center;
+      display: none;
     }
 
     .masterplan-legend {
       position: relative;
-      top: auto;
-      right: auto;
+      width: 4rem;
+      height: auto;
+      margin: 0 auto;
+      padding: 0.06rem;
+      border-radius: 0.055rem;
+      font-size: .14rem;
+      line-height: 1.2;
+
+      .legend-swatch {
+        width: 0.15rem;
+        height: 0.15rem;
+        margin-bottom: 0.06rem;
+      }
+
+      li {
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+.masterplan-hover-box {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2.84rem;
+  max-width: calc(100% - .2rem);
+  padding: .16rem .12rem .2rem .25rem;
+  border: 1px solid transparent;
+  border-radius: .1rem;
+  background: linear-gradient(#163963, #163963) padding-box,
+    linear-gradient(125deg, #bc7b53, #e9c9cc 38%, #f6d2bb 51%, #8f5944 82%, #662914) border-box;
+  color: #f1f1f1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .2s ease, visibility .2s ease;
+
+  h3 {
+    margin: 0 0 .12rem;
+    color: #f6d2bb;
+    font: 400 .25rem/1.2 $font-default;
+    background: linear-gradient(110deg, #bc7b53, #f6d2bb, #bc7b53);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  p {
+    display: flex;
+    justify-content: space-between;
+    gap: .08rem;
+    margin: .05rem 0 0;
+    font: 400 .16rem/1.3 $font-gilroy;
+    white-space: nowrap;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+.masterplan-drawing-wrapper {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(1443 / 1920 * 100%);
+  min-width: 0;
+  max-width: 100%;
+  margin: 0 auto;
+  height: auto;
+
+  .masterplan-drawing-scroll {
+    width: 100%;
+    min-width: 0;
+
+    &:focus-visible {
+      outline: 2px solid #f6d2bb;
+      outline-offset: 2px;
+    }
+  }
+
+  .masterplan-drawing {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1443 / 1002;
+
+    img {
+      display: block;
       width: 100%;
-      margin: .25rem auto 0;
-      font-size: .13rem;
+      height: auto;
+      object-fit: contain;
+    }
+
+    svg,
+    img.js-inline-svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+
+      [data-unit-type] {
+        pointer-events: visiblePainted;
+        opacity: 0;
+        transition: opacity .2s ease;
+      }
+    }
+
+  }
+
+  @include screen-low {
+    @media (min-width: 1025px) {
+      width: min(75.15625%, calc((100svh - 2.2rem) * 1443 / 1002));
+    }
+  }
+
+  @include tablet {
+    width: 100%;
+  }
+
+  @include mobile {
+    width: 100%;
+
+    .masterplan-drawing-scroll {
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      @include scroll-hidden;
+    }
+
+    .masterplan-drawing {
+      width: 8rem;
+      min-width: 100%;
+      height: auto;
+      padding: 0;
     }
   }
 }

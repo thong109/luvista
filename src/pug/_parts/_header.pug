@@ -17,7 +17,8 @@ header.header-common
       span.is-menu(aria-hidden="true")
   .header-common-navigation#site-navigation(role="dialog" aria-modal="true" aria-label="Menu chính" inert data-lenis-prevent)
     .navigation-wrapper
-      img.navigation-wave(src=imgCommonPC + 'menu-wave.png' alt="" aria-hidden="true")
+      //- img.navigation-wave(src=imgCommonPC + 'menu-wave.png' alt="" aria-hidden="true")
+      canvas.navigation-wave(data-wave-src=imgCommonPC + 'menu-wave.svg' aria-hidden="true")
       a.navigation-brand(href=path + '/#section-home' aria-label="LUVISTA - Trang chủ")
         img(src=imgCommonPC + 'menu-logo.svg' alt="LUVISTA" width="459" height="110")
       .menu-heading
@@ -29,7 +30,7 @@ header.header-common
               path(d="M0.5 16.2991L16.299 0.500099" stroke="currentColor" stroke-linecap="round")
       .navigation-content
         nav.navigation-menu(aria-label="Điều hướng chính")
-          - var menuLinks = [{label: 'Trang chủ', target: 'home'}, {label: 'Giới thiệu', target: 'overview'}, {label: 'Vị trí', target: 'location'}, {label: 'Mặt bằng', target: 'masterplan'}, {label: 'Tiện ích', target: 'utilities'}, {label: 'Thư viện', target: 'gallery'}, {label: 'Tin tức', target: 'news'}, {label: 'Liên hệ', target: 'contact'}]
+          - var menuLinks = [{label: 'Trang chủ', target: ''}, {label: 'Giới thiệu', target: 'overview'}, {label: 'Vị trí', target: 'location'}, {label: 'Mặt bằng', target: 'masterplan'}, {label: 'Tiện ích', target: 'utilities'}, {label: 'Thư viện', target: 'gallery'}, {label: 'Tin tức', target: 'news'}, {label: 'Liên hệ', target: 'contact'}]
           ul.menu.main-menu.header-menu#main-menu
             each item in menuLinks
               li.menu-item.menu-link

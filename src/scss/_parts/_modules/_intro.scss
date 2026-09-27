@@ -319,3 +319,36 @@
     transform: scale(1.12);
   }
 }
+
+@keyframes scaleLarge {
+  0% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes scaleOut {
+  0% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ani-zoom {
+  @include desktop {
+    opacity: 0;
+    animation: scaleOut 2s forwards;
+    animation-delay: 0.5s;
+    animation-play-state: paused;
+  }
+}
