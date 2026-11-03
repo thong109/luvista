@@ -1,0 +1,132 @@
+diff --git a/src/js/scripts.js b/src/js/scripts.js
+index 15bb9cd..86a9457 100644
+--- a/src/js/scripts.js
++++ b/src/js/scripts.js
+@@ -2679,6 +2679,21 @@
+           });
+ 
+           // Thay img bằng SVG inline
++          if (img.classList.contains('location-icons')) {
++            const background = img.parentElement.querySelector('.location-background');
++            if (background) {
++              const image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
++              image.setAttribute('href', background.src);
++              image.setAttribute('x', '0');
++              image.setAttribute('y', '0');
++              image.setAttribute('width', '1288');
++              image.setAttribute('height', '1080');
++              image.setAttribute('preserveAspectRatio', 'none');
++              image.setAttribute('class', 'location-map-raster');
++              importedSvg.prepend(image);
++              background.hidden = true;
++            }
++          }
+           if (img.closest('.masterplan-drawing')) initMasterplanUnitLinks(importedSvg);
+           img.replaceWith(importedSvg);
+         })
+@@ -3166,6 +3181,28 @@
+     syncVisibility();
+   };
+ 
++  const initLocationIconsReveal = () => {
++    const section = document.querySelector('.section-top-location');
++    const map = section?.querySelector('.location-map');
++    if (!map) return;
++    const desktop = window.matchMedia('(min-width: 1025px)');
++    let mapVisible = false;
++    const sync = () => {
++      section.classList.toggle('is-icons-visible', desktop.matches
++        ? section.classList.contains('is-active') : mapVisible);
++    };
++    new IntersectionObserver(([entry]) => {
++      mapVisible = entry.isIntersecting;
++      sync();
++    }, { threshold: .3 }).observe(map);
++    new MutationObserver(sync).observe(section, {
++      attributes: true,
++      attributeFilter: ['class'],
++    });
++    desktop.addEventListener('change', sync);
++    sync();
++  };
++
+   const initLocationTabs = () => {
+     const section = document.querySelector('.section-top-location');
+     if (!section) return;
+@@ -3235,6 +3272,65 @@
+     observer.observe(section);
+   };
+ 
++  const initAmenitiesFloors = () => {
++    const section = document.querySelector('.section-top-amenities');
++    if (!section) return;
++    const tabs = [...section.querySelectorAll('.amenities-floor[role="tab"]')];
++    const images = [...section.querySelectorAll('[data-amenities-floor]')];
++    let running = [];
++    images.forEach(image => image.decode?.().catch(() => {}));
++    const select = (tab, focus = false) => {
++      if (tab.getAttribute('aria-selected') === 'true') {
++        if (focus) tab.focus();
++        return;
++      }
++      const wrapper = section.querySelector('.amenities-wrapper');
++      const beforeHeight = wrapper?.getBoundingClientRect().height;
++      running.forEach(animation => animation.cancel());
++      running = [];
++      tabs.forEach(item => {
++        const active = item === tab;
++        item.classList.toggle('is-active', active);
++        item.setAttribute('aria-selected', String(active));
++        item.tabIndex = active ? 0 : -1;
++        const panel = document.getElementById(item.getAttribute('aria-controls'));
++        if (panel) panel.hidden = !active;
++      });
++      section.classList.toggle('is-floor-four', tab.dataset.floor === '4');
++      images.forEach(image => {
++        const active = image.dataset.amenitiesFloor === tab.dataset.floor;
++        image.classList.toggle('is-active', active);
++        image.setAttribute('aria-hidden', String(!active));
++      });
++      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
++        const timing = { duration: 450, easing: 'cubic-bezier(.22, 1, .36, 1)' };
++        const panel = document.getElementById(tab.getAttribute('aria-controls'));
++        if (panel) running.push(panel.animate([
++          { opacity: 0, transform: 'translateY(12px)' },
++          { opacity: 1, transform: 'translateY(0)' },
++        ], timing));
++        if (wrapper && beforeHeight && window.matchMedia('(max-width: 1024.98px)').matches) {
++          const afterHeight = wrapper.getBoundingClientRect().height;
++          running.push(wrapper.animate([
++            { height: `${beforeHeight}px`, overflow: 'hidden' },
++            { height: `${afterHeight}px`, overflow: 'hidden' },
++          ], timing));
++        }
++      }
++      if (focus) tab.focus();
++    };
++    tabs.forEach((tab, index) => {
++      tab.addEventListener('click', () => select(tab));
++      tab.addEventListener('keydown', event => {
++        const next = { ArrowRight: (index + 1) % tabs.length, ArrowLeft: (index + tabs.length - 1) % tabs.length, Home: 0, End: tabs.length - 1 }[event.key];
++        if (next === undefined) return;
++        event.preventDefault();
++        event.stopPropagation();
++        select(tabs[next], true);
++      });
++    });
++  };
++
+   const initAmenitiesDrawers = () => {
+     const groups = [...document.querySelectorAll('.amenities-legend-group')];
+     const animations = new Map();
+@@ -3753,8 +3849,10 @@
+   initMasterplanTowerPicker();
+   initMasterplanFloors();
+   initLocationTabs();
++  initLocationIconsReveal();
+   initLocationRegional();
+   initAmenitiesDrawers();
++  initAmenitiesFloors();
+   detectDevice();
+   buttonTop();
+   initContactPopup();

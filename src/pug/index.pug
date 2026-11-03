@@ -39,121 +39,150 @@ block content
         .group-central
           .inner
             .group-bg
-              canvas.project-video-wave.is-top(data-wave-src=imgPC + 'video-wave-top.svg' aria-hidden="true")
-              .wrapper
-                h2.title-common-primary.js-title.hero-title Tổng quan
-                .overview-location.js-title.hero-sub
-                  span Vị trí
-                  strong Đường Chế Lan Viên, Phường Quy Nhơn Nam, Tỉnh Gia Lai
-                .overview-facts.js-title.hero-sub
-                  - var facts = [{label: 'Quy mô', value: '8.3<span class="unit">ha</span>'}, {label: 'Số tòa tháp', value: '5<span class="unit">toà</span>'}, {label: 'tầng và 1 tầng hầm', value: '23'}, {label: 'Sản phẩm', value: '1,630'}, {label: 'Mật độ xây dựng', value: '50%'}, {label: 'Hình thức sở hữu', value: 'Dài lâu',small: true},{label: 'Bàn giao giai đoạn 1', value: 'Quý III/2028', small: true}]
-                  each fact in facts
-                    .overview-fact
-                      strong(class=fact.small ? 'is-small' : '')!= fact.value
-                      span= fact.label
+              picture.overview-background
+                source(media="(max-width: 1024px)" srcset=imgPC + 'overview-mo.jpg')
+                img.object-common(src=imgPC + 'overview.jpg' width="1920" height="1080" alt="Phối cảnh LUVISTA Quy Nhơn")
+              .overview-light(aria-hidden="true")
+                canvas.overview-wave(data-wave-src=imgPC + 'overview-wave.svg' aria-hidden="true")
+              .overview-content
+                h2.overview-title#overview-title.js-title.hero-title Tổng quan Dự án
+                p.overview-copy.js-title.hero-sub Luvista Quy Nhơn có không gian sống hiện đại, nơi kết hợp hài hòa giữa tiện nghi đô thị và nhịp sống thư thái của thành phố biển. Dự án hướng đến kiến tạo môi trường an cư chất lượng, đáp ứng nhu cầu sinh hoạt, nghỉ ngơi và tận hưởng cuộc sống của cư dân. Luvista mở ra tiềm năng trở thành lựa chọn đáng cân nhắc cho cả nhu cầu an cư lẫn đầu tư.
+                - var overviewStats = [{value: '8.3', unit: 'ha', label: 'Quy mô'}, {value: '5', label: 'Số tòa tháp'}, {value: '23', label: 'tầng và 1 tầng hầm'}, {value: '1,630', label: 'Sản phẩm'}, {value: '50', unit: '%', label: 'Mật độ xây dựng'}, {value: 'Lâu dài', label: 'Hình thức sở hữu'}, {value: 'Quý III/2028', label: 'Bàn giao giai đoạn 1'}]
+                dl.overview-stats.js-title.hero-sub
+                  each stat, index in overviewStats
+                    .overview-stat(class=index === 6 ? 'is-handover' : '')
+                      dt.overview-label= stat.label
+                      dd.overview-value
+                        span= stat.value
+                        if stat.unit
+                          small= stat.unit
+      section.panel.section-top-certificate.certificate.js-bg#section-certificate(aria-labelledby="certificate-title")
+        .group-central
+          .inner
+            .group-bg
+              .certificate-background
+                img.object-common(src=imgPC + 'certificate-bg.jpg' width="1920" height="1080" alt="" aria-hidden="true")
+              canvas.certificate-wave(data-wave-src=imgPC + 'certificate-wave.svg' aria-hidden="true")
+              .certificate-glow(aria-hidden="true")
+              .certificate-content
+                h2.certificate-title#certificate-title.js-title.hero-title
+                  | Giải thưởng 
+                  br
+                  | quốc tế 
+                  br
+                  | danh giá
+                .certificate-awards.js-title.hero-sub
+                  .certificate-award.is-architecture
+                    img.image-common(src=imgPC + 'certificate-img-01.jpg' width="159" height="372" alt="Giải thưởng Best Condo Architectural Design")
+                  .certificate-award.is-development
+                    img.image-common(src=imgPC + 'certificate-img-02.jpg' width="160" height="373" alt="Giải thưởng Best Integrated Development")
       section.panel.section-top-location.location#section-location(aria-labelledby="location-title")
         .group-central
           .inner
             .group-bg
+              img.location-scene(src=imgPC + 'location-bg.jpg' width="1920" height="1080" alt="")
               .location-map(role="img" aria-label="Bản đồ vị trí LUVISTA và các tiện ích kết nối tại Quy Nhơn")
-                img.location-background(src=imgPC + 'location-background.jpg' width="1920" height="1080" alt="")
-                img(src=imgPC+"location-diagram-02.svg" class="js-inline-svg location-line" alt="Map")
-                img.location-overlay.location-icons(src=imgPC + 'location-icons.svg' width="1920" height="1080" alt="")
-                img.location-logo(src=imgPC + 'location-logo.svg' width="295" height="192" alt="")
-                .location-glow
-                  img(src=imgPC + 'location-glow.svg' alt="")
+                img.location-background(src=imgPC + 'location-map-bg.png?v=coast-2' width="1288" height="1080" alt="")
+                img.location-icons.js-inline-svg(src=imgPC + 'location-map-icons.svg?v=beam-3' width="1288" height="1080" alt="")
+              .location-wave-frame(aria-hidden="true")
+                canvas.location-wave(data-wave-src=imgPC + 'location-wave.svg' aria-hidden="true")
               .location-content
-                h2.title-common-primary.is-gold#location-title.js-title.hero-title Vị trí dự án
-                - var locationGroups = [{time: '02', places: ['Điểm du lịch Ghềnh Ráng - Tiên Sa', 'Bến xe Quy Nhơn', 'Chợ Ghềnh Ráng', 'MM Mega Market', 'Kim Cúc Plaza', 'GO Quy Nhơn', 'Rạp chiếu phim CGV']}, {time: '05', places: ['Coop Mart', 'Quảng trường Nguyễn Tất Thành', 'Bãi biển Quy Nhơn', 'Trung tâm Khám phá KH Quy Nhơn', 'ICISE Quy Nhơn', 'Công viên sáng tạo TMA']}, {time: '07', places: ['Trung tâm bảo hiểm Quy Nhơn', 'Bệnh viện', 'Sân vận động']}, {time: '10', places: ['Ga Quy Nhơn', 'Trường THPT Lê Quý Đôn']}, {time: '20', places: ['Ga Diêu Trì', 'Trung tâm AI Bình Định']}, {time: '30', places: ['Sân bay Phù Cát', 'Kỳ Co - Điểm du lịch Eo Gió']}]
-                .location-navigation.js-title.hero-sub
-                  button.location-arrow.is-prev(type="button" aria-label="Nhóm thời gian trước")
-                    img(src=imgPC + 'location-prev.svg' width="39" height="39" alt="")
-                  .location-tabs(role="tablist" aria-label="Thời gian di chuyển")
-                    each group, index in locationGroups
-                      button.location-tab(type="button" role="tab" id='location-tab-' + group.time aria-controls='location-panel-' + group.time aria-selected=index === 0 ? 'true' : 'false' tabindex=index === 0 ? '0' : '-1')
-                        strong= group.time
-                        span Phút
-                  button.location-arrow.is-next(type="button" aria-label="Nhóm thời gian tiếp theo")
-                    img(src=imgPC + 'location-next.svg' width="39" height="39" alt="")
-                .location-panels.js-title.hero-sub
-                  each group, index in locationGroups
-                    .location-panel(role="tabpanel" id='location-panel-' + group.time aria-labelledby='location-tab-' + group.time hidden=index !== 0 tabindex="0")
-                      p.location-time
-                        strong= group.time
-                        span Phút
-                      ul
-                        each place in group.places
-                          li= place
+                h2.location-title#location-title.js-title.hero-title Vị trí cửa ngõ
+                .location-copy.js-title.hero-sub
+                  p Dự án tọa lạc tại cửa ngõ phía nam của phố biển Quy Nhơn. Đây cũng là cửa ngõ kết nối giao thông quan trọng nhất của Quy Nhơn khi liền kề Bến xe Trung tâm tỉnh Gia Lai, Quốc lộ 1D kết nối vào Miền Nam cũng như ra hướng Miền Bắc thông qua các tuyến Quốc lộ 1A hay Cao tốc Bắc Nam.
+                  p Nằm mặt tiền đường Chế Lan Viên, dự án kết nối nhanh chóng tới các Trung tâm thương mại như Kim Cúc Plaza, Mega martket, rạp chiếu phim CGV, Khu du lịch Ghềnh Ráng – Tiên Sa, bãi tắm biển Quy Nhơn, Bệnh viện TW Quy Hòa…..và các điểm quan trọng khác của Trung tâm Quy Nhơn.
+                a.location-more.js-title.hero-sub(href=path + '/location/')
+                  span Xem thêm
+                  span.location-more-arrow(aria-hidden="true")
+                    span.location-more-ring
+                      img(src=imgPC + 'location-more-ring.svg' width="39" height="39" alt="")
+                      svg(viewBox="0 0 39 39" fill="none")
+                        circle(cx="19.5" cy="19.5" r="19" stroke="currentColor")
       section.panel.section-top-amenities.amenities#section-amenities(aria-label="Tiện ích dự án")
         .group-central
           .inner
             .group-bg.amenities-frame
               .amenities-map
-                img.object-common(src=imgPC + 'amenities-map.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể tiện ích dự án LUVISTA" loading="eager" decoding="async")
-                img.amenities-overlay.js-inline-svg(src=imgPC + 'amenities-overlay.svg' width="1920" height="1080" alt="Các vị trí và tên tháp tiện ích")
+                img.object-common.is-active(src=imgPC + 'amenities-img-01.jpg' width="1920" height="1080" alt="Mặt bằng tiện ích Tầng 1 LUVISTA" data-amenities-floor="1" loading="eager" decoding="async")
+                img.object-common(src=imgPC + 'amenities-img-02.jpg' width="1920" height="1080" alt="Mặt bằng tiện ích Tầng 4 LUVISTA" data-amenities-floor="4" loading="eager" decoding="async" aria-hidden="true")
+                img.amenities-floor-overlay.js-inline-svg(src=imgPC + 'amenities-overlay-01.svg' data-overlay-floor="1" width="1920" height="1080" preserveAspectRatio="xMidYMid slice" alt="Các vị trí tiện ích Tầng 1")
+                img.amenities-floor-overlay.js-inline-svg(src=imgPC + 'amenities-overlay-04.svg' data-overlay-floor="4" width="1920" height="1080" preserveAspectRatio="xMidYMid slice" alt="Các vị trí tiện ích Tầng 4")
               .amenities-wrapper
-                h2.title-common-primary.is-gold.js-title.hero-title Tiện ích dự án
-                - var externalAmenities = ['Công viên trung tâm', 'Phố thương mại', 'Nhà mẫu<br>Nhà sinh hoạt cộng đồng', 'Sân Pickleball', 'Công viên', 'Đường dạo bộ ven hồ', 'Hồ cảnh quan']
-                - var internalAmenities = ['Vườn nghệ thuật', 'Đường dạo bộ trên cao', 'Khu vườn Hoàng Hôn', 'Vườn Trị liệu và Thiền định', 'Sân tập Yoga và Thái cực quyền', 'Khu đọc sách ngoài trời', 'Bãi đỗ trực thăng', 'Vườn rau hữu cơ', 'Phòng tập Gym', 'Phòng sinh hoạt cộng đồng', 'Hồ bơi', 'Phòng thay đồ', 'Ghế tắm nắng', 'Hồ cảnh quan', 'Vườn xanh', 'Sân tập dưỡng sinh', 'Khu sinh hoạt cộng đồng (ngoài trời)', 'Khu vui chơi trẻ em', 'Công viên thú cưng', 'Khu BBQ ngoài trời', 'Lối vào quảng trường chính', 'BBQ gia đình', 'Sân khấu ngoài trời', 'Hồ bơi trung tâm', 'Sen tắm đứng ngoài trời', 'Bể Jacuzzi', 'Ghế tắm nắng', 'Hồ bơi lưng núi', 'Khu thay đồ', 'Sân chơi cát', 'Sân khấu trình diễn', 'Cigar Lounge', 'Quầy Bar', 'Sân chơi trẻ em', 'Hồ thư giãn', 'Hồ bơi lưng núi', 'Ghế tắm nắng', 'Không gian tập gym', 'Phòng tập Yoga/Pilates', 'Phòng đọc sách']
-                aside.amenities-legend.js-title.hero-sub
-                  .amenities-legend-group.is-external
-                    button.amenities-toggle(type="button" aria-expanded="false" aria-controls="external-amenities") Tiện ích cảnh quan ngoại khu
-                      img(src=imgPC + 'amenities-chevron.svg' width="19" height="19" alt="")
-                    button.amenities-close(type="button" aria-label="Đóng tiện ích cảnh quan ngoại khu") ×
-                    .amenities-columns.is-external-columns#external-amenities
-                      ol
-                        each item, index in externalAmenities.slice(0, 3)
-                          li
-                            span= ('0' + (index + 1)).slice(-2)
-                            p!= item
-                      ol(start="4")
-                        each item, index in externalAmenities.slice(3)
-                          li
-                            span= ('0' + (index + 4)).slice(-2)
-                            p!= item
-                  .amenities-legend-group.is-internal
-                    button.amenities-toggle(type="button" aria-expanded="false" aria-controls="internal-amenities") Tiện ích bên trong dự án
-                      img(src=imgPC + 'amenities-chevron.svg' width="19" height="19" alt="")
-                    button.amenities-close(type="button" aria-label="Đóng tiện ích bên trong dự án") ×
-                    .amenities-columns#internal-amenities
-                      ol
-                        each item, index in internalAmenities.slice(0, 10)
-                          li
-                            span= ('0' + (index + 1)).slice(-2)
-                            p= item
-                      ol(start="11")
-                        each item, index in internalAmenities.slice(10, 20)
-                          li
-                            span= index + 11
-                            p= item
-                      ol(start="21")
-                        each item, index in internalAmenities.slice(20, 30)
-                          li
-                            span= index + 21
-                            p= item
-                      ol(start="31")
-                        each item, index in internalAmenities.slice(30)
-                          li
-                            span= index + 31
-                            p= item
+                h2.title-common-primary.is-gold.js-title.hero-title Mặt bằng Tiện ích
+                .amenities-floor-nav(role="tablist" aria-label="Tầng tiện ích")
+                  button.amenities-floor.is-active#amenities-tab-1(type="button" role="tab" aria-selected="true" aria-controls="amenities-floor-1" data-floor="1") Tầng 1
+                  button.amenities-floor#amenities-tab-4(type="button" role="tab" aria-selected="false" aria-controls="amenities-floor-4" tabindex="-1" data-floor="4") Tầng 4
+                aside.amenities-legend#amenities-floor-1(role="tabpanel" aria-labelledby="amenities-tab-1" tabindex="0")
+                  h3.amenities-legend-title Tiện ích tầng 1
+                  - var floorOneAmenities = ['Lối vào quảng trường chính', 'BBQ gia đình', 'Sân khấu ngoài trời', 'Hồ bơi trung tâm', 'Sen tắm đứng ngoài trời', 'Bể Jacuzzi', 'Không gian tập Gym/Yoga/Pilates', 'Sảnh đón - The Harmony', 'Sảnh thang máy - The Harmony', 'Sảnh đón - The Hill', 'Sảnh thang máy - The Hill', 'Sảnh đón - The Horizon', 'Sảnh thang máy - The Horizon']
+                  ol.amenities-floor-list
+                    each item, index in floorOneAmenities
+                      li(data-amenity=index + 1 tabindex="0")
+                        span= ('0' + (index + 1)).slice(-2)
+                        p= item
+                aside.amenities-legend#amenities-floor-4(role="tabpanel" aria-labelledby="amenities-tab-4" tabindex="0" hidden)
+                  h3.amenities-legend-title Tiện ích tầng 4
+                  - var floorFourAmenities = ['Hồ bơi lưng núi', 'Khu thay đồ', 'Sân chơi cát', 'Sân chơi trẻ em', 'Hồ thư giãn', 'Sảnh thang máy - The Harmony', 'Sảnh thang máy - The Hill', 'Sảnh thang máy - The Horizon']
+                  ol.amenities-floor-list
+                    each item, index in floorFourAmenities
+                      li(data-amenity=index + 14 tabindex="0")
+                        span= index + 14
+                        p= item
       section.panel.section-top-masterplan.masterplan#section-masterplan(aria-labelledby="masterplan-title")
+        - const masterplanTowers = [{slug: 'the-harmony', name: 'The Harmony'}, {slug: 'the-hill', name: 'The Hill'}, {slug: 'the-horizon', name: 'The Horizon', stats: [['Số tầng', '23 tầng'], ['Tổng sản phẩm', '280 căn'], ['Diện tích căn hộ', '34.94 - 128,52m²']]}, {slug: 'the-heritage', name: 'The Heritage'}, {slug: 'the-heights', name: 'The Heights'}]
         .group-central
           .inner
             .group-bg
               picture.masterplan-picture
-                source(media="(max-width: 767.98px)" srcset=imgPC+"masterplan-bg-mo.jpg")
-                img.object-common(src=imgPC + 'masterplan-bg.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể dự án LUVISTA" loading="eager")
-              .masterplan-map
-                img.md(src=imgPC+"masterplan-diagram.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
-                img.sm(src=imgPC+"masterplan-diagram-mo.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
-              h2.title-common-primary.js-title.hero-title Mặt bằng dự án
-              .masterplan-guide.js-title.hero-title
-                span.md Hover và click vào tháp để xem thông tin
-                button.masterplan-guide-toggle.sm(type="button" aria-expanded="false" aria-controls="masterplan-tower-options") Chọn tháp để xem thông tin
-                ul.masterplan-tower-options.sm#masterplan-tower-options(aria-label="Chọn tháp" hidden)
-                  each tower in [{name: 'The Hill', value: 'the-hill'}, {name: 'The Horizon', value: 'the-horizon'}, {name: 'The Harmony', value: 'the-harmony'}]
+                source(media="(max-width: 767.98px)" srcset=imgPC + 'masterplan-bg-mo.jpg')
+                img.object-common(src=imgPC + 'masterplan-bg.jpg' width="1920" height="1080" alt="Phối cảnh mặt bằng tổng thể LUVISTA" loading="eager")
+              .masterplan-map(data-masterplan-url=path + '/masterplan/')
+                img.masterplan-overlay.js-inline-svg(src=imgPC + 'masterplan-labels.svg' width="1920" height="1080" preserveAspectRatio="xMidYMid slice" alt="Các tháp LUVISTA")
+                .masterplan-tooltips
+                  each tower in masterplanTowers
+                    article.masterplan-tooltip(data-tower-info=tower.slug aria-hidden="true" inert)
+                      h3= tower.name
+                      if tower.stats
+                        dl
+                          each stat in tower.stats
+                            dt= stat[0] + ':'
+                            dd= stat[1]
+                      else
+                        p Xem thông tin tháp
+                      a.masterplan-tooltip-arrow(href=path + '/masterplan/?tower=' + tower.slug + '#section-masterplan-article' aria-label='Xem ' + tower.name)
+              h2.title-common-primary.js-title.hero-title#masterplan-title Mặt bằng dự án
+              .masterplan-guide.js-title.hero-sub
+                span.masterplan-guide-text Hover và click vào tháp để xem thông tin
+                button.masterplan-guide-toggle(type="button" aria-expanded="false" aria-controls="masterplan-tower-options") Chọn tháp để xem thông tin
+                ul.masterplan-tower-options#masterplan-tower-options(aria-label="Chọn tháp" hidden)
+                  each tower in masterplanTowers
                     li
-                      a(href=path + '/masterplan/')= tower.name
+                      a(href=path + '/masterplan/?tower=' + tower.slug + '#section-masterplan-article')= tower.name
+      section.panel.section-top-gallery.gallery#section-gallery
+        .group-central
+          .inner
+            .group-bg
+              canvas.gallery-wave(data-wave-src=imgPC + 'location-wave.svg' aria-hidden="true")
+              h2.title-common-primary.is-gold#top-gallery-title Thư viện
+              - const topGalleryTabs = [{id: 'overview', label: 'Tổng quan', images: [{url: imgPC + 'gallery-project-01.jpg', alt: 'Lối vào quảng trường chính'}, {url: imgPC + 'gallery-project-02.jpg', alt: 'Hồ bơi lưng núi'}, {url: imgPC + 'masterplan-bg.jpg', alt: 'Phối cảnh tổng thể'}]}, {id: 'studio', label: 'Căn hộ Studio', images: [{url: imgPC + 'gallery-project-01.jpg', alt: 'LUVISTA'}, {url: imgPC + 'gallery-project-02.jpg', alt: 'LUVISTA'}]}, {id: '1pn', label: 'Căn hộ 1PN', images: [{url: imgPC + 'gallery-project-01.jpg', alt: 'LUVISTA'}, {url: imgPC + 'gallery-project-02.jpg', alt: 'LUVISTA'}]}, {id: '2pn', label: 'Căn hộ 2PN', images: [{url: imgPC + 'gallery-project-01.jpg', alt: 'LUVISTA'}, {url: imgPC + 'gallery-project-02.jpg', alt: 'LUVISTA'}]}]
+              .gallery-panels
+                each tab, tabIndex in topGalleryTabs
+                  .gallery-panel(id='top-gallery-panel-' + tab.id role="tabpanel" aria-labelledby='top-gallery-tab-' + tab.id aria-hidden=tabIndex ? 'true' : 'false' class=tabIndex ? '' : 'is-active' inert=tabIndex ? true : false)
+                    .gallery-track.swiper
+                      .swiper-wrapper
+                        each image, index in tab.images
+                          figure.gallery-item.swiper-slide(data-index=index)
+                            button.gallery-image.js-slide-image(type="button" data-gallery=JSON.stringify(tab.images) data-index=index data-title=image.alt aria-label='Xem ảnh: ' + image.alt)
+                              img(src=image.url width="666" height="420" alt=image.alt loading="eager" decoding="async")
+                            figcaption= image.alt
+                        if !tab.images.length
+                          p.gallery-empty Hình ảnh đang được cập nhật
+              .gallery-controls
+                button.gallery-arrow.is-prev(type="button" aria-label="Ảnh trước")
+                button.gallery-arrow.is-next(type="button" aria-label="Ảnh tiếp theo")
+              .gallery-tabs(role="tablist" aria-label="Danh mục hình ảnh")
+                each tab, tabIndex in topGalleryTabs
+                  button.gallery-tab(id='top-gallery-tab-' + tab.id type="button" role="tab" aria-controls='top-gallery-panel-' + tab.id aria-selected=tabIndex ? 'false' : 'true' tabindex=tabIndex ? '-1' : '0' class=tabIndex ? '' : 'is-active')= tab.label
       section.panel.section-top-project-gallery.project-gallery#section-project-gallery(aria-labelledby="project-gallery-title")
         .group-central
           .inner
@@ -197,9 +226,10 @@ block content
         .group-central
           .inner
             .group-bg
+              canvas.news-wave(data-wave-src=imgPC + 'location-wave.svg' aria-hidden="true")
               - var newsItems = [{image: 'news-01.png', alt: 'Không gian thương mại và căn hộ LUVISTA'}, {image: 'news-02.png', alt: 'Hồ bơi và cảnh quan LUVISTA'}, {image: 'news-03.png', alt: 'Quảng trường và tiện ích LUVISTA'},{image: 'news-01.png', alt: 'Không gian thương mại và căn hộ LUVISTA'}, {image: 'news-02.png', alt: 'Hồ bơi và cảnh quan LUVISTA'}, {image: 'news-03.png', alt: 'Quảng trường và tiện ích LUVISTA'}]
               .wrapper
-                h2.title-common-primary.is-gold.js-title.hero-title Tin tức
+                h2.title-common-primary.is-gold.js-title.hero-title#news-title Tin tức
                 .news-list.js-news-slider.js-title.hero-sub
                   .swiper
                     .swiper-wrapper
@@ -208,43 +238,56 @@ block content
                           article.news-item
                             a.news-link(href=path+"/news/detail/")
                               .news-image
-                                img.object-common(src=imgCommonPC + item.image width="506" height="334" alt=item.alt loading="eager")
+                                img.object-common(src=imgCommonPC + item.image width="560" height="400" alt=item.alt loading="eager")
                               .news-content
-                                time.news-date(datetime="2025-12-29" aria-label="Ngày 29 tháng 12 năm 2025")
-                                  span.news-day 29
-                                  span.news-month 12/2025
+                                time.news-date(datetime="2026-10-25" aria-label="Ngày 25 tháng 10 năm 2026")
+                                  span.news-day 25
+                                  span.news-month 10.2026
                                 .news-summary
                                   p.news-title Tận hưởng cuộc sống ngay lập tức và “đón lõng” những sóng phát triển dồn dập ngày mai, dự án là điểm đến cân bằng hoàn hảo mọi yếu tố để chủ nhân
-                                  span.news-more
-                                    span Xem chi tiết
-                                    img(src=imgCommonPC + 'news-detail-arrow.svg' width="14" height="10" alt="")
-                  button.news-arrow.is-prev(type="button" aria-label="Tin trước")
-                    img(src=imgPC + 'news-prev.svg' width="34" height="34" alt="")
-                  button.news-arrow.is-next(type="button" aria-label="Tin tiếp theo")
-                    img(src=imgPC + 'news-next.svg' width="34" height="34" alt="")
+                  .news-pagination
       section.panel.section-top-developer.developer#section-developer(aria-labelledby="developer-title")
         .group-central
           .inner
             .group-bg
-              img.developer-background(src=imgPC + 'developer-bg.jpg' width="1920" height="1080" alt="" loading="eager")
-              img.developer-top(src=imgPC + 'developer-top.png' width="1920" height="279" alt="")
-              img.developer-arch(src=imgPC + 'developer-arch.svg' width="1370" height="764" alt="")
-              img.developer-bottom(src=imgPC + 'developer-bottom.png' width="1920" height="198" alt="")
-              img.developer-line(src=imgPC + 'developer-line.png' width="896" height="161" alt="")
+              canvas.developer-wave(data-wave-src=imgPC + 'certificate-wave.svg' aria-hidden="true")
               .developer-content
-                h2.title-common-primary.is-gold.js-title.hero-title Chủ đầu tư
-                .list-top-developer
-                  .developer-logo-primary.js-title.hero-title
-                    .logo-primary
-                      img.image-common(src=imgPC + 'developer-tnt.svg' width="160" height="164" alt="TNT Homes Quy Nhơn")
-                  .developer-partner.js-title.hero-title
-                    p Đơn vị phát triển
-                    .logo-partner.is-large
-                      img.image-common(src=imgPC + 'developer-conasi.svg' width="241" height="121" alt="Conasi")
-                  .developer-partner.js-title.hero-title
-                    p Giải thưởng - chứng nhận
-                    .logo-partner
-                      img.image-common(src=imgPC + 'developer-award-logo.svg' width="219" height="90" alt="Edge")
+                h2.title-common-primary.js-title.hero-title#developer-title Đối tác
+                .developer-principals
+                  .developer-principal
+                    h3 Phát triển dự án
+                    img.developer-conasi(src=path + '/resources/images/overview/partner-conasi.png' alt="Conasi" loading="eager")
+                  .developer-principal
+                    h3 Chủ đầu tư
+                    img.developer-tnt(src=path + '/resources/images/overview/partner-tnt.png' alt="TNT Homes Quy Nhơn" loading="eager")
+                section.developer-partners(aria-labelledby="developer-strategic-title")
+                  h3#developer-strategic-title Đối tác chiến lược
+                  .developer-divider(aria-hidden="true")
+                    span ✦
+                  .developer-partner-logos.swiper
+                    .swiper-wrapper
+                      .swiper-slide
+                        img.is-edge(src=path + '/resources/images/overview/partner-edge.png' alt="EDGE" loading="eager")
+                      .swiper-slide
+                        img.is-savills(src=path + '/resources/images/overview/partner-savills.png' alt="Savills" loading="eager")
+                      .swiper-slide
+                        img.is-lumiere(src=path + '/resources/images/overview/partner-lumiere.png' alt="Lumière Style Hotel Resort" loading="eager")
+                      .swiper-slide
+                        img.developer-bank(src=path + '/resources/images/overview/partner-edge.png' alt="Ảnh tạm logo MB Bank" loading="eager")
+                section.developer-distributors(aria-labelledby="developer-distributors-title")
+                  h3#developer-distributors-title Đại lý phân phối
+                  .developer-divider(aria-hidden="true")
+                    span ✦
+                  .developer-distributor-slider
+                    button.developer-distributor-arrow.is-prev(type="button" aria-label="Đại lý trước")
+                      img(src=imgPC + 'developer-slider-arrow.svg' width="45" height="45" alt="")
+                    .developer-distributor-logos.swiper(data-distributor-logos)
+                      .swiper-wrapper
+                        each logo in [1, 2, 3, 4, 5, 6, 7]
+                          .swiper-slide
+                            img(src=path + '/resources/images/overview/partner-conasi.png' alt='Ảnh tạm đại lý phân phối ' + logo loading="eager")
+                    button.developer-distributor-arrow.is-next(type="button" aria-label="Đại lý tiếp theo")
+                      img(src=imgPC + 'developer-slider-arrow.svg' width="45" height="45" alt="")
       section.panel.section-footer-common#section-contact(aria-labelledby="footer-consultation-title")
         .group-central
           .inner

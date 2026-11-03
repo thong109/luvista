@@ -164,14 +164,7 @@
 }
 */
 
-@media (prefers-reduced-motion: reduce) {
 
-  .mask,
-  .mask * {
-    animation-duration: .01ms !important;
-    animation-delay: 0s !important;
-  }
-}
 
 
 @keyframes arrowMove {

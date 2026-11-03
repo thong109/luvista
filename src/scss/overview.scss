@@ -90,17 +90,7 @@
       outline-offset: 4px;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
 
-      .keyvisual-scroll-arrow {
-        animation: none;
-      }
-
-      &:hover {
-        transform: translateX(-50%);
-      }
-    }
   }
 
   @include tablet {

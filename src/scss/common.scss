@@ -761,8 +761,10 @@ section {
   }
 
   @include mobile {
-    width: 8rem;
-    height: 1.8rem;
+    left: 0;
+    right: auto;
+    width: 100%;
+    height: auto;
 
     &.is-top {
       top: .6rem;

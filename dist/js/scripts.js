@@ -208,7 +208,7 @@
       if (next?.dataset.transition !== "simple") return;
       next.querySelectorAll("img").forEach((image) => {
         image.loading = "eager";
-        image.decode?.().catch(() => {});
+        image.decode?.().catch(() => { });
       });
     };
 
@@ -295,7 +295,7 @@
 
     /* ---------------- EXPLORE CTA ---------------- */
     const exploreBtn = document.querySelector(
-      ".section-top-keyvisual .hero-sub, .section-overview-keyvisual .keyvisual-scroll",
+      ".section-top-keyvisual .hero-sub, .section-overview-keyvisual .keyvisual-scroll, .section-top-keyvisual .keyvisual-scroll",
     );
 
     if (exploreBtn) {
@@ -304,6 +304,17 @@
         if (s.animating || s.navLock) return;
 
         const hash = (exploreBtn.getAttribute("href") || "").split("#")[1];
+        if (!hash) return;
+
+        if (isTablet()) {
+          const target = document.getElementById(hash);
+          if (!target) return;
+          target.scrollIntoView({
+            behavior: "smooth",
+          });
+          return;
+        }
+
         const panelIndex = panels.findIndex((panel) => panel.id === hash);
         if (panelIndex < 0) return;
 
@@ -480,8 +491,8 @@
         if (images[s.cur] && !simpleTransition) {
           tl.to(
             images[s.cur], {
-              yPercent: -14 * d,
-            },
+            yPercent: -14 * d,
+          },
             0
           );
         }
@@ -491,11 +502,11 @@
       if (curTargets.length) {
         tl.fromTo(
           curTargets, {
-            yPercent: (j) => (j ? -100 * d : 100 * d),
-            immediateRender: false,
-          }, {
-            yPercent: 0,
-          },
+          yPercent: (j) => (j ? -100 * d : 100 * d),
+          immediateRender: false,
+        }, {
+          yPercent: 0,
+        },
           0
         );
       }
@@ -503,10 +514,10 @@
       if (images[i] && !simpleTransition) {
         tl.fromTo(
           images[i], {
-            yPercent: 14 * d,
-          }, {
-            yPercent: 0,
-          },
+          yPercent: 14 * d,
+        }, {
+          yPercent: 0,
+        },
           0
         );
       }
@@ -515,14 +526,14 @@
         headings[i].forEach((h, j) => {
           tl.fromTo(
             h, {
-              autoAlpha: 0,
-              yPercent: (simpleTransition ? 60 : 200) * d,
-            }, {
-              autoAlpha: 1,
-              yPercent: 0,
-              duration: simpleTransition ? 0.6 : 0.9,
-              ease: "power2.out",
-            },
+            autoAlpha: 0,
+            yPercent: (simpleTransition ? 60 : 200) * d,
+          }, {
+            autoAlpha: 1,
+            yPercent: 0,
+            duration: simpleTransition ? 0.6 : 0.9,
+            ease: "power2.out",
+          },
             // Near the top of a sliding panel, text is still offscreen early on.
             simpleTransition ? 0.55 + j * 0.06 : 0.18
           );
@@ -533,14 +544,14 @@
         subs[i].forEach((sub, j) => {
           tl.fromTo(
             sub, {
-              autoAlpha: 0,
-              yPercent: (simpleTransition ? 20 : 200) * d,
-            }, {
-              autoAlpha: 1,
-              yPercent: 0,
-              duration: simpleTransition ? 0.55 : 0.8,
-              ease: "power2.out",
-            },
+            autoAlpha: 0,
+            yPercent: (simpleTransition ? 20 : 200) * d,
+          }, {
+            autoAlpha: 1,
+            yPercent: 0,
+            duration: simpleTransition ? 0.55 : 0.8,
+            ease: "power2.out",
+          },
             simpleTransition ? 0.65 + j * 0.06 : 0.28
           );
         });
@@ -861,6 +872,126 @@
     }
   };
 
+  const initDeveloperSliders = () => {
+    const section = document.querySelector('.section-top-developer');
+    if (!section || typeof Swiper === 'undefined') return;
+    const options = {
+      speed: 700,
+      slidesPerView: 2,
+      spaceBetween: 24,
+      watchOverflow: true,
+      grabCursor: true,
+      autoplay: { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true },
+      breakpoints: { 768: { slidesPerView: 3, spaceBetween: 35 } },
+    };
+    const distributors = section.querySelector('.developer-distributor-logos');
+    if (distributors && !distributors.swiper) {
+      const wrapper = distributors.querySelector('.swiper-wrapper');
+      const originals = [...wrapper.children];
+      if (originals.length > 1) {
+        while (wrapper.children.length < 14) originals.forEach(slide => wrapper.append(slide.cloneNode(true)));
+      }
+      new Swiper(distributors, {
+        ...options,
+        loop: originals.length > 1,
+        navigation: {
+          prevEl: section.querySelector('.developer-distributor-arrow.is-prev'),
+          nextEl: section.querySelector('.developer-distributor-arrow.is-next'),
+        },
+        breakpoints: { ...options.breakpoints, 1025: { slidesPerView: 7, spaceBetween: 65 } },
+      });
+    }
+    const partners = section.querySelector('.developer-partner-logos');
+    const tablet = window.matchMedia('(max-width: 1024.98px)');
+    const sync = () => {
+      if (!partners) return;
+      if (tablet.matches && !partners.swiper) new Swiper(partners, options);
+      else if (!tablet.matches && partners.swiper) partners.swiper.destroy(true, true);
+    };
+    tablet.addEventListener('change', sync);
+    sync();
+  };
+
+  const initTopGallery = () => {
+    const section = document.querySelector('.section-top-gallery');
+    if (!section) return;
+    const tabs = [...section.querySelectorAll('.gallery-tab')];
+    const panels = [...section.querySelectorAll('.gallery-panel')];
+    const arrows = [...section.querySelectorAll('.gallery-arrow')];
+    if (typeof Swiper === 'undefined') return;
+    let current = 0;
+    const sliders = [];
+    const update = () => {
+      const slider = sliders[current];
+      if (!slider) return;
+      arrows[0].disabled = slider.isLocked || (!slider.params.loop && slider.isBeginning);
+      arrows[1].disabled = slider.isLocked || (!slider.params.loop && slider.isEnd);
+    };
+    panels.forEach(panel => {
+      const track = panel.querySelector('.gallery-track');
+      const wrapper = track.querySelector('.swiper-wrapper');
+      const originals = [...wrapper.querySelectorAll('.swiper-slide')];
+      const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      // Auto-width slides need enough items for both sides of the loop.
+      const minimum = Math.max(8, Math.ceil(section.clientWidth / (3.4 * rem)) * 2 + 2);
+      if (originals.length > 1) {
+        while (wrapper.children.length < minimum) {
+          originals.forEach(slide => wrapper.append(slide.cloneNode(true)));
+        }
+      }
+      sliders.push(new Swiper(track, {
+        slidesPerView: 'auto',
+        spaceBetween: .3 * rem,
+        loop: originals.length > 1,
+        speed: 700,
+        watchOverflow: true,
+        on: { slideChange: update, reachBeginning: update, reachEnd: update, lock: update, unlock: update },
+      }));
+    });
+    const resize = () => {
+      const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      sliders.forEach(slider => {
+        slider.params.spaceBetween = .3 * rem;
+        slider.update();
+      });
+      update();
+    };
+    const select = index => {
+      current = index;
+      tabs.forEach((tab, i) => {
+        tab.classList.toggle('is-active', i === index);
+        tab.setAttribute('aria-selected', String(i === index));
+        tab.tabIndex = i === index ? 0 : -1;
+        panels[i].classList.toggle('is-active', i === index);
+        panels[i].setAttribute('aria-hidden', String(i !== index));
+        panels[i].inert = i !== index;
+      });
+      sliders[index].update();
+      update();
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(index));
+      tab.addEventListener('keydown', event => {
+        let next = index;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        select(next);
+        tabs[next].focus();
+      });
+    });
+    arrows.forEach((arrow, index) => arrow.addEventListener('click', () => {
+      if (index) sliders[current].slideNext();
+      else sliders[current].slidePrev();
+    }));
+    new ResizeObserver(resize).observe(section);
+    resize();
+    select(0);
+  };
+
   const projectGallerySlider = () => {
     const containers = document.querySelectorAll(".js-project-gallery");
     if (!containers.length || typeof Swiper === "undefined") return;
@@ -958,6 +1089,16 @@
     });
   };
 
+   const syncKeyvisualSlogan = (swiper) => {
+    const section = swiper.el.closest(".keyvisual");
+    if (!section) return;
+    const slogan = section.querySelector(".keyvisual-slogan");
+    if (!slogan) return;
+    const slide = swiper.slides[swiper.activeIndex];
+    const show = !!(slide && slide.getAttribute("data-show-slogan") === "1");
+    slogan.classList.toggle("is-hidden", !show);
+  };
+
   const sliderKeyvisual = () => {
     const sliders = document.querySelectorAll(".js-slider-keyvisual");
     if (!sliders.length || typeof Swiper === "undefined") return;
@@ -979,6 +1120,14 @@
           clickable: true,
         },
         grabCursor: true,
+         on: {
+          init(swiper) {
+            syncKeyvisualSlogan(swiper);
+          },
+          slideChange(swiper) {
+            syncKeyvisualSlogan(swiper);
+          },
+        },
       });
 
       kvSliders.push(swiper);
@@ -1009,13 +1158,18 @@
       const slider = container.querySelector(".swiper");
       if (!slider || slider.swiper) return;
 
-      new Swiper(slider, {
+      const isTopNews = !!container.closest('.section-top-news');
+      const newsSwiper = new Swiper(slider, {
         loop: true,
         speed: 700,
         slidesPerView: 1,
         spaceBetween: 20,
         watchOverflow: true,
         grabCursor: true,
+        pagination: isTopNews ? {
+          el: container.querySelector('.news-pagination'),
+          clickable: true,
+        } : undefined,
         navigation: {
           prevEl: container.querySelector(".news-arrow.is-prev"),
           nextEl: container.querySelector(".news-arrow.is-next"),
@@ -1031,6 +1185,17 @@
           },
         },
       });
+      if (isTopNews) {
+        const resize = () => {
+          const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+          const gap = .49 * rem;
+          newsSwiper.params.spaceBetween = gap;
+          Object.values(newsSwiper.params.breakpoints).forEach(point => { point.spaceBetween = gap; });
+          newsSwiper.update();
+        };
+        new ResizeObserver(resize).observe(container);
+        resize();
+      }
     });
   }
 
@@ -1156,19 +1321,19 @@
     targets.forEach((el) => {
       gsap.fromTo(
         el, {
-          autoAlpha: 0,
-          y: 100,
-        }, {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
+        autoAlpha: 0,
+        y: 100,
+      }, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none none",
         },
+      },
       );
     });
   };
@@ -1642,19 +1807,19 @@
     fadeInElements.forEach((element) => {
       gsap.fromTo(
         element, {
-          opacity: 0,
-          y: 50,
-        }, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: element,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
+        opacity: 0,
+        y: 50,
+      }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
         },
+      },
       );
     });
   };
@@ -2052,9 +2217,9 @@
       if (!input || !fileName) return;
 
       input.addEventListener('change', () => {
-        const name = input.files?. [0]?.name || 'Chọn CV';
+        const name = input.files?.[0]?.name || 'Chọn CV';
         fileName.textContent = name;
-        fileName.title = input.files?. [0]?.name || '';
+        fileName.title = input.files?.[0]?.name || '';
       });
     });
   };
@@ -2089,10 +2254,7 @@
         });
       };
 
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        section.classList.add('is-reduced-motion');
-        return;
-      }
+
 
       if (!window.matchMedia('(min-width: 1025px)').matches) {
         section.classList.add('is-static');
@@ -2172,22 +2334,22 @@
             galleryImagesSlider(targetPanel);
             gsap.fromTo(
               panel, {
-                autoAlpha: 0,
-                y: 30
-              }, {
-                autoAlpha: 1,
-                y: 0,
-                duration: 0.6,
-                ease: 'power2.out',
-                onComplete: () => {
-                  targetPanel.querySelectorAll('.swiper').forEach((element) => {
-                    if (element.swiper && !element.swiper.destroyed) {
-                      element.swiper.update();
-                    }
-                  });
-                  isAnimating = false;
-                },
-              }
+              autoAlpha: 0,
+              y: 30
+            }, {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.6,
+              ease: 'power2.out',
+              onComplete: () => {
+                targetPanel.querySelectorAll('.swiper').forEach((element) => {
+                  if (element.swiper && !element.swiper.destroyed) {
+                    element.swiper.update();
+                  }
+                });
+                isAnimating = false;
+              },
+            }
             );
           } else {
             panel.classList.remove('active');
@@ -2371,6 +2533,37 @@
       }, 300);
     };
 
+    const mountApartmentSlider = (slider) => {
+      if (!window.Swiper || !slider) return;
+      const count = slider.querySelectorAll('.swiper-slide').length;
+      if (!count) return;
+      new Swiper(slider, {
+        slidesPerView: 1,
+        speed: 500,
+        loop: count > 1,
+        watchOverflow: true,
+        observer: true,
+        observeParents: true,
+        pagination: {
+          el: slider.querySelector('.apartment-detail-dots'),
+          clickable: true,
+          bulletElement: 'button',
+        },
+        a11y: { paginationBulletMessage: 'Xem ảnh {{index}}' },
+      });
+    };
+
+    window.terpOpenApartmentDetailModal = (html) => {
+      if (!premisesDetail || typeof html !== 'string' || html === '') return false;
+      disposeDetailWaves?.();
+      premisesDetail.body.querySelectorAll('.js-apartment-slider').forEach((slider) => slider.swiper?.destroy(true, true));
+      premisesDetail.body.innerHTML = html;
+      disposeDetailWaves = initCanvasWaves(premisesDetail.body);
+      open(premisesDetail.popup.id);
+      premisesDetail.body.querySelectorAll('.js-apartment-slider').forEach(mountApartmentSlider);
+      return true;
+    };
+
     const close = (popup) => {
       if (!popup) return;
 
@@ -2509,7 +2702,10 @@
           </section>`;
 
         open(media.popup.id);
-        if (window.Swiper) sliderGalleryDetail(body);
+        if (window.Swiper) {
+          const startIndex = Number(slide.dataset.index || 0);
+          sliderGalleryDetail(body, Number.isFinite(startIndex) ? startIndex : 0);
+        }
         return;
       }
 
@@ -2576,21 +2772,7 @@
           if (floor && floorLabel) floorLabel.textContent = floor.textContent;
           open(premisesDetail.popup.id);
           premisesDetail.body.querySelectorAll('.js-apartment-slider').forEach((slider) => {
-            if (!window.Swiper) return;
-            new Swiper(slider, {
-              slidesPerView: 1,
-              speed: 500,
-              loop: true,
-              watchOverflow: true,
-              observer: true,
-              observeParents: true,
-              pagination: {
-                el: slider.querySelector('.apartment-detail-dots'),
-                clickable: true,
-                bulletElement: 'button',
-              },
-              a11y: { paginationBulletMessage: 'Xem ảnh {{index}}' },
-            });
+            mountApartmentSlider(slider);
           });
           return;
         }
@@ -2629,65 +2811,80 @@
 
       promises.push(
         fetch(src)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(
-              `HTTP ${response.status}: ${src}`
-            );
-          }
-
-          return response.text();
-        })
-        .then((svg) => {
-          const parser = new DOMParser();
-
-          const svgDoc = parser.parseFromString(
-            svg,
-            "image/svg+xml"
-          );
-
-          const svgElement = svgDoc.querySelector("svg");
-
-          if (!svgElement) {
-            throw new Error(
-              `Invalid SVG: ${src}`
-            );
-          }
-
-          // Import SVG vào document hiện tại
-          const importedSvg = document.importNode(
-            svgElement,
-            true
-          );
-
-          // Giữ lại class của img
-          importedSvg.classList.add(
-            ...img.classList
-          );
-
-          // Copy các attribute khác của img
-          [...img.attributes].forEach((attr) => {
-            if (
-              attr.name !== "src" &&
-              attr.name !== "class"
-            ) {
-              importedSvg.setAttribute(
-                attr.name,
-                attr.value
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                `HTTP ${response.status}: ${src}`
               );
             }
-          });
 
-          // Thay img bằng SVG inline
-          if (img.closest('.masterplan-drawing')) initMasterplanUnitLinks(importedSvg);
-          img.replaceWith(importedSvg);
-        })
-        .catch((error) => {
-          console.error(
-            "Cannot load SVG:",
-            error
-          );
-        })
+            return response.text();
+          })
+          .then((svg) => {
+            const parser = new DOMParser();
+
+            const svgDoc = parser.parseFromString(
+              svg,
+              "image/svg+xml"
+            );
+
+            const svgElement = svgDoc.querySelector("svg");
+
+            if (!svgElement) {
+              throw new Error(
+                `Invalid SVG: ${src}`
+              );
+            }
+
+            // Import SVG vào document hiện tại
+            const importedSvg = document.importNode(
+              svgElement,
+              true
+            );
+
+            // Giữ lại class của img
+            importedSvg.classList.add(
+              ...img.classList
+            );
+
+            // Copy các attribute khác của img
+            [...img.attributes].forEach((attr) => {
+              if (
+                attr.name !== "src" &&
+                attr.name !== "class"
+              ) {
+                importedSvg.setAttribute(
+                  attr.name,
+                  attr.value
+                );
+              }
+            });
+
+            // Thay img bằng SVG inline
+          if (img.classList.contains('location-icons')) {
+            const background = img.parentElement.querySelector('.location-background');
+            if (background) {
+              const image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+              image.setAttribute('href', background.src);
+              image.setAttribute('x', '0');
+              image.setAttribute('y', '0');
+              image.setAttribute('width', '1288');
+              image.setAttribute('height', '1080');
+              image.setAttribute('preserveAspectRatio', 'none');
+              image.setAttribute('class', 'location-map-raster');
+              importedSvg.prepend(image);
+              background.hidden = true;
+            }
+          }
+            if (img.closest('.masterplan-drawing')) initMasterplanUnitLinks(importedSvg);
+            img.replaceWith(importedSvg);
+          })
+          .catch((error) => {
+            console.error(
+              "Cannot load SVG:",
+              error
+            );
+          })
       );
     });
 
@@ -3066,7 +3263,9 @@
   const initLocationRegional = () => {
     const section = document.querySelector('.section-location-regional');
     if (!section || typeof Swiper === 'undefined') return;
-    const outer = new Swiper(section.querySelector('.regional-groups'), {
+    const groupsEl = section.querySelector('.regional-groups');
+    if (!groupsEl || !groupsEl.querySelector('.swiper-slide')) return;
+    const outer = new Swiper(groupsEl, {
       slidesPerView: 1,
       speed: 650,
       loop: false,
@@ -3166,6 +3365,28 @@
     syncVisibility();
   };
 
+  const initLocationIconsReveal = () => {
+    const section = document.querySelector('.section-top-location');
+    const map = section?.querySelector('.location-map');
+    if (!map) return;
+    const desktop = window.matchMedia('(min-width: 1025px)');
+    let mapVisible = false;
+    const sync = () => {
+      section.classList.toggle('is-icons-visible', desktop.matches
+        ? section.classList.contains('is-active') : mapVisible);
+    };
+    new IntersectionObserver(([entry]) => {
+      mapVisible = entry.isIntersecting;
+      sync();
+    }, { threshold: .3 }).observe(map);
+    new MutationObserver(sync).observe(section, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+    desktop.addEventListener('change', sync);
+    sync();
+  };
+
   const initLocationTabs = () => {
     const section = document.querySelector('.section-top-location');
     if (!section) return;
@@ -3210,7 +3431,7 @@
           ArrowLeft: active - 1,
           Home: 0,
           End: tabs.length - 1
-        } [event.key];
+        }[event.key];
         if (next === undefined) return;
         event.preventDefault();
         event.stopPropagation();
@@ -3235,6 +3456,101 @@
     observer.observe(section);
   };
 
+  const initAmenitiesFloors = () => {
+    const section = document.querySelector('.section-top-amenities');
+    if (!section) return;
+    const heading = section.querySelector('.title-common-primary');
+    if (heading && typeof gsap !== 'undefined') gsap.set(heading, { x: 0, xPercent: 0 });
+    const map = section.querySelector('.amenities-map');
+    const desktop = window.matchMedia('(min-width: 1025px)');
+    let mapVisible = false;
+    const syncReveal = () => {
+      const visible = desktop.matches ? section.classList.contains('is-active') : mapVisible;
+      if (section.classList.contains('is-amenities-visible') !== visible) {
+        section.classList.toggle('is-amenities-visible', visible);
+      }
+    };
+    if (map) new IntersectionObserver(([entry]) => {
+      mapVisible = entry.isIntersecting;
+      syncReveal();
+    }, { threshold: .2 }).observe(map);
+    new MutationObserver(syncReveal).observe(section, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+    desktop.addEventListener('change', syncReveal);
+    syncReveal();
+    const tabs = [...section.querySelectorAll('.amenities-floor[role="tab"]')];
+    const images = [...section.querySelectorAll('[data-amenities-floor]')];
+    let running = [];
+    images.forEach(image => image.decode?.().catch(() => {}));
+    const highlight = number => {
+      section.querySelectorAll('[data-amenity]').forEach(item => {
+        item.classList.toggle('is-highlighted', Boolean(number) && item.dataset.amenity === number);
+      });
+    };
+    const itemFrom = target => target instanceof Element ? target.closest('[data-amenity]') : null;
+    section.addEventListener('pointerover', event => highlight(itemFrom(event.target)?.dataset.amenity));
+    section.addEventListener('pointerout', event => highlight(itemFrom(event.relatedTarget)?.dataset.amenity));
+    section.addEventListener('focusin', event => highlight(itemFrom(event.target)?.dataset.amenity));
+    section.addEventListener('focusout', event => highlight(itemFrom(event.relatedTarget)?.dataset.amenity));
+    const select = (tab, focus = false) => {
+      if (tab.getAttribute('aria-selected') === 'true') {
+        if (focus) tab.focus();
+        return;
+      }
+      const wrapper = section.querySelector('.amenities-wrapper');
+      const beforeHeight = wrapper?.getBoundingClientRect().height;
+      running.forEach(animation => animation.cancel());
+      running = [];
+      tabs.forEach(item => {
+        const active = item === tab;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-selected', String(active));
+        item.tabIndex = active ? 0 : -1;
+        const panel = document.getElementById(item.getAttribute('aria-controls'));
+        if (panel) panel.hidden = !active;
+      });
+      section.classList.toggle('is-floor-four', tab.dataset.floor === '4');
+      highlight(null);
+      images.forEach(image => {
+        const active = image.dataset.amenitiesFloor === tab.dataset.floor;
+        image.classList.toggle('is-active', active);
+        image.setAttribute('aria-hidden', String(!active));
+      });
+      {
+        const timing = { duration: 450, easing: 'cubic-bezier(.22, 1, .36, 1)' };
+        const media = images.filter(image => image.dataset.amenitiesFloor === tab.dataset.floor);
+        media.forEach(element => running.push(element.animate([
+          { transform: 'scale(1.1)' }, { transform: 'scale(1)' },
+        ], { duration: 700, easing: timing.easing })));
+        const panel = document.getElementById(tab.getAttribute('aria-controls'));
+        if (panel) running.push(panel.animate([
+          { opacity: 0, transform: 'translateY(12px)' },
+          { opacity: 1, transform: 'translateY(0)' },
+        ], timing));
+        if (wrapper && beforeHeight && window.matchMedia('(max-width: 1024.98px)').matches) {
+          const afterHeight = wrapper.getBoundingClientRect().height;
+          running.push(wrapper.animate([
+            { height: `${beforeHeight}px`, overflow: 'hidden' },
+            { height: `${afterHeight}px`, overflow: 'hidden' },
+          ], timing));
+        }
+      }
+      if (focus) tab.focus();
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(tab));
+      tab.addEventListener('keydown', event => {
+        const next = { ArrowRight: (index + 1) % tabs.length, ArrowLeft: (index + tabs.length - 1) % tabs.length, Home: 0, End: tabs.length - 1 }[event.key];
+        if (next === undefined) return;
+        event.preventDefault();
+        event.stopPropagation();
+        select(tabs[next], true);
+      });
+    });
+  };
+
   const initAmenitiesDrawers = () => {
     const groups = [...document.querySelectorAll('.amenities-legend-group')];
     const animations = new Map();
@@ -3247,23 +3563,22 @@
       group.classList.toggle('is-open', open);
       group.querySelector('.amenities-toggle')?.setAttribute('aria-expanded', String(open));
       const after = group.getBoundingClientRect();
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const timing = {
         duration: 550,
         easing: 'cubic-bezier(.22, 1, .36, 1)'
       };
       const resize = group.animate([{
-          height: `${before.height}px`,
-          flexBasis: `${before.width}px`,
-          minWidth: '0',
-          overflow: 'hidden'
-        },
-        {
-          height: `${after.height}px`,
-          flexBasis: `${after.width}px`,
-          minWidth: '0',
-          overflow: 'hidden'
-        }
+        height: `${before.height}px`,
+        flexBasis: `${before.width}px`,
+        minWidth: '0',
+        overflow: 'hidden'
+      },
+      {
+        height: `${after.height}px`,
+        flexBasis: `${after.width}px`,
+        minWidth: '0',
+        overflow: 'hidden'
+      }
       ], timing);
       const running = [resize];
       // Keep text at its expanded width while the outer panel reveals it.
@@ -3271,22 +3586,22 @@
       if (columns) {
         const width = `${open ? after.width : before.width}px`;
         running.push(columns.animate([{
-            width,
-            display: 'grid',
-            overflow: 'hidden'
-          },
-          {
-            width,
-            display: 'grid',
-            overflow: 'hidden'
-          }
+          width,
+          display: 'grid',
+          overflow: 'hidden'
+        },
+        {
+          width,
+          display: 'grid',
+          overflow: 'hidden'
+        }
         ], timing));
         running.push(columns.animate([{
-            opacity: open ? 0 : contentOpacity
-          },
-          {
-            opacity: open ? 1 : 0
-          }
+          opacity: open ? 0 : contentOpacity
+        },
+        {
+          opacity: open ? 1 : 0
+        }
         ], {
           duration: open ? 300 : 150,
           delay: open ? 140 : 0,
@@ -3382,12 +3697,12 @@
 
                 gsap.fromTo(
                   nextPanel, {
-                    autoAlpha: 0
-                  }, {
-                    autoAlpha: 1,
-                    duration: 0.25,
-                    ease: 'power1.out'
-                  }
+                  autoAlpha: 0
+                }, {
+                  autoAlpha: 1,
+                  duration: 0.25,
+                  ease: 'power1.out'
+                }
                 );
               }
             });
@@ -3458,12 +3773,71 @@
     });
   };
 
+  const initMasterplanTooltips = () => {
+    const map = document.querySelector('#section-masterplan .masterplan-map');
+    if (!map) return;
+    const cards = [...map.querySelectorAll('[data-tower-info]')];
+    const links = [...map.querySelectorAll('.masterplan-tower-link[data-tower]')];
+    let active = null;
+    let timer;
+    const position = () => {
+      if (!active) return;
+      const { link, card } = active;
+      const anchor = link.querySelector('circle');
+      if (!anchor) return;
+      const point = anchor.getBoundingClientRect();
+      const bounds = map.getBoundingClientRect();
+      const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      card.style.left = `${Math.max(.3, Math.min((point.x + point.width / 2 - bounds.x) / rem + .5, (bounds.width - card.offsetWidth) / rem - .12))}rem`;
+      card.style.top = `${Math.max(.25, Math.min((point.y + point.height / 2 - bounds.y) / rem + .45, (bounds.height - card.offsetHeight) / rem - .12))}rem`;
+    };
+    const hide = () => {
+      cards.forEach(card => {
+        card.classList.remove('is-visible');
+        card.setAttribute('aria-hidden', 'true');
+        card.inert = true;
+      });
+      links.forEach(link => link.classList.remove('is-highlighted'));
+      active = null;
+    };
+    const scheduleHide = () => { clearTimeout(timer); timer = setTimeout(hide, 160); };
+    links.forEach(link => {
+      const card = cards.find(item => item.dataset.towerInfo === link.dataset.tower);
+      if (!card) return;
+      link.setAttribute('href', card.querySelector('a').getAttribute('href'));
+      const show = () => {
+        clearTimeout(timer);
+        hide();
+        active = { link, card };
+        card.inert = false;
+        card.setAttribute('aria-hidden', 'false');
+        card.classList.add('is-visible');
+        link.classList.add('is-highlighted');
+        position();
+      };
+      link.addEventListener('pointerenter', show);
+      link.addEventListener('focusin', show);
+      link.addEventListener('pointerleave', scheduleHide);
+      link.addEventListener('focusout', scheduleHide);
+      card.addEventListener('pointerenter', () => clearTimeout(timer));
+      card.addEventListener('focusin', () => clearTimeout(timer));
+      card.addEventListener('pointerleave', scheduleHide);
+      card.addEventListener('focusout', scheduleHide);
+    });
+    map.addEventListener('keydown', event => { if (event.key === 'Escape') hide(); });
+    new ResizeObserver(position).observe(map);
+  };
+
   const initMasterplanTowerLinks = () => {
     const target = document.querySelector('.section-masterplan-article');
-    if (!target) return;
+    const map = document.querySelector('#section-masterplan .masterplan-map');
+    const pageUrl = map ? map.getAttribute('data-masterplan-url') : '';
+    if (!target && !pageUrl) return;
     const panels = [...document.querySelectorAll('.panel')];
-    const targetIndex = panels.indexOf(target);
+    const targetIndex = target ? panels.indexOf(target) : -1;
+    const isPhone = () => window.matchMedia('(max-width: 767.98px)').matches;
     const navigate = () => {
+      if (!target) return;
       if (isDesktop()) {
         const { sliderState, goto } = window.__APP_STATE__;
         if (!goto || !sliderState?.active || sliderState.animating || sliderState.switching || targetIndex < 0) return;
@@ -3472,24 +3846,79 @@
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     };
+    const towerSlugFromRegion = (region) => {
+      if (!region) return '';
+      const label = (region.getAttribute('data-label') || '').trim().toLowerCase();
+      const pair = (region.getAttribute('data-item-pair') || '').replace(/^region-/, '').toLowerCase();
+      const options = document.querySelectorAll('#masterplan-tower-options a, .js-masterplan-tower [role="option"]');
+      let match = '';
+      options.forEach(option => {
+        let slug = (option.dataset.value || '').toLowerCase();
+        if (!slug && option.getAttribute('href')) {
+          slug = (new URL(option.getAttribute('href'), window.location.href).searchParams.get('tower') || '').toLowerCase();
+        }
+        const text = (option.textContent || '').trim().toLowerCase();
+        const token = slug.replace(/^the-/, '');
+        if (!token) return;
+        if (slug === pair || token === pair || text === label || label === token || label.endsWith(' ' + token)) {
+          match = slug;
+        }
+      });
+      return match;
+    };
+    const openTower = (region) => {
+      if (!target) return;
+      const picker = document.querySelector('.js-masterplan-tower');
+      const tower = towerSlugFromRegion(region);
+      if (picker && tower) {
+        picker.dispatchEvent(new CustomEvent('masterplan:select-tower', { detail: tower }));
+      }
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    const goToMasterplanPage = (region) => {
+      if (!pageUrl) return;
+      const url = new URL(pageUrl, window.location.href);
+      if (isPhone()) {
+        const tower = towerSlugFromRegion(region);
+        if (tower) url.searchParams.set('tower', tower);
+      }
+      url.hash = 'section-masterplan-article';
+      window.location.assign(url.toString());
+    };
+    const followRegion = (region) => {
+      if (pageUrl) {
+        goToMasterplanPage(region);
+        return;
+      }
+      if (isPhone()) openTower(region);
+      else navigate();
+    };
     document.querySelectorAll('.masterplan-map .tower').forEach(tower => {
       tower.style.cursor = 'pointer';
       tower.addEventListener('click', event => {
         event.preventDefault();
-        navigate();
+        followRegion(tower);
       });
     });
+    if (!map) return;
+    map.addEventListener('click', event => {
+      const region = event.target.closest('.dmp-region');
+      if (!region || !map.contains(region)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      followRegion(region);
+    }, true);
   };
 
   const initMasterplanFloors = () => {
     document.querySelectorAll(".js-masterplan-floor, .js-masterplan-tower").forEach((picker) => {
       const section = picker.closest(".section-masterplan-article");
       const isTowerPicker = picker.classList.contains('js-masterplan-tower');
-      const image = section?.querySelector(isTowerPicker ? '#masterplan-mobile-floor-image' : '#masterplan-floor-image');
+      const image = isTowerPicker ? null : section?.querySelector('#masterplan-floor-image');
       const trigger = picker.querySelector('[role="combobox"]');
       const list = picker.querySelector('[role="listbox"]');
       const options = Array.from(picker.querySelectorAll('[role="option"]'));
-      if (!image || !trigger || !list || !options.length) return;
+      if (!trigger || !list || !options.length || (!isTowerPicker && !image)) return;
       let active = 0;
 
       const highlight = (index) => {
@@ -3515,22 +3944,15 @@
       };
       const updateFloor = (option) => {
         const source = option.dataset.plan;
-        if (source && image.getAttribute("src") !== source) image.src = source;
+        if (image && source && image.getAttribute("src") !== source) image.src = source;
         if (isTowerPicker) {
           section.dataset.tower = option.dataset.value;
-          image.dataset.towerLabel = option.dataset.value === 'the-horizon'
-            ? 'The Horizon' : 'The Horizon, The Harmony và The Hill';
-        } else {
+        } else if (image) {
           image.alt = `Mặt bằng ${option.textContent.trim()}: The Horizon, The Harmony và The Hill`;
           section.dataset.floor = option.dataset.value;
         }
         trigger.querySelector(".floor-current").textContent = option.textContent.trim();
         options.forEach(item => item.setAttribute("aria-selected", String(item === option)));
-        const mobileImage = section.querySelector('#masterplan-mobile-floor-image');
-        const floorLabel = section.querySelector('.js-masterplan-floor .floor-current');
-        if (mobileImage && floorLabel) {
-          mobileImage.alt = `Mặt bằng ${floorLabel.textContent.trim()}: ${mobileImage.dataset.towerLabel || 'The Horizon'}`;
-        }
       };
 
       trigger.addEventListener("click", () => list.hidden ? open() : close());
@@ -3577,7 +3999,6 @@
   // Any canvas[data-wave-src] is initialized automatically on every page.
   const initCanvasWaves = (scope = document) => {
     const cleanups = [];
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const waves = new Map();
     let frame = 0;
     let lastTime = 0;
@@ -3603,7 +4024,6 @@
     const syncHandlers = [];
     const syncAll = () => syncHandlers.forEach(sync => sync());
     document.addEventListener('visibilitychange', syncAll);
-    reducedMotion.addEventListener('change', syncAll);
     scope.querySelectorAll('canvas[data-wave-src]').forEach(canvas => {
       const context = canvas.getContext('2d');
       if (!context) return;
@@ -3633,7 +4053,7 @@
         if (!width || !height) return;
         const padding = height * paddingRatio;
         const imageHeight = height - padding * (topOnly ? 1 : 2);
-        if (reducedMotion.matches || amplitude === 0) {
+        if (amplitude === 0) {
           context.drawImage(texture, 0, padding, width, imageHeight);
           return;
         }
@@ -3698,7 +4118,7 @@
         waves.delete(canvas);
         if (ready && visible && !document.hidden && width && height) {
           draw();
-          if (!reducedMotion.matches && speed > 0 && amplitude > 0) waves.set(canvas, wave);
+          if (speed > 0 && amplitude > 0) waves.set(canvas, wave);
         }
         schedule();
       };
@@ -3737,7 +4157,6 @@
     return () => {
       cleanups.forEach(cleanup => cleanup());
       document.removeEventListener('visibilitychange', syncAll);
-      reducedMotion.removeEventListener('change', syncAll);
       waves.clear();
       cancelAnimationFrame(frame);
     };
@@ -3753,8 +4172,10 @@
   initMasterplanTowerPicker();
   initMasterplanFloors();
   initLocationTabs();
+  initLocationIconsReveal();
   initLocationRegional();
   initAmenitiesDrawers();
+  initAmenitiesFloors();
   detectDevice();
   buttonTop();
   initContactPopup();
@@ -3798,7 +4219,10 @@
   inlineSvg().then(() => {
     initUtilitiesPairs();
     initMasterplanTowerLinks();
+    initMasterplanTooltips();
   });
   initContactModal();
+  initTopGallery();
+  initDeveloperSliders();
   innerTabs();
 })();

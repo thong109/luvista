@@ -432,13 +432,7 @@ html.is-dark-bg {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
 
-  .header-common-navigation,
-  .navigation-menu .item-link {
-    transition: none;
-  }
-}
 
 .header-common {
   position: fixed;

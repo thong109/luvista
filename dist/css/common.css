@@ -866,12 +866,6 @@ html.is-touchable .trans:hover {
     margin-top: 4vh;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .header-common-navigation,
-  .navigation-menu .item-link {
-    transition: none;
-  }
-}
 .header-common {
   position: fixed;
   inset: 0 0 auto;
@@ -1632,13 +1626,16 @@ html.is-touchable .trans:hover {
     padding: 0.4rem 0;
   }
   .section-footer-common .footer-wave {
-    width: 19rem;
+    width: 100%;
+    left: 0;
   }
   .section-footer-common .footer-wave:nth-child(1) {
-    height: 5.96rem;
+    height: auto;
+    aspect-ratio: 1920/596;
   }
   .section-footer-common .footer-wave:nth-child(2) {
-    height: 5.15rem;
+    height: auto;
+    aspect-ratio: 1920/515;
   }
   .section-footer-common .section-footer-common-intro {
     margin-top: 0.2rem;
@@ -1933,13 +1930,6 @@ html.is-touchable .trans:hover {
   }
 }
 */
-@media (prefers-reduced-motion: reduce) {
-  .mask,
-  .mask * {
-    animation-duration: 0.01ms !important;
-    animation-delay: 0s !important;
-  }
-}
 @keyframes arrowMove {
   0% {
     transform: translateY(-20%);
@@ -2977,8 +2967,10 @@ section .group-bg {
 }
 @media only screen and (max-width: 767.98px) {
   .project-video-wave {
-    width: 8rem;
-    height: 1.8rem;
+    left: 0;
+    right: auto;
+    width: 100%;
+    height: auto;
   }
   .project-video-wave.is-top {
     top: 0.6rem;

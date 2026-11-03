@@ -442,14 +442,17 @@
     }
 
     .footer-wave {
-      width: 19rem;
+      width: 100%;
+      left: 0;
 
       &:nth-child(1) {
-        height: 5.96rem;
+        height: auto;
+        aspect-ratio: 1920 / 596;
       }
 
       &:nth-child(2) {
-        height: 5.15rem;
+        height: auto;
+        aspect-ratio: 1920 / 515;
       }
     }
 
