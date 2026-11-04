@@ -2861,21 +2861,6 @@
             });
 
             // Thay img bằng SVG inline
-          if (img.classList.contains('location-icons')) {
-            const background = img.parentElement.querySelector('.location-background');
-            if (background) {
-              const image = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-              image.setAttribute('href', background.src);
-              image.setAttribute('x', '0');
-              image.setAttribute('y', '0');
-              image.setAttribute('width', '1288');
-              image.setAttribute('height', '1080');
-              image.setAttribute('preserveAspectRatio', 'none');
-              image.setAttribute('class', 'location-map-raster');
-              importedSvg.prepend(image);
-              background.hidden = true;
-            }
-          }
             if (img.closest('.masterplan-drawing')) initMasterplanUnitLinks(importedSvg);
             img.replaceWith(importedSvg);
           })
