@@ -56,8 +56,8 @@ block content
       .group-central
         .inner
           .group-bg
-            canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-01.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
-            canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-02.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
+            .footer-wave-decoration
+              canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
             .wrapper
               .section-footer-common-consultation
                 .section-footer-common-heading
@@ -67,21 +67,35 @@ block content
                   label
                     input(type="text" name="name" required placeholder="Họ tên (*)")
                   label
+                    input(type="tel" name="phone" required placeholder="Số điện thoại (*)")
+                  label
                     input(type="email" name="email" placeholder="Email")
                   label
-                    input(type="tel" name="phone" required placeholder="Số điện thoại (*)")
-                  button.trans(type="submit") Liên hệ ngay
+                    select(name="unitType" aria-label="Chọn loại căn hộ bạn quan tâm")
+                      option(value="" selected) Chọn loại căn hộ bạn quan tâm
+                      option(value="studio") Căn hộ Studio
+                      option(value="1pn_plus") Căn hộ 1 phòng ngủ + 1
+                      option(value="2pn") Căn hộ 2 phòng ngủ
+                      option(value="3pn") Căn hộ 3 phòng ngủ
+                  label
+                    textarea(name="message" rows="1" placeholder="Nội dung")
+                  button.trans(type="submit")
+                    span.section-footer-common-button-label Liên hệ ngay
               .section-footer-common-contact
                 h2.title-common-primary.is-gold.no-icon Thông tin liên hệ
-                - var footerContacts = [{icon: 'footer-location.svg', title: 'Sales Office', detail: 'Tòa nhà Repubulic Plaza Cộng Hòa, 18E Cộng Hòa, Phường Tân Sơn Nhất, TP.HCM'}, {icon: 'footer-location.svg', title: 'Sales Gallery', detail: 'Đường Chế Lan Viên, Phường Quy Nhơn Nam, Tỉnh Gia Lai'}, {icon: 'footer-phone.svg', title: 'Hotline', detail: '0888 790 288'}, {icon: 'footer-email.svg', title: 'Email', detail: 'info@luvista.vn'}]
+                - var footerContacts = [{icon: 'footer-location.svg', title: 'Sales Office', detail: 'Tòa nhà Repubulic Plaza Cộng Hòa, 18E Cộng Hòa, Phường Tân Sơn Nhất, TP.HCM'}, {icon: 'footer-location.svg', title: 'Sales Gallery', detail: 'Đường Chế Lan Viên, Phường Quy Nhơn Nam, Tỉnh Gia Lai'}, {icon: 'footer-phone.svg', title: 'Hotline', detail: '0888 790 288', href: 'tel:0888790288'}, {icon: 'footer-email.svg', title: 'Email', detail: 'info@luvista.vn', href: 'mailto:info@luvista.vn'}]
                 .section-footer-common-contact-list
                   each item in footerContacts
                     .section-footer-common-contact-item
                       img(src=imgCommonPC + item.icon width="34" height="34" alt="")
                       h3= item.title
-                      p= item.detail
+                      if item.href
+                        p
+                          a.footer-contact-link.trans(href=item.href)= item.detail
+                      else
+                        p= item.detail
                 .section-footer-common-bottom
-                  p © 2026 Luvista · Website by <a href="https://leaddigital.vn/" target="_blank" class="trans">Lead Digital</a>
+                  p © 2026 Luvista · Website by <a href="https://leaddigital.vn/" target="_blank" class="trans">Lead Digital</a>. <a class="section-footer-common-policy trans" href="#">Chính sách bảo mật thông tin cá nhân</a>
                   .section-footer-common-social
                     a.trans(href="#" aria-label="Facebook")
                       img.object-common(src=imgCommonPC + 'footer-facebook.svg' width="34" height="34" alt="")
@@ -91,8 +105,6 @@ block content
                       img.object-common(src=imgCommonPC + 'footer-tiktok.svg' width="34" height="34" alt="")
                     a.trans(href="#" aria-label="Zalo")
                       img.object-common(src=imgCommonPC + 'footer-zalo.svg' width="34" height="34" alt="")
-                  .section-footer-common-policy
-                    a.trans(href="#") Chính sách bảo mật thông tin cá nhân
-                p.section-footer-common-note Lưu ý: Chúng tôi đã nỗ lực và cẩn trọng để hoàn thiện tài liệu này. Tuy nhiên tài liệu chỉ dùng với mục đích tham khảo. Hình ảnh, sơ đồ kỹ thuật, bố trí nội ngoại thất hay thông tin mô tả về dự án chỉ nhằm mục đích minh họa, không phải là thông tin hiện thực hay cam kết pháp lý. Thông tin chính thức về dự án sẽ được căn cứ trên hợp đồng mua bán và các tài liệu được thỏa thuận, ký kết chính thức với khách hàng.
+                p.section-footer-common-note Lưu ý: Chúng tôi đã nỗ lực và cẩn trọng để hoàn thiện tài liệu này. Tuy nhiên tài liệu chỉ dùng với mục đích tham khảo. Hình ảnh, sơ đồ kỹ thuật, bố trí nội ngoại thất hay thông tin mô tả về dự án chỉ nhằm mục đích minh họa, không phải là thông tin hiện thực hay cam kết pháp lý. Thông tin chính thức về dự án (bao gồm nhưng không giới hạn: tên tòa, thông tin căn hộ, diện tích, tiện ích…) sẽ được căn cứ trên hợp đồng mua bán và các tài liệu được thỏa thuận, ký kết chính thức với khách hàng.
               a.section-footer-common-go-top.js-button-top.trans(href="#section-home" aria-label="Về đầu trang")
                 img.object-common.js-inline-svg(src=imgCommonPC + 'footer-go-top.svg' width="50" height="50" alt="" loading="eager")

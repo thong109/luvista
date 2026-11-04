@@ -3,6 +3,14 @@
 
 html.is-dark-bg {
 
+  .header-common-logo img:first-child {
+    opacity: 0;
+  }
+
+  .header-common-logo img:last-child {
+    opacity: 1;
+  }
+
   @include desktop {
 
     .header-common .header-common-tool,
@@ -456,12 +464,20 @@ html.is-dark-bg {
   }
 
   .header-common-logo {
+    position: relative;
     display: block;
 
     img {
       display: block;
       width: 100%;
       height: auto;
+      transition: opacity .3s ease;
+    }
+
+    img:last-child {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
     }
   }
 

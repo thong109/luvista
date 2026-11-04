@@ -25,17 +25,11 @@ block content
                     picture.slider-image
                       source(media="(max-width: 1024px)" srcset=imgPC+"hero-mo.jpg")
                       img.js-preload.object-common(src=imgPC+"hero.jpg" alt="Phối cảnh dự án LUVISTA Quy Nhơn" width="1920" height="1080" loading="eager")
-              .keyvisual-title.js-title.hero-title
-                img.keyvisual-star.is-one(src=imgPC + 'star-large.svg' alt="")
-                h1.hidden LUVISTA Quy Nhơn
-                img.image-common.keyvisual-slogan#keyvisual-title(src=imgPC + 'slogan.svg' alt="LUVISTA - Tuyệt tác sống bên vịnh biển" width="682" height="177")
               span.keyvisual-scroll(href="#section-overview" aria-label="Xem tổng quan dự án")
-                svg.object-common(width="32" height="63" viewBox="-10 -10 52 82" fill="none")
-                  path(d="M31.3535 46.5L15.8535 62L0.353515 46.5M15.8535 62L15.8535 -6.77527e-07" stroke="#163963")
-                span Cuộn xuống
-              img.keyvisual-star.is-two(src=imgPC + 'star-large.svg' alt="")
-              img.keyvisual-star.is-three(src=imgPC + 'star-large.svg' alt="")
-      section.panel.section-top-overview.overview.js-bg#section-overview(aria-labelledby="overview-title")
+                span Cuộn khám phá
+                .scroll-icon
+                  img.object-common(src=imgPC+"arrow-common.svg" alt="Cuộn xuống" width="21" height="42" loading="eager")
+      section.panel.section-top-overview.overview#section-overview(aria-labelledby="overview-title")
         .group-central
           .inner
             .group-bg
@@ -82,8 +76,9 @@ block content
             .group-bg
               img.location-scene(src=imgPC + 'location-bg.jpg' width="1920" height="1080" alt="")
               .location-map(role="img" aria-label="Bản đồ vị trí LUVISTA và các tiện ích kết nối tại Quy Nhơn")
-                img.location-background(src=imgPC + 'location-map-bg.png?v=coast-2' width="1288" height="1080" alt="")
-                img.location-icons.js-inline-svg(src=imgPC + 'location-map-icons.svg?v=beam-3' width="1288" height="1080" alt="")
+                img.location-background(src=imgPC + 'bg-map.png' width="1288" height="1080" alt="")
+                img.location-line.js-inline-svg(src=imgPC + 'line-map.svg' width="1288" height="1080" alt="")
+                img.location-icons.js-inline-svg(src=imgPC + 'icon-map-combined.svg' width="1288" height="1080" alt="")
               .location-wave-frame(aria-hidden="true")
                 canvas.location-wave(data-wave-src=imgPC + 'location-wave.svg' aria-hidden="true")
               .location-content
@@ -183,45 +178,55 @@ block content
               .gallery-tabs(role="tablist" aria-label="Danh mục hình ảnh")
                 each tab, tabIndex in topGalleryTabs
                   button.gallery-tab(id='top-gallery-tab-' + tab.id type="button" role="tab" aria-controls='top-gallery-panel-' + tab.id aria-selected=tabIndex ? 'false' : 'true' tabindex=tabIndex ? '-1' : '0' class=tabIndex ? '' : 'is-active')= tab.label
-      section.panel.section-top-project-gallery.project-gallery#section-project-gallery(aria-labelledby="project-gallery-title")
+      //- section.panel.section-top-project-gallery.project-gallery#section-project-gallery(aria-labelledby="project-gallery-title")
+      //-   .group-central
+      //-     .inner
+      //-       .group-bg
+      //-         canvas.project-video-wave.is-top(data-wave-src=imgPC + 'video-wave-top.svg' aria-hidden="true")
+      //-         canvas.project-video-wave.is-bottom(data-wave-src=imgPC + 'video-wave-bottom.svg' aria-hidden="true")
+      //-         .wrapper
+      //-           h2.title-common-primary.is-gold.js-title.hero-title Hình ảnh dự án
+      //-           - var projectGallery = [{url: imgPC + 'gallery-project-01.jpg', alt: 'Lối vào quảng trường chính', w: 1920, h: 1080}, {url: imgPC + 'gallery-project-02.jpg', alt: 'Hồ bơi lưng núi', w: 1920, h: 1080}]
+      //-           .project-gallery-slider.js-project-gallery.js-title.hero-sub
+      //-             .swiper
+      //-               .swiper-wrapper
+      //-                 each image, index in projectGallery.concat(projectGallery)
+      //-                   .swiper-slide
+      //-                     figure.project-gallery-item
+      //-                       button.project-gallery-image.js-slide-image(type="button" data-gallery=JSON.stringify(projectGallery) data-index=index % projectGallery.length data-title=image.alt aria-label='Xem ảnh: ' + image.alt)
+      //-                         img.object-common(src=image.url width=image.w height=image.h alt=image.alt loading="eager")
+      //-                       figcaption= image.alt
+      //-             button.project-gallery-arrow.is-prev.trans(type="button" aria-label="Ảnh trước")
+      //-               img(src=imgPC + 'gallery-arrow-prev.svg' width="51" height="34" alt="")
+      //-             button.project-gallery-arrow.is-next.trans(type="button" aria-label="Ảnh tiếp theo")
+      //-               img(src=imgPC + 'gallery-arrow-next.svg' width="51" height="34" alt="")
+      section.panel.section-top-about.js-bg#section-about(aria-labelledby="about-title")
         .group-central
           .inner
-            .group-bg
-              canvas.project-video-wave.is-top(data-wave-src=imgPC + 'video-wave-top.svg' aria-hidden="true")
-              canvas.project-video-wave.is-bottom(data-wave-src=imgPC + 'video-wave-bottom.svg' aria-hidden="true")
-              .wrapper
-                h2.title-common-primary.is-gold.js-title.hero-title Hình ảnh dự án
-                - var projectGallery = [{url: imgPC + 'gallery-project-01.jpg', alt: 'Lối vào quảng trường chính', w: 1920, h: 1080}, {url: imgPC + 'gallery-project-02.jpg', alt: 'Hồ bơi lưng núi', w: 1920, h: 1080}]
-                .project-gallery-slider.js-project-gallery.js-title.hero-sub
-                  .swiper
-                    .swiper-wrapper
-                      each image, index in projectGallery.concat(projectGallery)
-                        .swiper-slide
-                          figure.project-gallery-item
-                            button.project-gallery-image.js-slide-image(type="button" data-gallery=JSON.stringify(projectGallery) data-index=index % projectGallery.length data-title=image.alt aria-label='Xem ảnh: ' + image.alt)
-                              img.object-common(src=image.url width=image.w height=image.h alt=image.alt loading="eager")
-                            figcaption= image.alt
-                  button.project-gallery-arrow.is-prev.trans(type="button" aria-label="Ảnh trước")
-                    img(src=imgPC + 'gallery-arrow-prev.svg' width="51" height="34" alt="")
-                  button.project-gallery-arrow.is-next.trans(type="button" aria-label="Ảnh tiếp theo")
-                    img(src=imgPC + 'gallery-arrow-next.svg' width="51" height="34" alt="")
-      section.panel.section-top-core-values.core-values#section-core-values(aria-labelledby="core-values-title")
-        .group-central
-          .inner
-            .group-bg
-              canvas.core-values-line.is-top(data-wave-src=imgPC + 'values-wave-01.svg' aria-hidden="true")
-              canvas.core-values-line.is-bottom(data-wave-src=imgPC + 'values-wave-02.svg' aria-hidden="true")
-              .wrapper
-                h2.core-values-heading.js-title.hero-title
-                  span 05
-                  p.title-common-primary.is-gold Giá trị Trụ Cột
-                - var coreValues = [{number: '01', text: 'Quỹ đất vàng <strong>cuối cùng</strong> của Phường nội đô Quy Nhơn Nam'}, {number: '02', text: 'Địa thế <strong>tựa sơn, hướng hải</strong> lưng tựa núi vững chãi, mặt hướng biển xanh đón trọn vượng khí.'}, {number: '03', text: 'Tiện ích cao cấp với Triết lý sống <strong>Urban Wellness</strong> cân bằng, viên mãn ngay giữa lòng đô thị'}, {number: '04', text: 'Pháp lý <strong>minh bạch – Sở hữu lâu dài – Sổ hồng</strong> từng căn'}, {number: '05', text: 'Chủ đầu tư có <strong>tiềm lực tài chính mạnh mẽ</strong>, cam kết về tiến độ và chất lượng vượt trội'}]
-                .core-values-list.js-title.hero-sub
-                  each item in coreValues
-                    article.core-values-item
-                      .core-values-number
-                        img.object-common(src=imgPC + 'core-number-' + item.number + '.svg' width="179" height="129" alt!= item.number loading="eager")
-                      p!= item.text
+            .group-bg.about-scene
+              .about-art
+                img.about-background(src=imgPC + 'about-bg.jpg' width="1920" height="1080" alt="" aria-hidden="true")
+                canvas.about-wave(data-wave-src=imgPC + 'about-wave.svg' aria-hidden="true")
+                img.about-ring-piece.is-07(src=imgPC + 'about-ring-07.svg' alt="" aria-hidden="true")
+                img.about-ring-piece.is-02(src=imgPC + 'about-ring-02.svg' alt="" aria-hidden="true")
+                img.about-ring-piece.is-08(src=imgPC + 'about-ring-08.svg' alt="" aria-hidden="true")
+                img.about-ring-piece.is-03(src=imgPC + 'about-ring-03.svg' alt="" aria-hidden="true")
+                img.about-ring-piece.is-09(src=imgPC + 'about-ring-09.svg' alt="" aria-hidden="true")
+                img.about-ring-piece.is-04(src=imgPC + 'about-ring-04.svg' alt="" aria-hidden="true")
+                img.about-ring-piece.is-10(src=imgPC + 'about-ring-10.svg' alt="" aria-hidden="true")
+                img.about-ring-piece.is-05(src=imgPC + 'about-ring-05.svg' alt="" aria-hidden="true")
+                img.about-ring-piece.is-06(src=imgPC + 'about-ring-06.svg' alt="" aria-hidden="true")
+                img.about-ring-piece.is-01(src=imgPC + 'about-ring-01.svg' alt="" aria-hidden="true")
+                .about-heading#about-title.js-title.hero-title
+                  span.about-heading-number 05
+                  h2 Giá trị #[br] trụ cột
+                img.about-tower(src=imgPC + 'about-towers.png' width="1093" height="615" alt="Phối cảnh các tòa tháp LUVISTA" loading="lazy")
+                - var aboutValues = [{number: '01', text: 'Quỹ đất vàng cuối cùng của Phường nội đô Quy Nhơn Nam', position: 'is-one'}, {number: '02', text: 'Địa thế tựa sơn, hướng hải lưng tựa núi vững chãi, mặt hướng biển xanh đón trọn vượng khí.', position: 'is-two'}, {number: '03', text: 'Tiện ích cao cấp với Triết lý sống Urban Wellness cân bằng, viên mãn ngay giữa lòng đô thị', position: 'is-three'}, {number: '04', text: 'Pháp lý minh bạch – Sở hữu lâu dài – Sổ hồng từng căn', position: 'is-four'}, {number: '05', text: 'Chủ đầu tư có tiềm lực tài chính mạnh mẽ, cam kết về tiến độ và chất lượng vượt trội', position: 'is-five'}]
+                .about-values.js-title.hero-sub
+                  each item in aboutValues
+                    article.about-value(class=item.position)
+                      span.about-value-number= item.number
+                      p= item.text
       section.panel.section-top-news.news#section-news(aria-labelledby="news-title")
         .group-central
           .inner
@@ -244,13 +249,14 @@ block content
                                   span.news-day 25
                                   span.news-month 10.2026
                                 .news-summary
-                                  p.news-title Tận hưởng cuộc sống ngay lập tức và “đón lõng” những sóng phát triển dồn dập ngày mai, dự án là điểm đến cân bằng hoàn hảo mọi yếu tố để chủ nhân
+                                  p.news-title Tận hưởng cuộc sống ngay lập tức và “đón lõng” những sóng phát triển dồn dập ngày mai
+                                  p.news-desc dự án là điểm đến cân bằng hoàn hảo mọi yếu tố để chủ nhân tận hưởng hiện tại và mở ra tương lai rực rỡ.
                   .news-pagination
-      section.panel.section-top-developer.developer#section-developer(aria-labelledby="developer-title")
+      section.panel.section-top-developer.developer.js-bg#section-developer(aria-labelledby="developer-title")
         .group-central
           .inner
             .group-bg
-              canvas.developer-wave(data-wave-src=imgPC + 'certificate-wave.svg' aria-hidden="true")
+              canvas.developer-wave(data-wave-src=imgPC + 'developer-wave.svg' aria-hidden="true")
               .developer-content
                 h2.title-common-primary.js-title.hero-title#developer-title Đối tác
                 .developer-principals
@@ -292,8 +298,8 @@ block content
         .group-central
           .inner
             .group-bg
-              canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-01.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
-              canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave-02.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
+              .footer-wave-decoration
+                canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
               .wrapper
                 .section-footer-common-consultation
                   .section-footer-common-heading
@@ -303,21 +309,35 @@ block content
                     label
                       input(type="text" name="name" required placeholder="Họ tên (*)")
                     label
+                      input(type="tel" name="phone" required placeholder="Số điện thoại (*)")
+                    label
                       input(type="email" name="email" placeholder="Email")
                     label
-                      input(type="tel" name="phone" required placeholder="Số điện thoại (*)")
-                    button.trans(type="submit") Liên hệ ngay
+                      select(name="unitType" aria-label="Chọn loại căn hộ bạn quan tâm")
+                        option(value="" selected) Chọn loại căn hộ bạn quan tâm
+                        option(value="studio") Căn hộ Studio
+                        option(value="1pn_plus") Căn hộ 1 phòng ngủ + 1
+                        option(value="2pn") Căn hộ 2 phòng ngủ
+                        option(value="3pn") Căn hộ 3 phòng ngủ
+                    label
+                      textarea(name="message" rows="1" placeholder="Nội dung")
+                    button.trans(type="submit")
+                      span.section-footer-common-button-label Liên hệ ngay
                 .section-footer-common-contact
                   h2.title-common-primary.is-gold.no-icon Thông tin liên hệ
-                  - var footerContacts = [{icon: 'footer-location.svg', title: 'Sales Office', detail: 'Tòa nhà Repubulic Plaza Cộng Hòa, 18E Cộng Hòa, Phường Tân Sơn Nhất, TP.HCM'}, {icon: 'footer-location.svg', title: 'Sales Gallery', detail: 'Đường Chế Lan Viên, Phường Quy Nhơn Nam, Tỉnh Gia Lai'}, {icon: 'footer-phone.svg', title: 'Hotline', detail: '0888 790 288'}, {icon: 'footer-email.svg', title: 'Email', detail: 'info@luvista.vn'}]
+                  - var footerContacts = [{icon: 'footer-location.svg', title: 'Sales Office', detail: 'Tòa nhà Repubulic Plaza Cộng Hòa, 18E Cộng Hòa, Phường Tân Sơn Nhất, TP.HCM'}, {icon: 'footer-location.svg', title: 'Sales Gallery', detail: 'Đường Chế Lan Viên, Phường Quy Nhơn Nam, Tỉnh Gia Lai'}, {icon: 'footer-phone.svg', title: 'Hotline', detail: '0888 790 288', href: 'tel:0888790288'}, {icon: 'footer-email.svg', title: 'Email', detail: 'info@luvista.vn', href: 'mailto:info@luvista.vn'}]
                   .section-footer-common-contact-list
                     each item in footerContacts
                       .section-footer-common-contact-item
                         img(src=imgCommonPC + item.icon width="34" height="34" alt="")
                         h3= item.title
-                        p= item.detail
+                        if item.href
+                          p
+                            a.footer-contact-link.trans(href=item.href)= item.detail
+                        else
+                          p= item.detail
                   .section-footer-common-bottom
-                    p © 2026 Luvista · Website by <a href="https://leaddigital.vn/" target="_blank" class="trans">Lead Digital</a>
+                    p © 2026 Luvista · Website by <a href="https://leaddigital.vn/" target="_blank" class="trans">Lead Digital</a>. <a class="section-footer-common-policy trans" href="#">Chính sách bảo mật thông tin cá nhân</a>
                     .section-footer-common-social
                       a.trans(href="#" aria-label="Facebook")
                         img.object-common(src=imgCommonPC + 'footer-facebook.svg' width="34" height="34" alt="")
@@ -327,8 +347,6 @@ block content
                         img.object-common(src=imgCommonPC + 'footer-tiktok.svg' width="34" height="34" alt="")
                       a.trans(href="#" aria-label="Zalo")
                         img.object-common(src=imgCommonPC + 'footer-zalo.svg' width="34" height="34" alt="")
-                    .section-footer-common-policy
-                      a.trans(href="#") Chính sách bảo mật thông tin cá nhân
-                  p.section-footer-common-note Lưu ý: Chúng tôi đã nỗ lực và cẩn trọng để hoàn thiện tài liệu này. Tuy nhiên tài liệu chỉ dùng với mục đích tham khảo. Hình ảnh, sơ đồ kỹ thuật, bố trí nội ngoại thất hay thông tin mô tả về dự án chỉ nhằm mục đích minh họa, không phải là thông tin hiện thực hay cam kết pháp lý. Thông tin chính thức về dự án sẽ được căn cứ trên hợp đồng mua bán và các tài liệu được thỏa thuận, ký kết chính thức với khách hàng.
+                  p.section-footer-common-note Lưu ý: Chúng tôi đã nỗ lực và cẩn trọng để hoàn thiện tài liệu này. Tuy nhiên tài liệu chỉ dùng với mục đích tham khảo. Hình ảnh, sơ đồ kỹ thuật, bố trí nội ngoại thất hay thông tin mô tả về dự án chỉ nhằm mục đích minh họa, không phải là thông tin hiện thực hay cam kết pháp lý. Thông tin chính thức về dự án (bao gồm nhưng không giới hạn: tên tòa, thông tin căn hộ, diện tích, tiện ích…) sẽ được căn cứ trên hợp đồng mua bán và các tài liệu được thỏa thuận, ký kết chính thức với khách hàng.
                 a.section-footer-common-go-top.js-button-top.trans(href="#section-home" aria-label="Về đầu trang")
                   img.object-common.js-inline-svg(src=imgCommonPC + 'footer-go-top.svg' width="50" height="50" alt="" loading="eager")

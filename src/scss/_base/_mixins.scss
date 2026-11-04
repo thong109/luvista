@@ -37,19 +37,25 @@
 
 @mixin height {
   @media (min-width: 768px) and (max-height: 599.98px) {
-    @content; 
+    @content;
   }
 }
 
 @mixin height-zoom {
   @media (min-width: 768px) and (max-height: 719.98px) {
-    @content; 
+    @content;
   }
 }
 
 @mixin screen-low {
-  @media (min-width: 768px) and (max-height: 980px) {
-    @content; 
+  @media (min-width: 1025px) and (max-height: 980px) {
+    @content;
+  }
+}
+
+@mixin screen-1366 {
+  @media screen and (min-width: 1025px) and (max-width: 1366px) and (max-height: 768px) {
+    @content;
   }
 }
 
