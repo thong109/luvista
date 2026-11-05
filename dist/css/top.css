@@ -60,7 +60,7 @@ body {
   align-items: center;
   gap: 0.1rem;
   color: #fff;
-  font-family: "SVN-Gilroy", sans-serif;
+  font-family: "SF Pro Display", sans-serif;
 }
 
 .keyvisual .keyvisual-scroll .scroll-icon img {
@@ -146,7 +146,7 @@ body {
 }
 .section-top-overview .overview-title {
   margin: 0 0 0.2rem;
-  font-family: "Noto Serif Display Condensed", serif;
+  font-family: "1FTV-VIP-Glyce", sans-serif;
   font-size: 0.5rem;
   font-weight: 400;
   line-height: 1.36;
@@ -186,7 +186,7 @@ body {
 .section-top-overview .overview-value {
   margin: 0 0 0.1rem;
   white-space: nowrap;
-  font-family: "Noto Serif Display Condensed", serif;
+  font-family: "1FTV-VIP-Glyce", sans-serif;
   font-size: 0.55rem;
   line-height: 1.27;
   background: linear-gradient(0deg, #143963, #123f71);
@@ -340,7 +340,7 @@ body {
 }
 .section-top-certificate .certificate-title {
   margin: 0;
-  font-family: "Noto Serif Display Condensed", serif;
+  font-family: "1FTV-VIP-Glyce", sans-serif;
   font-weight: 400;
   font-size: 0.4rem;
   line-height: 1.125;
@@ -521,7 +521,7 @@ body {
 }
 .section-top-location .location-title {
   margin: 0;
-  font-family: "Noto Serif Display Condensed", serif;
+  font-family: "1FTV-VIP-Glyce", sans-serif;
   font-size: 0.5rem;
   font-weight: 400;
   line-height: 1.36;
@@ -894,7 +894,7 @@ body {
 .section-top-amenities .amenities-legend-title {
   margin: 0 0 0.24rem;
   color: #edc8b1;
-  font-family: "Noto Serif Display Condensed", serif;
+  font-family: "SF Pro Display", sans-serif;
   font-size: 0.28rem;
   font-weight: 400;
   line-height: 1.7857142857;
@@ -1122,7 +1122,7 @@ body {
 }
 .section-top-masterplan .masterplan-tooltip h3 {
   margin: 0 0 0.15rem;
-  font-family: "Noto Serif Display Condensed", serif;
+  font-family: "1FTV-VIP-Glyce", sans-serif;
   font-size: 0.3rem;
   font-weight: 400;
   line-height: 0.35rem;
@@ -1146,7 +1146,7 @@ body {
 }
 .section-top-masterplan .masterplan-tooltip dd {
   margin: 0;
-  font-family: "Noto Serif Display Condensed", serif;
+  font-family: "SVN-Gilroy", sans-serif;
   font-size: 0.18rem;
   text-align: right;
   white-space: nowrap;
@@ -1945,7 +1945,7 @@ body {
   z-index: 5;
   inset: 0;
   color: #07375d;
-  font-family: "Noto Serif Display Condensed", serif;
+  font-family: "SF Pro Display", serif;
   text-transform: uppercase;
 }
 .section-top-about .about-heading-number {
@@ -1995,7 +1995,7 @@ body {
   height: 6.111cqh;
   margin: 0;
   color: #fff;
-  font-family: "Noto Serif Display Condensed", serif;
+  font-family: "SF Pro Display", serif;
   font-size: 4.167cqw;
   line-height: 6.111cqh;
   text-shadow: 0 0 0.208cqw rgba(71, 27, 12, 0.3);
@@ -2302,7 +2302,7 @@ body {
   padding-top: 0.09rem;
   border-right: 0.01rem solid rgba(246, 210, 187, 0.6);
   color: #e3ac89;
-  font-family: "Noto Serif Display Condensed", serif;
+  font-family: "SF Pro Display", serif;
   line-height: 0.26rem;
 }
 .section-top-news .news-day {

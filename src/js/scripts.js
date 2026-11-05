@@ -15,6 +15,65 @@
 
   const delay = (time, callback) => setTimeout(callback, time);
 
+  const initOverviewCounters = () => {
+    const stats = document.querySelector('.section-top-overview .overview-stats');
+    if (!stats) return;
+
+    const counters = Array.from(stats.querySelectorAll('.overview-value > span'))
+      .map((element) => {
+        const text = element.textContent.trim();
+        const match = text.match(/^(\d[\d,]*)(\.\d+)?$/);
+        if (!match) return null;
+
+        const target = Number(`${match[1].replace(/,/g, '')}${match[2] || ''}`);
+        const decimals = match[2] ? match[2].length - 1 : 0;
+        return { element, text, target, decimals };
+      })
+      .filter(Boolean);
+
+    if (!counters.length) return;
+
+    let hasPlayed = false;
+    const play = () => {
+      if (hasPlayed) return;
+      hasPlayed = true;
+
+      counters.forEach(({ element, text, target, decimals }, index) => {
+        const value = { current: 0 };
+        gsap.fromTo(value, { current: 0 }, {
+          current: target,
+          duration: 1.8,
+          delay: index * 0.12,
+          ease: 'power2.out',
+          onUpdate: () => {
+            const rounded = value.current.toFixed(decimals);
+            element.textContent = decimals
+              ? rounded
+              : Math.round(value.current).toLocaleString('en-US');
+          },
+          onComplete: () => { element.textContent = text; },
+        });
+      });
+    };
+
+    const overview = stats.closest('#section-overview');
+    const checkActivePanel = () => {
+      if (overview.classList.contains('is-active')) play();
+    };
+    window.addEventListener('slider:panel-change', checkActivePanel);
+    checkActivePanel();
+
+    if (typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.create({
+        trigger: overview,
+        start: 'top 65%',
+        once: true,
+        onEnter: play,
+      });
+    }
+  };
+
   window.__APP_STATE__ = {
     observer: null,
   };
@@ -4148,6 +4207,7 @@
   };
 
   initCanvasWaves();
+  initOverviewCounters();
 
   waitForCriticalImages().then(() => {
     initIntro();

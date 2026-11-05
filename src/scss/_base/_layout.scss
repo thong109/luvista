@@ -3,6 +3,14 @@
 @use "mixins"as *;
 
 @font-face {
+  font-family: "1FTV-VIP-Glyce";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../resources/fonts/1FTV-VIP-Glyce.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Noto Serif Display";
   font-style: normal;
   font-weight: 400;

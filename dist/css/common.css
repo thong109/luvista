@@ -227,6 +227,13 @@ input[type=search] {
   }
 }
 @font-face {
+  font-family: "1FTV-VIP-Glyce";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../resources/fonts/1FTV-VIP-Glyce.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
   font-family: "Noto Serif Display";
   font-style: normal;
   font-weight: 400;
@@ -366,7 +373,7 @@ html {
 
 body {
   color: #0b1f3a;
-  font-family: "Noto Serif Display Condensed", serif;
+  font-family: "SF Pro Display", serif;
   font-size: 0.16rem;
   font-weight: 400;
   line-height: 1.5;
@@ -583,7 +590,7 @@ html.is-dark-bg .header-common-logo img:last-child {
 .navigation-menu .item-link {
   display: inline-block;
   color: #f6d2bb;
-  font: 600 clamp(0.2rem, 1.5625vw, 0.3rem)/1.2 "Noto Serif Display Condensed", serif;
+  font: 600 clamp(0.2rem, 1.5625vw, 0.3rem)/1.2 "SF Pro Display", serif;
   text-transform: uppercase;
   text-decoration: none;
   opacity: 0;
@@ -647,7 +654,7 @@ html.is-dark-bg .header-common-logo img:last-child {
   gap: 0.73vw;
   color: #f1f1f1;
   white-space: nowrap;
-  font: 400 clamp(0.12rem, 1.146vw, 0.22rem)/1.2 "SVN-Gilroy", sans-serif;
+  font: 400 clamp(0.12rem, 1.146vw, 0.22rem)/1.2 "1FTV-VIP-Glyce", sans-serif;
 }
 .navigation-hotline img {
   width: clamp(0.2rem, 1.67vw, 0.32rem);
@@ -1098,7 +1105,7 @@ html.is-dark-bg .header-common-logo img:last-child {
 
 .popup-form__title {
   margin: 0;
-  font-family: "Noto Serif Display Condensed", serif;
+  font-family: "SF Pro Display", serif;
   font-size: 0.5rem;
   font-weight: 400;
   line-height: 1.6;
@@ -1536,7 +1543,7 @@ html.is-dark-bg .header-common-logo img:last-child {
 .section-footer-common .section-footer-common-contact-item p,
 .section-footer-common .section-footer-common-contact-item a {
   margin: 0;
-  font-family: "SVN-Gilroy", sans-serif;
+  font-family: "1FTV-VIP-Glyce", sans-serif;
   color: #F1F1F1;
 }
 .section-footer-common .section-footer-common-contact-item h3 {
@@ -1556,7 +1563,7 @@ html.is-dark-bg .header-common-logo img:last-child {
 .section-footer-common .section-footer-common-bottom > p,
 .section-footer-common .section-footer-common-bottom .section-footer-common-policy {
   margin: 0;
-  font-family: "SVN-Gilroy", sans-serif;
+  font-family: "1FTV-VIP-Glyce", sans-serif;
 }
 .section-footer-common .section-footer-common-policy {
   color: #D9D9D9;
@@ -2343,7 +2350,7 @@ html.is-dark-bg .header-common-logo img:last-child {
   align-items: flex-start;
   justify-content: center;
   color: #143963;
-  font-family: "Noto Serif Display Condensed", serif;
+  font-family: "1FTV-VIP-Glyce", sans-serif;
   font-weight: 400;
   line-height: 1.35;
   text-transform: uppercase;
