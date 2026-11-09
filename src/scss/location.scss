@@ -2,282 +2,193 @@
 @use "_base/base"as *;
 
 .section-location-regional {
-  color: $color-white;
+  color: #fff;
 
   .group-bg {
-    background: $ink;
-    display: flex;
-    align-items: center;
+    background: #072a45;
   }
 
   .regional-wrapper {
-    width: 100%;
-    height: auto;
-  }
-
-  .regional-star {
-    position: absolute;
-    left: calc(100% + .06rem);
-    top: 10.28vh;
-    width: .3rem;
-  }
-
-  .regional-glow {
-    position: absolute;
-    left: 32.34%;
-    top: -16.76%;
-    width: 71.875%;
-    aspect-ratio: 1;
-    background: url('../resources/images/location/regional-glow.svg') center / contain no-repeat;
-    pointer-events: none;
-  }
-
-  .regional-wave {
-    position: absolute;
-    top: 0;
-    right: 0;
-    mix-blend-mode: screen;
-    pointer-events: none;
-  }
-
-  .regional-group {
-    overflow: hidden;
-    height: auto;
-  }
-
-  .regional-time {
-    display: flex;
-    align-items: baseline;
-    gap: .08rem;
-    margin-left: 4.896%;
-    color: #f6d2bb;
-    text-transform: uppercase;
-    font-family: $font-default;
-    line-height: 1.14;
-    height: .7rem;
-
-    strong {
-      font-size: .7rem;
-      font-weight: 500;
-    }
-
-    span {
-      font-size: .35rem;
-    }
-  }
-
-  .regional-rule {
     position: relative;
-    height: 1px;
-    margin: 2.22vh 4.27% 3.98vh 4.896%;
-    background: url('../resources/images/location/regional-line.svg') center / 100% 1px no-repeat;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .regional-scenery {
+    position: absolute;
+    inset: 0;
 
     &::after {
       content: '';
       position: absolute;
-      left: 4%;
-      top: -.05rem;
-      width: .1rem;
-      height: .1rem;
-      background: url('../resources/images/location/regional-dot.svg') center / contain no-repeat;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(7, 42, 69, .55), rgba(7, 42, 69, .08) 45%, #072a45 82%);
     }
   }
 
-  .regional-photos {
-    margin-left: 8.542%;
-    width: 89.063%;
+  .regional-glow {
+    position: absolute;
+    width: 55%;
+    aspect-ratio: 1;
+    top: -35%;
+    left: 5%;
+    background: radial-gradient(ellipse, rgba(12, 59, 103, .8), transparent 70%);
+    pointer-events: none;
+  }
+
+  .title-common-primary {
+    position: relative;
+    padding-top: 6.67vh;
+    font-size: .5rem;
+    line-height: 1.6;
+  }
+
+  .regional-timeline {
+    position: absolute;
+    top: 71.48%;
+    bottom: 0;
+    width: 100%;
+    padding: 0 9.9%;
     overflow: visible;
+    clip-path: inset(-3.6rem 0 0);
+    background: rgba(8, 47, 77, .7);
+    touch-action: pan-y;
+
+    &:focus-visible {
+      outline: 2px solid #f6d2bb;
+      outline-offset: -4px;
+    }
   }
 
-  .regional-photo {
-    margin: 0;
+  .regional-stop {
+    position: relative;
+    width: 2.71rem;
     height: auto;
-  }
+    padding-top: .42rem;
 
-  .regional-photo-frame {
-    position: relative;
-    aspect-ratio: 840 / 520;
-    overflow: hidden;
-    mask: url('../resources/images/location/regional-photo-mask.svg') center / 100% 100% no-repeat;
-
-    img {
+    &::before {
+      content: '';
       position: absolute;
-      max-width: none;
-      object-fit: cover;
-    }
-
-    .regional-image-0 {
-      width: 112.976%;
-      height: 102.692%;
-      left: -12.381%;
-      top: -1.154%;
-    }
-
-    .regional-image-1 {
-      width: 117.5%;
-      height: 142.308%;
-      left: -2.381%;
-      top: -16.346%;
-    }
-
-    .regional-image-2 {
-      width: 112.857%;
-      height: 117.692%;
+      top: .16rem;
       left: 0;
-      top: -13.269%;
+      width: .16rem;
+      height: .16rem;
+      border-radius: 50%;
+      background: #e3a486;
+      opacity: 0;
+      transform: translateY(-.12rem) scale(.5);
+      transition: opacity .35s, transform .35s;
     }
 
-    .regional-image-3 {
-      width: 103.929%;
-      height: 112.115%;
-      left: -1.667%;
-      top: -7.5%;
+    &.is-reached::before {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
-  }
 
-  figcaption {
-    margin-top: .23rem;
-    font: 400 .22rem/1.2 $font-sfpro;
-  }
-
-  .regional-controls {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    gap: .2rem;
-    margin: .2rem auto;
-
-    button {
-      border: 1px solid rgba(246, 210, 187, .4);
-      border-radius: .04rem;
-      background: transparent;
-      color: #f6d2bb;
-      padding: .04rem .12rem;
-      font: 400 .16rem/1.4 $font-sfpro;
-      cursor: pointer;
-
-      &:disabled {
-        opacity: .35;
-        cursor: default;
-      }
-
-      &:focus-visible {
-        outline: 2px solid #f6d2bb;
-        outline-offset: 3px;
-      }
+    h3 {
+      margin: .22rem 0 .1rem;
+      font: 600 .18rem/1.33 $font-sfpro;
+      text-transform: uppercase;
     }
   }
 
-  @include desktop {
-    .regional-wave {
-      width: 57.135%;
-      height: 28.704%;
-    }
+  .regional-timeline::before {
+    content: '';
+    position: absolute;
+    top: .24rem;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #f6d2bb;
   }
 
-  @media (min-width: 1025px) and (max-height: 900px),
-  (min-width: 1025px) and (min-aspect-ratio: 2/1) {
-    .title-common-primary {
-      padding-top: clamp(80px, 10vh, 112px);
-      margin-bottom: 0;
-      font-size: clamp(28px, 5vh, 40px) !important;
-      line-height: 1.2;
+  .regional-pin {
+    position: absolute;
+    left: .08rem;
+    bottom: calc(100% - .24rem);
+    width: 2.64rem;
+    height: auto;
+    max-width: none;
+    opacity: 0;
+    transform: translate(-50%, .2rem) scale(.85);
+    transform-origin: bottom center;
+    transition: opacity .45s ease, transform .55s cubic-bezier(.2, .8, .2, 1);
+    pointer-events: none;
+  }
+
+  .regional-stop.is-reached .regional-pin {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+
+  .regional-car {
+    position: absolute;
+    top: .04rem;
+    left: 0;
+    width: .56rem;
+    height: .2rem;
+    max-width: none;
+    z-index: 3;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .regional-time {
+    margin: 0;
+    font: 400 .4rem/1.2 $font-glyce;
+    text-transform: uppercase;
+    background: linear-gradient(295deg, #bc7b53, #f6d2bb 60%, #8f5944);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .regional-description {
+    max-width: 2.43rem;
+    margin: 0;
+    color: #dfdfdf;
+    font: 400 .18rem/1.33 $font-sfpro;
+  }
+
+  @media (min-width: 1025px) and (max-height: 922px) {
+    .regional-timeline {
+      top: auto;
+      height: 2.7rem;
     }
 
-    .regional-groups {
-      margin-top: clamp(8px, 2vh, 20px);
-    }
-
-    .regional-time {
-      height: auto;
-      line-height: 1;
-
-      strong {
-        font-size: clamp(36px, 6vh, 56px);
-      }
-
-      span {
-        font-size: clamp(20px, 3vh, 28px);
-      }
-    }
-
-    .regional-rule {
-      margin-top: 12px;
-      margin-bottom: 18px;
-    }
-
-    .regional-photo-frame {
-      width: 100%;
-      max-height: calc(100dvh - 300px);
-    }
-
-    figcaption {
-      margin-top: 12px;
-      font-size: clamp(14px, 2.3vh, 20px);
-      line-height: 1.3;
-    }
-
-    .regional-controls {
-      margin-top: 12px;
-      margin-bottom: 12px;
+    .regional-stop {
+      padding-top: .25rem;
     }
   }
 
   @media (max-width: 1024px) {
-    height: auto;
-
-    .group-bg {
-      padding: .5rem 0 .25rem;
+    .regional-wrapper {
+      min-height: 7rem;
     }
 
     .title-common-primary {
-      padding-top: 0;
+      padding-top: .7rem;
+      font-size: .36rem;
     }
 
-    .regional-star {
-      top: 0;
+    .regional-timeline {
+      top: auto;
+      height: 2.9rem;
+      padding-left: 1rem;
+      padding-right: .3rem;
     }
 
-    .regional-groups {
-      margin-top: .4rem;
+    .regional-stop {
+      width: 2.5rem;
+      padding-top: .5rem;
     }
 
-    .regional-time strong {
-      font-size: .48rem;
-    }
-
-    .regional-time span {
-      font-size: .26rem;
-    }
-
-    .regional-rule {
-      margin-top: .2rem;
-      margin-bottom: .3rem;
-    }
-
-    figcaption {
-      font-size: .16rem;
-    }
-  }
-
-  @include mobile {
-    .regional-wave {
-      width: 8rem;
-      height: 1.8rem;
-    }
-
-    .regional-photos {
-      width: 84%;
-      margin-left: 8%;
+    .regional-pin {
+      width: 1.65rem;
     }
 
     .regional-time {
-      margin-left: 8%;
-    }
-
-    .regional-rule {
-      margin-left: 8%;
-      margin-right: 8%;
+      font-size: .32rem;
     }
   }
 }

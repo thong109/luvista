@@ -785,7 +785,7 @@
         preventDefault: true,
 
         onDown: (self) => {
-          if (self.event?.type.startsWith('touch') && self.event.target?.closest?.('.regional-photos, .js-project-videos, .js-project-documents')) return;
+          if (self.event?.type.startsWith('touch') && self.event.target?.closest?.('.regional-timeline, .js-project-videos, .js-project-documents')) return;
           if (!s.animating && s.active && !s.switching) {
             const isAmenitiesTouch =
               self.event?.type.startsWith("touch") &&
@@ -797,7 +797,7 @@
         },
 
         onUp: (self) => {
-          if (self.event?.type.startsWith('touch') && self.event.target?.closest?.('.regional-photos, .js-project-videos, .js-project-documents')) return;
+          if (self.event?.type.startsWith('touch') && self.event.target?.closest?.('.regional-timeline, .js-project-videos, .js-project-documents')) return;
           if (!s.animating && s.active && !s.switching) {
             const isAmenitiesTouch =
               self.event?.type.startsWith("touch") &&
@@ -3306,107 +3306,102 @@
 
   const initLocationRegional = () => {
     const section = document.querySelector('.section-location-regional');
-    if (!section || typeof Swiper === 'undefined') return;
-    const groupsEl = section.querySelector('.regional-groups');
-    if (!groupsEl || !groupsEl.querySelector('.swiper-slide')) return;
-    const outer = new Swiper(groupsEl, {
-      slidesPerView: 1,
+    const timeline = section?.querySelector('.regional-timeline');
+    if (!timeline || typeof Swiper === 'undefined') return;
+    const slider = new Swiper(timeline, {
+      slidesPerView: 'auto',
+      spaceBetween: 30,
       speed: 650,
-      loop: false,
-      allowTouchMove: false,
-      autoHeight: true,
+      watchOverflow: true,
     });
-    const photos = [...section.querySelectorAll('.regional-photos')].map(element => new Swiper(element, {
-      slidesPerView: 1,
-      spaceBetween: 16,
-      speed: 650,
-      nested: true,
-      loop: false,
-      breakpoints: { 768: { slidesPerView: 2, spaceBetween: 30 } },
-    }));
-    const previous = section.querySelector('.regional-prev');
-    const next = section.querySelector('.regional-next');
-    const play = section.querySelector('.regional-play');
-    let timer;
-    let visible = false;
-    let paused = false;
-    let enterAtEnd = false;
-    let dragging = false;
-    const stop = () => window.clearTimeout(timer);
-    const schedule = () => {
-      stop();
-      if (!visible || document.hidden || paused || dragging || outer.animating) return;
-      const current = photos[outer.activeIndex];
-      if (current.animating || (current.isEnd && outer.isEnd)) return;
-      // Hold the final pair for a full interval before advancing the minute group.
-      timer = window.setTimeout(() => {
-        if (current.isEnd) outer.slideNext();
-        else current.slideNext();
-      }, 3000);
-    };
-    const updateControls = () => {
-      previous.disabled = outer.isBeginning;
-      next.disabled = outer.isEnd;
-    };
-    outer.on('slideChange', () => {
-      stop();
-      photos[outer.activeIndex].update();
-      photos[outer.activeIndex].slideTo(enterAtEnd ? photos[outer.activeIndex].slides.length - 1 : 0, 0);
-      enterAtEnd = false;
-      updateControls();
+    timeline.addEventListener('keydown', event => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      if (event.key === 'ArrowLeft') slider.slidePrev();
+      else if (event.key === 'ArrowRight') slider.slideNext();
+      else slider.slideTo(event.key === 'Home' ? 0 : slider.slides.length - 1);
     });
-    outer.on('slideChangeTransitionEnd', schedule);
-    photos.forEach(slider => {
-      let gesture;
-      slider.on('touchStart', (_, event) => {
-        const point = event.touches?.[0] || event;
-        gesture = { x: point.clientX, y: point.clientY, beginning: slider.isBeginning, end: slider.isEnd };
-        dragging = true;
-        stop();
-      });
-      slider.on('sliderFirstMove', stop);
-      slider.on('touchEnd', (_, event) => {
-        dragging = false;
-        const point = event.changedTouches?.[0] || event;
-        if (gesture && event.type !== 'pointercancel' && event.type !== 'touchcancel' && !outer.animating) {
-          const dx = point.clientX - gesture.x;
-          const dy = point.clientY - gesture.y;
-          if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-            if (dx < 0 && gesture.end && !outer.isEnd) outer.slideNext();
-            else if (dx > 0 && gesture.beginning && !outer.isBeginning) {
-              enterAtEnd = true;
-              outer.slidePrev();
-            }
-          }
+    const car = timeline.querySelector('.regional-car');
+    const stops = [...timeline.querySelectorAll('.regional-stop')];
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let progress = 0;
+    let lastTime = 0;
+    let frame = 0;
+    let inView = false;
+    let manualNavigation = false;
+    let returningUntil = 0;
+    const draw = (follow = true) => {
+      const first = stops[0].offsetLeft;
+      const last = stops[stops.length - 1].offsetLeft;
+      // The front bumper is the point that crosses each marker.
+      const start = first - car.offsetWidth;
+      const end = last + car.offsetWidth * 3;
+      const nose = start + progress * (end - start);
+      car.style.transform = `translateX(${nose - car.offsetWidth}px)`;
+      car.style.opacity = String(Math.max(0, Math.min(1,
+        (nose - start) / car.offsetWidth,
+        (end - nose) / car.offsetWidth)));
+      stops.forEach(stop => {
+        if (reducedMotion.matches || nose >= stop.offsetLeft) {
+          stop.classList.add('is-reached');
         }
-        gesture = null;
-        schedule();
       });
-      slider.on('slideChangeTransitionStart', stop);
-      slider.on('slideChangeTransitionEnd', schedule);
-      slider.on('resize', schedule);
-    });
-    previous.addEventListener('click', () => outer.slidePrev());
-    next.addEventListener('click', () => outer.slideNext());
-    play.addEventListener('click', () => {
-      paused = !paused;
-      play.setAttribute('aria-pressed', String(paused));
-      play.setAttribute('aria-label', paused ? 'Tiếp tục trình chiếu' : 'Tạm dừng trình chiếu');
-      play.textContent = paused ? 'Tiếp tục' : 'Tạm dừng';
-      schedule();
-    });
-    const syncVisibility = () => {
-      const bounds = section.getBoundingClientRect();
-      visible = isDesktop() ? section.classList.contains('is-active') : bounds.top < innerHeight && bounds.bottom > 0;
-      schedule();
+      if (follow && !manualNavigation) {
+        const index = stops.reduce((current, stop, i) => nose >= stop.offsetLeft ? i : current, 0);
+        if (index > slider.activeIndex) slider.slideTo(index);
+      }
     };
-    new IntersectionObserver(syncVisibility).observe(section);
-    new MutationObserver(syncVisibility).observe(section, { attributes: true, attributeFilter: ['class'] });
-    window.addEventListener('slider:panel-change', syncVisibility);
-    window.addEventListener('resize', syncVisibility);
-    document.addEventListener('visibilitychange', syncVisibility);
-    updateControls();
-    syncVisibility();
+    const tick = time => {
+      frame = 0;
+      if (time < returningUntil) {
+        lastTime = 0;
+        frame = requestAnimationFrame(tick);
+        return;
+      }
+      if (lastTime) {
+        progress += Math.min(time - lastTime, 64) / (stops.length * 2200);
+        if (progress >= 1) {
+          progress = 0;
+          returningUntil = time + 900;
+          car.style.opacity = '0';
+          stops.forEach(stop => stop.classList.remove('is-reached'));
+          if (!manualNavigation) slider.slideTo(0, 900);
+          lastTime = 0;
+          frame = requestAnimationFrame(tick);
+          return;
+        }
+      }
+      lastTime = time;
+      draw();
+      frame = requestAnimationFrame(tick);
+    };
+    const syncJourney = () => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      lastTime = 0;
+      if (reducedMotion.matches) {
+        stops.forEach(stop => stop.classList.add('is-reached'));
+        car.hidden = false;
+        draw();
+        return;
+      }
+      car.hidden = false;
+      const active = isDesktop() ? section.classList.contains('is-active') : inView;
+      if (active && !document.hidden) frame = requestAnimationFrame(tick);
+    };
+    slider.on('touchStart', () => { manualNavigation = true; });
+    timeline.addEventListener('keydown', () => { manualNavigation = true; });
+    slider.on('resize', () => draw(false));
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      syncJourney();
+    }).observe(section);
+    new MutationObserver(syncJourney).observe(section, { attributes: true, attributeFilter: ['class'] });
+    document.addEventListener('visibilitychange', syncJourney);
+    window.addEventListener('resize', syncJourney);
+    reducedMotion.addEventListener('change', syncJourney);
+    draw();
+    syncJourney();
   };
 
   const initLocationIconsReveal = () => {

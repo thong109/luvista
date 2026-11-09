@@ -49,29 +49,21 @@ block content
           .inner
             .group-bg
               .regional-wrapper
+                .regional-scenery(aria-hidden="true")
+                  img.object-common(src=imgPC+"regional-img.jpg" alt="" width="1920" height="1080" loading="eager")
                 .regional-glow(aria-hidden="true")
-                canvas.regional-wave(data-wave-src=imgPC + 'regional-wave.svg' aria-hidden="true")
                 h2.title-common-primary.is-gold#regional-title Liên kết vùng
-                - var regionalPhotos = [{image: 'regional-ghenh-rang.png', title: 'Điểm du lịch Ghềnh Ráng - Tiên Sa'}, {image: 'regional-ben-xe.png', title: 'Bến xe Quy Nhơn'}, {image: 'regional-mega-market.png', title: 'MM Mega Market'}, {image: 'regional-kim-cuc.png', title: 'Kim Cúc Plaza'}]
-                .regional-groups.swiper
+                - var regionalPlaces = [{"time": "05", "title": "Ghềnh Ráng – Tiên Sa", "description": "Cách trung tâm khoảng 2 km; có Bãi tắm Hoàng Hậu, mộ thi sĩ Hàn Mặc Tử."}, {"time": "10", "title": "Tháp Đôi Quy Nhơn", "description": "Di tích kiến trúc Chăm Pa trên đường Trần Hưng Đạo."}, {"time": "15", "title": "Bãi Xép", "description": "Cách trung tâm khoảng 8 km"}, {"time": "20", "title": "Đầm Thị Nại", "description": "Cách trung tâm khoảng 10 km"}, {"time": "25", "title": "Tháp Bánh Ít", "description": "Cách trung tâm khoảng 15 km"}, {"time": "30", "title": "Hòn Khô · Đồi cát Phương Mai", "description": ""}, {"time": "35", "title": "Eo Gió · Tịnh xá Ngọc Hòa · Làng chài Nhơn Lý", "description": ""}, {"time": "40", "title": "Bãi Kỳ Co · Khu dã ngoại Trung Lương", "description": ""}, {"time": "45", "title": "Cù Lao Xanh", "description": "Thời gian đi tàu/thuyền ra đảo khoảng 45 phút, tùy phương tiện và điều kiện biển"}, {"time": "60", "title": "Khu du lịch Hầm Hô", "description": "Cách trung tâm khoảng 50 km, nổi bật với cảnh quan sông suối và núi rừng"}]
+                .regional-timeline.swiper(tabindex="0" role="region" aria-label="Các điểm đến liên kết vùng, vuốt hoặc dùng phím mũi tên để khám phá")
                   .swiper-wrapper
-                    each time in ['02', '05', '07', '10', '20', '30']
-                      .regional-group.swiper-slide
-                        p.regional-time
-                          strong= time
-                          span phút
-                        .regional-rule(aria-hidden="true")
-                        .regional-photos.swiper(aria-label='Tiện ích trong ' + time + ' phút')
-                          .swiper-wrapper
-                            each photo, index in regionalPhotos
-                              figure.regional-photo.swiper-slide
-                                .regional-photo-frame
-                                  img(class='regional-image-' + index src=imgPC + photo.image alt=photo.title width="840" height="520")
-                                figcaption= photo.title
-                .regional-controls.hidden
-                  button.regional-prev(type="button" aria-label="Nhóm phút trước") ‹
-                  button.regional-play(type="button" aria-label="Tạm dừng trình chiếu" aria-pressed="false") Tạm dừng
-                  button.regional-next(type="button" aria-label="Nhóm phút tiếp theo") ›
+                    each place in regionalPlaces
+                      article.regional-stop.swiper-slide
+                        img.regional-pin(src=imgPC + 'regional-pin.svg' width="264" height="333" alt="" aria-hidden="true")
+                        p.regional-time= place.time + ' phút'
+                        h3= place.title
+                        if place.description
+                          p.regional-description= place.description
+                    img.regional-car(src=imgPC + 'regional-car.svg' width="56" height="20" alt="" aria-hidden="true")
       section.panel.section-footer-common#section-contact(aria-labelledby="footer-consultation-title")
         .group-central
           .inner
