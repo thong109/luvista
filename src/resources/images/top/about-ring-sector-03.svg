@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
+  <g id="about-ring-sector-03">
+    <g filter="url(#filter2_f_2068_655)">
+      <mask id="stroke2_2068_655" fill="white">
+        <path d="M1107.03 351.039L1232.27 153.808C1127.46 85.4776 1004.33 58.3552 885.155 71.6491L908.501 304.17C976.653 295.869 1047.32 311.323 1107.03 351.039Z" />
+      </mask>
+      <path d="M1107.03 351.039L1232.27 153.808C1127.46 85.4776 1004.33 58.3552 885.155 71.6491L908.501 304.17C976.653 295.869 1047.32 311.323 1107.03 351.039Z" stroke-width="6" stroke="white" mask="url(#stroke2_2068_655)" />
+    </g>
+    <path d="M1097.03 354.039L1222.27 156.808C1117.46 88.4776 994.333 61.3552 875.155 74.6491L898.501 307.17C966.653 298.869 1037.32 314.323 1097.03 354.039Z" fill="#A77762" />
+  </g>
+  <defs>
+    <filter id="filter2_f_2068_655" x="879.156" y="62.373" width="359.109" height="294.666" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+      <feGaussianBlur stdDeviation="3" result="effect1_foregroundBlur_2068_655" />
+    </filter>
+  </defs>
+</svg>

@@ -345,3 +345,9 @@
     animation-play-state: paused;
   }
 }
+
+@keyframes dashMove {
+  to {
+    stroke-dashoffset: -16;
+  }
+}

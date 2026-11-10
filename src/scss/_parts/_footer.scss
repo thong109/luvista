@@ -102,11 +102,35 @@
         mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m14 3 7 7M4 20l4-.8L20 7a2.8 2.8 0 0 0-4-4L4 15z'/%3E%3C/svg%3E");
       }
 
-      &:nth-of-type(1)::before { background-image: url("../resources/images/common/form-user.svg"); -webkit-mask-image: none; mask-image: none; }
-      &:nth-of-type(2)::before { background-image: url("../resources/images/common/form-phone.svg"); -webkit-mask-image: none; mask-image: none; }
-      &:nth-of-type(3)::before { background-image: url("../resources/images/common/form-email.svg"); -webkit-mask-image: none; mask-image: none; }
-      &:nth-of-type(4)::before { background-image: url("../resources/images/common/form-home.svg"); -webkit-mask-image: none; mask-image: none; }
-      &:nth-of-type(5)::before { background-image: url("../resources/images/common/form-message.svg"); -webkit-mask-image: none; mask-image: none; }
+      &:nth-of-type(1)::before {
+        background-image: url("../resources/images/common/form-user.svg");
+        -webkit-mask-image: none;
+        mask-image: none;
+      }
+
+      &:nth-of-type(2)::before {
+        background-image: url("../resources/images/common/form-phone.svg");
+        -webkit-mask-image: none;
+        mask-image: none;
+      }
+
+      &:nth-of-type(3)::before {
+        background-image: url("../resources/images/common/form-email.svg");
+        -webkit-mask-image: none;
+        mask-image: none;
+      }
+
+      &:nth-of-type(4)::before {
+        background-image: url("../resources/images/common/form-home.svg");
+        -webkit-mask-image: none;
+        mask-image: none;
+      }
+
+      &:nth-of-type(5)::before {
+        background-image: url("../resources/images/common/form-message.svg");
+        -webkit-mask-image: none;
+        mask-image: none;
+      }
     }
 
     input,
@@ -520,6 +544,13 @@
       bottom: 1.09rem;
       width: .4rem;
       height: .4rem;
+    }
+  }
+
+  @media print,
+  (min-width: 1921px) {
+    .group-bg {
+      padding: 1.4rem 0 .2rem;
     }
   }
 
