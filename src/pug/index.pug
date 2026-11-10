@@ -158,9 +158,9 @@ block content
           .inner
             .group-bg
               canvas.gallery-wave(data-wave-src=imgPC + 'location-wave.svg' aria-hidden="true")
-              h2.title-common-primary.is-gold#top-gallery-title Thư viện
+              h2.title-common-primary.is-gold.js-title.hero-title Thư viện
               - const topGalleryTabs = [{id: 'overview', label: 'Tổng quan', images: [{url: imgPC + 'gallery-project-01.jpg', alt: 'Lối vào quảng trường chính'}, {url: imgPC + 'gallery-project-02.jpg', alt: 'Hồ bơi lưng núi'}, {url: imgPC + 'masterplan-bg.jpg', alt: 'Phối cảnh tổng thể'}]}, {id: 'studio', label: 'Căn hộ Studio', images: [{url: imgPC + 'gallery-project-01.jpg', alt: 'LUVISTA'}, {url: imgPC + 'gallery-project-02.jpg', alt: 'LUVISTA'}]}, {id: '1pn', label: 'Căn hộ 1PN', images: [{url: imgPC + 'gallery-project-01.jpg', alt: 'LUVISTA'}, {url: imgPC + 'gallery-project-02.jpg', alt: 'LUVISTA'}]}, {id: '2pn', label: 'Căn hộ 2PN', images: [{url: imgPC + 'gallery-project-01.jpg', alt: 'LUVISTA'}, {url: imgPC + 'gallery-project-02.jpg', alt: 'LUVISTA'}]}]
-              .gallery-panels
+              .gallery-panels.js-title.hero-sub
                 each tab, tabIndex in topGalleryTabs
                   .gallery-panel(id='top-gallery-panel-' + tab.id role="tabpanel" aria-labelledby='top-gallery-tab-' + tab.id aria-hidden=tabIndex ? 'true' : 'false' class=tabIndex ? '' : 'is-active' inert=tabIndex ? true : false)
                     .gallery-track.swiper
@@ -206,27 +206,24 @@ block content
             .group-bg.about-scene
               .about-art
                 img.about-background(src=imgPC + 'about-bg.jpg' width="1920" height="1080" alt="" aria-hidden="true")
-                canvas.about-wave(data-wave-src=imgPC + 'about-wave.svg' aria-hidden="true")
-                img.about-ring-piece.is-07(src=imgPC + 'about-ring-07.svg' alt="" aria-hidden="true")
-                img.about-ring-piece.is-02(src=imgPC + 'about-ring-02.svg' alt="" aria-hidden="true")
-                img.about-ring-piece.is-08(src=imgPC + 'about-ring-08.svg' alt="" aria-hidden="true")
-                img.about-ring-piece.is-03(src=imgPC + 'about-ring-03.svg' alt="" aria-hidden="true")
-                img.about-ring-piece.is-09(src=imgPC + 'about-ring-09.svg' alt="" aria-hidden="true")
-                img.about-ring-piece.is-04(src=imgPC + 'about-ring-04.svg' alt="" aria-hidden="true")
-                img.about-ring-piece.is-10(src=imgPC + 'about-ring-10.svg' alt="" aria-hidden="true")
-                img.about-ring-piece.is-05(src=imgPC + 'about-ring-05.svg' alt="" aria-hidden="true")
-                img.about-ring-piece.is-06(src=imgPC + 'about-ring-06.svg' alt="" aria-hidden="true")
-                img.about-ring-piece.is-01(src=imgPC + 'about-ring-01.svg' alt="" aria-hidden="true")
-                .about-heading#about-title.js-title.hero-title
-                  span.about-heading-number 05
-                  h2 Giá trị #[br] trụ cột
-                img.about-tower(src=imgPC + 'about-towers.png' width="1093" height="615" alt="Phối cảnh các tòa tháp LUVISTA" loading="lazy")
-                - var aboutValues = [{number: '01', text: 'Quỹ đất vàng cuối cùng của Phường nội đô Quy Nhơn Nam', position: 'is-one'}, {number: '02', text: 'Địa thế tựa sơn, hướng hải lưng tựa núi vững chãi, mặt hướng biển xanh đón trọn vượng khí.', position: 'is-two'}, {number: '03', text: 'Tiện ích cao cấp với Triết lý sống Urban Wellness cân bằng, viên mãn ngay giữa lòng đô thị', position: 'is-three'}, {number: '04', text: 'Pháp lý minh bạch – Sở hữu lâu dài – Sổ hồng từng căn', position: 'is-four'}, {number: '05', text: 'Chủ đầu tư có tiềm lực tài chính mạnh mẽ, cam kết về tiến độ và chất lượng vượt trội', position: 'is-five'}]
-                .about-values.js-title.hero-sub
-                  each item in aboutValues
-                    article.about-value(class=item.position)
-                      span.about-value-number= item.number
-                      p= item.text
+                canvas.about-artwork-wave(data-wave-src=imgPC + 'about-wave.svg' aria-hidden="true")
+                svg.about-artwork(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-hidden="true" focusable="false")
+                  image.about-artwork-ring-piece.is-two(href=imgPC + 'about-ring-sector-02.svg' x="0" y="0" width="1920" height="1080" preserveAspectRatio="none")
+                  image.about-artwork-ring-piece.is-three(href=imgPC + 'about-ring-sector-03.svg' x="0" y="0" width="1920" height="1080" preserveAspectRatio="none")
+                  image.about-artwork-ring-piece.is-four(href=imgPC + 'about-ring-sector-04.svg' x="0" y="0" width="1920" height="1080" preserveAspectRatio="none")
+                  image.about-artwork-ring-front(href=imgPC + 'about-ring-sector-01.svg' x="0" y="0" width="1920" height="1080" preserveAspectRatio="none")
+                  image.about-artwork-tower(href=imgPC + 'about-towers.png' x="564.17" y="373" width="1092.78" height="615.02" preserveAspectRatio="none")
+                  image.about-artwork-ring-piece.is-five(href=imgPC + 'about-ring-sector-05.svg' x="0" y="0" width="1920" height="1080" preserveAspectRatio="none")
+                .about-copy-layer
+                  .about-heading#about-title.js-title.hero-title
+                    span.about-heading-number 05
+                    h2 Giá trị #[br] trụ cột
+                  - var aboutValues = [{number: '01', text: 'Quỹ đất vàng cuối cùng của Phường nội đô Quy Nhơn Nam', position: 'is-one'}, {number: '02', text: 'Địa thế tựa sơn, hướng hải lưng tựa núi vững chãi, mặt hướng biển xanh đón trọn vượng khí.', position: 'is-two'}, {number: '03', text: 'Tiện ích cao cấp với Triết lý sống Urban Wellness cân bằng, viên mãn ngay giữa lòng đô thị', position: 'is-three'}, {number: '04', text: 'Pháp lý minh bạch – Sở hữu lâu dài – Sổ hồng từng căn', position: 'is-four'}, {number: '05', text: 'Chủ đầu tư có tiềm lực tài chính mạnh mẽ, cam kết về tiến độ và chất lượng vượt trội', position: 'is-five'}]
+                  .about-values.js-title.hero-sub
+                    each item in aboutValues
+                      article.about-value(class=item.position)
+                        span.about-value-number= item.number
+                        p= item.text
       section.panel.section-top-news.news#section-news(aria-labelledby="news-title")
         .group-central
           .inner

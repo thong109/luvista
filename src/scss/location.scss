@@ -495,17 +495,12 @@
   }
 
   .location-line path {
-    stroke-dasharray: 8 6;
-    stroke-dashoffset: 0;
+    stroke-width: 2;
+    stroke-dasharray: 5 5;
+    animation: location-route-flow 6s linear infinite;
   }
 
   @include desktop {
-
-    @media (min-width: 1025px) {
-      &.is-active .location-line path {
-        animation: location-line-draw 2.4s linear .75s infinite;
-      }
-    }
 
     .location-icons,
     .location-logo {
@@ -707,5 +702,15 @@
       margin-left: -65%;
       aspect-ratio: 1920 / 1081;
     }
+  }
+}
+
+@keyframes location-route-flow {
+  from {
+    stroke-dashoffset: 0;
+  }
+
+  to {
+    stroke-dashoffset: -100px;
   }
 }

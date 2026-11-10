@@ -18,6 +18,7 @@
   const initOverviewCounters = () => {
     const stats = document.querySelector('.section-top-overview .overview-stats');
     if (!stats) return;
+    const statItems = Array.from(stats.querySelectorAll('.overview-stat'));
 
     const counters = Array.from(stats.querySelectorAll('.overview-value > span'))
       .map((element) => {
@@ -27,50 +28,79 @@
 
         const target = Number(`${match[1].replace(/,/g, '')}${match[2] || ''}`);
         const decimals = match[2] ? match[2].length - 1 : 0;
-        return { element, text, target, decimals };
+        return { element, text, target, decimals, state: { current: 0 } };
       })
       .filter(Boolean);
 
     if (!counters.length) return;
 
-    let hasPlayed = false;
-    const play = () => {
-      if (hasPlayed) return;
-      hasPlayed = true;
+    const renderValue = ({ element, decimals }, current) => {
+      const rounded = current.toFixed(decimals);
+      element.textContent = decimals
+        ? rounded
+        : Math.round(current).toLocaleString('en-US');
+    };
 
-      counters.forEach(({ element, text, target, decimals }, index) => {
-        const value = { current: 0 };
-        gsap.fromTo(value, { current: 0 }, {
-          current: target,
-          duration: 1.8,
-          delay: index * 0.12,
+    const reset = () => {
+      gsap.killTweensOf(statItems);
+      gsap.set(statItems, { autoAlpha: 0, y: 24 });
+      counters.forEach((counter) => {
+        gsap.killTweensOf(counter.state);
+        counter.state.current = 0;
+        renderValue(counter, 0);
+      });
+    };
+
+    const play = () => {
+      statItems.forEach((item, index) => {
+        gsap.to(item, {
+          autoAlpha: 1,
+          y: 0,
+          duration: .65,
+          delay: index * .1,
           ease: 'power2.out',
-          onUpdate: () => {
-            const rounded = value.current.toFixed(decimals);
-            element.textContent = decimals
-              ? rounded
-              : Math.round(value.current).toLocaleString('en-US');
-          },
-          onComplete: () => { element.textContent = text; },
+        });
+      });
+
+      counters.forEach((counter, index) => {
+        gsap.killTweensOf(counter.state);
+        counter.state.current = 0;
+        gsap.to(counter.state, {
+          current: counter.target,
+          duration: 1.8,
+          delay: index * .1,
+          ease: 'power2.out',
+          onUpdate: () => renderValue(counter, counter.state.current),
+          onComplete: () => { counter.element.textContent = counter.text; },
         });
       });
     };
 
     const overview = stats.closest('#section-overview');
-    const checkActivePanel = () => {
-      if (overview.classList.contains('is-active')) play();
-    };
-    window.addEventListener('slider:panel-change', checkActivePanel);
-    checkActivePanel();
+    reset();
 
-    if (typeof ScrollTrigger !== 'undefined') {
-      gsap.registerPlugin(ScrollTrigger);
-      ScrollTrigger.create({
-        trigger: overview,
-        start: 'top 65%',
-        once: true,
-        onEnter: play,
+    if (window.innerWidth >= 1024.98) {
+      let wasActive = overview.classList.contains('is-active');
+      if (wasActive) play();
+      const overviewIndex = Array.from(document.querySelectorAll('.panel')).indexOf(overview);
+      window.addEventListener('slider:panel-enter', ({ detail }) => {
+        if (detail?.index !== overviewIndex || wasActive) return;
+        wasActive = true;
+        play();
       });
+      window.addEventListener('slider:panel-change', () => {
+        const isActive = overview.classList.contains('is-active');
+        if (!isActive && wasActive) reset();
+        wasActive = isActive;
+      });
+    } else {
+      let wasIntersecting = false;
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting && !wasIntersecting) play();
+        if (!entry.isIntersecting && wasIntersecting) reset();
+        wasIntersecting = entry.isIntersecting;
+      }, { threshold: 0.1 });
+      observer.observe(overview);
     }
   };
 
@@ -502,6 +532,9 @@
             zIndex: 1,
           });
           panels[i].classList.add("is-active");
+          window.dispatchEvent(new CustomEvent("slider:panel-enter", {
+            detail: { index: i },
+          }));
 
           if (prev >= 0 && prev !== i) {
             setTimeout(() => {
@@ -709,6 +742,9 @@
           panels.forEach((p, idx) =>
             p.classList.toggle("is-active", idx === target)
           );
+          window.dispatchEvent(new CustomEvent("slider:panel-enter", {
+            detail: { index: target },
+          }));
           updateLogo(target);
           observer?.enable();
           onDone?.();
