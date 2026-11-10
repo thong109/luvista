@@ -182,7 +182,7 @@
     transition: color .2s ease;
 
     &::before { content: ""; width: .39rem; height: .39rem; flex-shrink: 0; border: .01rem dashed #bc7b53; border-radius: 50%; order: 1; transform: rotate(0); transition: transform .7s ease; }
-    &::after { content: ""; position: absolute; right: .194rem; top: 50%; width: .3rem; height: .15rem; transform: translateY(-50%); background: linear-gradient(301.72deg, #3b2117 -25.43%, #bc7b53 19.13%, #e9c9cc 37.28%, #f6d2bb 58.73%, #c0927c 85.13%); mask: url('../resources/images/top/location-more-arrow.svg') center / contain no-repeat; }
+    &::after { content: ""; position: absolute; right: .194rem; top: 50%; width: .3rem; height: .15rem; transform: translateY(-50%); background: linear-gradient(301.72deg, #3b2117 -25.43%, #bc7b53 19.13%, #e9c9cc 37.28%, #f6d2bb 58.73%, #c0927c 85.13%); mask: url('../resources/images/common/location-more-arrow.svg') center / contain no-repeat; }
 
     img {
       display: none;

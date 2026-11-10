@@ -1,0 +1,21 @@
+section.panel.overview#section-overview(class=page === 'overview' ? 'section-overview' : 'section-top-overview' aria-labelledby="overview-title")
+  .group-central
+    .inner
+      .group-bg
+        picture.overview-background
+          source(media="(max-width: 1024px)" srcset=page === 'overview' ? imgPC + 'overview-bg.jpg' : path + '/resources/images/top/overview-mo.jpg')
+          img.object-common(src=page === 'overview' ? imgPC + 'overview-bg.jpg' : path + '/resources/images/top/overview.jpg' width="1920" height="1080" alt="Phối cảnh LUVISTA Quy Nhơn")
+        .overview-light(aria-hidden="true")
+          canvas.overview-wave(data-wave-src=imgCommonPC + 'overview-wave.svg' aria-hidden="true")
+        .overview-content
+          h2.overview-title.js-title#overview-title Tổng quan Dự án
+          p.overview-copy.js-reveal Luvista Quy Nhơn có không gian sống hiện đại, nơi kết hợp hài hòa giữa tiện nghi đô thị và nhịp sống thư thái của thành phố biển. Dự án hướng đến kiến tạo môi trường an cư chất lượng, đáp ứng nhu cầu sinh hoạt, nghỉ ngơi và tận hưởng cuộc sống của cư dân. Luvista mở ra tiềm năng trở thành lựa chọn đáng cân nhắc cho cả nhu cầu an cư lẫn đầu tư.
+          - var overviewStats = [{value: '8.3', unit: 'ha', label: 'Quy mô'}, {value: '5', label: 'Số tòa tháp'}, {value: '23', label: 'tầng và 1 tầng hầm'}, {value: '1,630', label: 'Sản phẩm'}, {value: '50', unit: '%', label: 'Mật độ xây dựng'}, {value: 'Lâu dài', label: 'Hình thức sở hữu'}, {value: 'Quý III/2028', label: 'Bàn giao giai đoạn 1'}]
+          dl.overview-stats
+            each stat, index in overviewStats
+              .overview-stat(class=index === 6 ? 'is-handover' : '')
+                dt.overview-label= stat.label
+                dd.overview-value
+                  span= stat.value
+                  if stat.unit
+                    small= stat.unit

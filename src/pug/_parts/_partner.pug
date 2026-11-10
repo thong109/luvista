@@ -1,0 +1,41 @@
+section.panel.section-top-partner.section-top-developer.developer.js-bg(id=page === 'overview' ? 'section-partner' : 'section-developer' aria-labelledby="developer-title")
+  .group-central
+    .inner
+      .group-bg
+        canvas.developer-wave(data-wave-src=imgCommonPC + 'developer-wave.svg' aria-hidden="true")
+        .developer-content
+          h2.title-common-primary.js-title#developer-title Đối tác
+          .developer-principals.js-title
+            img.developer-divider.developer-principals-divider(src=imgCommonPC + 'developer-divider.svg' width="875" height="23" alt="" aria-hidden="true")
+            .developer-principal
+              h3 Phát triển dự án
+              img.developer-conasi(src=imgCommonPC + 'partner-conasi.png' alt="Conasi" loading="eager")
+            .developer-principal
+              h3 Chủ đầu tư
+              img.developer-tnt(src=imgCommonPC + 'partner-tnt.png' alt="TNT Homes Quy Nhơn" loading="eager")
+          section.developer-partners.js-title(aria-labelledby="developer-strategic-title")
+            h3#developer-strategic-title Đối tác chiến lược
+            img.developer-divider(src=imgCommonPC + 'developer-divider.svg' width="875" height="23" alt="" aria-hidden="true")
+            .developer-partner-logos.swiper
+              .swiper-wrapper
+                .swiper-slide
+                  img.is-edge(src=imgCommonPC + 'partner-edge.png' alt="EDGE" loading="eager")
+                .swiper-slide
+                  img.is-savills(src=imgCommonPC + 'partner-savills.png' alt="Savills" loading="eager")
+                .swiper-slide
+                  img.is-lumiere(src=imgCommonPC + 'partner-lumiere.png' alt="Lumière Style Hotel Resort" loading="eager")
+                .swiper-slide
+                  img.developer-bank(src=imgCommonPC + 'partner-edge.png' alt="Ảnh tạm logo MB Bank" loading="eager")
+          section.developer-distributors.js-title(aria-labelledby="developer-distributors-title")
+            h3#developer-distributors-title Đại lý phân phối
+            img.developer-divider(src=imgCommonPC + 'developer-divider.svg' width="875" height="23" alt="" aria-hidden="true")
+            .developer-distributor-slider
+              button.developer-distributor-arrow.is-prev(type="button" aria-label="Đại lý trước")
+                img(src=imgCommonPC + 'developer-slider-arrow.svg' width="45" height="45" alt="")
+              .developer-distributor-logos.swiper(data-distributor-logos)
+                .swiper-wrapper
+                  each logo in [1, 2, 3, 4, 5, 6, 7]
+                    .swiper-slide
+                      img(src=imgCommonPC + 'partner-conasi.png' alt='Ảnh tạm đại lý phân phối ' + logo loading="eager")
+              button.developer-distributor-arrow.is-next(type="button" aria-label="Đại lý tiếp theo")
+                img(src=imgCommonPC + 'developer-slider-arrow.svg' width="45" height="45" alt="")

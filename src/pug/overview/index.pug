@@ -26,32 +26,7 @@ block content
               a.keyvisual-scroll(href="#section-overview" aria-label="Xem tổng quan dự án")
                 img.keyvisual-scroll-circle(src=imgPC + 'keyvisual-scroll.svg' width="74" height="74" alt="" aria-hidden="true")
                 img.keyvisual-scroll-arrow(src=imgPC + 'keyvisual-scroll-arrow.svg' width="74" height="74" alt="" aria-hidden="true")
-      section.panel.section-overview.overview#section-overview(aria-labelledby="overview-title" data-transition="simple")
-        .group-central
-          .inner
-            .group-bg
-              canvas.overview-wave.is-bottom(data-wave-src=imgPC + 'wave-bottom.svg' aria-hidden="true")
-              figure.overview-photo
-                img.photo-image.ani-zoom(src=imgPC + 'photo.png' width="1934" height="1080" alt="Phối cảnh tòa tháp và cảnh quan dự án LUVISTA" loading="eager" decoding="async")
-              canvas.overview-wave.is-top(data-wave-src=imgPC + 'wave-top.svg' aria-hidden="true")
-              img.overview-star.is-large(src=imgPC + 'star.svg' width="65" height="65" alt="" aria-hidden="true")
-              img.overview-star.is-medium(src=imgPC + 'star.svg' width="36" height="36" alt="" aria-hidden="true")
-              img.overview-star.is-small(src=imgPC + 'star.svg' width="27" height="27" alt="" aria-hidden="true")
-              .overview-content
-                h1.title-common-primary.is-left.is-gold.js-title Giới thiệu
-                h2.overview-subtitle.hero-sub.js-title Tổng quan về dự án
-                dl.overview-location.hero-sub.js-title
-                  dt Vị trí:
-                  dd Đường Chế Lan Viên, Phường Quy Nhơn Nam, Tỉnh Gia Lai
-                - var facts = [{label: 'Quy mô:', value: '8.3 ha'}, {label: 'Số tòa tháp:', value: '5 tòa'}, {label: 'Chiều cao:', value: '21 tầng, 1 tầng hầm'}, {label: 'Cơ cấu sản phẩm:', value: '1,596 căn hộ + 34 shophouse'}, {label: 'Mật độ xây dựng:', value: '50%'}, {label: 'Hình thức sở hữu:', value: 'Sở hữu lâu dài'}]
-                dl.overview-facts.hero-sub.js-title
-                  each fact in facts
-                    dt= fact.label
-                    dd= fact.value
-                  dt Kết nối thuận lợi:
-                  dd.is-note Trường học, bệnh viện, siêu thị, chợ... trong phạm vi di chuyển 10 phút; 30 phút tới sân bay Phù Cát, khu du lịch Kỳ Co – Eo Gió;...
-                  dt Tiện ích nội khu:
-                  dd.is-note Công viên, hồ bơi, đường dạo bộ, khu vui chơi trẻ em, trường mẫu giáo, sân chơi, clubhouse, quảng trường,...
+      include ../_parts/_overview-hero.pug
       section.panel.section-overview-scale#section-scale(aria-labelledby="scale-title" data-transition="simple")
         .group-central
           .inner
@@ -78,107 +53,6 @@ block content
               img.scale-star.is-large(src=imgPC + 'star.svg' width="64" height="64" alt="" aria-hidden="true")
               img.scale-star.is-medium(src=imgPC + 'star.svg' width="36" height="36" alt="" aria-hidden="true")
               img.scale-star.is-small(src=imgPC + 'star.svg' width="28" height="28" alt="" aria-hidden="true")
-      section.panel.section-top-core-values.core-values#section-core-values(aria-labelledby="core-values-title")
-        .group-central
-          .inner
-            .group-bg
-              canvas.core-values-line.is-top(data-wave-src=imgPC + 'values-wave-01.svg' aria-hidden="true")
-              canvas.core-values-line.is-bottom(data-wave-src=imgPC + 'values-wave-02.svg' aria-hidden="true")
-              .wrapper
-                h2.core-values-heading.js-title
-                  span 05
-                  p.title-common-primary.is-gold Giá trị Trụ Cột
-                - var coreValues = [{number: '01', text: 'Quỹ đất vàng <strong>cuối cùng</strong> của Phường nội đô Quy Nhơn Nam'}, {number: '02', text: 'Địa thế <strong>tựa sơn, hướng hải</strong> lưng tựa núi vững chãi, mặt hướng biển xanh đón trọn vượng khí.'}, {number: '03', text: 'Tiện ích cao cấp với Triết lý sống <strong>Urban Wellness</strong> cân bằng, viên mãn ngay giữa lòng đô thị'}, {number: '04', text: 'Pháp lý <strong>minh bạch – Sở hữu lâu dài – Sổ hồng</strong> từng căn'}, {number: '05', text: 'Chủ đầu tư có <strong>tiềm lực tài chính mạnh mẽ</strong>, cam kết về tiến độ và chất lượng vượt trội'}]
-                .core-values-list.js-title.hero-sub
-                  each item in coreValues
-                    article.core-values-item
-                      .core-values-number
-                        img.object-common(src=imgPC + 'core-number-' + item.number + '.svg' width="179" height="129" alt!= item.number loading="eager")
-                      p!= item.text
-      section.panel.section-overview-partner.js-bg#section-partner(aria-labelledby="partner-title" data-transition="simple")
-        .group-central
-          .inner
-            .group-bg
-              img.partner-pattern(src=imgPC + 'partner-pattern.svg' alt="" aria-hidden="true")
-              h2.title-common-primary.js-title#partner-title Đối tác
-              .partner-list
-                article.partner-item.is-conasi.hero-sub.js-title
-                  h3.partner-label Đơn vị phát triển
-                  img.partner-logo(src=imgPC + 'partner-conasi.png' width="256" height="81" alt="Conasi" loading="lazy" decoding="async")
-                article.partner-item.is-tnt.hero-sub.js-title
-                  h3.partner-label Chủ đầu tư
-                  img.partner-logo(src=imgPC + 'partner-tnt.png' width="201" height="206" alt="TNT Homes Quy Nhơn" loading="lazy" decoding="async")
-                article.partner-item.is-edge.hero-sub.js-title
-                  h3.partner-label Giải thưởng - chứng nhận
-                  img.partner-logo(src=imgPC + 'partner-edge.png' width="254" height="105" alt="EDGE – Excellence in Design for Greater Efficiencies" loading="lazy" decoding="async")
-                article.partner-item.is-savills.hero-sub.js-title
-                  h3.partner-label
-                    | Đơn vị vận hành toàn
-                    br
-                    | khu căn hộ
-                  img.partner-logo(src=imgPC + 'partner-savills.png' width="145" height="145" alt="Savills" loading="lazy" decoding="async")
-                article.partner-item.is-lumiere.hero-sub.js-title
-                  h3.partner-label
-                    | Đơn vị vận hành các căn
-                    br
-                    | hộ khai thác lưu trú
-                  img.partner-logo(src=imgPC + 'partner-lumiere.png' width="243" height="130" alt="Lumière" loading="lazy" decoding="async")
-              img.partner-star.is-large(src=imgPC + 'partner-star-large.svg' alt="" aria-hidden="true")
-              img.partner-star.is-medium(src=imgPC + 'partner-star-medium.svg' alt="" aria-hidden="true")
-              img.partner-star.is-small(src=imgPC + 'partner-star-small.svg' alt="" aria-hidden="true")
-      section.panel.section-footer-common#section-contact(aria-labelledby="footer-consultation-title")
-        .group-central
-          .inner
-            .group-bg
-              .footer-wave-decoration
-                canvas.footer-wave(data-wave-src=imgCommonPC + 'footer-wave.svg' data-wave-edge="top" data-wave-amplitude="0.1" aria-hidden="true")
-              .wrapper
-                .section-footer-common-consultation
-                  .section-footer-common-heading
-                    h2.title-common-primary.is-gold Đăng ký tư vấn
-                  p.section-footer-common-intro Quý khách vui lòng để lại thông tin, đội ngũ chuyên viên sẽ liên hệ tư vấn trong thời gian sớm nhất.
-                  form.section-footer-common-form(action="" method="post")
-                    label
-                      input(type="text" name="name" required placeholder="Họ tên (*)")
-                    label
-                      input(type="tel" name="phone" required placeholder="Số điện thoại (*)")
-                    label
-                      input(type="email" name="email" placeholder="Email")
-                    label
-                      select(name="unitType" aria-label="Chọn loại căn hộ bạn quan tâm")
-                        option(value="" selected) Chọn loại căn hộ bạn quan tâm
-                        option(value="studio") Căn hộ Studio
-                        option(value="1pn_plus") Căn hộ 1 phòng ngủ + 1
-                        option(value="2pn") Căn hộ 2 phòng ngủ
-                        option(value="3pn") Căn hộ 3 phòng ngủ
-                    label
-                      textarea(name="message" rows="1" placeholder="Nội dung")
-                    button.trans(type="submit")
-                      span.section-footer-common-button-label Liên hệ ngay
-                .section-footer-common-contact
-                  h2.title-common-primary.is-gold.no-icon Thông tin liên hệ
-                  - var footerContacts = [{icon: 'footer-location.svg', title: 'Sales Office', detail: 'Tòa nhà Repubulic Plaza Cộng Hòa, 18E Cộng Hòa, Phường Tân Sơn Nhất, TP.HCM'}, {icon: 'footer-location.svg', title: 'Sales Gallery', detail: 'Đường Chế Lan Viên, Phường Quy Nhơn Nam, Tỉnh Gia Lai'}, {icon: 'footer-phone.svg', title: 'Hotline', detail: '0888 790 288', href: 'tel:0888790288'}, {icon: 'footer-email.svg', title: 'Email', detail: 'info@luvista.vn', href: 'mailto:info@luvista.vn'}]
-                  .section-footer-common-contact-list
-                    each item in footerContacts
-                      .section-footer-common-contact-item
-                        img(src=imgCommonPC + item.icon width="34" height="34" alt="")
-                        h3= item.title
-                        if item.href
-                          p
-                            a.footer-contact-link.trans(href=item.href)= item.detail
-                        else
-                          p= item.detail
-                  .section-footer-common-bottom
-                    p © 2026 Luvista · Website by <a href="https://leaddigital.vn/" target="_blank" class="trans">Lead Digital</a>. <a class="section-footer-common-policy trans" href="#">Chính sách bảo mật thông tin cá nhân</a>
-                    .section-footer-common-social
-                      a.trans(href="#" aria-label="Facebook")
-                        img.object-common(src=imgCommonPC + 'footer-facebook.svg' width="34" height="34" alt="")
-                      a.trans(href="#" aria-label="Youtube")
-                        img.object-common(src=imgCommonPC + 'footer-youtube.svg' width="34" height="34" alt="")
-                      a.trans(href="#" aria-label="Tiktok")
-                        img.object-common(src=imgCommonPC + 'footer-tiktok.svg' width="34" height="34" alt="")
-                      a.trans(href="#" aria-label="Zalo")
-                        img.object-common(src=imgCommonPC + 'footer-zalo.svg' width="34" height="34" alt="")
-                  p.section-footer-common-note Lưu ý: Chúng tôi đã nỗ lực và cẩn trọng để hoàn thiện tài liệu này. Tuy nhiên tài liệu chỉ dùng với mục đích tham khảo. Hình ảnh, sơ đồ kỹ thuật, bố trí nội ngoại thất hay thông tin mô tả về dự án chỉ nhằm mục đích minh họa, không phải là thông tin hiện thực hay cam kết pháp lý. Thông tin chính thức về dự án (bao gồm nhưng không giới hạn: tên tòa, thông tin căn hộ, diện tích, tiện ích…) sẽ được căn cứ trên hợp đồng mua bán và các tài liệu được thỏa thuận, ký kết chính thức với khách hàng.
-                a.section-footer-common-go-top.js-button-top.trans(href="#section-home" aria-label="Về đầu trang")
-                  img.object-common.js-inline-svg(src=imgCommonPC + 'footer-go-top.svg' width="50" height="50" alt="" loading="eager")
+      include ../_parts/_about-values.pug
+      include ../_parts/_partner.pug
+      include ../_parts/_footer-section.pug

@@ -1,6 +1,5 @@
 @charset "utf-8";
 @use "_base/base"as *;
-@use "_parts/masterplan-hero" as hero;
 
 .masterplan-drawing .js-premises-detail-item {
   cursor: pointer;
@@ -80,7 +79,7 @@
   .apartment-detail-compass {
     position: absolute;
     z-index: 1;
-    top: 1.8rem;
+    top: 1.2rem;
     right: .8rem;
     width: 1rem;
     height: auto;
@@ -209,14 +208,14 @@
   }
 
   @include desktop {
-    padding: 1.16rem 0;
+    padding: .6rem 0;
 
     .wrapper {
       max-width: 16.3rem;
     }
 
     .title-common-primary {
-      margin-bottom: 0.68rem;
+      margin-bottom: 0.6rem;
     }
 
     &-wrapper {
@@ -341,7 +340,6 @@
   }
 }
 
-@include hero.masterplan-hero;
 
 .section-masterplan-article {
   color: #f6d2bb;
@@ -367,8 +365,8 @@
   .article-wave {
     position: absolute;
     z-index: 1;
-    left: -.03rem;
-    top: 8.31rem;
+    left: 0;
+    bottom: 0;
     width: 9.9893rem;
     height: 2.433rem;
     opacity: .4;
@@ -592,7 +590,7 @@
 
     .masterplan-floor-picker {
       position: absolute;
-      top: calc(120 / 1080 * 100%);
+      top: 15%;
       right: calc(80 / 1920 * 100%);
       width: 3.23rem;
     }
@@ -600,7 +598,7 @@
 
   @include screen-low {
     .masterplan-floor-picker {
-      top: .75rem;
+      top: 1.2rem;
     }
 
     .masterplan-floor-select {
@@ -612,8 +610,15 @@
   @include tablet {
     height: auto;
 
+    > .group-central,
+    > .group-central > .inner {
+      height: auto;
+      min-height: 0;
+    }
+
     .group-bg {
-      min-height: 100svh;
+      height: auto;
+      min-height: 0;
       padding: 1.6rem .25rem .4rem;
     }
 
@@ -918,6 +923,11 @@
   .masterplan-drawing-scroll {
     width: 100%;
     min-width: 0;
+
+    &:focus,
+    &:focus-visible {
+      outline: none;
+    }
   }
 
   .masterplan-drawing {
@@ -945,6 +955,11 @@
       top: 0;
       left: 0;
       pointer-events: none;
+
+      &:focus,
+      &:focus-visible {
+        outline: none;
+      }
 
       [data-unit-type] {
         pointer-events: visiblePainted;

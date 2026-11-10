@@ -1,6 +1,10 @@
 @charset "utf-8";
 @use "_base/base"as *;
 @use "_parts/location-hero" as locationHero;
+@use "_parts/masterplan-hero" as masterplanHero;
+@use "_parts/overview-hero" as overviewHero;
+@use "_parts/about-values" as aboutValues;
+@use "_parts/partner" as partner;
 @use "_base/reset";
 @use "_base/print";
 @use "_base/layout";
@@ -14,6 +18,21 @@
 @use "_parts/_modules/paragraph";
 
 @include locationHero.location-hero;
+@include masterplanHero.masterplan-hero;
+@include overviewHero.overview-hero;
+@include aboutValues.about-values;
+@include partner.partner;
+
+.amenities-map {
+  svg:focus,
+  svg:focus-visible,
+  [data-amenity]:focus,
+  [data-amenity]:focus-visible,
+  [data-pair]:focus,
+  [data-pair]:focus-visible {
+    outline: none;
+  }
+}
 
 :where(canvas[data-wave-src]) {
   display: block;

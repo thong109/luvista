@@ -1,0 +1,31 @@
+section.panel.section-top-masterplan.masterplan#section-masterplan(aria-labelledby="masterplan-title")
+  - const masterplanTowers = [{slug: 'the-harmony', name: 'The Harmony'}, {slug: 'the-hill', name: 'The Hill'}, {slug: 'the-horizon', name: 'The Horizon', stats: [['Số tầng', '23 tầng'], ['Tổng sản phẩm', '280 căn'], ['Diện tích căn hộ', '34.94 - 128,52m²']]}, {slug: 'the-heritage', name: 'The Heritage'}, {slug: 'the-heights', name: 'The Heights'}]
+  .group-central
+    .inner
+      .group-bg
+        picture.masterplan-picture
+          source(media="(max-width: 767.98px)" srcset=imgCommonPC + 'masterplan-bg-mo.jpg')
+          img.object-common(src=imgCommonPC + 'masterplan-bg.jpg' width="1920" height="1080" alt="Phối cảnh mặt bằng tổng thể LUVISTA" loading="eager")
+        .masterplan-map(data-masterplan-url=path + '/masterplan/')
+          img.masterplan-overlay.masterplan-overlay-desktop.js-inline-svg(src=imgCommonPC + 'masterplan-labels.svg' width="1920" height="1080" preserveAspectRatio="xMidYMid slice" alt="Các tháp LUVISTA")
+          img.masterplan-overlay.masterplan-overlay-mobile(src=imgCommonPC + 'masterplan-labels-mobile.svg' width="1920" height="1080" alt="The Harmony, The Hill, The Horizon, The Heritage, The Heights")
+          .masterplan-tooltips
+            each tower in masterplanTowers
+              article.masterplan-tooltip(data-tower-info=tower.slug aria-hidden="true" inert)
+                h3= tower.name
+                if tower.stats
+                  dl
+                    each stat in tower.stats
+                      dt= stat[0] + ':'
+                      dd= stat[1]
+                else
+                  p Xem thông tin tháp
+                a.masterplan-tooltip-arrow(href=path + '/masterplan/?tower=' + tower.slug + '#section-masterplan-article' aria-label='Xem ' + tower.name)
+        h2.title-common-primary.is-gold.js-title#masterplan-title Mặt bằng dự án
+        .masterplan-guide.js-title.hero-sub
+          span.masterplan-guide-text Hover và click vào tháp để xem thông tin
+          button.masterplan-guide-toggle(type="button" aria-expanded="false" aria-controls="masterplan-tower-options") Chọn tháp để xem thông tin
+          ul.masterplan-tower-options#masterplan-tower-options(aria-label="Chọn tháp" hidden)
+            each tower in masterplanTowers
+              li
+                a(href=path + '/masterplan/?tower=' + tower.slug + '#section-masterplan-article')= tower.name

@@ -1,0 +1,23 @@
+section.panel.section-top-location.location#section-location(aria-labelledby="location-title")
+  .group-central
+    .inner
+      .group-bg
+        img.location-scene(src=imgCommonPC + 'location-bg.jpg' width="1920" height="1080" alt="")
+        .location-map(role="img" aria-label="Bản đồ vị trí LUVISTA và các tiện ích kết nối tại Quy Nhơn")
+          img.location-background(src=imgCommonPC + 'bg-map.png' width="1288" height="1080" alt="")
+          img.location-line.js-inline-svg(src=imgCommonPC + 'line-map.svg' width="1288" height="1080" alt="")
+          img.location-icons.js-inline-svg(src=imgCommonPC + 'icon-map-combined.svg' width="1288" height="1080" alt="")
+        .location-wave-frame(aria-hidden="true")
+          canvas.location-wave(data-wave-src=imgCommonPC + 'location-wave.svg' aria-hidden="true")
+        .location-content
+          h2.location-title#location-title.js-title Vị trí cửa ngõ
+          .location-copy.js-reveal
+            p Dự án tọa lạc tại cửa ngõ phía nam của phố biển Quy Nhơn. Đây cũng là cửa ngõ kết nối giao thông quan trọng nhất của Quy Nhơn khi liền kề Bến xe Trung tâm tỉnh Gia Lai, Quốc lộ 1D kết nối vào Miền Nam cũng như ra hướng Miền Bắc thông qua các tuyến Quốc lộ 1A hay Cao tốc Bắc Nam.
+            p Nằm mặt tiền đường Chế Lan Viên, dự án kết nối nhanh chóng tới các Trung tâm thương mại như Kim Cúc Plaza, Mega martket, rạp chiếu phim CGV, Khu du lịch Ghềnh Ráng – Tiên Sa, bãi tắm biển Quy Nhơn, Bệnh viện TW Quy Hòa…..và các điểm quan trọng khác của Trung tâm Quy Nhơn.
+          a.location-more.js-after-reveal(href=path + '/location/')
+            span Xem thêm
+            span.location-more-arrow(aria-hidden="true")
+              span.location-more-ring
+                img(src=imgCommonPC + 'location-more-ring.svg' width="39" height="39" alt="")
+                svg(viewBox="0 0 39 39" fill="none")
+                  circle(cx="19.5" cy="19.5" r="19" stroke="currentColor")

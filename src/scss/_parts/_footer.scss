@@ -246,7 +246,7 @@
         z-index: 2;
         transform: translateY(-50%);
         background: linear-gradient(301.72deg, #3b2117 -25.43%, #bc7b53 19.13%, #e9c9cc 37.28%, #f6d2bb 58.73%, #c0927c 85.13%, #8f5944 109.88%, #713621 129.68%, #662914 139.58%);
-        mask: url('../resources/images/top/location-more-arrow.svg') center / contain no-repeat;
+        mask: url('../resources/images/common/location-more-arrow.svg') center / contain no-repeat;
         pointer-events: none;
         transition: background .5s ease, mask .2s ease;
       }
@@ -289,7 +289,7 @@
     p,
     a {
       margin: 0;
-      font-family: $font-glyce;
+      font-family: $font-gilroy;
       color: #F1F1F1;
     }
 
@@ -305,6 +305,11 @@
       font-weight: 400;
       text-decoration: none;
     }
+
+    .footer-contact-link {
+      white-space: nowrap;
+      font-family: $font-glyce;
+    }
   }
 
   .section-footer-common-bottom {
@@ -318,9 +323,15 @@
     }
   }
 
+  .lead {
+    color: #CEB99E;
+  }
+
   .section-footer-common-policy {
-    color: #D9D9D9;
+    color: #38748C;
     display: inline-block;
+    text-decoration: underline;
+    text-underline-offset: 5px;
   }
 
   .section-footer-common-social {
@@ -341,57 +352,7 @@
     text-align: center;
   }
 
-  .section-footer-common-go-top {
-    display: block;
-    transform: none;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .35s ease, visibility .35s ease;
 
-    svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-
-      .go-top-ring {
-        transform-box: fill-box;
-        transform-origin: center;
-        transition: transform .6s ease;
-      }
-    }
-
-    circle {
-      transition: fill .25s ease;
-    }
-
-    path {
-      transition: stroke .25s ease;
-    }
-
-    &:hover,
-    &:focus-visible {
-      .go-top-ring {
-        transform: rotate(180deg);
-      }
-
-      circle {
-        fill: #143963;
-      }
-
-      path {
-        stroke: #f6d3bc;
-      }
-    }
-
-    &.is-active {
-      opacity: 1;
-      visibility: visible;
-    }
-  }
 
   .section-footer-common-consultation {
     width: 100%;
@@ -399,7 +360,7 @@
 
   @include desktop {
     .group-bg {
-      padding: 2.31rem 0 .2rem;
+      padding: .8rem 0 .4rem;
     }
 
     .footer-wave-decoration {
@@ -543,12 +504,7 @@
       text-align: center;
     }
 
-    .section-footer-common-go-top {
-      right: .33rem;
-      bottom: 1.09rem;
-      width: .4rem;
-      height: .4rem;
-    }
+
   }
 
   @media print,
@@ -610,7 +566,20 @@
   }
 
   @include tablet {
-    height: 100%;
+    height: auto;
+
+    > .group-central,
+    > .group-central > .inner,
+    .group-bg,
+    .wrapper {
+      height: auto;
+      min-height: 0;
+    }
+
+    .section-footer-common-heading > h2 {
+      justify-content: center;
+      text-align: center;
+    }
 
     .wrapper {
       display: flex;
@@ -626,14 +595,24 @@
     .section-footer-common-contact>h2 {
       margin-bottom: 0;
       text-align: center;
+      justify-content: center;
     }
 
     .section-footer-common-contact-item {
-      display: block;
-      text-align: center;
+      display: grid;
+      grid-template-columns: .29rem minmax(0, 1fr);
+      column-gap: .16rem;
+      text-align: left;
 
       img {
-        margin: 0 auto .08rem;
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        margin: .02rem 0 0;
+      }
+
+      h3,
+      p {
+        grid-column: 2;
       }
     }
 
@@ -664,7 +643,7 @@
     }
 
     .section-footer-common-consultation {
-      width: calc(100% - .8rem);
+      width: 100%;
     }
 
     .section-footer-common-heading img {
@@ -680,12 +659,42 @@
       grid-template-columns: 1fr;
       gap: .18rem;
       margin-top: .24rem;
+      width: 100%;
+      min-width: 0;
+
+      label,
+      input,
+      select,
+      textarea {
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+      }
 
       button {
         margin-top: .2rem;
         justify-self: center;
-        width: 1.8rem;
-        height: .4rem;
+        width: 2.4rem;
+        height: .48rem;
+        padding: 0 .62rem 0 .2rem;
+        box-sizing: border-box;
+        font-size: .18rem;
+
+        > .section-footer-common-button-label {
+          position: static;
+          transform: none;
+        }
+
+        &::before {
+          right: .06rem;
+          width: .36rem;
+          height: .36rem;
+          box-sizing: border-box;
+        }
+
+        &::after {
+          right: .09rem;
+        }
       }
     }
 
@@ -694,7 +703,7 @@
     }
 
     .section-footer-common-contact-list {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: .3rem;
       margin-top: .3rem;
     }
@@ -714,16 +723,15 @@
       font-size: .18rem;
     }
 
-    .section-footer-common-go-top {
-      right: .33rem;
-      bottom: min(1.09rem, 14.2vh);
-      position: fixed;
-      width: .4rem;
-      height: .4rem;
-    }
+
   }
 
   @include mobile {
+    .section-footer-common-heading > h2 {
+      justify-content: center;
+      text-align: center;
+    }
+
     height: auto;
 
     .group-bg {
@@ -761,16 +769,28 @@
     }
 
     .section-footer-common-contact-list {
-      grid-template-columns: repeat(2, 1fr);
-      gap: .3rem .2rem;
+      grid-template-columns: minmax(0, 1fr);
+      gap: .3rem;
       margin: .3rem 0 0.4rem;
     }
 
     .section-footer-common-contact-item {
+      display: grid;
+      grid-template-columns: .28rem minmax(0, 1fr);
+      column-gap: .16rem;
+      text-align: left;
+
       img {
         width: .28rem;
         height: .28rem;
-        margin-bottom: .08rem;
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        margin: .02rem 0 0;
+      }
+
+      h3,
+      p {
+        grid-column: 2;
       }
 
       h3,
@@ -782,6 +802,10 @@
 
       h3 {
         margin-bottom: .08rem;
+      }
+
+      &:nth-child(3) a {
+        font-size: .2rem;
       }
     }
 
@@ -813,12 +837,49 @@
       line-height: 1.35;
     }
 
-    .section-footer-common-go-top {
-      position: fixed;
-      right: .1rem;
-      bottom: .2rem;
-      width: .4rem;
-      height: .4rem;
+
+  }
+
+  .section-footer-common-contact-item:nth-child(n + 3) {
+    display: grid;
+    grid-template-columns: .29rem max-content minmax(0, 1fr);
+    align-items: center;
+    column-gap: .1rem;
+    text-align: left;
+
+    img {
+      grid-column: 1;
+      grid-row: 1;
+      width: .28rem;
+      height: .28rem;
+      margin: 0;
+      object-fit: contain;
+    }
+
+    h3 {
+      grid-column: 2;
+      grid-row: 1;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    p {
+      grid-column: 3;
+      grid-row: 1;
+      min-width: 0;
+      margin: 0;
+    }
+
+    @include tablet {
+      grid-column: auto;
+    }
+
+    @include mobile {
+      display: grid;
+      grid-template-columns: .28rem max-content minmax(0, 1fr);
+      align-items: center;
+      column-gap: .1rem;
+      text-align: left;
     }
   }
 }
@@ -1268,3 +1329,73 @@
 //     }
 //   }
 // }
+
+.section-footer-common-go-top {
+  display: block;
+  transform: none;
+  position: fixed;
+  bottom: max(.5rem, env(safe-area-inset-bottom));
+  right: max(.4rem, env(safe-area-inset-right));
+  width: .4rem;
+  height: .4rem;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .35s ease, visibility .35s ease;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    .go-top-ring {
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: transform .6s ease;
+    }
+  }
+
+  circle {
+    transition: fill .25s ease;
+  }
+
+  path {
+    transition: stroke .25s ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    .go-top-ring {
+      transform: rotate(180deg);
+    }
+
+    circle {
+      fill: #143963;
+    }
+
+    path {
+      stroke: #f6d3bc;
+    }
+  }
+
+  &.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+body>.section-footer-common-go-top {
+  display: none;
+
+  @include mobile {
+    display: block;
+  }
+}
+
+.section-footer-common>.section-footer-common-go-top {
+  position: absolute;
+
+  @include mobile {
+    display: none;
+  }
+}
