@@ -27,6 +27,10 @@
     pointer-events: none;
   }
 
+  .section-footer-common-heading>h2 {
+    justify-content: flex-start;
+  }
+
   .footer-wave-decoration .footer-wave {
     position: relative;
     inset: auto;
@@ -431,7 +435,7 @@
       grid-column: 1;
       grid-row: 1;
       margin-bottom: .28rem;
-      text-align: left;
+      justify-content: flex-start;
     }
 
     .section-footer-common-intro {

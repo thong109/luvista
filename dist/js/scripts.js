@@ -18,6 +18,9 @@
   const initOverviewCounters = () => {
     const stats = document.querySelector('.section-top-overview .overview-stats');
     if (!stats) return;
+    const overview = stats.closest('#section-overview');
+    const description = overview?.querySelector('.overview-copy.js-reveal');
+    if (!overview || !description) return;
     const statItems = Array.from(stats.querySelectorAll('.overview-stat'));
 
     const counters = Array.from(stats.querySelectorAll('.overview-value > span'))
@@ -67,8 +70,8 @@
         counter.state.current = 0;
         gsap.to(counter.state, {
           current: counter.target,
-          duration: 1.8,
-          delay: index * .1,
+          duration: 1,
+          delay: index * .06,
           ease: 'power2.out',
           onUpdate: () => renderValue(counter, counter.state.current),
           onComplete: () => { counter.element.textContent = counter.text; },
@@ -76,32 +79,113 @@
       });
     };
 
-    const overview = stats.closest('#section-overview');
     reset();
+    let isVisible = false;
+
+    description.addEventListener('section:reveal-complete', () => {
+      if (isVisible) play();
+    });
 
     if (window.innerWidth >= 1024.98) {
       let wasActive = overview.classList.contains('is-active');
-      if (wasActive) play();
+      isVisible = wasActive;
       const overviewIndex = Array.from(document.querySelectorAll('.panel')).indexOf(overview);
       window.addEventListener('slider:panel-enter', ({ detail }) => {
-        if (detail?.index !== overviewIndex || wasActive) return;
+        if (detail?.index !== overviewIndex) return;
         wasActive = true;
-        play();
+        isVisible = true;
       });
       window.addEventListener('slider:panel-change', () => {
         const isActive = overview.classList.contains('is-active');
         if (!isActive && wasActive) reset();
+        isVisible = isActive;
         wasActive = isActive;
       });
     } else {
       let wasIntersecting = false;
       const observer = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting && !wasIntersecting) play();
         if (!entry.isIntersecting && wasIntersecting) reset();
+        isVisible = entry.isIntersecting;
         wasIntersecting = entry.isIntersecting;
       }, { threshold: 0.1 });
       observer.observe(overview);
     }
+  };
+
+  const initSectionReveals = () => {
+    const elements = [...document.querySelectorAll('.js-reveal')];
+    if (!elements.length || !window.gsap || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.matchMedia().add({
+      desktop: '(min-width: 1025px)',
+      mobile: '(max-width: 1024.98px)',
+    }, (context) => {
+      const cleanups = [];
+
+      elements.forEach((element) => {
+        const section = element.closest('.panel');
+        const sectionReveals = section ? [...section.querySelectorAll('.js-reveal')] : elements;
+        const revealIndex = Math.max(0, sectionReveals.indexOf(element));
+        const state = { visible: false, inView: false };
+        const sequenceDelay = context.conditions.desktop ? 1.7 : 0.8;
+        const animation = gsap.timeline({ paused: true, delay: sequenceDelay + revealIndex * 0.25 });
+
+        animation.fromTo(element, {
+          autoAlpha: 0,
+          clipPath: 'polygon(-10% -35%, -10% -35%, -10% 135%, -10% 135%)',
+        }, {
+          autoAlpha: 1,
+          clipPath: 'polygon(-10% -35%, 110% -35%, 110% 135%, -10% 135%)',
+          duration: 1,
+          ease: 'power1.inOut',
+          immediateRender: true,
+          clearProps: 'clipPath,opacity,visibility',
+        });
+        animation.eventCallback('onComplete', () => {
+          element.dispatchEvent(new CustomEvent('section:reveal-complete', { bubbles: true }));
+        });
+
+        const sync = () => {
+          const activeSection = context.conditions.desktop
+            ? !section || (section.classList.contains('is-active') && !section.classList.contains('is-leaving'))
+            : state.inView;
+          if (activeSection && !state.visible) {
+            animation.restart(true);
+          } else if (!activeSection && state.visible) {
+            animation.pause();
+          }
+          state.visible = activeSection;
+        };
+
+        if (section) {
+          const observer = new MutationObserver(sync);
+          observer.observe(section, { attributes: true, attributeFilter: ['class'] });
+          cleanups.push(() => observer.disconnect());
+        }
+
+        if (context.conditions.mobile) {
+          const trigger = ScrollTrigger.create({
+            trigger: element,
+            start: 'top 88%',
+            end: 'bottom top',
+            onToggle: (self) => {
+              state.inView = self.isActive;
+              sync();
+            },
+            onRefresh: (self) => {
+              state.inView = self.isActive;
+              sync();
+            },
+          });
+          cleanups.push(() => trigger.kill());
+        }
+
+        sync();
+      });
+
+      return () => cleanups.forEach((cleanup) => cleanup());
+    });
   };
 
   window.__APP_STATE__ = {
@@ -245,14 +329,6 @@
     const outers = panels.map((p) => p.querySelector(".group-central"));
     const inners = panels.map((p) => p.querySelector(".inner"));
     const images = panels.map((p) => p.querySelector(".group-bg"));
-    const headings = panels.map((p) =>
-      Array.from(p.querySelectorAll(".hero-title")).filter(
-        (el) => !el.classList.contains("js-title-fade")
-      )
-    );
-    const subs = panels.map((p) =>
-      Array.from(p.querySelectorAll(".hero-sub")).filter(Boolean)
-    );
     const stage = document.querySelector(".slider-stage");
     const navEl = document.getElementById("nav");
     const navItems = navEl ? navEl.querySelectorAll(".nav-item") : [];
@@ -264,9 +340,7 @@
       !panels ||
       !outers ||
       !inners ||
-      !images ||
-      !headings ||
-      !subs
+      !images
     )
       return;
 
@@ -280,6 +354,9 @@
       wheelLock: false,
       navLock: false,
       touchY: 0,
+      pendingDirection: 0,
+      pendingDeltaY: 0,
+      lastInputAt: 0,
     };
 
     window.__APP_STATE__.sliderState = s;
@@ -489,21 +566,6 @@
             clearProps: "transform",
           });
 
-        if (headings[i]?.length)
-          headings[i].forEach((h) =>
-            gsap.set(h, {
-              autoAlpha: 1,
-              yPercent: 0,
-            })
-          );
-        if (subs[i]?.length)
-          subs[i].forEach((sub) =>
-            gsap.set(sub, {
-              autoAlpha: 1,
-              yPercent: 0,
-            })
-          );
-
         panels.forEach((p, idx) => p.classList.toggle("is-active", idx === i));
         s.animating = false;
         cb?.();
@@ -572,6 +634,14 @@
             })
           );
           cb?.();
+
+          if (s.pendingDirection && s.active && !s.switching && !s.animating) {
+            const direction = s.pendingDirection;
+            const deltaY = s.pendingDeltaY;
+            s.pendingDirection = 0;
+            s.pendingDeltaY = 0;
+            if (!scrollPanelList(direction, deltaY)) goto(s.cur + direction, direction);
+          }
         },
       });
 
@@ -612,41 +682,6 @@
         },
           0
         );
-      }
-
-      if (headings[i]?.length) {
-        headings[i].forEach((h, j) => {
-          tl.fromTo(
-            h, {
-            autoAlpha: 0,
-            yPercent: (simpleTransition ? 60 : 200) * d,
-          }, {
-            autoAlpha: 1,
-            yPercent: 0,
-            duration: simpleTransition ? 0.6 : 0.9,
-            ease: "power2.out",
-          },
-            // Near the top of a sliding panel, text is still offscreen early on.
-            simpleTransition ? 0.55 + j * 0.06 : 0.18
-          );
-        });
-      }
-
-      if (subs[i]?.length) {
-        subs[i].forEach((sub, j) => {
-          tl.fromTo(
-            sub, {
-            autoAlpha: 0,
-            yPercent: (simpleTransition ? 20 : 200) * d,
-          }, {
-            autoAlpha: 1,
-            yPercent: 0,
-            duration: simpleTransition ? 0.55 : 0.8,
-            ease: "power2.out",
-          },
-            simpleTransition ? 0.65 + j * 0.06 : 0.28
-          );
-        });
       }
 
       s.cur = i;
@@ -771,7 +806,7 @@
     const scrollPanelList = (direction, deltaY = 0) => {
       const panel = panels[s.cur];
       const list = panel?.querySelector(
-        ".capability-list, .amenities-legend, .overview-content, .scale-content"
+        ".capability-list, .amenities-legend, .scale-content"
       );
       if (!list || list.scrollHeight <= list.clientHeight + 2) return false;
 
@@ -822,7 +857,17 @@
 
         onDown: (self) => {
           if (self.event?.type.startsWith('touch') && self.event.target?.closest?.('.regional-photos, .js-project-videos, .js-project-documents')) return;
+          if (s.animating && s.active && !s.switching) {
+            const now = performance.now();
+            if (!s.lastInputAt || now - s.lastInputAt > 250) {
+              s.pendingDirection = -1;
+              s.pendingDeltaY = self.deltaY;
+            }
+            s.lastInputAt = now;
+            return;
+          }
           if (!s.animating && s.active && !s.switching) {
+            s.lastInputAt = performance.now();
             const isAmenitiesTouch =
               self.event?.type.startsWith("touch") &&
               self.event.target?.closest?.(".amenities-legend");
@@ -834,7 +879,17 @@
 
         onUp: (self) => {
           if (self.event?.type.startsWith('touch') && self.event.target?.closest?.('.regional-photos, .js-project-videos, .js-project-documents')) return;
+          if (s.animating && s.active && !s.switching) {
+            const now = performance.now();
+            if (!s.lastInputAt || now - s.lastInputAt > 250) {
+              s.pendingDirection = 1;
+              s.pendingDeltaY = self.deltaY;
+            }
+            s.lastInputAt = now;
+            return;
+          }
           if (!s.animating && s.active && !s.switching) {
+            s.lastInputAt = performance.now();
             const isAmenitiesTouch =
               self.event?.type.startsWith("touch") &&
               self.event.target?.closest?.(".amenities-legend");
@@ -1405,32 +1460,73 @@
     });
   };
 
-  const initMobileAnimations = () => {
-    if (isDesktop()) return;
-
+  const initSectionAnimations = () => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const targets = document.querySelectorAll(".js-title");
+    const targets = [...document.querySelectorAll(".js-title")];
     if (!targets.length) return;
 
+    const orderByPanel = new Map();
+    const cleanups = [];
     targets.forEach((el) => {
-      gsap.fromTo(
-        el, {
-        autoAlpha: 0,
-        y: 100,
-      }, {
+      const panel = el.closest(".panel") || document;
+      const order = orderByPanel.get(panel) || 0;
+      orderByPanel.set(panel, order + 1);
+      let hasPlayed = false;
+
+      const animation = gsap.fromTo(el, { autoAlpha: 0 }, {
         autoAlpha: 1,
-        y: 0,
         duration: 0.8,
+        delay: order * 0.2,
         ease: "power2.out",
-        scrollTrigger: {
+        paused: true,
+        onComplete: () => el.dispatchEvent(new CustomEvent("section:title-complete", { bubbles: true })),
+      });
+      gsap.set(el, { autoAlpha: 0 });
+
+      if (isDesktop() && panel !== document) {
+        const panelIndex = [...document.querySelectorAll(".panel")].indexOf(panel);
+        const onPanelChange = ({ detail }) => {
+          if (detail?.index !== panelIndex) return;
+          if (hasPlayed) {
+            gsap.set(el, { autoAlpha: 1 });
+            return;
+          }
+          hasPlayed = true;
+          animation.restart();
+        };
+        window.addEventListener("slider:panel-change", onPanelChange);
+        cleanups.push(() => window.removeEventListener("slider:panel-change", onPanelChange));
+      } else {
+        const trigger = ScrollTrigger.create({
           trigger: el,
           start: "top 85%",
-          toggleActions: "play none none none",
-        },
-      },
-      );
+          once: true,
+          onEnter: () => {
+            if (hasPlayed) return;
+            hasPlayed = true;
+            animation.restart();
+          },
+        });
+        cleanups.push(() => trigger.kill());
+      }
     });
+
+    document.querySelectorAll(".js-after-reveal").forEach((el) => {
+      const content = el.closest(".location-content") || el.parentElement;
+      const description = content?.querySelector(".location-copy.js-reveal, .location-copy.js-title");
+      if (!description) return;
+
+      gsap.set(el, { autoAlpha: 0 });
+      const eventName = description.classList.contains("js-reveal")
+        ? "section:reveal-complete"
+        : "section:title-complete";
+      const show = () => gsap.to(el, { autoAlpha: 1, duration: 0.6, ease: "power1.out", overwrite: true });
+      description.addEventListener(eventName, show);
+      cleanups.push(() => description.removeEventListener(eventName, show));
+    });
+
+    return () => cleanups.forEach((cleanup) => cleanup());
   };
 
   const Done = () => {
@@ -1516,7 +1612,7 @@
             console.warn("Autoplay blocked.");
           });
         }
-        initMobileAnimations();
+        initSectionAnimations();
       }, 600);
     };
 
@@ -1533,7 +1629,7 @@
       document.body.style.overflow = isTablet() ? "" : "hidden";
 
       app();
-      initMobileAnimations();
+      initSectionAnimations();
 
       // Khi mở từ Zalo: thay video bằng ảnh poster (không chạy video)
       const video = document.getElementById("video-element");
@@ -4332,6 +4428,7 @@
 
   initCanvasWaves();
   initOverviewCounters();
+  initSectionReveals();
 
   waitForCriticalImages().then(() => {
     initIntro();

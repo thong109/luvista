@@ -544,7 +544,7 @@ html.is-dark-bg {
 
   .header-common-menu {
     color: #edc8b1;
-    font-weight: 600;
+    font-weight: 500;
     text-transform: uppercase;
     transition: color .25s ease;
 
@@ -557,12 +557,17 @@ html.is-dark-bg {
       background-color: currentColor;
       mask: url('../resources/images/common/menu.svg') center / contain no-repeat;
       top: -0.11rem;
+      animation: twinkle 3s ease-in-out infinite;
+    }
+
+    &:hover {
+      color: #fff;
     }
   }
 
   @include desktop {
     height: .86rem;
-    padding: 0 .7rem;
+    padding: 0.3rem .7rem 0;
 
     .header-common-logo {
       width: 2.5rem;

@@ -56,12 +56,12 @@
     line-height: 0.2rem;
 
     h3 {
+      text-align: left;
       margin: 0 0 0.15rem;
       font-family: $font-glyce;
       font-size: 0.3rem;
       font-weight: 400;
       line-height: 0.35rem;
-      text-align: center;
       text-transform: uppercase;
       background: linear-gradient(130deg, #bc7b53, #f6d2bb, #c0927c);
       background-clip: text;
@@ -187,8 +187,12 @@
       content: "";
       position: absolute;
       z-index: -1;
-      inset: .1rem -.3rem;
-      background: rgba(#253f16, .9);
+      top: 0;
+      left: -.91rem;
+      width: 5.28rem;
+      height: .88rem;
+      background: #253f16;
+      opacity: .9;
       filter: blur(.35rem);
       pointer-events: none;
     }

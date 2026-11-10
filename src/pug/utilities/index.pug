@@ -19,7 +19,7 @@ block content
               - var internalAmenities = ['Vườn nghệ thuật', 'Đường dạo bộ trên cao', 'Khu vườn Hoàng Hôn', 'Vườn Trị liệu và Thiền định', 'Sân tập Yoga và Thái cực quyền', 'Khu đọc sách ngoài trời', 'Bãi đỗ trực thăng', 'Vườn rau hữu cơ', 'Phòng tập Gym', 'Phòng sinh hoạt cộng đồng', 'Hồ bơi', 'Phòng thay đồ', 'Ghế tắm nắng', 'Hồ cảnh quan', 'Vườn xanh', 'Sân tập dưỡng sinh', 'Khu sinh hoạt cộng đồng (ngoài trời)', 'Khu vui chơi trẻ em', 'Công viên thú cưng', 'Khu BBQ ngoài trời', 'Lối vào quảng trường chính', 'BBQ gia đình', 'Sân khấu ngoài trời', 'Hồ bơi trung tâm', 'Sen tắm đứng ngoài trời', 'Bể Jacuzzi', 'Ghế tắm nắng', 'Hồ bơi lưng núi', 'Khu thay đồ', 'Sân chơi cát', 'Sân khấu trình diễn', 'Cigar Lounge', 'Quầy Bar', 'Sân chơi trẻ em', 'Hồ thư giãn', 'Hồ bơi lưng núi', 'Ghế tắm nắng', 'Không gian tập gym', 'Phòng tập Yoga/Pilates', 'Phòng đọc sách']
               //- All three tabs share the overview content for this demo.
               - var amenitiesTabs = [{id: 'amenities-overview', title: 'Tiện ích tổng thể'}, {id: 'amenities-floor-1', title: 'Tiện ích tầng 1'}, {id: 'amenities-floor-2', title: 'Tiện ích tầng 2'}].map(function(tab) { return Object.assign(tab, {map: 'amenities-map.jpg', overlay: 'amenities-overlay.svg', external: externalAmenities, internal: internalAmenities}); })
-              h1.title-common-primary.is-gold.js-title.hero-title Tiện ích dự án
+              h1.title-common-primary.is-gold.js-title Tiện ích dự án
               .amenities-tabs(role="tablist" aria-label="Mặt bằng tiện ích")
                 each tab, index in amenitiesTabs
                   button.amenities-tab.inner-tab-btn(type="button" id=tab.id + '-tab' class=index === 0 ? 'active' : '' data-tab=tab.id role="tab" aria-controls=tab.id aria-selected=index === 0 ? 'true' : 'false' tabindex=index === 0 ? '0' : '-1')
@@ -80,7 +80,7 @@ block content
               .pool-image
                 img.object-common(src=imgPC+"pool-bg.jpg" width="1920" height="1080" alt="HỒ BƠI OZONE" loading="eager")
               .pool-content
-                h2.title-common-primary.no-icon.is-gold.js-title.hero-title HỒ BƠI OZONE
+                h2.title-common-primary.no-icon.is-gold.js-title HỒ BƠI OZONE
                 .paragraph-common.js-title.hero-sub
                   p Hồ bơi sử dụng Ozone khử trùng mạnh mẽ thay thế Clo. Công nghệ này bảo vệ da, tóc, không gây kích ứng mắt hay mùi nồng. Nước giàu oxy giúp lưu thông máu, tái tạo năng lượng, mang lại trải nghiệm nghỉ dưỡng thuần khiết và tuyệt đối an toàn cho sức khỏe người sử dụng.
       section.panel.section-footer-common#section-contact(aria-labelledby="footer-consultation-title")

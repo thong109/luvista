@@ -48,6 +48,7 @@
     mask-size: cover;
     background: linear-gradient(0deg, #143963 -25.43%, #123F71 88.58%);
     animation: twinkle 3s ease-in-out infinite;
+    display: none;
   }
 
   @include desktop {
