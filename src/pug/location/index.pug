@@ -5,45 +5,36 @@ block vars
   - var page = 'location'
   - var imgPC = path + '/resources/images/location/'
   - var imgSP = path + '/resources/images/location/'
+  - var imgTop = path + '/resources/images/top/'
   - var imgCommonPC = path + '/resources/images/common/'
   - var imgCommonSP = path + '/resources/images/common/'
 
 block content
   main.home
     .slider-stage
-      section.panel.section-top-location.location#section-location(aria-labelledby="location-title")
+      section.panel.section-top-location#section-location(aria-labelledby="location-title")
         .group-central
           .inner
             .group-bg
+              img.location-scene(src=imgTop + 'location-bg.jpg' width="1920" height="1080" alt="")
               .location-map(role="img" aria-label="Bản đồ vị trí LUVISTA và các tiện ích kết nối tại Quy Nhơn")
-                img.location-background(src=imgPC + 'location-background.jpg' width="1920" height="1080" alt="")
-                img(src=imgPC + 'location-diagram-02.svg' class="js-inline-svg location-line" alt="Map")
-                img.location-overlay.location-icons(src=imgPC + 'location-icons.svg' width="1920" height="1080" alt="")
-                img.location-logo(src=imgPC + 'location-logo.svg' width="295" height="192" alt="")
-                .location-glow
-                  img(src=imgPC + 'location-glow.svg' alt="")
+                img.location-background(src=imgTop + 'bg-map.png' width="1288" height="1080" alt="")
+                img.location-line.js-inline-svg(src=imgTop + 'line-map.svg' width="1288" height="1080" alt="")
+                img.location-icons.js-inline-svg(src=imgTop + 'icon-map-combined.svg' width="1288" height="1080" alt="")
+              .location-wave-frame(aria-hidden="true")
+                canvas.location-wave(data-wave-src=imgTop + 'location-wave.svg' aria-hidden="true")
               .location-content
-                h2.title-common-primary.is-gold#location-title.js-title.hero-title Vị trí dự án
-                - var locationGroups = [{time: '02', places: ['Điểm du lịch Ghềnh Ráng - Tiên Sa', 'Bến xe Quy Nhơn', 'Chợ Ghềnh Ráng', 'MM Mega Market', 'Kim Cúc Plaza', 'GO Quy Nhơn', 'Rạp chiếu phim CGV']}, {time: '05', places: ['Coop Mart', 'Quảng trường Nguyễn Tất Thành', 'Bãi biển Quy Nhơn', 'Trung tâm Khám phá KH Quy Nhơn', 'ICISE Quy Nhơn', 'Công viên sáng tạo TMA']}, {time: '07', places: ['Trung tâm bảo hiểm Quy Nhơn', 'Bệnh viện', 'Sân vận động']}, {time: '10', places: ['Ga Quy Nhơn', 'Trường THPT Lê Quý Đôn']}, {time: '20', places: ['Ga Diêu Trì', 'Trung tâm AI Bình Định']}, {time: '30', places: ['Sân bay Phù Cát', 'Kỳ Co - Điểm du lịch Eo Gió']}]
-                .location-navigation.js-title.hero-sub
-                  button.location-arrow.is-prev(type="button" aria-label="Nhóm thời gian trước")
-                    img(src=imgPC + 'location-prev.svg' width="39" height="39" alt="")
-                  .location-tabs(role="tablist" aria-label="Thời gian di chuyển")
-                    each group, index in locationGroups
-                      button.location-tab(type="button" role="tab" id='location-tab-' + group.time aria-controls='location-panel-' + group.time aria-selected=index === 0 ? 'true' : 'false' tabindex=index === 0 ? '0' : '-1')
-                        strong= group.time
-                        span Phút
-                  button.location-arrow.is-next(type="button" aria-label="Nhóm thời gian tiếp theo")
-                    img(src=imgPC + 'location-next.svg' width="39" height="39" alt="")
-                .location-panels.js-title.hero-sub
-                  each group, index in locationGroups
-                    .location-panel(role="tabpanel" id='location-panel-' + group.time aria-labelledby='location-tab-' + group.time hidden=index !== 0 tabindex="0")
-                      p.location-time
-                        strong= group.time
-                        span Phút
-                      ul
-                        each place in group.places
-                          li= place
+                h2.location-title#location-title.js-title.hero-title Vị trí cửa ngõ
+                .location-copy.js-title.hero-sub
+                  p Dự án tọa lạc tại cửa ngõ phía nam của phố biển Quy Nhơn. Đây cũng là cửa ngõ kết nối giao thông quan trọng nhất của Quy Nhơn khi liền kề Bến xe Trung tâm tỉnh Gia Lai, Quốc lộ 1D kết nối vào Miền Nam cũng như ra hướng Miền Bắc thông qua các tuyến Quốc lộ 1A hay Cao tốc Bắc Nam.
+                  p Nằm mặt tiền đường Chế Lan Viên, dự án kết nối nhanh chóng tới các Trung tâm thương mại như Kim Cúc Plaza, Mega martket, rạp chiếu phim CGV, Khu du lịch Ghềnh Ráng – Tiên Sa, bãi tắm biển Quy Nhơn, Bệnh viện TW Quy Hòa…..và các điểm quan trọng khác của Trung tâm Quy Nhơn.
+                a.location-more.js-title.hero-sub(href='#section-location-regional')
+                  span Xem thêm
+                  span.location-more-arrow(aria-hidden="true")
+                    span.location-more-ring
+                      img(src=imgTop + 'location-more-ring.svg' width="39" height="39" alt="")
+                      svg(viewBox="0 0 39 39" fill="none")
+                        circle(cx="19.5" cy="19.5" r="19" stroke="currentColor")
       section.panel.section-location-regional(aria-labelledby="regional-title")
         .group-central
           .inner

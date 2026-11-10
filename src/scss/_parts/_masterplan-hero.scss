@@ -1,0 +1,276 @@
+@use "../_base/base" as *;
+
+@mixin masterplan-hero {
+.section-top-masterplan {
+  .masterplan-tower-region {
+    fill: transparent;
+    stroke: transparent;
+    stroke-width: 2;
+    transition: fill .3s ease, stroke .3s ease;
+  }
+
+  .masterplan-tower-link {
+    cursor: pointer;
+  }
+
+  .masterplan-tooltips {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .masterplan-tower-link:hover,
+  .masterplan-tower-link:focus,
+  .masterplan-tower-link.is-highlighted {
+    .masterplan-tower-region {
+      fill: rgba(#bc7b53, .35);
+      stroke: #bc7b53;
+    }
+  }
+
+  .masterplan-tooltip {
+    position: absolute;
+    box-sizing: border-box;
+    width: min(3.2rem, calc(100% - 0.6rem));
+    min-height: 1.45rem;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0.08rem);
+    transition: opacity .25s ease, transform .25s ease, visibility .25s;
+
+    &.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    padding: 0.2rem 0.22rem;
+    border-radius: 0.1rem;
+    background: linear-gradient(90deg, #07375d, #073e67 52.4%, #02243f);
+    box-shadow: 0.05rem 0.05rem 0.1rem rgba(#000, .55);
+    color: #f6d2bb;
+    font-family: $font-gilroy;
+    font-size: 0.16rem;
+    line-height: 0.2rem;
+
+    h3 {
+      margin: 0 0 0.15rem;
+      font-family: $font-glyce;
+      font-size: 0.3rem;
+      font-weight: 400;
+      line-height: 0.35rem;
+      text-align: center;
+      text-transform: uppercase;
+      background: linear-gradient(130deg, #bc7b53, #f6d2bb, #c0927c);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.05rem 0.12rem;
+      margin: 0;
+    }
+
+    dt {
+      font-weight: 600;
+      color: #fff;
+      font-family: $font-gilroy;
+    }
+
+    dd {
+      margin: 0;
+      font-family: $font-gilroy;
+      font-size: 0.18rem;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    p {
+      margin: 0;
+      text-align: center;
+    }
+  }
+
+  .masterplan-tooltip-arrow {
+    position: absolute;
+    top: -0.2rem;
+    left: -0.25rem;
+    display: grid;
+    place-items: center;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: linear-gradient(150deg, #f6d2bb, #c0927c, #8f5944);
+    color: #fff;
+    font-size: 0.3rem;
+  }
+
+  .masterplan-tooltip-arrow::before {
+    content: "";
+    width: 0.34rem;
+    height: 0.17rem;
+    background: #fff;
+    mask: url("../resources/images/top/masterplan-tooltip-arrow.svg") center / contain no-repeat;
+    transform: translateX(-0.0214rem);
+  }
+
+  color: #163963;
+
+  .group-bg {
+    background: #b6e7f2;
+  }
+
+  .masterplan-picture,
+  .masterplan-map {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .masterplan-picture::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: calc(350 / 1080 * 100%);
+    background: linear-gradient(180deg, rgba(#195ba7, .49), rgba(#b6e7f2, .75) 40%, rgba(#b6e7f2, 0));
+    pointer-events: none;
+  }
+
+  .masterplan-overlay {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .masterplan-map {
+    .tower {
+      fill: transparent;
+      stroke: #bc7b53;
+      stroke-width: 2;
+      cursor: pointer;
+      transition: fill .3s ease;
+    }
+
+    .tower:hover,
+    .tower:focus {
+      fill: rgba(#bc7b53, .5);
+    }
+  }
+
+  .title-common-primary {
+    position: absolute;
+    z-index: 1;
+    top: calc(112 / 1080 * 100%);
+    left: 0;
+    width: 100%;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .masterplan-guide {
+    position: absolute;
+    z-index: 2;
+    left: calc(70 / 1920 * 100%);
+    bottom: calc(50 / 1080 * 100%);
+    color: #fff;
+    font-family: $font-sfpro;
+    font-size: .2rem;
+    line-height: .8rem;
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: .1rem -.3rem;
+      background: rgba(#253f16, .9);
+      filter: blur(.35rem);
+      pointer-events: none;
+    }
+  }
+
+  .masterplan-guide-toggle {
+    display: none;
+  }
+
+  .masterplan-tower-options {
+    display: none;
+    margin: 0;
+    padding: .1rem;
+    list-style: none;
+    background: rgba(#07375d, .95);
+    border-radius: .12rem;
+  }
+
+  .masterplan-tower-options a {
+    display: block;
+    padding: .08rem .14rem;
+    color: #f6d2bb;
+    line-height: 1.5;
+
+    &:hover,
+    &:focus-visible {
+      background: rgba(#bc7b53, .25);
+    }
+  }
+
+  @include tablet {
+    height: 8rem;
+
+    .title-common-primary {
+      top: .9rem;
+    }
+
+    .masterplan-guide {
+      left: .35rem;
+      bottom: .3rem;
+    }
+  }
+
+  @include mobile {
+    height: 7.2rem;
+
+    .title-common-primary {
+      top: .85rem;
+    }
+
+    .masterplan-guide {
+      left: .24rem;
+      right: .24rem;
+      bottom: .3rem;
+      font-size: .16rem;
+      line-height: 1.5;
+    }
+
+    .masterplan-guide-text {
+      display: none;
+    }
+
+    .masterplan-guide-toggle {
+      display: block;
+      padding: .12rem .2rem;
+      border: 1px solid #edc8b1;
+      border-radius: .3rem;
+      background: #07375d;
+      color: #f6d2bb;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .masterplan-tower-options {
+      position: absolute;
+      bottom: calc(100% + .1rem);
+      left: 0;
+    }
+
+    .masterplan-tower-options:not([hidden]) {
+      display: block;
+    }
+  }
+}
+}

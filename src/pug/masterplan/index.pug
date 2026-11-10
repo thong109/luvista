@@ -5,61 +5,78 @@ block vars
   - var page = 'masterplan'
   - var imgPC = path + '/resources/images/masterplan/'
   - var imgSP = path + '/resources/images/masterplan/'
+  - var imgTop = path + '/resources/images/top/'
   - var imgCommonPC = path + '/resources/images/common/'
   - var imgCommonSP = path + '/resources/images/common/'
 
 block content
   template#masterplan-studio-detail
     section.apartment-detail(aria-label="Mặt bằng căn hộ Studio")
-      canvas.regional-wave(data-wave-src=imgPC + 'apartment-wave.svg' aria-hidden="true")
-      p.title-common-primary.is-gold Mặt bằng căn hộ
-      .apartment-detail-info
-        p.apartment-detail-towers Tháp:
-          br
-          | The Hill, The Horizon, The Harmony
-        p.apartment-detail-floor(data-apartment-floor) Tầng 5 ~ 20 (CH2)
-        p.apartment-detail-title Căn hộ Studio
-        dl
-          each item in [{label: 'Diện tích thông thủy:', value: '46.37 – 47.42 m²'}, {label: 'Diện tích tim tường:', value: '50.40 – 51.03 m²'}, {label: 'Phòng khách', value: '1'}, {label: 'Phòng ngủ:', value: '1'}, {label: 'Phòng tắm:', value: '1'}]
-            div
-              dt= item.label
-              dd= item.value
-      .apartment-detail-plan
-        .swiper.js-apartment-slider
-          .swiper-wrapper
-            //- Demo: reuse the Studio image until the second view is available.
-            - var studioImages = [{src: imgPC + 'apartment-studio.png', alt: 'Mặt bằng căn hộ Studio'}, {src: imgPC + 'apartment-studio.png', alt: 'Mặt bằng căn hộ Studio — ảnh demo 2'}]
-            each image in studioImages
-              .swiper-slide
-                .apartment-detail-image
-                  img(src=image.src width="1560" height="1800" alt=image.alt)
-          .apartment-detail-dots.swiper-pagination
+      .article-wave(aria-hidden="true")
+        canvas.regional-wave(data-wave-src=imgPC + 'article-wave.svg' aria-hidden="true")
+      img.apartment-detail-compass(src=imgPC + 'compass.svg' width="140" height="136" alt="La bàn: Bắc, Đông, Tây, Nam")
+      .wrapper
+        p.title-common-primary.is-gold Mặt bằng căn hộ
+        .apartment-detail-wrapper
+          .apartment-detail-info
+            p.apartment-detail-towers Tháp: The Horizon
+            p.apartment-detail-floor Tầng 5 ~ 20 (CH2)
+            .apartment-box
+              p.apartment-detail-title Căn hộ Studio
+              dl
+                each item in [{icon: 'apartment-area.svg', label: 'Diện tích thông thủy:', value: '46.37 – 47.42 m²'}, {icon: 'apartment-area-wall.svg', label: 'Diện tích tim tường:', value: '50.40 – 51.03 m²'}, {icon: 'apartment-living-room.svg', label: 'Phòng khách', value: '1'}, {icon: 'apartment-bedroom.svg', label: 'Phòng ngủ:', value: '1'}, {icon: 'apartment-bathroom.svg', label: 'Phòng tắm:', value: '1'}]
+                  div
+                    img(src=imgPC + item.icon width="26" height="26" alt="" aria-hidden="true")
+                    dt= item.label
+                    dd= item.value
+          .apartment-detail-plan
+            .swiper.js-apartment-slider
+              .swiper-wrapper
+                - var studioImages = [{src: imgPC + 'apartment-studio-01.png', alt: 'Mặt bằng căn hộ Studio'},{src: imgPC + 'apartment-studio-02.png', alt: 'Mặt bằng căn hộ Studio'}]
+                each image in studioImages
+                  .swiper-slide
+                    .apartment-detail-image
+                      img(src=image.src width="1560" height="1800" alt=image.alt)
+              .apartment-detail-dots.swiper-pagination
   main.home
     .slider-stage
       section.panel.section-top-masterplan.masterplan#section-masterplan(aria-labelledby="masterplan-title")
+        - const masterplanTowers = [{slug: 'the-harmony', name: 'The Harmony'}, {slug: 'the-hill', name: 'The Hill'}, {slug: 'the-horizon', name: 'The Horizon', stats: [['Số tầng', '23 tầng'], ['Tổng sản phẩm', '280 căn'], ['Diện tích căn hộ', '34.94 - 128,52m²']]}, {slug: 'the-heritage', name: 'The Heritage'}, {slug: 'the-heights', name: 'The Heights'}]
         .group-central
           .inner
             .group-bg
               picture.masterplan-picture
-                source(media="(max-width: 767.98px)" srcset=imgPC+"masterplan-bg-mo.jpg")
-                img.object-common(src=imgPC + 'masterplan-bg.jpg' width="1920" height="1080" alt="Mặt bằng tổng thể dự án LUVISTA" loading="eager")
-              .masterplan-map
-                img.md(src=imgPC+"masterplan-diagram.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
-                img.sm(src=imgPC+"masterplan-diagram-mo.svg" class="js-inline-svg" alt="Mặt bằng tổng thể")
-              h2.title-common-primary.js-title.hero-title Mặt bằng dự án
-              .masterplan-guide.js-title.hero-title
-                span.md Hover và click vào tháp để xem thông tin
-                button.masterplan-guide-toggle.sm(type="button" aria-expanded="false" aria-controls="masterplan-tower-options") Chọn tháp để xem thông tin
-                ul.masterplan-tower-options.sm#masterplan-tower-options(aria-label="Chọn tháp" hidden)
-                  each tower in [{name: 'The Hill', value: 'the-hill'}, {name: 'The Horizon', value: 'the-horizon'}, {name: 'The Harmony', value: 'the-harmony'}]
+                source(media="(max-width: 767.98px)" srcset=imgTop + 'masterplan-bg-mo.jpg')
+                img.object-common(src=imgTop + 'masterplan-bg.jpg' width="1920" height="1080" alt="Phối cảnh mặt bằng tổng thể LUVISTA" loading="eager")
+              .masterplan-map(data-masterplan-url=path + '/masterplan/')
+                img.masterplan-overlay.js-inline-svg(src=imgTop + 'masterplan-labels.svg' width="1920" height="1080" preserveAspectRatio="xMidYMid slice" alt="Các tháp LUVISTA")
+                .masterplan-tooltips
+                  each tower in masterplanTowers
+                    article.masterplan-tooltip(data-tower-info=tower.slug aria-hidden="true" inert)
+                      h3= tower.name
+                      if tower.stats
+                        dl
+                          each stat in tower.stats
+                            dt= stat[0] + ':'
+                            dd= stat[1]
+                      else
+                        p Xem thông tin tháp
+                      a.masterplan-tooltip-arrow(href=path + '/masterplan/?tower=' + tower.slug + '#section-masterplan-article' aria-label='Xem ' + tower.name)
+              h2.title-common-primary.js-title.hero-title#masterplan-title Mặt bằng dự án
+              .masterplan-guide.js-title.hero-sub
+                span.masterplan-guide-text Hover và click vào tháp để xem thông tin
+                button.masterplan-guide-toggle(type="button" aria-expanded="false" aria-controls="masterplan-home-tower-options") Chọn tháp để xem thông tin
+                ul.masterplan-tower-options#masterplan-home-tower-options(aria-label="Chọn tháp" hidden)
+                  each tower in masterplanTowers
                     li
-                      a(href=path + '/masterplan/?tower=' + tower.value + '#section-masterplan-article')= tower.name
+                      a(href=path + '/masterplan/?tower=' + tower.slug + '#section-masterplan-article')= tower.name
       section.panel.section-masterplan-article#section-masterplan-article(aria-label="Mặt bằng tầng căn hộ CH2" data-transition="simple")
         .group-central
           .inner
             .group-bg
-              img.masterplan-background.md(src=imgPC + 'floor-background.png' width="1920" height="1080" alt="" aria-hidden="true")
-              img.masterplan-background-mobile.sm(src=imgPC + 'floor-background-mo.png' width="1095" height="616" alt="" aria-hidden="true")
+              .article-wave(aria-hidden="true")
+                canvas.regional-wave(data-wave-src=imgPC + 'article-wave.svg' aria-hidden="true")
+              img.masterplan-background(src=imgPC + 'floor-background.jpg' width="1920" height="1080" alt="Background" aria-hidden="true")
               .masterplan-pickers
                 .masterplan-tower-picker.masterplan-floor-picker.js-masterplan-tower.sm(data-lenis-prevent)
                   .masterplan-floor-select(role="combobox" tabindex="0" aria-label="Chọn tháp" aria-haspopup="listbox" aria-expanded="false" aria-controls="masterplan-article-towers")
@@ -95,18 +112,23 @@ block content
                 - var unitTypes = [{title: 'CH 3 PHÒNG NGỦ', label: '3 phòng ngủ', net: '90.00 – 95.00 m²', gross: '98.00 – 103.00 m²'}, {title: 'CH 2 PHÒNG NGỦ', label: '2 phòng ngủ', net: '65.70 – 68.65 m²', gross: '71.00 – 74.00 m²'}, {title: 'CH 1 PHÒNG NGỦ +1', label: '1 phòng ngủ +1', net: '45.91 – 48.90 m²', gross: '50.00 – 53.00 m²'}, {title: 'CH STUDIO', label: 'studio', net: '46.37 – 47.42 m²', gross: '50.40 – 51.03 m²'}]
                 each unit, index in unitTypes
                   .masterplan-hover-box(id='masterplan-hover-type-' + (index + 1) data-unit-type=index + 1 role="tooltip")
-                    h3= unit.title
-                    p DT thông thủy:
-                      strong= unit.net
-                    p DT tim tường:
-                      strong= unit.gross
+                    svg.masterplan-hover-icon(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 17" aria-hidden="true" focusable="false")
+                      path(d="M26.6236 16.1267L26.3495 17L24.5962 16.4518L24.8704 15.5786C24.9532 15.3236 26.4897 10.5429 30.3213 8.50319C26.5216 6.45707 24.9532 1.69554 24.8704 1.44057L24.5898 0.567307L26.3367 0.00637627L26.6172 0.879642C26.6363 0.949759 28.8422 7.59168 33.9936 7.59168V9.42745C28.7912 9.42745 26.6363 16.063 26.6172 16.1331" fill="#fff")
+                      path(d="M33.9995 9.35059L4.27734 9.35059V7.64867L33.9995 7.64867V9.35059Z" fill="#fff")
+                    .masterplan-hover-content
+                      h3= unit.title
+                      p DT thông thủy:
+                        strong= unit.net
+                      p DT tim tường:
+                        strong= unit.gross
               p.masterplan-pan-hint Vuốt ngang để xem toàn bộ mặt bằng
               ul.masterplan-legend(aria-label="Chú giải loại căn hộ")
                 each unit, index in unitTypes
                   li(class='is-type-' + (index + 1) data-unit-type=index + 1 tabindex="0" aria-describedby='masterplan-hover-type-' + (index + 1))
                     span.legend-swatch(aria-hidden="true")
                     span Căn hộ
-                    span= unit.label
+                      br
+                      = unit.label
       section.panel.section-footer-common#section-contact(aria-labelledby="footer-consultation-title")
         .group-central
           .inner

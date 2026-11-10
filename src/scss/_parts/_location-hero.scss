@@ -1,0 +1,370 @@
+@use "../_base/base" as *;
+
+@mixin location-hero {
+.section-top-location {
+  color: #e2e7eb;
+
+  .group-bg {
+    background: #072a45;
+  }
+
+  .location-scene {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .location-map {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: auto;
+    width: min(calc(1288 / 1920 * 100vw), calc(1288 / 1080 * 100vh));
+    height: auto;
+    aspect-ratio: 1288 / 1080;
+    transform: translateY(-50%);
+  }
+
+  .location-background,
+  .location-icons {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .location-background {
+    z-index: 0;
+  }
+
+  .location-map>svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .location-line {
+    z-index: 1;
+  }
+
+  .location-icons {
+    z-index: 2;
+  }
+
+  .location-icon {
+    opacity: 0;
+    transform: scale(1.1);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .location-beam-color {
+    --beam-base: #f6d2bb;
+    --beam-gold: #bc7b53;
+    --beam-rose: #e9c9cc;
+    animation: locationBeamColor 6s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+
+  &.is-icons-visible .location-beam-color {
+    animation-play-state: running;
+  }
+
+  &.is-icons-visible .location-icon {
+    animation: locationIconsReveal .8s cubic-bezier(.22, 1, .36, 1) both;
+    animation-delay: calc(.15s + var(--icon-index, 0) * .08s);
+  }
+
+  .location-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .location-wave-frame {
+    position: absolute;
+    left: calc(1254 / 1920 * 100%);
+    top: calc(813.92 / 1080 * 100%);
+    width: calc(666 / 1920 * 100%);
+    height: calc(267 / 1080 * 100%);
+    opacity: .4;
+    pointer-events: none;
+  }
+
+  .location-wave {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: normal;
+    pointer-events: none;
+  }
+
+  .location-title {
+    margin: 0;
+    font-family: $font-glyce;
+    font-size: .5rem;
+    font-weight: 400;
+    line-height: 1.36;
+    text-transform: uppercase;
+    background: linear-gradient(301.72deg, #3b2117 -25.43%, #bc7b53 19.13%, #e9c9cc 37.28%, #f6d2bb 58.73%, #c0927c 85.13%, #8f5944 109.88%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .location-copy {
+    font-family: $font-sfpro;
+    font-size: .18rem;
+    line-height: calc(28 / 18);
+    text-align: justify;
+
+    p {
+      margin: 0 0 .12rem;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .location-more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1.63rem;
+    min-height: .48rem;
+    padding: 0 .13rem 0 .17rem;
+    color: #edc8b1;
+    font-family: $font-sfpro;
+    font-size: .18rem;
+    text-transform: uppercase;
+    transition: color .2s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: #ffe4d2;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #edc8b1;
+      outline-offset: 4px;
+    }
+  }
+
+  .location-more-arrow {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: .39rem;
+    height: .39rem;
+    flex-shrink: 0;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: .3rem;
+      height: .15rem;
+      transform: translate(calc(-50% - .019rem), -50%);
+      background: var(--location-arrow-bg, linear-gradient(301.72deg, #3b2117 -25.43%, #bc7b53 19.13%, #e9c9cc 37.28%, #f6d2bb 58.73%, #c0927c 85.13%, #8f5944 109.88%, #713621 129.68%, #662914 139.58%));
+      mask: url("../resources/images/top/location-more-arrow.svg") center / contain no-repeat;
+    }
+  }
+
+  .location-more-ring {
+    position: absolute;
+    inset: 0;
+    color: #bc7b53;
+    transition: transform .7s ease;
+
+    img,
+    svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transition: opacity .25s ease;
+    }
+
+    svg {
+      opacity: 0;
+    }
+  }
+
+  .line-animation {
+    stroke-dasharray: 8 8;
+    animation: dashMove 1s linear infinite;
+  }
+
+  .location-more:is(:hover, :focus-visible) .location-more-ring {
+    transform: rotate(421.59deg);
+
+    img {
+      opacity: 1;
+    }
+
+    svg {
+      opacity: 0;
+    }
+  }
+
+  @include desktop {
+    .location-content {
+      position: absolute;
+      left: calc(70 / 1920 * 100%);
+      top: calc(296 / 1080 * 100%);
+      width: calc(517 / 1920 * 100%);
+    }
+
+    .location-copy {
+      width: calc(471 / 517 * 100%);
+      margin: .47rem 0 0 .03rem;
+    }
+
+    .location-more {
+      margin-top: .46rem;
+    }
+  }
+
+  @include screen-1366 {
+    .location-content {
+      top: 20%;
+    }
+
+    .location-copy,
+    .location-more {
+      margin-top: 0.3rem;
+      font-size: 0.16rem;
+    }
+  }
+
+  @include tablet {
+    height: auto;
+
+    .group-bg {
+      padding: 1rem .35rem .4rem;
+    }
+
+    .location-content {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: 100%;
+    }
+
+    .location-title {
+      font-size: .4rem;
+    }
+
+    .location-copy {
+      width: 100%;
+      margin: .25rem 0;
+    }
+
+    .location-more {
+      margin-top: 0;
+    }
+
+    .location-map {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1288 / 1080;
+      margin-top: .35rem;
+    }
+
+    .location-content {
+      display: flow-root;
+    }
+
+    .group-bg {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+
+  @include mobile {
+    .location-wave-frame {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 666 / 267;
+    }
+
+    height: auto;
+
+    .group-bg {
+      display: flex;
+      flex-direction: column-reverse;
+      padding: .6rem .24rem .3rem;
+    }
+
+    .location-content {
+      position: relative;
+      width: 100%;
+    }
+
+    .location-title {
+      font-size: .32rem;
+    }
+
+    .location-copy {
+      margin: .24rem 0;
+      font-size: .16rem;
+    }
+
+    .location-more {
+      font-size: .16rem;
+    }
+
+    .location-map {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: 100%;
+      height: auto;
+      margin: .3rem 0 0;
+      aspect-ratio: 1288 / 1080;
+    }
+  }
+}
+
+@keyframes locationIconsReveal {
+  from {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes locationBeamColor {
+
+  0%,
+  35%,
+  100% {
+    stop-color: var(--beam-base);
+  }
+
+  55% {
+    stop-color: var(--beam-gold);
+  }
+
+  78% {
+    stop-color: var(--beam-rose);
+  }
+}
+}

@@ -2602,7 +2602,7 @@
     const popupStack = [];
     let disposeDetailWaves = null;
 
-    const open = (popupId) => {
+    const open = (popupId, { immediate = false } = {}) => {
       const popupEl = getPopupElements(popupId);
       if (!popupEl) return;
 
@@ -2623,9 +2623,11 @@
 
       window.__APP_STATE__?.observer?.disable();
 
-      setTimeout(() => {
+      const reveal = () => {
         popup.classList.add("is-open");
-      }, 300);
+      };
+      if (immediate) requestAnimationFrame(reveal);
+      else setTimeout(reveal, 300);
     };
 
     const mountApartmentSlider = (slider) => {
@@ -2865,7 +2867,7 @@
           const floor = document.querySelector('.masterplan-floor-select .floor-current');
           const floorLabel = premisesDetail.body.querySelector('[data-apartment-floor]');
           if (floor && floorLabel) floorLabel.textContent = floor.textContent;
-          open(premisesDetail.popup.id);
+          open(premisesDetail.popup.id, { immediate: true });
           premisesDetail.body.querySelectorAll('.js-apartment-slider').forEach((slider) => {
             mountApartmentSlider(slider);
           });
@@ -2880,6 +2882,7 @@
 
         open("premisesDetailPopup", {
           lock: false,
+          immediate: true,
         });
         body.innerHTML = "Loading...";
 
@@ -3801,6 +3804,91 @@
       unit.setAttribute('aria-label', 'Xem mặt bằng căn hộ');
       unit.setAttribute('aria-haspopup', 'dialog');
     });
+
+    const initHoverTracking = () => {
+      const wrapper = svg.closest('.masterplan-drawing-wrapper');
+      if (!wrapper) return;
+      let activeUnit = null;
+      let hideTimer = null;
+      const hoverBoxes = [...wrapper.querySelectorAll('.masterplan-hover-box')];
+      const cancelHide = () => {
+        window.clearTimeout(hideTimer);
+        hideTimer = null;
+      };
+      const hideHover = () => {
+        cancelHide();
+        activeUnit?.classList.remove('is-hovered');
+        activeUnit = null;
+        hoverBoxes.forEach((box) => box.classList.remove('is-active'));
+      };
+      const scheduleHide = () => {
+        cancelHide();
+        hideTimer = window.setTimeout(hideHover, 70);
+      };
+
+      const positionHoverBox = (unit, clientX, clientY) => {
+        const box = wrapper.querySelector(`.masterplan-hover-box[data-unit-type="${unit.dataset.unitType}"]`);
+        if (!box) return;
+
+        const unitRect = unit.getBoundingClientRect();
+        const wrapperRect = wrapper.getBoundingClientRect();
+        const width = box.offsetWidth;
+        const height = box.offsetHeight;
+        const anchorX = Number.isFinite(clientX) ? clientX - wrapperRect.left : (unitRect.left + unitRect.right) / 2 - wrapperRect.left;
+        const anchorY = Number.isFinite(clientY) ? clientY - wrapperRect.top : (unitRect.top + unitRect.bottom) / 2 - wrapperRect.top;
+        const maxLeft = Math.max(0, wrapper.clientWidth - width);
+        const maxTop = Math.max(0, wrapper.clientHeight - height);
+
+        const gapX = width * .204;
+        const gapY = height * .30;
+
+        box.style.left = `${Math.min(maxLeft, Math.max(0, anchorX + gapX))}px`;
+        box.style.top = `${Math.min(maxTop, Math.max(0, anchorY + gapY))}px`;
+        box.style.transform = 'none';
+      };
+
+      const showHover = (unit, clientX, clientY) => {
+        cancelHide();
+        if (activeUnit !== unit) {
+          activeUnit?.classList.remove('is-hovered');
+          activeUnit = unit;
+          activeUnit.classList.add('is-hovered');
+        }
+        const box = wrapper.querySelector(`.masterplan-hover-box[data-unit-type="${unit.dataset.unitType}"]`);
+        if (!box) return;
+        hoverBoxes.forEach((item) => item.classList.toggle('is-active', item === box));
+        positionHoverBox(unit, clientX, clientY);
+      };
+
+      svg.addEventListener('pointerover', (event) => {
+        const unit = event.target.closest?.('[data-unit-type]');
+        if (unit && svg.contains(unit)) showHover(unit, event.clientX, event.clientY);
+      });
+      svg.addEventListener('pointerout', (event) => {
+        const next = event.relatedTarget?.closest?.('[data-unit-type]');
+        if (!next || !svg.contains(next)) scheduleHide();
+      });
+      svg.addEventListener('pointerleave', scheduleHide);
+      svg.addEventListener('click', (event) => {
+        if (!event.target.closest?.('[data-unit-type]')) return;
+        hideHover();
+        wrapper.querySelector('.masterplan-drawing-scroll')?.blur();
+      });
+      svg.addEventListener('focusin', (event) => {
+        const unit = event.target.closest?.('[data-unit-type]');
+        if (unit && svg.contains(unit)) showHover(unit);
+      });
+      svg.addEventListener('focusout', (event) => {
+        if (!svg.contains(event.relatedTarget)) scheduleHide();
+      });
+      hoverBoxes.forEach((box) => {
+        box.addEventListener('pointerenter', cancelHide);
+        box.addEventListener('pointerleave', scheduleHide);
+      });
+    };
+
+    if (svg.isConnected) initHoverTracking();
+    else queueMicrotask(initHoverTracking);
   };
 
   const initMasterplanTowerPicker = () => {

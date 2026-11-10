@@ -1,5 +1,6 @@
 @charset "utf-8";
 @use "_base/base"as *;
+@use "_parts/location-hero" as locationHero;
 @use "_base/reset";
 @use "_base/print";
 @use "_base/layout";
@@ -11,6 +12,8 @@
 @use "_parts/_modules/title";
 @use "_parts/_modules/list";
 @use "_parts/_modules/paragraph";
+
+@include locationHero.location-hero;
 
 :where(canvas[data-wave-src]) {
   display: block;
