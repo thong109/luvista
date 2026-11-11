@@ -71,7 +71,7 @@
     .about-heading-number {
       position: absolute;
       top: 34%;
-      left: 42.23625%;
+      left: 42%;
       width: max(9.479%, 1.82rem);
       font-size: 1.3rem;
       line-height: 1.2;
@@ -240,7 +240,6 @@
     @include laptop {
       .about-heading-number {
         font-size: 1.083rem;
-        line-height: .833rem;
       }
 
       .about-heading h2 {
@@ -267,13 +266,13 @@
       }
 
       .about-art {
-        width: 100vw;
+        width: 80vw;
         height: 100vh;
       }
 
       .about-value p {
-        font-size: 14px;
-        line-height: 18px;
+        font-size: 11px !important;
+        line-height: 14px !important;
       }
     }
 
@@ -298,7 +297,6 @@
       @include laptop {
         .about-heading-number {
           font-size: .995rem;
-          line-height: .766rem;
         }
 
         .about-heading h2 {
@@ -346,7 +344,7 @@
       }
     }
 
-    @include mobile {
+    @media (max-width: 1024.98px) {
       height: auto;
 
       >.group-central,

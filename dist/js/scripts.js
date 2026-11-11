@@ -197,13 +197,9 @@
           const trigger = ScrollTrigger.create({
             trigger: element,
             start: 'top 88%',
-            end: 'bottom top',
-            onToggle: (self) => {
-              state.inView = self.isActive;
-              sync();
-            },
-            onRefresh: (self) => {
-              state.inView = self.isActive;
+            once: true,
+            onEnter: () => {
+              state.inView = true;
               sync();
             },
           });
@@ -1542,9 +1538,8 @@
         const trigger = ScrollTrigger.create({
           trigger: el,
           start: "top 85%",
-          end: "bottom top",
+          once: true,
           onEnter: replay,
-          onEnterBack: replay,
         });
         cleanups.push(() => trigger.kill());
       }

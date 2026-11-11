@@ -344,6 +344,11 @@
     animation-delay: 0.5s;
     animation-play-state: paused;
   }
+
+  @include tablet {
+    opacity: 1;
+    animation: none;
+  }
 }
 
 @keyframes dashMove {

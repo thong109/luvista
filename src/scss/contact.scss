@@ -1,2 +1,10 @@
 @charset "utf-8";
 @use "_base/base"as *;
+
+.section-footer-common {
+  @include mobile {
+    .group-bg {
+      padding: 1.2rem 0 0.6rem;
+    }
+  }
+}

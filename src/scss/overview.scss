@@ -138,8 +138,8 @@
     position: absolute;
     top: calc(-181 / 1080 * 100%);
     left: calc(621 / 1920 * 100%);
-    width: calc(1380 / 1920 * 100%);
-    height: calc(1380 / 1080 * 100%);
+    width: calc(763 / 1920 * 100%);
+    height: calc(253 / 1080 * 100%);
     pointer-events: none;
   }
 
@@ -166,12 +166,6 @@
     left: calc(694 / 1920 * 100%);
     width: calc(2804 / 1920 * 100%);
     height: calc(634 / 1080 * 100%);
-    max-width: none;
-    mix-blend-mode: screen;
-    mask: url("../resources/images/overview/scale-mask.svg") no-repeat;
-    mask-mode: alpha;
-    mask-size: calc(1397 / 2804 * 100%) calc(572 / 634 * 100%);
-    mask-position: calc(-171 / (2804 - 1397) * 100%) calc(-142 / (634 - 572) * 100%);
     pointer-events: none;
   }
 
@@ -275,8 +269,8 @@
     .scale-content {
       position: absolute;
       top: calc(142 / 1080 * 100%);
-      left: calc(1126 / 1920 * 100%);
-      width: calc(682 / 1920 * 100%);
+      right: calc(100 / 1920 * 100%);
+      width: calc(800 / 1920 * 100%);
       max-height: calc(575 / 1080 * 100%);
     }
 
@@ -306,7 +300,7 @@
       top: .95rem;
       bottom: .25rem;
       left: 54%;
-      width: 36%;
+      width: 40%;
       max-height: none;
     }
 
@@ -338,15 +332,21 @@
     }
   }
 
+  @include screen-1366 {
+    .scale-copy {
+      font-size: .15rem;
+    }
+  }
+
   @include tablet {
     height: auto;
 
     .group-bg {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      align-items: start;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
       gap: .3rem;
-      padding: 1.1rem .35rem .5rem;
+      padding: .5rem .4rem;
     }
 
     .scale-photo {
@@ -360,7 +360,7 @@
       position: relative;
       top: auto;
       bottom: auto;
-      left: auto;
+      right: auto;
       width: 100%;
       max-height: none;
       overflow: visible;
@@ -393,6 +393,12 @@
     .scale-star {
       display: none;
     }
+
+    .scale-wave {
+      width: 24rem;
+      height: 8rem;
+      left: 0;
+    }
   }
 
   @include mobile {
@@ -403,6 +409,10 @@
       flex-direction: column;
       gap: .25rem;
       padding: .9rem .24rem .4rem;
+    }
+
+    .title-common-primary {
+      letter-spacing: -.06em;
     }
 
     .scale-photo {
@@ -442,10 +452,27 @@
 }
 
 .section-overview {
-  .group-bg { background: #fff8f1; }
+  .group-bg {
+    background: #fff8f1;
+  }
 
   @media (min-width: 1025px) {
+    .group-bg::before {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      top: -1.24rem;
+      left: 13.09rem;
+      width: 7.36rem;
+      height: 2.7rem;
+      background: #aad2ea;
+      filter: blur(.65rem);
+      pointer-events: none;
+    }
+
     .overview-content {
+      position: relative;
+      z-index: 2;
       top: calc(171 / 1080 * 100%);
       left: 10.05%;
       width: calc(731 / 1920 * 100%);
@@ -470,4 +497,3 @@
     }
   }
 }
-
