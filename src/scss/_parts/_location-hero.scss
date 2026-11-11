@@ -214,16 +214,16 @@
       }
     }
 
-    @include desktop {
+    @media (min-width: 768px) and (max-width: 1899px) {
       .location-map {
-        width: 11.5rem;
+        width: 9rem;
       }
 
       .location-content {
         position: absolute;
         left: calc(70 / 1920 * 100%);
-        top: calc(296 / 1080 * 100%);
-        width: calc(570 / 1920 * 100%);
+        top: 29%;
+        width: 35%;
       }
 
       .location-copy {
@@ -236,13 +236,13 @@
     }
 
     @media print,
-    (min-width: 1921px) {
+    (min-width: 1900px) {
       .location-content {
         width: 37%;
       }
 
       .location-map {
-        width: 11.88rem;
+        width: 11.5rem;
       }
     }
 

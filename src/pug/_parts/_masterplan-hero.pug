@@ -4,11 +4,11 @@ section.panel.section-top-masterplan.masterplan#section-masterplan(aria-labelled
     .inner
       .group-bg
         picture.masterplan-picture
-          source(media="(max-width: 767.98px)" srcset=imgCommonPC + 'masterplan-bg-mo.jpg')
+          source(media="(max-width: 767.98px)" srcset=imgCommonPC + 'masterplan-bg-mobile-v2.png')
           img.object-common(src=imgCommonPC + 'masterplan-bg.jpg' width="1920" height="1080" alt="Phối cảnh mặt bằng tổng thể LUVISTA" loading="eager")
         .masterplan-map(data-masterplan-url=path + '/masterplan/')
           img.masterplan-overlay.masterplan-overlay-desktop.js-inline-svg(src=imgCommonPC + 'masterplan-labels.svg' width="1920" height="1080" preserveAspectRatio="xMidYMid slice" alt="Các tháp LUVISTA")
-          img.masterplan-overlay.masterplan-overlay-mobile(src=imgCommonPC + 'masterplan-labels-mobile.svg' width="1920" height="1080" alt="The Harmony, The Hill, The Horizon, The Heritage, The Heights")
+          img.masterplan-overlay.masterplan-overlay-mobile(src=imgCommonPC + 'masterplan-labels-mobile.svg' width="1024" height="1536" alt="The Harmony, The Hill, The Horizon, The Heritage, The Heights")
           .masterplan-tooltips
             each tower in masterplanTowers
               article.masterplan-tooltip(data-tower-info=tower.slug aria-hidden="true" inert)

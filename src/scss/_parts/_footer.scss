@@ -9,8 +9,9 @@
   .group-bg {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: end;
     overflow: hidden;
+    gap: .3rem;
     background:
       radial-gradient(ellipse 48% 85% at 9% 0%, rgba(12, 59, 103, .85), transparent 72%),
       radial-gradient(ellipse 55% 74% at 84% 108%, rgba(9, 35, 61, .8), transparent 74%),
@@ -406,7 +407,7 @@
       gap: .14rem;
 
       label {
-        font-size: .18rem;
+        font-size: .16rem;
       }
 
       button {
@@ -417,7 +418,7 @@
 
     .section-footer-common-contact-list {
       grid-template-columns: 1fr;
-      gap: .25rem;
+      gap: .18rem;
       width: 100%;
       margin: 0 0 .3rem;
     }
@@ -457,13 +458,14 @@
 
     .section-footer-common-wrapper {
       max-width: 14.47rem;
-      margin: 0.4rem auto 0;
+      margin: 0 auto 0;
       padding: 0 0.24rem;
     }
 
     .section-footer-common-social {
       justify-content: flex-start;
       gap: .2rem;
+      margin-top: .3rem;
 
       a {
         display: flex;
@@ -481,7 +483,7 @@
       grid-row: 5;
       align-self: end;
       text-align: center;
-      font-size: .17rem;
+      font-size: .15rem;
     }
 
     .section-footer-common-note {
@@ -490,7 +492,7 @@
       align-self: end;
       width: 100%;
       max-width: none;
-      margin: 0 0 .2rem;
+      margin: 0 0 .1rem;
       color: #9FA6AF;
       font-size: .14rem;
       line-height: calc(20 / 14);
@@ -507,7 +509,7 @@
     }
   }
 
-  @include screen-low {
+  @media (min-width: 1025px) {
     .group-bg {
       padding: 1.2rem 0 .6rem;
     }
@@ -521,7 +523,6 @@
     }
 
     .section-footer-common-intro {
-      font-size: .14rem;
       margin: .3rem 0;
     }
 
@@ -530,11 +531,13 @@
         margin-bottom: .1rem;
       }
 
-      p,
-      h3,
-      a {
-        font-size: .14rem;
-      }
+    }
+
+    .section-footer-common-intro,
+    .section-footer-common-contact-item p,
+    .section-footer-common-contact-item h3,
+    .section-footer-common-contact-item a {
+      font-size: .16rem;
     }
 
     .section-footer-common-note {
@@ -542,9 +545,9 @@
     }
   }
 
-  @include screen-1366 {
+  @media screen and (min-width: 1025px) and (max-width: 1366px) {
     .wrapper {
-      max-width: 12.6rem;
+      max-width: 12rem;
       grid-template-columns: 1fr 1fr;
       gap: 0 1rem;
     }
@@ -566,16 +569,20 @@
     .section-footer-common-form {
 
       input,
-      select,
-      textarea {
+      select {
         min-height: .4rem;
+        padding: 0.05rem 0.2rem .05rem 0.5rem;
+      }
+
+      textarea {
+        min-height: .6rem;
         padding: 0.05rem 0.2rem .05rem 0.5rem;
       }
     }
 
     .section-footer-common-wrapper {
-      margin-top: 0.2rem;
       max-width: 12.6rem;
+      padding-bottom: .2rem;
     }
   }
 

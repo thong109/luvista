@@ -36,7 +36,7 @@
     }
 
     .overview-title {
-      margin: 0 0 .2rem;
+      margin: 0;
       font-family: $font-glyce;
       font-size: .5rem;
       font-weight: 400;
@@ -155,11 +155,11 @@
 
       .overview-stats {
         gap: 0.2rem 0.1rem;
-        margin: 0 .4rem 0 -0.3rem;
+        margin: 0 0 0 -0.3rem;
       }
 
       .overview-value {
-        font-size: .4rem;
+        font-size: .45rem;
         line-height: 1.27;
         min-height: auto;
         margin: 0;
@@ -171,7 +171,7 @@
 
         &:has(small) {
           span {
-            width: 0.54rem;
+            width: 0.64rem;
           }
         }
       }
@@ -185,15 +185,9 @@
         font-size: 0.16rem;
       }
 
-      .overview-title {
-        font-size: .4rem;
-        line-height: 1.5;
-        margin-bottom: 0.1rem;
-      }
-
       .overview-background {
         img {
-          object-position: top center;
+          object-position: 0 18%;
         }
       }
     }

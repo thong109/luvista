@@ -162,7 +162,7 @@
 
     .masterplan-overlay-mobile {
       display: block;
-      transform: translateY(25%);
+      transform: none;
     }
   }
 
@@ -243,7 +243,11 @@
 
   @include tablet {
     .masterplan-overlay-mobile {
-      transform: translateY(3%);
+      display: none;
+    }
+
+    .masterplan-overlay-desktop {
+      display: block;
     }
 
     &.panel {
@@ -261,8 +265,29 @@
   }
 
   @include mobile {
+    .masterplan-picture,
+    .masterplan-map {
+      inset: 0;
+      height: 100%;
+    }
+
+    .masterplan-picture img {
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .masterplan-picture::after {
+      height: 35%;
+    }
+
+    .masterplan-overlay-mobile {
+      object-fit: cover;
+      object-position: center;
+    }
+
     &.panel {
-      height: 7.2rem;
+      height: 150vw;
+      min-height: 0;
     }
 
     .title-common-primary {

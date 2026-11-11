@@ -217,10 +217,10 @@ body {
   }
 
   @include tablet {
-    height: 8rem;
+    height: 6rem;
 
     .group-bg {
-      padding: 1.1rem 5% 0 35%;
+      padding: 0.6rem .4rem 0 35%;
     }
 
     .certificate-title {
@@ -316,6 +316,7 @@ body {
   }
 
   .amenities-marker {
+    scale: 1.25;
     opacity: 0;
     transform: scale(1.1);
     transform-box: fill-box;
@@ -519,6 +520,7 @@ body {
     }
 
     .title-common-primary {
+      order: 0;
       position: relative;
       top: auto;
       left: auto;
@@ -559,6 +561,10 @@ body {
   @include tablet {
     height: auto;
 
+    .amenities-marker {
+      scale: 1.75;
+    }
+
     .group-bg {
       display: flex;
       flex-direction: column;
@@ -571,7 +577,7 @@ body {
       width: 100%;
       height: auto;
       aspect-ratio: 1920 / 1080;
-      order: 1;
+      order: 2;
       margin-top: .3rem;
     }
 
@@ -589,7 +595,7 @@ body {
     }
 
     .amenities-wrapper {
-      display: block;
+      display: contents;
       height: auto;
       padding: 0;
     }
@@ -603,6 +609,7 @@ body {
     }
 
     .amenities-floor-nav {
+      order: 1;
       position: relative;
       top: auto;
       left: auto;
@@ -611,6 +618,7 @@ body {
     }
 
     .amenities-legend {
+      order: 3;
       position: relative;
       top: auto;
       left: auto;
@@ -634,6 +642,15 @@ body {
 
   @include mobile {
     height: auto;
+
+    .amenities-marker {
+      scale: 2.1;
+    }
+
+    .amenities-floor-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .16rem .18rem;
+    }
 
     .group-bg {
       display: flex;

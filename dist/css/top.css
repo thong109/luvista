@@ -194,10 +194,10 @@ body {
 }
 @media (min-width: 768px) and (max-width: 1024.98px) {
   .section-top-certificate {
-    height: 8rem;
+    height: 6rem;
   }
   .section-top-certificate .group-bg {
-    padding: 1.1rem 5% 0 35%;
+    padding: 0.6rem 0.4rem 0 35%;
   }
   .section-top-certificate .certificate-title {
     font-size: 0.32rem;
@@ -278,6 +278,7 @@ body {
   opacity: 1;
 }
 .section-top-amenities .amenities-marker {
+  scale: 1.25;
   opacity: 0;
   transform: scale(1.1);
   transform-box: fill-box;
@@ -453,6 +454,7 @@ body {
     pointer-events: none;
   }
   .section-top-amenities .title-common-primary {
+    order: 0;
     position: relative;
     top: auto;
     left: auto;
@@ -491,6 +493,9 @@ body {
   .section-top-amenities {
     height: auto;
   }
+  .section-top-amenities .amenities-marker {
+    scale: 1.75;
+  }
   .section-top-amenities .group-bg {
     display: flex;
     flex-direction: column;
@@ -502,7 +507,7 @@ body {
     width: 100%;
     height: auto;
     aspect-ratio: 1920/1080;
-    order: 1;
+    order: 2;
     margin-top: 0.3rem;
   }
   .section-top-amenities.is-floor-four .amenities-map {
@@ -516,7 +521,7 @@ body {
     background: linear-gradient(0deg, rgba(7, 42, 69, 0.65), transparent 30%);
   }
   .section-top-amenities .amenities-wrapper {
-    display: block;
+    display: contents;
     height: auto;
     padding: 0;
   }
@@ -528,6 +533,7 @@ body {
     text-align: center;
   }
   .section-top-amenities .amenities-floor-nav {
+    order: 1;
     position: relative;
     top: auto;
     left: auto;
@@ -535,6 +541,7 @@ body {
     margin: 30px auto 0.3rem;
   }
   .section-top-amenities .amenities-legend {
+    order: 3;
     position: relative;
     top: auto;
     left: auto;
@@ -556,6 +563,13 @@ body {
 @media only screen and (max-width: 767.98px) {
   .section-top-amenities {
     height: auto;
+  }
+  .section-top-amenities .amenities-marker {
+    scale: 2.1;
+  }
+  .section-top-amenities .amenities-floor-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.16rem 0.18rem;
   }
   .section-top-amenities .group-bg {
     display: flex;
