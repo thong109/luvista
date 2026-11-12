@@ -5,13 +5,23 @@ section.panel.section-top-about.js-bg(id=page === 'overview' ? 'section-core-val
         .about-art
           img.about-background(src=imgCommonPC + 'about-bg.jpg' width="1920" height="1080" alt="" aria-hidden="true")
           canvas.about-artwork-wave(data-wave-src=imgCommonPC + 'about-wave.svg' aria-hidden="true")
-          svg.about-artwork(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-hidden="true" focusable="false")
+          svg.about-artwork.md(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-hidden="true" focusable="false")
             image.about-artwork-ring-piece.is-two(href=imgCommonPC + 'about-ring-sector-02.svg' x="0" y="0" width="1920" height="1080" preserveAspectRatio="none")
             image.about-artwork-ring-piece.is-three(href=imgCommonPC + 'about-ring-sector-03.svg' x="0" y="0" width="1920" height="1080" preserveAspectRatio="none")
             image.about-artwork-ring-piece.is-four(href=imgCommonPC + 'about-ring-sector-04.svg' x="0" y="0" width="1920" height="1080" preserveAspectRatio="none")
             image.about-artwork-ring-front(href=imgCommonPC + 'about-ring-sector-01.svg' x="0" y="0" width="1920" height="1080" preserveAspectRatio="none")
             image.about-artwork-tower(href=imgCommonPC + 'about-towers.png' x="564.17" y="373" width="1092.78" height="615.02" preserveAspectRatio="none")
             image.about-artwork-ring-piece.is-five(href=imgCommonPC + 'about-ring-sector-05.svg' x="0" y="0" width="1920" height="1080" preserveAspectRatio="none")
+          svg.about-artwork-mobile.sm(xmlns="http://www.w3.org/2000/svg" viewBox="350 0 1200 1080" preserveAspectRatio="none" aria-hidden="true" focusable="false")
+            image(href=imgCommonPC + 'about-ring-sector-02.svg' x="0" y="0" width="1920" height="1080")
+            image(href=imgCommonPC + 'about-ring-sector-03.svg' x="0" y="0" width="1920" height="1080")
+            image(href=imgCommonPC + 'about-ring-sector-04.svg' x="0" y="0" width="1920" height="1080")
+            image(href=imgCommonPC + 'about-ring-sector-01.svg' x="0" y="0" width="1920" height="1080")
+            image(href=imgCommonPC + 'about-towers.png' x="564.17" y="373" width="1092.78" height="615.02")
+            image(href=imgCommonPC + 'about-ring-sector-05.svg' x="0" y="0" width="1920" height="1080")
+          .about-mobile-markers.sm(aria-hidden="true")
+            each number in ['01', '02', '03', '04', '05']
+              span= number
           .about-copy-layer
             .about-heading#about-title.js-title
               span.about-heading-number 05
@@ -20,5 +30,6 @@ section.panel.section-top-about.js-bg(id=page === 'overview' ? 'section-core-val
             .about-values.js-title.hero-sub
               each item in aboutValues
                 article.about-value(class=item.position)
-                  span.about-value-number= item.number
+                  span.about-value-number
+                    span.about-value-digits= item.number
                   p!= item.text

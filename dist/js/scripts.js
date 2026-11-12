@@ -15,6 +15,18 @@
 
   const delay = (time, callback) => setTimeout(callback, time);
 
+  const initHeaderScrollBackground = () => {
+    const header = document.querySelector('.header-common');
+    if (!header) return;
+    const smallScreen = window.matchMedia('(max-width: 1024.98px)');
+    const sync = () => {
+      header.classList.toggle('has-bg', smallScreen.matches && window.scrollY > 20);
+    };
+    window.addEventListener('scroll', sync, { passive: true });
+    smallScreen.addEventListener('change', sync);
+    sync();
+  };
+
   const initOverviewCounters = () => {
     const stats = document.querySelector(':is(.section-top-overview, .section-overview) .overview-stats');
     if (!stats) return;
@@ -54,7 +66,11 @@
       });
     };
 
+    let hasPlayed = false;
+    let descriptionRevealed = false;
     const play = () => {
+      if (!isDesktop() && hasPlayed) return;
+      hasPlayed = true;
       statItems.forEach((item, index) => {
         gsap.to(item, {
           autoAlpha: 1,
@@ -83,6 +99,7 @@
     let isVisible = false;
 
     description.addEventListener('section:reveal-complete', () => {
+      descriptionRevealed = true;
       if (isVisible) play();
     });
 
@@ -102,11 +119,9 @@
         wasActive = isActive;
       });
     } else {
-      let wasIntersecting = false;
       const observer = new IntersectionObserver(([entry]) => {
-        if (!entry.isIntersecting && wasIntersecting) reset();
         isVisible = entry.isIntersecting;
-        wasIntersecting = entry.isIntersecting;
+        if (isVisible && descriptionRevealed) play();
       }, { threshold: 0.1 });
       observer.observe(overview);
     }
@@ -3701,6 +3716,15 @@
     syncReveal();
     const tabs = [...section.querySelectorAll('.amenities-floor[role="tab"]')];
     const images = [...section.querySelectorAll('[data-amenities-floor]')];
+    const syncFloorOverlays = floor => {
+      section.dataset.activeFloor = floor;
+      section.querySelectorAll('[data-overlay-floor]').forEach(overlay => {
+        const active = overlay.dataset.overlayFloor === floor;
+        overlay.classList.toggle('is-active', active);
+        overlay.setAttribute('aria-hidden', String(!active));
+      });
+    };
+    syncFloorOverlays(tabs.find(tab => tab.classList.contains('is-active'))?.dataset.floor ?? tabs[0]?.dataset.floor ?? '');
     let running = [];
     images.forEach(image => image.decode?.().catch(() => {}));
     const highlight = number => {
@@ -3730,7 +3754,7 @@
         const panel = document.getElementById(item.getAttribute('aria-controls'));
         if (panel) panel.hidden = !active;
       });
-      section.classList.toggle('is-floor-four', tab.dataset.floor === '4');
+      syncFloorOverlays(tab.dataset.floor);
       highlight(null);
       images.forEach(image => {
         const active = image.dataset.amenitiesFloor === tab.dataset.floor;
@@ -4474,6 +4498,7 @@
     initIntro();
   });
 
+  initHeaderScrollBackground();
   smoothScroll();
   initMasterplanTowerPicker();
   initMasterplanFloors();

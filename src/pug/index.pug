@@ -34,7 +34,8 @@ block content
         .group-central
           .inner
             .group-bg
-              .certificate-background
+              picture.certificate-background
+                source(media="(max-width: 767.98px)" srcset=imgSP + 'certificate-bg-mo.jpg')
                 img.object-common(src=imgPC + 'certificate-bg.jpg' width="1920" height="1080" alt="" aria-hidden="true")
               canvas.certificate-wave(data-wave-src=imgPC + 'certificate-wave.svg' aria-hidden="true")
               .certificate-glow(aria-hidden="true")
@@ -55,12 +56,16 @@ block content
         .group-central
           .inner
             .group-bg.amenities-frame
-              .amenities-map
-                img.object-common.is-active(src=imgPC + 'amenities-img-01.jpg' width="1920" height="1080" alt="Mặt bằng tiện ích Tầng 1 LUVISTA" data-amenities-floor="1" loading="eager" decoding="async")
-                img.object-common(src=imgPC + 'amenities-img-02.jpg' width="1920" height="1080" alt="Mặt bằng tiện ích Tầng 4 LUVISTA" data-amenities-floor="4" loading="eager" decoding="async" aria-hidden="true")
-                img.amenities-floor-overlay.js-inline-svg(src=imgPC + 'amenities-overlay-01.svg' data-overlay-floor="1" width="1920" height="1080" preserveAspectRatio="xMidYMid slice" alt="Các vị trí tiện ích Tầng 1")
-                img.amenities-floor-overlay.js-inline-svg(src=imgPC + 'amenities-overlay-04.svg' data-overlay-floor="4" width="1920" height="1080" preserveAspectRatio="xMidYMid slice" alt="Các vị trí tiện ích Tầng 4")
               .amenities-wrapper
+                .amenities-map
+                  img.object-common.is-active.amenities-pc-floor-one.md(src=imgPC + 'amenities-img-01.jpg' width="1920" height="1080" alt="Mặt bằng tiện ích Tầng 1 LUVISTA" data-amenities-floor="1" loading="eager" decoding="async")
+                  img.object-common.md(src=imgPC + 'amenities-img-02.jpg' width="1920" height="1080" alt="Mặt bằng tiện ích Tầng 4 LUVISTA" data-amenities-floor="4" loading="eager" decoding="async" aria-hidden="true")
+                  img.amenities-floor-overlay.amenities-pc-floor-one.md.js-inline-svg(src=imgPC + 'amenities-overlay-01.svg' data-overlay-floor="1" width="1920" height="1080" preserveAspectRatio="xMidYMid slice" alt="Các vị trí tiện ích Tầng 1")
+                  img.amenities-floor-overlay.md.js-inline-svg(src=imgPC + 'amenities-overlay-04.svg' data-overlay-floor="4" width="1920" height="1080" preserveAspectRatio="xMidYMid slice" alt="Các vị trí tiện ích Tầng 4")
+                  img.amenities-floor-overlay.amenities-mobile-overlay.sm.js-inline-svg(src=imgSP + 'amenities-mobile-02.svg' data-overlay-floor="4" width="440" height="300" alt="Mobile floor 4 markers")
+                  img.object-common.amenities-mobile-image.sm(src=imgSP + 'amenities-mobile-02.jpg' width="440" height="300" alt="Mobile floor 4 amenities" data-amenities-floor="4" aria-hidden="true")
+                  img.object-common.is-active.amenities-mobile-image.sm(src=imgSP + 'amenities-mobile-01.jpg' width="440" height="300" alt="M?t b?ng ti?n ?ch t?ng 1" data-amenities-floor="1")
+                  img.amenities-floor-overlay.amenities-mobile-overlay.sm.js-inline-svg(src=imgSP + 'amenities-mobile-01.svg' data-overlay-floor="1" width="440" height="291" alt="M?t b?ng v? c?c v? tr? ti?n ?ch t?ng 1")
                 h2.title-common-primary.is-gold.js-title Mặt bằng Tiện ích
                 .amenities-floor-nav(role="tablist" aria-label="Tầng tiện ích")
                   button.amenities-floor.is-active#amenities-tab-1(type="button" role="tab" aria-selected="true" aria-controls="amenities-floor-1" data-floor="1") Tầng 1

@@ -3,6 +3,10 @@ section.panel.section-top-masterplan.masterplan#section-masterplan(aria-labelled
   .group-central
     .inner
       .group-bg
+        img.masterplan-mobile-artwork.sm(src=imgCommonSP + 'masterplan-mobile.svg' width="440" height="594" alt="M?t b?ng d? ?n LUVISTA v? th?ng tin c?c th?p" loading="eager")
+        nav.masterplan-mobile-links.sm(aria-label="Ch?n th?p d? ?n")
+          each tower in masterplanTowers
+            a(href=path + '/masterplan/?tower=' + tower.slug + '#section-masterplan-article' aria-label='Xem ' + tower.name)
         picture.masterplan-picture
           source(media="(max-width: 767.98px)" srcset=imgCommonPC + 'masterplan-bg-mobile-v2.png')
           img.object-common(src=imgCommonPC + 'masterplan-bg.jpg' width="1920" height="1080" alt="Phối cảnh mặt bằng tổng thể LUVISTA" loading="eager")

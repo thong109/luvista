@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
+  <g id="about-ring-sector-05">
+    <g filter="url(#filter7_f_2068_655)">
+      <mask id="stroke4_2068_655" fill="white">
+        <path d="M732.16 811.288C683.104 765.784 652.886 707.592 641.83 646.465L446.042 683.775C464.754 785.291 515.145 881.856 596.647 957.437C608.028 967.993 619.793 977.885 631.863 987.179L754.47 830.056C746.815 824.219 739.351 817.979 732.142 811.291L732.16 811.288Z" />
+      </mask>
+      <path d="M732.16 811.288C683.104 765.784 652.886 707.592 641.83 646.465L446.042 683.775C464.754 785.291 515.145 881.856 596.647 957.437C608.028 967.993 619.793 977.885 631.863 987.179L754.47 830.056C746.815 824.219 739.351 817.979 732.142 811.291L732.16 811.288Z" stroke-width="6" stroke="white" mask="url(#stroke4_2068_655)" />
+    </g>
+    <path d="M734.058 815.374C685.445 770.281 655.5 712.615 644.543 652.039L450.523 689.012C469.067 789.612 519.003 885.305 599.768 960.204C611.046 970.664 622.705 980.467 634.666 989.678L756.167 833.973C748.581 828.188 741.185 822.005 734.041 815.377L734.058 815.374Z" fill="#D4A997" />
+  </g>
+  <defs>
+    <filter id="filter7_f_2068_655" x="440.043" y="640.465" width="320.426" height="352.714" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+      <feGaussianBlur stdDeviation="3" result="effect1_foregroundBlur_2068_655" />
+    </filter>
+  </defs>
+</svg>

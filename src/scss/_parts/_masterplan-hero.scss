@@ -31,7 +31,7 @@
   .masterplan-tooltip {
     position: absolute;
     box-sizing: border-box;
-    width: min(3.2rem, calc(100% - 0.6rem));
+    width: min(3.5rem, 100% - 0.8rem);
     min-height: 1.45rem;
     margin: 0;
     opacity: 0;
@@ -46,7 +46,7 @@
       pointer-events: auto;
     }
 
-    padding: 0.2rem 0.22rem;
+    padding: 0.25rem 0.25rem;
     border-radius: 0.1rem;
     background: linear-gradient(90deg, #07375d, #073e67 52.4%, #02243f);
     box-shadow: 0.05rem 0.05rem 0.1rem rgba(#000, .55);
@@ -76,17 +76,17 @@
     }
 
     dt {
-      font-weight: 600;
+      font-weight: 500;
       color: #fff;
       font-family: $font-gilroy;
     }
 
     dd {
       margin: 0;
-      font-family: $font-gilroy;
+      font-family: $font-glyce;
       font-size: 0.18rem;
       text-align: right;
-      white-space: nowrap;
+
     }
 
     p {
@@ -184,18 +184,25 @@
   .title-common-primary {
     position: absolute;
     z-index: 1;
-    top: calc(112 / 1080 * 100%);
-    left: 0;
-    width: 100%;
+    top: 8%;
+    left: 50%;
+
     margin: 0;
     pointer-events: none;
+    transform: translateX(-50%);
+    background: linear-gradient(301.47deg, #DEAF93 10.56%, #FFF1E8 54.74%, #DEAF93 100.65%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    display: inline-block;
   }
 
   .masterplan-guide {
     position: absolute;
     z-index: 2;
     left: calc(70 / 1920 * 100%);
-    bottom: calc(50 / 1080 * 100%);
+    bottom: 2%;
     color: #fff;
     font-family: $font-sfpro;
     font-size: .2rem;
@@ -265,6 +272,43 @@
   }
 
   @include mobile {
+    .masterplan-mobile-links {
+      position: absolute;
+      z-index: 2;
+      inset: 0;
+      pointer-events: none;
+
+      a {
+        position: absolute;
+        top: 40%;
+        width: 16%;
+        height: 25%;
+        transform: translateX(-50%);
+        pointer-events: auto;
+
+        &:focus-visible {
+          outline: 2px solid #f6d2bb;
+          border-radius: .08rem;
+        }
+      }
+
+      a:nth-child(1) { left: 13%; }
+      a:nth-child(2) { left: 26.4%; }
+      a:nth-child(3) { left: 39.8%; }
+      a:nth-child(4) { left: 64.1%; }
+      a:nth-child(5) { left: 86.6%; }
+    }
+
+    .masterplan-mobile-artwork {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .masterplan-picture,
+    .masterplan-map,
+    .masterplan-guide { display: none; }
+
     .masterplan-picture,
     .masterplan-map {
       inset: 0;
@@ -286,12 +330,21 @@
     }
 
     &.panel {
-      height: 150vw;
+      height: auto;
+      aspect-ratio: 440 / 594;
       min-height: 0;
     }
 
     .title-common-primary {
-      top: .85rem;
+      display: block;
+      top: .34rem;
+      width: 100%;
+      font-size: .32rem;
+      line-height: .8rem;
+      text-align: center;
+      white-space: nowrap;
+
+      &::after { display: none; }
     }
 
     .masterplan-guide {
@@ -328,4 +381,10 @@
     }
   }
 }
+}
+
+
+@media (min-width:1920px) {
+
+  .section-top-masterplan .masterplan-tooltip dl {gap: 0.1rem 0.12rem;}
 }

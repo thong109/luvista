@@ -17,26 +17,27 @@ block content
             .group-bg
               .keyvisual-media.swiper.js-slider-keyvisual
                 .swiper-wrapper
-                  - var keyvisualSlides = ['keyvisual-pool.png', 'keyvisual-pool.png']
+                  - var keyvisualSlides = ['keyvisual-pool.png', 'keyvisual-pool-02.jpg']
                   each image, index in keyvisualSlides
                     .swiper-slide
                       picture.slider-image
                         img.keyvisual-photo(src=imgPC + image width="1920" height="1080" alt="Hồ bơi và cảnh quan giữa các tòa căn hộ LUVISTA Quy Nhơn" loading="eager" fetchpriority=index === 0 ? 'high' : 'auto' decoding="async")
-              img.keyvisual-star(src=imgPC + 'partner-title-star.svg' width="30" height="30" alt="" aria-hidden="true")
               a.keyvisual-scroll(href="#section-overview" aria-label="Xem tổng quan dự án")
-                img.keyvisual-scroll-circle(src=imgPC + 'keyvisual-scroll.svg' width="74" height="74" alt="" aria-hidden="true")
-                img.keyvisual-scroll-arrow(src=imgPC + 'keyvisual-scroll-arrow.svg' width="74" height="74" alt="" aria-hidden="true")
+                span Cuộn khám phá
+                .scroll-icon
+                  img.object-common(src=imgPC + 'arrow-common.svg' alt="Cuộn xuống" width="21" height="42" loading="eager")
       include ../_parts/_overview-hero.pug
       section.panel.section-overview-scale#section-scale(aria-labelledby="scale-title" data-transition="simple")
         .group-central
           .inner
             .group-bg
-              figure.scale-photo.ani-zoom
-                img(src=imgPC + 'scale-photo.png' width="1920" height="1080" alt="Kiến trúc các tòa tháp và phố thương mại LUVISTA Quy Nhơn" loading="eager" decoding="async")
+              figure.scale-photo
+                img(src=imgPC + 'scale-photo.jpg' width="737" height="427" alt="Phối cảnh LUVISTA Quy Nhơn bên vịnh biển" loading="eager" decoding="async")
+              img.scale-corner.is-top(src=imgPC + 'scale-corner-top.svg' width="152" height="110" alt="" aria-hidden="true")
+              img.scale-corner.is-bottom(src=imgPC + 'scale-corner-bottom.svg' width="118" height="233" alt="" aria-hidden="true")
               canvas.scale-wave(data-wave-src=imgPC + 'scale-wave.svg' aria-hidden="true")
               .scale-content
-                h2.title-common-primary.js-title.is-gold.is-left Quy mô, ý tưởng thiết kế
-                h3.scale-subtitle.hero-sub.js-title LUVISTA Quy Nhơn - Kiến trúc xây dựng để trường tồn
+                h2.title-common-primary.js-title.is-gold.is-left#scale-title Quy mô & ý tưởng thiết kế
                 .scale-copy.hero-sub.js-title
                   p Những công trình trường tồn qua thế kỷ đều có một điểm chung - vật liệu địa phương, được chọn lọc kỹ lưỡng và sử dụng đúng cách.
                   p Khối đế ốp đá granit vàng Bình Định - hàng triệu năm tuổi, khai thác ngay trên mảnh đất Bình Định. Cứng vượt thời gian, không phai màu, không cần bảo trì - thế hệ kế thừa sẽ chạm vào đúng nguyên vẹn như ngày hoàn thiện đầu tiên.

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
+  <g id="about-ring-sector-04">
+    <g filter="url(#filter3_f_2068_655)">
+      <mask id="stroke3_2068_655" fill="white">
+        <path d="M1236.76 207.619L1120.28 367.134C1128.23 373.147 1135.97 379.616 1143.44 386.532C1191.46 431.076 1221.26 487.897 1232.55 547.682L1426.55 510.711C1407.68 410.919 1357.9 316.069 1277.73 241.702C1264.55 229.47 1250.86 218.126 1236.76 207.619Z" />
+      </mask>
+      <path d="M1236.76 207.619L1120.28 367.134C1128.23 373.147 1135.97 379.616 1143.44 386.532C1191.46 431.076 1221.26 487.897 1232.55 547.682L1426.55 510.711C1407.68 410.919 1357.9 316.069 1277.73 241.702C1264.55 229.47 1250.86 218.126 1236.76 207.619Z" stroke-width="6" stroke="white" mask="url(#stroke3_2068_655)" />
+    </g>
+    <path d="M1227.76 204.619L1111.28 364.134C1119.23 370.147 1126.97 376.616 1134.44 383.532C1182.46 428.076 1212.26 484.897 1223.55 544.682L1417.55 507.711C1398.68 407.919 1348.9 313.069 1268.73 238.702C1255.55 226.47 1241.86 215.126 1227.76 204.619Z" fill="#956956" />
+  </g>
+  <defs>
+    <filter id="filter3_f_2068_655" x="1114.28" y="201.619" width="318.273" height="352.063" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+      <feGaussianBlur stdDeviation="3" result="effect1_foregroundBlur_2068_655" />
+    </filter>
+  </defs>
+</svg>

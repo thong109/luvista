@@ -86,7 +86,7 @@
     pointer-events: none;
   }
 
-  > .wrapper {
+  >.wrapper {
     position: relative;
     z-index: 1;
   }
@@ -610,8 +610,8 @@
   @include tablet {
     height: auto;
 
-    > .group-central,
-    > .group-central > .inner {
+    >.group-central,
+    >.group-central>.inner {
       height: auto;
       min-height: 0;
     }
@@ -997,6 +997,14 @@
       min-width: 100%;
       height: auto;
       padding: 0;
+    }
+  }
+}
+
+.section-top-masterplan {
+  @include mobile {
+    .title-common-primary {
+      top: .9rem;
     }
   }
 }

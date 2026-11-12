@@ -112,7 +112,7 @@
       font-weight: 400;
       line-height: 1.36;
       text-transform: uppercase;
-      background: linear-gradient(301.72deg, #3b2117 -25.43%, #bc7b53 19.13%, #e9c9cc 37.28%, #f6d2bb 58.73%, #c0927c 85.13%, #8f5944 109.88%);
+      background: linear-gradient(301.72deg, #3B2117 -25.43%, #BC7B53 19.13%, #E9C9CC 37.28%, #F6D2BB 58.73%, #C0927C 85.13%, #8F5944 109.88%, #713621 129.68%, #662914 139.58%);
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -214,27 +214,6 @@
       }
     }
 
-    @media (min-width: 768px) and (max-width: 1899px) {
-      .location-map {
-        width: 9rem;
-      }
-
-      .location-content {
-        position: absolute;
-        left: calc(70 / 1920 * 100%);
-        top: 29%;
-        width: 35%;
-      }
-
-      .location-copy {
-        margin: .47rem 0 0 .03rem;
-      }
-
-      .location-more {
-        margin-top: .46rem;
-      }
-    }
-
     @media print,
     (min-width: 1900px) {
       .location-content {
@@ -247,9 +226,6 @@
     }
 
     @include screen-1366 {
-      .location-content {
-        top: 20%;
-      }
 
       .location-copy,
       .location-more {
@@ -393,5 +369,66 @@
     78% {
       stop-color: var(--beam-rose);
     }
+  }
+}
+
+@media screen and (min-width: 1025px) {
+
+  .section-top-location .location-map {
+    width: 9rem;
+  }
+
+  .section-top-location .location-content {
+    position: absolute;
+    left: 3.6458333333%;
+    top: 29%;
+    width: 35%;
+  }
+
+  .section-top-location .location-copy {
+    margin: 0.47rem 0 0 0.03rem;
+  }
+
+  .section-top-location .location-more {
+    margin-top: 0.46rem;
+  }
+}
+
+@media (min-width: 1026px) and (max-width:1599px) {
+  .section-top-location .location-map {
+    width: 12rem;
+  }
+
+  .section-top-location .location-content {
+    width: 30%;
+    position: absolute;
+    left: 3.6458333333%;
+    top: 29%;
+  }
+}
+
+@media (min-width: 1600px) and (max-width:1679px) {
+  .section-top-location .location-map {
+    width: 11rem;
+  }
+}
+
+@media (min-width: 1680px) and (max-width:1920px) {
+  .section-top-location .location-map {
+    width: 12.5rem;
+  }
+
+  .section-top-location .location-content {
+    width: 27%;
+  }
+}
+
+@media (min-width:1920px) {
+  .section-top-location .location-map {
+    width: 11.5rem;
+  }
+
+  .section-top-location .location-content {
+    width: 31%;
   }
 }
