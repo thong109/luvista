@@ -240,21 +240,17 @@ body {
       display: block;
       height: auto;
       min-height: 0;
-      aspect-ratio: 440 / 956;
+      aspect-ratio: 440 / 700;
       padding: .6rem .16rem 0 0;
     }
 
     .certificate-background {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
 
       img {
-        object-fit: contain;
-        object-position: center;
+        object-position: center bottom;
       }
-
     }
 
     .certificate-content {

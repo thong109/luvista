@@ -215,20 +215,16 @@ body {
     display: block;
     height: auto;
     min-height: 0;
-    aspect-ratio: 440/956;
+    aspect-ratio: 440/700;
     padding: 0.6rem 0.16rem 0 0;
   }
   .section-top-certificate .certificate-background {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
   }
   .section-top-certificate .certificate-background img {
-    -o-object-fit: contain;
-       object-fit: contain;
-    -o-object-position: center;
-       object-position: center;
+    -o-object-position: center bottom;
+       object-position: center bottom;
   }
   .section-top-certificate .certificate-content {
     display: grid;
